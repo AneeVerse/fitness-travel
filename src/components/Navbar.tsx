@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,7 +22,7 @@ const Navbar = () => {
            {/* Logo */}
            <div className="flex-shrink-0">
              <Link href="/" className="flex items-center">
-               <img src="images/website-log.png" alt="Salt Escapes" className="w-10 h-10 rounded-full" />
+               <Image src="/images/website-log.png" alt="Salt Escapes" width={40} height={40} className="w-10 h-10 rounded-full" />
              </Link>
            </div>
 

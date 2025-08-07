@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -12,13 +13,13 @@ const TestimonialsSection = () => {
       id: 1,
       thumbnail: "/video/hero-bg.mp4",
       timestamp: "0:12",
-      caption: "'If the trip doesn't look like this, then I don't want it'"
+      caption: "&apos;If the trip doesn&apos;t look like this, then I don&apos;t want it&apos;"
     },
     {
       id: 2,
       thumbnail: "/video/hero-bg.mp4",
       timestamp: "0:15",
-      caption: "'This is so much more than a fitness retreat'"
+      caption: "&apos;This is so much more than a fitness retreat&apos;"
     },
     {
       id: 3,
@@ -36,7 +37,7 @@ const TestimonialsSection = () => {
       id: 5,
       thumbnail: "/video/hero-bg.mp4",
       timestamp: "0:19",
-      caption: "'Ibiza, but make it fitness'"
+      caption: "&apos;Ibiza, but make it fitness&apos;"
     },
     {
       id: 6,
@@ -82,7 +83,7 @@ const TestimonialsSection = () => {
     }
   };
 
-  const handleDragStart = (e: React.MouseEvent) => {
+  const handleDragStart = () => {
     if (carouselRef.current) {
       carouselRef.current.style.cursor = 'grabbing';
     }
@@ -141,10 +142,10 @@ const TestimonialsSection = () => {
                  The Most Feel Good Week
                </h2>
                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 For over 10 years, I've been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
+                 For over 10 years, I&apos;ve been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
                </p>
                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 For over 10 years, I've been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
+                 For over 10 years, I&apos;ve been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
                </p>
              </div>
 
@@ -168,9 +169,11 @@ const TestimonialsSection = () => {
                      {/* Right Column - Image Card */}
            <div className="relative">
              <div className="rounded-2xl overflow-hidden shadow-2xl">
-               <img
+               <Image
                  src="/images/fitness1.webp"
                  alt="Runners"
+                 width={600}
+                 height={384}
                  className="w-full h-96 object-cover"
                />
              </div>

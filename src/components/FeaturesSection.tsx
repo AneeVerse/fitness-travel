@@ -32,7 +32,7 @@ const FeaturesSection = () => {
               
               <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">
                 Keep scrolling to find out why a week with us will be one of the best investments 
-                you'll make this year.
+                you&apos;ll make this year.
               </p>
             </div>
           </div>
