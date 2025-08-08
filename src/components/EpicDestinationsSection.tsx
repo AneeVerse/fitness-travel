@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 type Highlight = {
@@ -57,17 +57,56 @@ const highlights: Highlight[] = [
 
 const EpicDestinationsSection: React.FC = () => {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const duplicatedHighlights = [...highlights, ...highlights];
+
+  // seamless infinite auto-scroll of the horizontal list
+  useEffect(() => {
+    const element = scrollerRef.current;
+    if (!element) return;
+
+    let rafId = 0;
+    const speedPerFrame = 0.6; // pixels per animation frame
+    let isPaused = false;
+
+    const onMouseEnter = () => {
+      isPaused = true;
+    };
+    const onMouseLeave = () => {
+      isPaused = false;
+    };
+
+    element.addEventListener('mouseenter', onMouseEnter);
+    element.addEventListener('mouseleave', onMouseLeave);
+
+    const step = () => {
+      if (!isPaused) {
+        const halfWidth = element.scrollWidth / 2; // because content duplicated
+        element.scrollLeft += speedPerFrame;
+        if (element.scrollLeft >= halfWidth) {
+          element.scrollLeft -= halfWidth;
+        }
+      }
+      rafId = requestAnimationFrame(step);
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => {
+      cancelAnimationFrame(rafId);
+      element.removeEventListener('mouseenter', onMouseEnter);
+      element.removeEventListener('mouseleave', onMouseLeave);
+    };
+  }, []);
 
   return (
     <section className="relative bg-[#244447] py-16 sm:py-20">
-      <div className="mx-8 sm:mx-12 lg:mx-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start mb-10">
-          <div className="space-y-4">
+      <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-10">
+          <div className="space-y-4 lg:col-span-12">
             <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
               Sweat, Explore & Relax In The
               World&apos;s Most Epic Destinations
             </h2>
-            <p className="text-white/80 max-w-2xl">
+            <p className="text-white/80 max-w-3xl lg:max-w-5xl">
               Our regular guests, and hundreds of 5‑star reviews will all tell you that we’re so much more
               than a fitness retreat. To find out what makes a trip with Salt Escapes unique, and to see
               whether a week away with us is the right choice for you, read on.
@@ -79,11 +118,10 @@ const EpicDestinationsSection: React.FC = () => {
         <div className="relative">
           <div
             ref={scrollerRef}
-            className="flex gap-8 overflow-x-auto scroll-smooth pb-2 scrollbar-hide"
-            style={{ scrollSnapType: 'x mandatory' }}
+            className="flex gap-8 overflow-x-auto pb-2 scrollbar-hide"
           >
-            {highlights.map((h) => (
-              <div key={h.id} className="min-w-[320px] sm:min-w-[360px] scroll-snap-start">
+            {duplicatedHighlights.map((h, idx) => (
+              <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]">
                 <div className="flex flex-col h-full">
                   <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
                     <Image src={h.image} alt={h.title} fill className="object-cover" />
@@ -102,7 +140,7 @@ const EpicDestinationsSection: React.FC = () => {
             <button
               aria-label="Previous"
               onClick={() => scrollerRef.current?.scrollBy({ left: -380, behavior: 'smooth' })}
-              className="w-10 h-10 rounded-full bg-white text-gray-900 flex items-center justify-center shadow hover:shadow-md"
+              className="w-10 h-10 rounded-full bg-[#98ff98] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#98ff98]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -111,11 +149,21 @@ const EpicDestinationsSection: React.FC = () => {
             <button
               aria-label="Next"
               onClick={() => scrollerRef.current?.scrollBy({ left: 380, behavior: 'smooth' })}
-              className="w-10 h-10 rounded-full bg-white text-gray-900 flex items-center justify-center shadow hover:shadow-md"
+              className="w-10 h-10 rounded-full bg-[#98ff98] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#98ff98]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
               </svg>
+            </button>
+          </div>
+
+          {/* CTA */}
+          <div className="flex justify-center mt-8">
+            <button
+              className="px-6 py-3 rounded-full bg-[#98ff98] text-[#0f1a17] font-semibold hover:bg-black hover:text-[#98ff98] uppercase tracking-wide"
+              style={{ fontFamily: 'var(--font-teko)' }}
+            >
+              View More Destinations
             </button>
           </div>
         </div>
