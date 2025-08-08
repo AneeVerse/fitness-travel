@@ -8,31 +8,32 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'Home', href: '/', hasDropdown: false },
-    { name: 'Retreats', href: '/retreats', hasDropdown: true },
-    { name: 'What to Expect', href: '/what-to-expect', hasDropdown: true },
-    { name: 'Help', href: '/help', hasDropdown: true },
-    { name: 'Team', href: '/team', hasDropdown: true },
+    { name: 'HOME', href: '/', hasDropdown: false },
+    { name: 'ABOUT', href: '/about-us', hasDropdown: true },
+    { name: 'PROGRAMS', href: '/programs', hasDropdown: true },
+    { name: 'PAGES', href: '/pages', hasDropdown: true },
+    { name: 'COACHES', href: '/coaches', hasDropdown: true },
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-transparent">
       <div className="bg-white/95 backdrop-blur-md rounded-[40px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
-                 <div className="flex items-center justify-between">
+                 <div className="grid grid-cols-[auto_1fr_auto] items-center">
            {/* Logo */}
            <div className="flex-shrink-0">
              <Link href="/" className="flex items-center">
-               <Image src="/images/website-log.png" alt="Salt Escapes" width={40} height={40} className="w-10 h-10 rounded-full" />
+               <Image src="/images/Runmate-Logo.png" alt="Runmate" width={160} height={40} className="h-8 w-auto object-contain" />
              </Link>
            </div>
 
-           {/* Desktop Navigation */}
-           <div className="hidden md:flex items-center space-x-10">
+           {/* Desktop Navigation (centered) */}
+           <div className="hidden md:flex items-center justify-center gap-12 justify-self-center">
              {navItems.map((item) => (
                <Link
                  key={item.name}
                  href={item.href}
-                 className="text-gray-700 hover:text-emerald-600 font-medium transition-colors duration-200 text-base flex items-center font-unbounded"
+                 className="text-gray-800 hover:text-emerald-700 transition-colors duration-200 text-[18px] tracking-[0.08em] flex items-center"
+                 style={{ fontFamily: 'var(--font-teko)' }}
                >
                  {item.name}
                  {item.hasDropdown && (
@@ -42,27 +43,17 @@ const Navbar = () => {
                  )}
                </Link>
              ))}
+           </div>
 
-             {/* CTA Buttons */}
+           {/* Right-aligned CTA */}
+           <div className="hidden md:block justify-self-end">
              <Link
-               href="/pre-register"
-               className="px-4 py-2 text-[#244447] border-2 border-[#244447] rounded-full font-semibold hover:bg-emerald-50 transition-all duration-200 text-sm font-unbounded"
+               href="/contact"
+               className="px-6 py-2 rounded-full font-semibold text-[18px] text-[#0f1a17] bg-[#98ff98] hover:bg-black hover:text-[#98ff98] transition-colors duration-200"
+               style={{ fontFamily: 'var(--font-teko)' }}
              >
-               Pre-Register
+               CONTACT US
              </Link>
-             <Link
-               href="/book-now"
-               className="px-4 py-2 bg-[#244447] text-white rounded-full font-semibold hover:bg-emerald-800 transition-all duration-200 text-sm font-unbounded py-3 px-4"
-             >
-               Book Now
-             </Link>
-             {/* Shopping Bag */}
-             <div className="relative">
-               <svg className="w-5 h-5 text-gray-700 hover:text-emerald-600 transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-               </svg>
-               <span className="absolute -top-1 -right-1 bg-white text-black text-xs rounded-full w-4 h-4 flex items-center justify-center border border-gray-300">0</span>
-             </div>
            </div>
 
           {/* Mobile menu button */}
@@ -105,20 +96,13 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <div className="mt-4 space-y-3">
+            <div className="mt-4">
               <Link
-                href="/pre-register"
-                className="block w-full px-4 py-2 text-center text-emerald-600 border-2 border-emerald-600 rounded-full font-semibold hover:bg-emerald-50"
+                href="/contact"
+                className="block w-full px-4 py-2 text-center rounded-full font-semibold bg-[#98ff98] text-[#0f1a17] hover:bg-black hover:text-[#98ff98]"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Pre-Register
-              </Link>
-              <Link
-                href="/book-now"
-                className="block w-full px-4 py-2 text-center bg-emerald-700 text-white rounded-full font-semibold hover:bg-emerald-800"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Book Now
+                Contact Us
               </Link>
             </div>
           </div>

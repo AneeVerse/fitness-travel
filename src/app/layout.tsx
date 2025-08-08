@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Unbounded } from "next/font/google";
+import { Inter, Unbounded, Teko } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,6 +11,12 @@ const unbounded = Unbounded({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-unbounded",
+});
+
+const teko = Teko({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-teko",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${unbounded.variable} antialiased`}>
+      <body className={`${inter.className} ${unbounded.variable} ${teko.variable} antialiased`}>
         {children}
       </body>
     </html>
