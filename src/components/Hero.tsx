@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden">
+    <section className="relative min-h-[115vh] w-full overflow-hidden">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -24,7 +24,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10">
+      <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-50">
         <div className="max-w-2xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight font-unbounded">
             Fitness Retreats

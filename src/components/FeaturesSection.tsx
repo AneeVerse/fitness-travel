@@ -4,9 +4,9 @@ import React from 'react';
 
 const FeaturesSection = () => {
   return (
-    <section className="relative -mt-20 min-h-screen w-full">
+    <section className="relative -mt-12 min-h-screen w-full px-8">
       {/* Top Section - White Background with Text */}
-      <div className="bg-white rounded-t-3xl pt-20 pb-16">
+      <div className="bg-gray-200 rounded-t-3xl pt-20 pb-16">
         <div className="mx-8 sm:mx-12 lg:mx-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Main Heading */}
@@ -39,50 +39,55 @@ const FeaturesSection = () => {
         </div>
       </div>
 
-      {/* Bottom Section - Video Background with Image Overlay */}
-      <div className="relative h-[550px] mx-8 sm:mx-12 lg:mx-16 mb-8">
-        <div className="relative h-full rounded-3xl overflow-hidden">
-          {/* Video Background */}
-          <div className="absolute inset-0 z-0">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute min-w-full min-h-full object-cover"
-            >
-              <source src="/video/hero-bg.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/50"></div>
-          </div>
+      {/* Bottom Section - Video Background with Image Overlay (inside gray background) */}
+      <div className="bg-gray-200 pb-6 rounded-b-3xl">
+        <div className="relative h-[600px] mx-8 sm:mx-12 lg:mx-16 mb-12">
+          <div className="relative h-full rounded-[32px] overflow-hidden">
+            {/* Video Background */}
+            <div className="absolute inset-0 z-0">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute min-w-full min-h-full object-cover"
+              >
+                <source src="/video/hero-bg.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+              
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black/50"></div>
+            </div>
 
-          {/* Content Overlay */}
-          <div className="relative z-10 h-full flex items-end px-8 sm:px-12 lg:px-16 pb-12">
-            <div className="max-w-6xl mx-auto w-full">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end">
-                {/* Left Column - Text */}
-                <div className="space-y-4">
-                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight font-unbounded">
-                    RUN UNINTENTIONALLY,
-                    <br />
-                    AND FEEL THE DIFFERENCE
-                  </h3>
-                  <p className="text-lg text-white/90 leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua.
-                  </p>
-                </div>
+            {/* Content Overlay */}
+            <div className="relative z-10 h-full flex items-end px-8 sm:px-12 lg:px-16 pb-12">
+              <div className="max-w-6xl mx-auto w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+                  {/* Left Column - Text */}
+                  <div className="space-y-3 max-w-2xl">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-snug font-unbounded uppercase tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
+                      Run unintentionally, and
+                      
+                      feel the difference
+                    </h3>
+                    <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
+                      incididunt ut labore et dolore magna aliqua.
+                    </p>
+                  </div>
 
-                {/* Right Column - Play Button */}
-                <div className="flex justify-end">
-                  <button className="w-16 h-16 bg-emerald-600 rounded-full flex items-center justify-center hover:bg-emerald-700 transition-colors duration-200">
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
-                    </svg>
-                  </button>
+                  {/* Right Column - Play Button */}
+                  <div className="flex justify-end">
+                    <div className="relative">
+                      <span className="absolute -inset-2 rounded-full bg-emerald-500/40 blur-md opacity-70 animate-pulse" />
+                      <button className="relative w-10 h-10 sm:w-12 sm:h-12 bg-emerald-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-emerald-500/50 hover:scale-105 transition-all duration-200 ring-2 ring-emerald-300/60">
+                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

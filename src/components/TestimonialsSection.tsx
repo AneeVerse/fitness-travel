@@ -73,13 +73,13 @@ const TestimonialsSection = () => {
 
   const nextSlide = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 272, behavior: 'smooth' }); // w-64 (256px) + space-x-4 (16px)
+      carouselRef.current.scrollBy({ left: 240, behavior: 'smooth' }); // w-56 (224px) + space-x-4 (16px)
     }
   };
 
   const prevSlide = () => {
     if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -272, behavior: 'smooth' }); // w-64 (256px) + space-x-4 (16px)
+      carouselRef.current.scrollBy({ left: -240, behavior: 'smooth' }); // w-56 (224px) + space-x-4 (16px)
     }
   };
 
@@ -121,7 +121,7 @@ const TestimonialsSection = () => {
 
          const handleScroll = () => {
        const scrollLeft = carousel.scrollLeft;
-       const cardWidth = 272; // w-64 (256px) + space-x-4 (16px)
+       const cardWidth = 270; // w-56 (224px) + space-x-4 (16px)
        const newSlide = Math.round(scrollLeft / cardWidth);
        setCurrentSlide(newSlide);
      };
@@ -132,7 +132,7 @@ const TestimonialsSection = () => {
 
   return (
     <section className="relative py-20 bg-gray-50">
-      <div className="mx-8 sm:mx-12 lg:mx-16">
+      <div className="mx-8 sm:mx-12 lg:mx-16 -mb-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left Column - Content */}
           <div className="space-y-12">
@@ -183,14 +183,12 @@ const TestimonialsSection = () => {
         {/* Video Carousel - Full Width Section */}
         <div className="mt-16">
           <div className="relative">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-bold text-gray-900">Latest Videos</h3>
-           </div>
+            {/* Heading removed per design */}
 
            {/* Left Navigation Button */}
            <button
              onClick={prevSlide}
-             className="absolute -left-6 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
+             className="absolute -left-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
            >
              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -200,7 +198,7 @@ const TestimonialsSection = () => {
            {/* Right Navigation Button */}
            <button
              onClick={nextSlide}
-             className="absolute -right-6 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
+             className="absolute -right-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
            >
              <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -209,7 +207,7 @@ const TestimonialsSection = () => {
 
                            <div 
                ref={carouselRef}
-               className="flex space-x-4 overflow-x-auto scrollbar-hide cursor-grab"
+                className="flex space-x-4 overflow-x-auto scrollbar-hide cursor-grab"
                onMouseDown={handleDragStart}
                onMouseUp={handleDragEnd}
                onMouseLeave={handleDragEnd}
@@ -218,12 +216,12 @@ const TestimonialsSection = () => {
                                  {videos.map((video, index) => (
                   <div
                     key={video.id}
-                    className="flex-shrink-0 w-64 scroll-snap-start"
+                      className="flex-shrink-0 w-64 scroll-snap-start"
                   >
                    <div className="relative bg-gray-200 rounded-lg overflow-hidden cursor-pointer" onClick={() => handleVideoClick(video.id)}>
                      <video
                        data-video-id={video.id}
-                       className="w-full h-80 object-cover"
+                          className="w-full h-96 object-cover"
                        muted
                        loop
                        playsInline
@@ -242,11 +240,11 @@ const TestimonialsSection = () => {
                      </div>
 
                      {/* Timestamp */}
-                     <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
+                      <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
                        {video.timestamp}
                      </div>
                    </div>
-                   <p className="text-sm text-gray-600 mt-2">{video.caption}</p>
+                    <p className="text-sm text-gray-600 mt-2 w-56 text-center">{video.caption}</p>
                  </div>
                ))}
             </div>
