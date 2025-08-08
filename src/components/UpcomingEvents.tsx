@@ -24,7 +24,7 @@ const events: EventItem[] = [
     time: 'Start 05:00 AM – Finish',
     location: 'South Jakarta',
     priceLabel: '$50',
-    imageSrc: '/images/fitness1.webp',
+    imageSrc: '/images/events/amateur-runners-on-the-move-2024-12-05-09-59-03-7QT36BK.jpg',
   },
   {
     id: 'coastal-half-marathon',
@@ -36,7 +36,7 @@ const events: EventItem[] = [
     time: 'Start 05:00 AM – Finish',
     location: 'Gadjah Mada Street',
     priceLabel: '$50',
-    imageSrc: '/images/fitness1.webp',
+    imageSrc: '/images/events/keep-going-even-when-its-hard-2025-04-05-23-40-04-4AY2ELM.jpg',
   },
 ];
 
@@ -44,12 +44,12 @@ const UpcomingEvents = () => {
   return (
     <section className="relative py-20 bg-gray-100">
       <div className="mx-8 sm:mx-12 lg:mx-16">
-        <div className="text-center mb-16 ">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase mb-5">
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
             Upcoming Events
           </span>
-          <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 font-unbounded uppercase">
+          <h2 className="mt-2 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 font-unbounded uppercase">
             Upcoming Events – Lace Up For
             <br className="hidden sm:block" />
             Something Big
@@ -63,25 +63,25 @@ const UpcomingEvents = () => {
               className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200"
             >
               {/* Left ticket column */}
-              <div className="lg:col-span-3 bg-black text-white p-6 flex flex-col justify-between lg:border-r lg:border-gray-800">
+              <div className="lg:col-span-3 bg-black text-white p-8 flex flex-col justify-between lg:border-r lg:border-gray-800">
                 <div>
                   <div className="text-xs uppercase tracking-wider text-gray-300">Ticket</div>
                   <div className="mt-3">
-                    <span className="text-5xl font-extrabold text-emerald-500">{event.priceLabel}</span>
+                    <span className="text-6xl font-extrabold text-emerald-500">{event.priceLabel}</span>
                     <span className="text-sm text-gray-300"> / Ticket</span>
                   </div>
                 </div>
-                <button className="mt-6 inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 font-semibold text-black hover:bg-emerald-500 transition-colors uppercase">
+                <button className="mt-8 inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 font-semibold text-black hover:bg-emerald-500 transition-colors uppercase">
                   Register Now
                 </button>
               </div>
 
               {/* Middle content */}
-              <div className="lg:col-span-5 p-6 sm:p-8 lg:border-r lg:border-gray-200">
-                <h3 className="text-xl sm:text-2xl font-extrabold text-gray-900 font-unbounded">
+              <div className="lg:col-span-5 p-8 lg:border-r lg:border-gray-200">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 font-unbounded">
                   {event.title}
                 </h3>
-                <p className="mt-2 text-sm sm:text-base text-gray-700 max-w-2xl">{event.description}</p>
+                <p className="mt-3 text-base text-gray-700 max-w-2xl">{event.description}</p>
 
                 <div className="mt-5 space-y-3 text-sm text-gray-800">
                   <div className="flex items-center gap-3">
@@ -112,7 +112,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Right image */}
-              <div className="lg:col-span-4 relative h-56 sm:h-64 lg:h-auto">
+              <div className="lg:col-span-4 relative h-64 sm:h-72 lg:h-auto">
                 <Image
                   src={event.imageSrc}
                   alt={event.title}
