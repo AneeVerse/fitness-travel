@@ -1,141 +1,20 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const VideoSlider = dynamic(() => import('./VideoSlider'), { ssr: false });
 
 const TestimonialsSection = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-
-  const videos = [
-    {
-      id: 1,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:12",
-      caption: "&apos;If the trip doesn&apos;t look like this, then I don&apos;t want it&apos;"
-    },
-    {
-      id: 2,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:15",
-      caption: "&apos;This is so much more than a fitness retreat&apos;"
-    },
-    {
-      id: 3,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:47",
-      caption: "POV: a day with Salt Escapes"
-    },
-    {
-      id: 4,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:12",
-      caption: "POV: boat day with Salt Escapes"
-    },
-    {
-      id: 5,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:19",
-      caption: "&apos;Ibiza, but make it fitness&apos;"
-    },
-    {
-      id: 6,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:25",
-      caption: "Mountain fitness adventure"
-    },
-    {
-      id: 7,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:32",
-      caption: "Sunset yoga session"
-    },
-    {
-      id: 8,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:18",
-      caption: "Beach workout routine"
-    },
-    {
-      id: 9,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:28",
-      caption: "Group fitness challenge"
-    },
-    {
-      id: 10,
-      thumbnail: "/video/hero-bg.mp4",
-      timestamp: "0:22",
-      caption: "Wellness retreat highlights"
-    }
-  ];
-
-  const nextSlide = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 240, behavior: 'smooth' }); // w-56 (224px) + space-x-4 (16px)
-    }
-  };
-
-  const prevSlide = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -240, behavior: 'smooth' }); // w-56 (224px) + space-x-4 (16px)
-    }
-  };
-
-  const handleDragStart = () => {
-    if (carouselRef.current) {
-      carouselRef.current.style.cursor = 'grabbing';
-    }
-  };
-
-  const handleDragEnd = () => {
-    if (carouselRef.current) {
-      carouselRef.current.style.cursor = 'grab';
-    }
-  };
-
-  const handleVideoClick = (videoId: number) => {
-    const videoElement = document.querySelector(`video[data-video-id="${videoId}"]`) as HTMLVideoElement;
-    if (videoElement) {
-      if (playingVideo === videoId) {
-        videoElement.pause();
-        setPlayingVideo(null);
-      } else {
-        // Pause all other videos first
-        document.querySelectorAll('video').forEach(video => {
-          if (video !== videoElement) {
-            video.pause();
-          }
-        });
-        videoElement.play();
-        setPlayingVideo(videoId);
-      }
-    }
-  };
-
-  // Update current slide based on scroll position
-  React.useEffect(() => {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-         const handleScroll = () => {
-       const scrollLeft = carousel.scrollLeft;
-       const cardWidth = 270; // w-56 (224px) + space-x-4 (16px)
-       const newSlide = Math.round(scrollLeft / cardWidth);
-       setCurrentSlide(newSlide);
-     };
-
-    carousel.addEventListener('scroll', handleScroll);
-    return () => carousel.removeEventListener('scroll', handleScroll);
-  }, []);
+  
 
   return (
-    <section className="relative py-20 bg-gray-50">
+    <section className="relative py-20 bg-white">
       <div className="mx-8 sm:mx-12 lg:mx-16 -mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
           {/* Left Column - Content */}
-          <div className="space-y-12">
+          <div className="space-y-12 md:pl-10 ">
                          {/* Main Content */}
              <div className="space-y-4">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
@@ -166,103 +45,56 @@ const TestimonialsSection = () => {
              </div>
           </div>
 
-                     {/* Right Column - Image Card */}
-           <div className="relative">
-             <div className="rounded-2xl overflow-hidden shadow-2xl">
-               <Image
-                 src="/images/fitness1.webp"
-                 alt="Runners"
-                 width={600}
-                 height={384}
-                 className="w-full h-96 object-cover"
-               />
+          {/* Right Column - Event Card */}
+           <div className="relative lg:flex lg:justify-end lg:-ml-16  md:pr-8 ">
+             <div className="rounded-3xl bg-gray-200  shadow-xl p-4 sm:p-6 lg:p-7  max-w-xl w-full ">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+                 {/* Event image */}
+                 <div className="rounded-xl overflow-hidden ring-4 ring-white/15">
+                   <Image
+                     src="/images/events/keep-going-even-when-its-hard-2025-04-05-23-40-04-4AY2ELM.jpg"
+                     alt="Runmate City Sprint 10K"
+                     width={600}
+                     height={384}
+                     className="w-full h-64 md:h-72 object-cover"
+                   />
+                 </div>
+
+                 {/* Event details */}
+                 <div className="text-white">
+                   <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white/100 text-black text-[11px] tracking-[0.2em] uppercase mb-3">
+                     – Upcoming Races –
+                   </div>
+                   <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
+                     RUNMATE CITY SPRINT
+                     <br />
+                     10K
+                   </h3>
+                   <div className="mt-1 bg-black/85 rounded-xl p-4 sm:p-5 space-y-3">
+                     {/* Date */}
+                     <div className="flex items-start gap-3">
+                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 012 0v1zm13 7H4v9h16V9z"/></svg>
+                       <p className="text-sm">September 20, 2025</p>
+                     </div>
+                     {/* Time */}
+                     <div className="flex items-start gap-3">
+                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l3.3 3.3-1.42 1.42L11 13V7h2v5.59z"/></svg>
+                       <p className="text-sm">Start 05:00 AM – Finish</p>
+                     </div>
+                     {/* Location */}
+                     <div className="flex items-start gap-3">
+                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+                       <p className="text-sm">South Jekardah</p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
              </div>
            </div>
         </div>
 
-        {/* Video Carousel - Full Width Section */}
-        <div className="mt-16">
-          <div className="relative">
-            {/* Heading removed per design */}
-
-           {/* Left Navigation Button */}
-           <button
-             onClick={prevSlide}
-             className="absolute -left-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
-           >
-             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-             </svg>
-           </button>
-
-           {/* Right Navigation Button */}
-           <button
-             onClick={nextSlide}
-             className="absolute -right-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
-           >
-             <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-             </svg>
-           </button>
-
-                           <div 
-               ref={carouselRef}
-                className="flex space-x-4 overflow-x-auto scrollbar-hide cursor-grab"
-               onMouseDown={handleDragStart}
-               onMouseUp={handleDragEnd}
-               onMouseLeave={handleDragEnd}
-               style={{ scrollSnapType: 'x mandatory' }}
-             >
-                                 {videos.map((video, index) => (
-                  <div
-                    key={video.id}
-                      className="flex-shrink-0 w-64 scroll-snap-start"
-                  >
-                   <div className="relative bg-gray-200 rounded-lg overflow-hidden cursor-pointer" onClick={() => handleVideoClick(video.id)}>
-                     <video
-                       data-video-id={video.id}
-                          className="w-full h-96 object-cover"
-                       muted
-                       loop
-                       playsInline
-                       preload="metadata"
-                     >
-                       <source src={video.thumbnail} type="video/mp4" />
-                     </video>
-                     
-                     {/* Play Button */}
-                     <div className={`absolute inset-0 flex items-center justify-center transition-opacity ${playingVideo === video.id ? 'opacity-0' : 'opacity-100'}`}>
-                       <div className="w-12 h-12 bg-black bg-opacity-75 rounded-full flex items-center justify-center">
-                         <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                           <path d="M8 5v14l11-7z"/>
-                         </svg>
-                       </div>
-                     </div>
-
-                     {/* Timestamp */}
-                      <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-                       {video.timestamp}
-                     </div>
-                   </div>
-                    <p className="text-sm text-gray-600 mt-2 w-56 text-center">{video.caption}</p>
-                 </div>
-               ))}
-            </div>
-
-            {/* Dots Indicator */}
-            <div className="flex justify-center space-x-2 mt-4">
-              {videos.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full ${
-                    index === currentSlide ? 'bg-gray-900' : 'bg-gray-300'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Video Carousel - moved into its own component */}
+        <VideoSlider />
       </div>
     </section>
   );

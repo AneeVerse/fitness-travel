@@ -13,7 +13,7 @@ const FeaturesSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Main Heading */}
             <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight font-unbounded">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8 -mt-16 leading-tight font-unbounded">
                 The Most Feel-Good
                 
                 Week Of Your Life
@@ -86,11 +86,9 @@ const BackgroundImage: React.FC = () => {
   // Use deterministic initial state for SSR, then randomize on client after mount
   const images = useMemo(
     () => [
-      '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
+    
       '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-      '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
-      '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
-      '/images/fitness1.webp',
+     
     ],
     []
   );
@@ -111,10 +109,10 @@ const PlayButton: React.FC<PlayButtonProps> = ({ onOpen }) => {
   return (
     <div className="flex justify-end">
       <div className="relative group">
-        <span className="absolute -inset-2 rounded-full bg-emerald-400/30 blur-lg opacity-80 transition-opacity" />
+        <span className="absolute -inset-2 rounded-full bg-[#98ff98] blur-lg opacity-80 transition-opacity" />
         <button
           onClick={onOpen}
-          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black ring-2 ring-emerald-400 text-emerald-400 shadow-lg transition-all duration-200 group-hover:bg-emerald-400 group-hover:text-black"
+          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black ring-2 ring-[#98ff98] text-[#98ff98] shadow-lg transition-all duration-200 group-hover:bg-[#98ff98] group-hover:text-black"
           aria-label="Play video"
         >
           <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
