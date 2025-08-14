@@ -140,7 +140,7 @@ const EpicDestinationsSection: React.FC = () => {
             <button
               aria-label="Previous"
               onClick={() => scrollerRef.current?.scrollBy({ left: -380, behavior: 'smooth' })}
-              className="w-10 h-10 rounded-full bg-[#98ff98] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#98ff98]"
+              className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -149,7 +149,7 @@ const EpicDestinationsSection: React.FC = () => {
             <button
               aria-label="Next"
               onClick={() => scrollerRef.current?.scrollBy({ left: 380, behavior: 'smooth' })}
-              className="w-10 h-10 rounded-full bg-[#98ff98] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#98ff98]"
+              className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
@@ -160,7 +160,7 @@ const EpicDestinationsSection: React.FC = () => {
           {/* CTA */}
           <div className="flex justify-center mt-8">
             <button
-              className="px-6 py-3 rounded-full bg-[#98ff98] text-[#0f1a17] font-semibold hover:bg-black hover:text-[#98ff98] uppercase tracking-wide"
+              className="px-6 py-3 rounded-full bg-[#e77d25] text-[#0f1a17] font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations

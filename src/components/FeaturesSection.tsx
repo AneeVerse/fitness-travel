@@ -109,10 +109,10 @@ const PlayButton: React.FC<PlayButtonProps> = ({ onOpen }) => {
   return (
     <div className="flex justify-end">
       <div className="relative group">
-        <span className="absolute -inset-2 rounded-full bg-[#98ff98] blur-lg opacity-80 transition-opacity" />
+        <span className="absolute -inset-2 rounded-full bg-[#e77d25] blur-lg opacity-80 transition-opacity" />
         <button
           onClick={onOpen}
-          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black ring-2 ring-[#98ff98] text-[#98ff98] shadow-lg transition-all duration-200 group-hover:bg-[#98ff98] group-hover:text-black"
+          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black ring-2 ring-[#e77d25] text-[#e77d25] shadow-lg transition-all duration-200 group-hover:bg-[#e77d25] group-hover:text-black"
           aria-label="Play video"
         >
           <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">

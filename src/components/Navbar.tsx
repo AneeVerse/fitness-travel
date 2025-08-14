@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import localFont from 'next/font/local';
+
+const tigerTerrainFont = localFont({
+  src: '../../public/font/P22 Operina Romano Romano.ttf',
+  display: 'swap',
+});
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,19 +16,20 @@ const Navbar = () => {
   const navItems = [
     { name: 'HOME', href: '/', hasDropdown: false },
     { name: 'ABOUT', href: '/about-us', hasDropdown: true },
-    { name: 'PROGRAMS', href: '/programs', hasDropdown: true },
-    { name: 'PAGES', href: '/pages', hasDropdown: true },
-    { name: 'COACHES', href: '/coaches', hasDropdown: true },
+    { name: 'UPCOMING EVENTS', href: '/programs', hasDropdown: true },
+    { name: 'BLOGS', href: '/pages', hasDropdown: true },
+    { name: 'CONTACT', href: '/coaches', hasDropdown: true },
   ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-transparent">
       <div className="bg-white/95 backdrop-blur-md rounded-[15px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
                  <div className="grid grid-cols-[auto_1fr_auto] items-center">
-           {/* Logo */}
+           {/* Logo + Brand */}
            <div className="flex-shrink-0">
-             <Link href="/" className="flex items-center">
-               <Image src="/images/Runmate-Logo.png" alt="Runmate" width={160} height={40} className="h-8 w-auto object-contain" />
+             <Link href="/" className="flex items-center gap-3">
+               <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
+               <span className={`${tigerTerrainFont.className} text-[24px] leading-none text-[#0f1a17]`}>TIGER TERRAIN</span>
              </Link>
            </div>
 
@@ -32,7 +39,7 @@ const Navbar = () => {
                <Link
                  key={item.name}
                  href={item.href}
-                 className="text-gray-800 hover:text-emerald-700 transition-colors duration-200 text-[18px] tracking-[0.08em] flex items-center"
+                 className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[18px] tracking-[0.08em] flex items-center"
                  style={{ fontFamily: 'var(--font-teko)' }}
                >
                  {item.name}
@@ -49,7 +56,7 @@ const Navbar = () => {
            <div className="hidden md:block justify-self-end">
              <Link
                href="/contact"
-               className="px-6 py-2 rounded-full font-semibold text-[18px] text-[#0f1a17] bg-[#98ff98] hover:bg-black hover:text-[#98ff98] transition-colors duration-200"
+               className="px-6 py-2 rounded-full font-semibold text-[18px] text-[#0f1a17] bg-[#e77d25] hover:bg-black hover:text-[#e77d25] transition-colors duration-200"
                style={{ fontFamily: 'var(--font-teko)' }}
              >
                CONTACT US
@@ -99,7 +106,7 @@ const Navbar = () => {
             <div className="mt-4">
               <Link
                 href="/contact"
-                className="block w-full px-4 py-2 text-center rounded-full font-semibold bg-[#98ff98] text-[#0f1a17] hover:bg-black hover:text-[#98ff98]"
+                className="block w-full px-4 py-2 text-center rounded-full font-semibold bg-[#e77d25] text-[#0f1a17] hover:bg-black hover:text-[#e77d25]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us

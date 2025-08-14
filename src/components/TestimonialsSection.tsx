@@ -73,17 +73,17 @@ const TestimonialsSection = () => {
                    <div className="mt-1 bg-black/85 rounded-xl p-4 sm:p-5 space-y-3">
                      {/* Date */}
                      <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 012 0v1zm13 7H4v9h16V9z"/></svg>
+                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 012 0v1zm13 7H4v9h16V9z"/></svg>
                        <p className="text-sm">September 20, 2025</p>
                      </div>
                      {/* Time */}
                      <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l3.3 3.3-1.42 1.42L11 13V7h2v5.59z"/></svg>
+                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l3.3 3.3-1.42 1.42L11 13V7h2v5.59z"/></svg>
                        <p className="text-sm">Start 05:00 AM – Finish</p>
                      </div>
                      {/* Location */}
                      <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#98ff98] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
                        <p className="text-sm">South Jekardah</p>
                      </div>
                    </div>
@@ -93,9 +93,10 @@ const TestimonialsSection = () => {
            </div>
         </div>
 
-        {/* Video Carousel - moved into its own component */}
-        <VideoSlider />
       </div>
+
+      {/* Video Carousel - full-width, outside inner margins */}
+      <VideoSlider />
     </section>
   );
 };

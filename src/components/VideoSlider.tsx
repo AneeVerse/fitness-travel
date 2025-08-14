@@ -1,163 +1,313 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useState, useRef, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const VideoSlider: React.FC = () => {
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+interface VideoCard {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  videoUrl: string;
+  timestamp: string;
+}
 
-  const videos = [
-    { id: 1, thumbnail: "/video/hero-bg.mp4", timestamp: "0:12", caption: "'If the trip doesn't look like this, then I don't want it'" },
-    { id: 2, thumbnail: "/video/hero-bg.mp4", timestamp: "0:15", caption: "'This is so much more than a fitness retreat'" },
-    { id: 3, thumbnail: "/video/hero-bg.mp4", timestamp: "0:47", caption: "POV: a day with Salt Escapes" },
-    { id: 4, thumbnail: "/video/hero-bg.mp4", timestamp: "0:12", caption: "POV: boat day with Salt Escapes" },
-    { id: 5, thumbnail: "/video/hero-bg.mp4", timestamp: "0:19", caption: "'Ibiza, but make it fitness'" },
-    { id: 6, thumbnail: "/video/hero-bg.mp4", timestamp: "0:25", caption: "Mountain fitness adventure" },
-    { id: 7, thumbnail: "/video/hero-bg.mp4", timestamp: "0:32", caption: "Sunset yoga session" },
-    { id: 8, thumbnail: "/video/hero-bg.mp4", timestamp: "0:18", caption: "Beach workout routine" },
-    { id: 9, thumbnail: "/video/hero-bg.mp4", timestamp: "0:28", caption: "Group fitness challenge" },
-    { id: 10, thumbnail: "/video/hero-bg.mp4", timestamp: "0:22", caption: "Wellness retreat highlights" }
-  ];
+const videos: VideoCard[] = [
+  {
+    id: 1,
+    title: "FITNESS RETREAT",
+    subtitle: "SALT ESCAPES",
+    description: "If the trip doesn't look like this, then I don't want it",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:12"
+  },
+  {
+    id: 2,
+    title: "ADVENTURE FITNESS",
+    subtitle: "SALT ESCAPES",
+    description: "This is so much more than a fitness retreat",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:15"
+  },
+  {
+    id: 3,
+    title: "DAILY RETREAT",
+    subtitle: "SALT ESCAPES",
+    description: "POV: a day with Salt Escapes",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:47"
+  },
+  {
+    id: 4,
+    title: "BOAT DAY",
+    subtitle: "SALT ESCAPES",
+    description: "POV: boat day with Salt Escapes",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:12"
+  },
+  {
+    id: 5,
+    title: "IBIZA FITNESS",
+    subtitle: "SALT ESCAPES",
+    description: "Ibiza, but make it fitness",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:19"
+  },
+  {
+    id: 6,
+    title: "MOUNTAIN ADVENTURE",
+    subtitle: "SALT ESCAPES",
+    description: "Mountain fitness adventure",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:25"
+  },
+  {
+    id: 7,
+    title: "SUNSET YOGA",
+    subtitle: "SALT ESCAPES",
+    description: "Sunset yoga session",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:32"
+  },
+  {
+    id: 8,
+    title: "BEACH WORKOUT",
+    subtitle: "SALT ESCAPES",
+    description: "Beach workout routine",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:18"
+  },
+  {
+    id: 9,
+    title: "GROUP CHALLENGE",
+    subtitle: "SALT ESCAPES",
+    description: "Group fitness challenge",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:28"
+  },
+  {
+    id: 10,
+    title: "WELLNESS HIGHLIGHTS",
+    subtitle: "SALT ESCAPES",
+    description: "Wellness retreat highlights",
+    videoUrl: "/video/hero-bg.mp4",
+    timestamp: "0:22"
+  }
+];
 
-  // Duplicate videos for infinite scroll
-  const allVideos = [...videos, ...videos, ...videos];
+export default function VideoSlider() {
+  // Rendered duplicates for seamless loop
+  const DUPLICATES = 3;
+  const renderedVideos = Array.from({ length: DUPLICATES })
+    .flatMap((_, dupIdx) => videos.map((v) => ({ ...v, __dup: dupIdx })));
 
+  // Measurements and animation state
+  const [slideSize, setSlideSize] = useState<number>(244); // px per card incl. gap
+  const [activeIndex, setActiveIndex] = useState<number>(0); // 0..videos.length-1
+  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+
+  // Continuous position in px relative to the start of the middle copy
+  // Negative values move left. We wrap this value within one copy width.
+  const basePositionRef = useRef<number>(0);
+
+  // Pointer drag state (mouse/touch unified)
+  const isPointerDownRef = useRef<boolean>(false);
+  const dragStartXRef = useRef<number>(0);
+  const dragDeltaRef = useRef<number>(0);
+
+  // Animation runs continuously; pauses only while dragging
+
+  // Manual navigation helpers (adjust base position by one card)
+  const nextSlide = () => {
+    basePositionRef.current -= slideSize;
+  };
+
+  const prevSlide = () => {
+    basePositionRef.current += slideSize;
+  };
+
+  // Measure slide size responsively from actual DOM
   useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
+    const computeSlideSize = () => {
+      const track = sliderRef.current;
+      if (!track) return;
+      const cards = track.querySelectorAll('[data-card="true"]');
+      if (cards.length < 2) return;
+      const first = (cards[0] as HTMLElement).getBoundingClientRect();
+      const second = (cards[1] as HTMLElement).getBoundingClientRect();
+      const delta = Math.abs(second.left - first.left);
+      if (delta > 0) {
+        setSlideSize(delta);
+      }
+    };
+    computeSlideSize();
+    window.addEventListener('resize', computeSlideSize);
+    return () => window.removeEventListener('resize', computeSlideSize);
+  }, []);
 
-    let animationId: number;
-    let scrollPosition = 0;
-    const scrollSpeed = 0.2; // Pixels per frame (adjust for speed)
+  // Continuous auto-scroll animation (never pauses, seamless wrap)
+  useEffect(() => {
+    const speedPxPerSec = 30; // slow, smooth
+    const copyWidth = videos.length * slideSize;
 
-    const animate = () => {
-      if (!isPaused) {
-        scrollPosition += scrollSpeed;
-        
-        // Get the width of one complete set of videos
-        const singleSetWidth = container.scrollWidth / 3;
-        
-        // Reset position when we've scrolled past one complete set
-        if (scrollPosition >= singleSetWidth) {
-          scrollPosition = 0;
+    const animate = (currentTime: number) => {
+      const last = lastTimeRef.current || currentTime;
+      const deltaMs = currentTime - last;
+      lastTimeRef.current = currentTime;
+
+      // Only animate if not dragging
+      if (!isPointerDownRef.current) {
+        const deltaPx = (speedPxPerSec * deltaMs) / 1000;
+        basePositionRef.current -= deltaPx;
+
+        // Seamless wrap within [-copyWidth, 0)
+        if (basePositionRef.current <= -copyWidth) {
+          basePositionRef.current += copyWidth;
+        } else if (basePositionRef.current >= 0) {
+          basePositionRef.current -= copyWidth;
         }
-        
-        container.scrollLeft = scrollPosition;
       }
-      
-      animationId = requestAnimationFrame(animate);
+
+      // Apply drag delta (if any) and render transform relative to middle copy
+      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
+      setRenderTranslateX(x);
+
+      // Derive active index for dots
+      const rawIndex = Math.round((-basePositionRef.current) / slideSize);
+      const normalized = ((rawIndex % videos.length) + videos.length) % videos.length;
+      if (normalized !== activeIndex) {
+        setActiveIndex(normalized);
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
     };
 
-    animationId = requestAnimationFrame(animate);
-
+    animationRef.current = requestAnimationFrame(animate);
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [isPaused]);
+  }, [slideSize, activeIndex]);
 
-  const handleVideoClick = (videoId: number) => {
-    const videoElements = document.querySelectorAll(`video[data-video-id="${videoId}"]`);
-    
-    if (playingVideo === videoId) {
-      videoElements.forEach((video) => {
-        (video as HTMLVideoElement).pause();
-      });
-      setPlayingVideo(null);
-      setIsPaused(false);
-    } else {
-      document.querySelectorAll('video').forEach(video => {
-        video.pause();
-      });
-      
-      videoElements.forEach((video) => {
-        (video as HTMLVideoElement).play();
-      });
-      setPlayingVideo(videoId);
-      setIsPaused(true);
-    }
+  // Pointer (mouse/touch) unified handlers for smooth drag without pausing
+  const onPointerDown = (e: React.PointerEvent) => {
+    isPointerDownRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragDeltaRef.current = 0;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
   };
 
-  const scrollLeft = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.scrollBy({ left: -270, behavior: 'smooth' });
-    }
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isPointerDownRef.current) return;
+    dragDeltaRef.current = e.clientX - dragStartXRef.current;
   };
 
-  const scrollRight = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.scrollBy({ left: 270, behavior: 'smooth' });
-    }
+  const snapToNearestCard = () => {
+    // Merge the drag delta into the base position and snap to nearest card
+    basePositionRef.current += dragDeltaRef.current;
+    dragDeltaRef.current = 0;
+    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
+    basePositionRef.current = snapped;
+  };
+
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    snapToNearestCard();
+  };
+
+  const onPointerLeave = () => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    snapToNearestCard();
   };
 
   return (
-    <div className="mt-16 md:px-10">
-      <div className="relative">
-        {/* Left Navigation Button */}
-        <button
-          onClick={scrollLeft}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          className="absolute -left-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
-        >
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+    <section className="w-full bg-white mt-10 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden">
+      <div className="w-full">
 
-        {/* Right Navigation Button */}
-        <button
-          onClick={scrollRight}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          className="absolute -right-6 top-48 transform -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow border border-gray-200"
-        >
-          <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-
-        {/* Video Container */}
-        <div 
-          ref={scrollContainerRef}
-          className="flex gap-4 overflow-x-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => !playingVideo && setIsPaused(false)}
-          style={{
-            scrollBehavior: 'auto',
-            WebkitOverflowScrolling: 'touch'
-          }}
-        >
-          {allVideos.map((video, index) => (
-            <div
-              key={`${video.id}-${index}`}
-              className="flex-shrink-0 w-64"
-            >
-              <div 
-                className="relative bg-gray-200 rounded-lg overflow-hidden cursor-pointer" 
-                onClick={() => handleVideoClick(video.id)}
+        {/* Header with Navigation */}
+        <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black">
+            Fitness Retreats
+          </h2>
+          
+          <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+            {/* Discover Events Link */}
+            <div className="hidden sm:flex items-center text-gray-600 hover:text-black transition-colors cursor-pointer">
+              <span className="text-sm md:text-base mr-2">Discover retreats</span>
+              <ChevronRight className="w-4 h-4" />
+            </div>
+            
+            {/* Navigation Arrows */}
+            <div className="flex gap-2 sm:gap-3">
+              <button
+                onClick={prevSlide}
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
               >
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
+              >
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Slider Container */}
+        <div 
+          className="relative mt-4 sm:mt-6"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerLeave={onPointerLeave}
+        >
+          <div 
+            ref={sliderRef}
+            className="flex gap-6"
+            style={{
+              transform: `translateX(${renderTranslateX}px)`
+            }}
+          >
+            {renderedVideos.map((video, index) => (
+              <div
+                key={`${video.__dup}-${video.id}-${index}`}
+                className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[240px] sm:h-[320px] md:h-[380px] lg:h-[440px]"
+                data-card="true"
+                style={{ width: 'clamp(220px, calc(25vw - 18px), 520px)' }}
+              >
+                {/* Video Background */}
                 <video
-                  data-video-id={video.id}
-                  className="w-full h-96 object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
                   muted
                   loop
                   playsInline
-                  preload="metadata"
                 >
-                  <source src={video.thumbnail} type="video/mp4" />
+                  <source src={video.videoUrl} type="video/mp4" />
                 </video>
-
-                {/* Play Button */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-opacity pointer-events-none ${playingVideo === video.id ? 'opacity-0' : 'opacity-100'}`}>
-                  <div className="w-12 h-12 bg-black bg-opacity-75 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/40" />
+                
+                {/* Content */}
+                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
+                  <div className="space-y-1 sm:space-y-2">
+                    <p className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90">
+                      {video.subtitle}
+                    </p>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+                      {video.title}
+                    </h3>
+                    <p className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2">
+                      {video.description}
+                    </p>
                   </div>
                 </div>
 
@@ -166,30 +316,28 @@ const VideoSlider: React.FC = () => {
                   {video.timestamp}
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mt-2 text-center">{video.caption}</p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center space-x-2 mt-4">
+        {/* Pagination Dots */}
+        <div className="flex justify-center mt-6 sm:mt-8 gap-2">
           {videos.map((_, index) => (
             <button
               key={index}
               onClick={() => {
-                const container = scrollContainerRef.current;
-                if (container) {
-                  const targetScroll = (index + videos.length) * 270;
-                  container.scrollTo({ left: targetScroll, behavior: 'smooth' });
-                }
+                // Jump to selected index within middle copy
+                basePositionRef.current = -index * slideSize;
               }}
-              className={`w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-600 transition-colors`}
+              className={`w-2 h-2 rounded-full transition-colors duration-300 disabled:opacity-50 ${
+                index === activeIndex
+                  ? 'bg-black'
+                  : 'bg-gray-400 hover:bg-gray-600'
+              }`}
             />
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default VideoSlider;
+}
