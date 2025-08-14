@@ -92,7 +92,7 @@ export default function Footer() {
 
       {/* Brand wordmark */}
       <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-8 text-center">
-        <h2 className={`text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#e77d25] whitespace-nowrap ${tigerTerrainFont.className}`}>TIGER TERRAIN</h2>
+        <h2 className={`text-5xl sm:text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#e77d25] whitespace-nowrap ${tigerTerrainFont.className}`}>TIGER TERRAIN</h2>
       </div>
 
       {/* Divider under wordmark */}

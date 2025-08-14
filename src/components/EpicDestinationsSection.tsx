@@ -197,20 +197,20 @@ const EpicDestinationsSection: React.FC = () => {
               ref={trackRef}
               className="flex gap-8 will-change-transform px-4 sm:px-8"
               style={{ transform: `translateX(${renderTranslateX}px)` }}
-            >
-              {duplicatedHighlights.map((h, idx) => (
+          >
+            {duplicatedHighlights.map((h, idx) => (
                 <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]" data-card="true">
-                  <div className="flex flex-col h-full">
-                    <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
-                      <Image src={h.image} alt={h.title} fill className="object-cover" />
-                    </div>
-                    <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
-                    <p className="text-white/75 text-sm mt-2 leading-relaxed">
-                      {h.description}
-                    </p>
+                <div className="flex flex-col h-full">
+                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
+                    <Image src={h.image} alt={h.title} fill className="object-cover" />
                   </div>
+                  <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
+                  <p className="text-white/75 text-sm mt-2 leading-relaxed">
+                    {h.description}
+                  </p>
                 </div>
-              ))}
+              </div>
+            ))}
             </div>
           </div>
 
