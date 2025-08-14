@@ -26,6 +26,11 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Typography: headings use Unbounded, body (paragraphs) use Inter via body class */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-unbounded), Arial, Helvetica, sans-serif !important;
+}
+
 /* Show hand cursor on interactive elements */
 button, [role="button"], a.button, .btn, .cursor-pointer, .clickable {
   cursor: pointer;

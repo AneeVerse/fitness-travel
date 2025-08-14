@@ -171,8 +171,9 @@ const EpicDestinationsSection: React.FC = () => {
   return (
     <section className="relative bg-[#244447] py-16 sm:py-20">
       <div className="w-full">
-        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-10">
-          <div className="space-y-4 lg:col-span-12">
+        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-10">
+          {/* Left: Title + Subtitle */}
+          <div className="space-y-3 lg:col-span-8">
             <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
               Journey Stories
             </h2>
@@ -180,6 +181,36 @@ const EpicDestinationsSection: React.FC = () => {
               Real transformations, real people, real adventures. See how our tribe members transformed their lives
               through Tiger Terrain adventures.
             </p>
+          </div>
+
+          {/* Right: Actions (carousel nav + CTA) */}
+          <div className="lg:col-span-4 flex flex-wrap gap-3 items-center justify-start lg:justify-end mt-4 lg:mt-0">
+            <div className="flex gap-3 order-2 lg:order-1">
+              <button
+                aria-label="Previous"
+                onClick={prevSlide}
+                className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                aria-label="Next"
+                onClick={nextSlide}
+                className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
+              >
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+            <button
+              className="order-1 lg:order-2 px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
+              style={{ fontFamily: 'var(--font-teko)' }}
+            >
+              View More Destinations
+            </button>
           </div>
         </div>
 
@@ -214,37 +245,7 @@ const EpicDestinationsSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Nav buttons */}
-          <div className="flex gap-3 justify-end mt-6">
-            <button
-              aria-label="Previous"
-              onClick={prevSlide}
-              className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              aria-label="Next"
-              onClick={nextSlide}
-              className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* CTA */}
-          <div className="flex justify-center mt-8">
-            <button
-              className="px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
-              style={{ fontFamily: 'var(--font-teko)' }}
-            >
-              View More Destinations
-            </button>
-          </div>
+          
         </div>
       </div>
     </section>

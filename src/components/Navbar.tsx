@@ -23,11 +23,11 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-transparent">
-      <div className="bg-white/95 backdrop-blur-md rounded-[15px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
+      <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
                  <div className="grid grid-cols-[auto_1fr_auto] items-center">
            {/* Logo + Brand */}
            <div className="flex-shrink-0 ">
-             <Link href="/" className="flex items-center gap-3">
+             <Link href="/" className="flex items-center gap-3 ">
                <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
                <span className={`${tigerTerrainFont.className} text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
              </Link>
@@ -39,8 +39,8 @@ const Navbar = () => {
                <Link
                  key={item.name}
                  href={item.href}
-                 className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[18px] tracking-[0.08em] flex items-center"
-                 style={{ fontFamily: 'var(--font-teko)' }}
+                 className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[12px] tracking-[0.08em] flex items-center"
+                  style={{ fontFamily: 'var(--font-unbounded)' }}
                >
                  {item.name}
                  {item.hasDropdown && (
@@ -56,8 +56,8 @@ const Navbar = () => {
            <div className="hidden md:block justify-self-end">
              <Link
                href="/book-now"
-               className="px-6 py-2 rounded-full font-semibold text-[18px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
-               style={{ fontFamily: 'var(--font-teko)' }}
+               className="px-6 py-2 rounded-full font-semibold text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
+                style={{ fontFamily: 'var(--font-unbounded)' }}
              >
                BOOK ADVENTURE
              </Link>
@@ -92,6 +92,7 @@ const Navbar = () => {
                   key={item.name}
                   href={item.href}
                   className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 flex items-center justify-between"
+                  style={{ fontFamily: 'var(--font-unbounded)' }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
@@ -107,6 +108,7 @@ const Navbar = () => {
               <Link
                 href="/contact"
                 className="block w-full px-4 py-2 text-center rounded-full font-semibold bg-[#e77d25] text-[#0f1a17] hover:bg-black hover:text-[#e77d25]"
+                style={{ fontFamily: 'var(--font-unbounded)' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us

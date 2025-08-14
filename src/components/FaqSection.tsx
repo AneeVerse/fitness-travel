@@ -54,7 +54,7 @@ const FaqSection: React.FC = () => {
               <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
               FAQs
             </span>
-            <h2 className={`mt-3 text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
+            <h2 className={`mt-3 text-4xl md:text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
               Frequently Asked
               <br className="hidden sm:block" />
               Questions

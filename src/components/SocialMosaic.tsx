@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 const SocialMosaic: React.FC = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16  bg-[#244447]">
       <div className="mx-8 sm:mx-12 lg:mx-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Big video left (spans 2 rows on large screens) */}
@@ -37,7 +37,7 @@ const SocialMosaic: React.FC = () => {
           <CardImage src={images[2]} />
 
           {/* Poster card bottom-right */}
-          <div className="rounded-3xl bg-black text-white p-8 flex flex-col justify-between">
+          <div className="rounded-3xl bg-orange-500 text-white p-8 flex flex-col justify-between">
             <div>
               <h3 className="text-xl sm:text-2xl font-extrabold font-unbounded">Follow our Instagram</h3>
               <p className="mt-4 text-white/80 text-sm leading-relaxed">
@@ -50,7 +50,7 @@ const SocialMosaic: React.FC = () => {
                  href="https://www.instagram.com/mydenfitcation/"
                  target="_blank"
                  rel="noopener noreferrer"
-                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-white hover:text-black transition-colors"
+                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-black hover:text-white transition-colors"
                >
                  Follow Us
                </a>

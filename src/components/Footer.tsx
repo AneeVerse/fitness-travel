@@ -43,7 +43,7 @@ export default function Footer() {
   return (
     <footer className="mt-24 ">
       {/* Top: columns */}
-      <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-12 grid grid-cols-1 md:[grid-template-columns:300px_1fr_1fr] gap-12 text-[#244447]">
+      <div className="  max-w-[1325px] mx-auto px-4 sm:px-8 py-12 grid grid-cols-1 md:[grid-template-columns:300px_1fr_1fr] gap-12 md:gap-16 items-start text-[#244447]">
         {/* Left: logo + contact */}
         <div className="space-y-4">
           <Image
@@ -53,21 +53,20 @@ export default function Footer() {
             height={56}
             className="w-24 h-24"
           />
-          <div className="text-sm leading-7">
+          <div className="text-sm leading-7 ">
             <a href="tel:+61401207856" className="block hover:text-[#e77d25] transition-colors">+61 401 207 856</a>
             <a href="mailto:info@salt-escapes.com" className="block hover:text-[#e77d25] transition-colors">info@salt-escapes.com</a>
           </div>
           <div className="flex items-center gap-3 text-[#244447]">
-            <Link href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconFacebook className="w-4 h-4" /></Link>
-            <Link href="#" aria-label="Instagram" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconInstagram className="w-4 h-4" /></Link>
-            <Link href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconLinkedIn className="w-4 h-4" /></Link>
-            <Link href="#" aria-label="Email" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconMail className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconFacebook className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="Instagram" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconInstagram className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconLinkedIn className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="Email" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconMail className="w-4 h-4" /></Link>
           </div>
         </div>
 
-        {/* Column 1 – Navigation */}
-        <div className="space-y-2 text-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#244447]/80 mb-1">Navigation</p>
+        {/* Column 1 – Navigation (left-aligned, larger text) */}
+        <div className="space-y-4.5 text-lg leading-7  text-left self-start ml-50 ">
             <Link href="/" className="block hover:text-[#e77d25] transition-colors">Home</Link>
             <Link href="/about-us" className="block hover:text-[#e77d25] transition-colors">About</Link>
             <Link href="/programs" className="block hover:text-[#e77d25] transition-colors">Upcoming Events</Link>
@@ -75,9 +74,8 @@ export default function Footer() {
             <Link href="/contact" className="block hover:text-[#e77d25] transition-colors">Contact Us</Link>
           </div>
 
-          {/* Column 2 – Explore */}
-          <div className="space-y-2 text-sm">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#244447]/80 mb-1">Explore</p>
+          {/* Column 2 – Explore (right-aligned, larger text) */}
+          <div className="space-y-4.5 text-lg leading-7 justify-self-end text-left self-start mr-10">
             <Link href="#" className="block hover:text-[#e77d25] transition-colors">Past Events</Link>
             <Link href="#" className="block hover:text-[#e77d25] transition-colors">Gallery</Link>
             <Link href="#" className="block hover:text-[#e77d25] transition-colors">Feedback</Link>
@@ -92,7 +90,9 @@ export default function Footer() {
 
       {/* Brand wordmark */}
       <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-8 text-center">
-        <h2 className={`text-5xl sm:text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#e77d25] whitespace-nowrap ${tigerTerrainFont.className}`}>TIGER TERRAIN</h2>
+        <h2 className={`text-5xl sm:text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#e77d25] whitespace-nowrap`}>
+          <span className={tigerTerrainFont.className}>TIGER TERRAIN</span>
+        </h2>
       </div>
 
       {/* Divider under wordmark */}
