@@ -266,9 +266,13 @@ export default function VideoSlider() {
 
         {/* Header with Navigation */}
         <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-black"
+          style={{ fontFamily: 'var(--font-teko)' }}
+          >
             Fitness Retreats
           </h2>
+         
+
           
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
             {/* Discover Events Link */}
@@ -313,9 +317,9 @@ export default function VideoSlider() {
             {renderedVideos.map((video, index) => (
               <div
                 key={`${video.__dup}-${video.id}-${index}`}
-                className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[240px] sm:h-[320px] md:h-[380px] lg:h-[440px]"
+                className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px]"
                 data-card="true"
-                style={{ width: 'clamp(220px, calc(25vw - 18px), 520px)' }}
+                style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
               >
                 {/* Video Background */}
                 <video
