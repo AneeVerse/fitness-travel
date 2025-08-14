@@ -11,27 +11,33 @@ type FaqItem = { id: string; question: string; answer: string };
 const faqs: FaqItem[] = [
   {
     id: 'q1',
-    question: 'Do I need to be an experienced runner to join Runmate?',
+    question: 'Is this only for super fit people?',
     answer:
-      'Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast.',
+      'Not at all. Tiger Terrain welcomes all fitness levels. Our experiences are designed to challenge you at your current level while helping you grow stronger.',
   },
   {
     id: 'q2',
-    question: 'How to change my password easily?',
+    question: "I'm nervous about traveling alone. Will I actually connect with others?",
     answer:
-      'Go to your account settings, choose Security, and select Change Password. We recommend using at least 12 characters with a mix of letters, numbers, and symbols.',
+      "Yes. Every Tiger Terrain adventure is designed for solo travelers. You'll join a small group of like-minded people, and our guides ensure everyone feels included from day one.",
   },
   {
     id: 'q3',
-    question: "What’s included in the training programs?",
+    question: 'What makes this different from regular adventure tours?',
     answer:
-      'Structured plans, weekly coaching prompts, mobility sessions, and access to the community forum for accountability and support.',
+      'Tiger Terrain focuses on transformation, not just sightseeing. We combine fitness, mindfulness, cultural immersion, and personal development into one life-changing experience.',
   },
   {
     id: 'q4',
-    question: 'Are the programs tailored to different fitness levels?',
+    question: 'How physically demanding are the activities?',
     answer:
-      'Yes. All programs include clear progressions and scaling options so beginners to advanced runners can train safely and effectively.',
+      'Each adventure clearly states fitness requirements. We offer modifications for different abilities and focus on personal progress, not competition.',
+  },
+  {
+    id: 'q5',
+    question: "What if I don't speak the local language?",
+    answer:
+      "Our expert guides handle all communication and cultural navigation. You'll learn key phrases and customs as part of the immersive experience.",
   },
 ];
 
@@ -45,7 +51,7 @@ const FaqSection: React.FC = () => {
           {/* Left – Content + Accordion */}
           <div>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
               FAQs
             </span>
             <h2 className={`mt-3 text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>

@@ -46,13 +46,10 @@ const UpcomingEvents = () => {
       <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
         <div className="text-center mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-black/50 text-[#e77d25] text-xs tracking-wider uppercase mb-4">
-            - Upcoming Events -
+            - Upcoming Adventures -
           </span>
                     <h2 className="mt-2 text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-         
-            Upcoming Events – Lace Up For
-            <br className="hidden sm:block" />
-            Something Big
+            Upcoming Adventures
           </h2>
         </div>
 

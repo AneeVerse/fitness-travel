@@ -115,12 +115,11 @@ const ReviewsSection: React.FC = () => {
     <section className="relative py-20 bg-white">
       <div className="mx-8 sm:mx-12 lg:mx-16">
         <div className="text-center mb-10">
-          <h2 className="text-4xl sm:text-5xl font-extrabold text-[#244447] font-unbounded">
-            Your Words, Not Ours
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-[#244447] font-unbounded">
+            Voices of Transformation
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-gray-600">
-            Hundreds of 5‑star reviews across Google and Trustpilot. Have a read what some of our
-            guests had to say about the Escapes.
+          <p className="mt-3 text-xl sm:text-base text-gray-600">
+            Hear from souls who discovered their force and change through Tiger Terrain journeys.
           </p>
         </div>
 

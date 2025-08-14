@@ -26,10 +26,10 @@ const Navbar = () => {
       <div className="bg-white/95 backdrop-blur-md rounded-[15px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
                  <div className="grid grid-cols-[auto_1fr_auto] items-center">
            {/* Logo + Brand */}
-           <div className="flex-shrink-0">
+           <div className="flex-shrink-0 ">
              <Link href="/" className="flex items-center gap-3">
                <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
-               <span className={`${tigerTerrainFont.className} text-[24px] leading-none text-[#0f1a17]`}>TIGER TERRAIN</span>
+               <span className={`${tigerTerrainFont.className} text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
              </Link>
            </div>
 
@@ -52,14 +52,14 @@ const Navbar = () => {
              ))}
            </div>
 
-           {/* Right-aligned CTA */}
+            {/* Right-aligned CTA */}
            <div className="hidden md:block justify-self-end">
              <Link
-               href="/contact"
-               className="px-6 py-2 rounded-full font-semibold text-[18px] text-[#0f1a17] bg-[#e77d25] hover:bg-black hover:text-[#e77d25] transition-colors duration-200"
+               href="/book-now"
+               className="px-6 py-2 rounded-full font-semibold text-[18px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
                style={{ fontFamily: 'var(--font-teko)' }}
              >
-               CONTACT US
+               BOOK ADVENTURE
              </Link>
            </div>
 

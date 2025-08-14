@@ -1,5 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import localFont from 'next/font/local';
+
+const tigerTerrainFont = localFont({
+  src: '../../public/font/P22 Operina Romano Romano.ttf',
+  display: 'swap',
+});
 
 function IconFacebook(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -37,61 +43,45 @@ export default function Footer() {
   return (
     <footer className="mt-24 ">
       {/* Top: columns */}
-      <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-12 grid grid-cols-1 md:[grid-template-columns:300px_1fr_1fr_1fr] gap-12 text-[#244447]">
+      <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-12 grid grid-cols-1 md:[grid-template-columns:300px_1fr_1fr] gap-12 text-[#244447]">
         {/* Left: logo + contact */}
         <div className="space-y-4">
           <Image
-            src="/images/footer-logo.png"
-            alt="Salt Escapes"
+            src="/images/website-logo.png"
+            alt="Tiger Terrain"
             width={56}
             height={56}
-            className="w-14 h-14"
+            className="w-24 h-24"
           />
           <div className="text-sm leading-7">
-            <p className="font-medium">Contact:</p>
-            <p>+61 401 207 856</p>
-            <p>info@salt-escapes.com</p>
+            <a href="tel:+61401207856" className="block hover:text-[#e77d25] transition-colors">+61 401 207 856</a>
+            <a href="mailto:info@salt-escapes.com" className="block hover:text-[#e77d25] transition-colors">info@salt-escapes.com</a>
           </div>
-          <div className="flex items-center gap-4 text-[#244447]">
-            <Link href="#" aria-label="Facebook" className="hover:opacity-70"><IconFacebook className="w-5 h-5" /></Link>
-            <Link href="#" aria-label="Instagram" className="hover:opacity-70"><IconInstagram className="w-5 h-5" /></Link>
-            <Link href="#" aria-label="LinkedIn" className="hover:opacity-70"><IconLinkedIn className="w-5 h-5" /></Link>
-            <Link href="#" aria-label="Email" className="hover:opacity-70"><IconMail className="w-5 h-5" /></Link>
+          <div className="flex items-center gap-3 text-[#244447]">
+            <Link href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconFacebook className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="Instagram" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconInstagram className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="LinkedIn" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconLinkedIn className="w-4 h-4" /></Link>
+            <Link href="#" aria-label="Email" className="w-9 h-9 rounded-full bg-[#244447] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconMail className="w-4 h-4" /></Link>
           </div>
         </div>
 
-        {/* Column 1 */}
+        {/* Column 1 – Navigation */}
         <div className="space-y-2 text-sm">
-            <Link href="#" className="block hover:opacity-70">Home</Link>
-            <Link href="#" className="block hover:opacity-70">Book Now</Link>
-            <Link href="#" className="block hover:opacity-70">2025 Dates</Link>
-            <Link href="#" className="block hover:opacity-70">Destinations</Link>
-            <Link href="#" className="block hover:opacity-70">View All Retreats</Link>
-            <Link href="#" className="block hover:opacity-70">Join a Waitlist</Link>
-            <Link href="#" className="block hover:opacity-70">Pre-register</Link>
-            <Link href="#" className="block hover:opacity-70">Careers</Link>
-            <Link href="#" className="block hover:opacity-70">Contact Us</Link>
+            <p className="text-xs font-semibold uppercase tracking-wide text-[#244447]/80 mb-1">Navigation</p>
+            <Link href="/" className="block hover:text-[#e77d25] transition-colors">Home</Link>
+            <Link href="/about-us" className="block hover:text-[#e77d25] transition-colors">About</Link>
+            <Link href="/programs" className="block hover:text-[#e77d25] transition-colors">Upcoming Events</Link>
+            <Link href="/pages" className="block hover:text-[#e77d25] transition-colors">Blogs</Link>
+            <Link href="/contact" className="block hover:text-[#e77d25] transition-colors">Contact Us</Link>
           </div>
 
-          {/* Column 2 */}
+          {/* Column 2 – Explore */}
           <div className="space-y-2 text-sm">
-            <p className="font-medium">Learn More</p>
-            <Link href="#" className="block hover:opacity-70">Guests</Link>
-            <Link href="#" className="block hover:opacity-70">Food</Link>
-            <Link href="#" className="block hover:opacity-70">Accommodation</Link>
-            <Link href="#" className="block hover:opacity-70">Workouts</Link>
-            <Link href="#" className="block hover:opacity-70">Adventures</Link>
-            <Link href="#" className="block hover:opacity-70">Recovery</Link>
-          </div>
-
-          {/* Column 3 */}
-          <div className="space-y-2 text-sm">
-            <Link href="#" className="block hover:opacity-70">Bali</Link>
-            <Link href="#" className="block hover:opacity-70">Costa Rica</Link>
-            <Link href="#" className="block hover:opacity-70">Caribbean</Link>
-            <Link href="#" className="block hover:opacity-70">Zakynthos</Link>
-            <Link href="#" className="block hover:opacity-70">Menorca</Link>
-            <Link href="#" className="block hover:opacity-70">Ibiza</Link>
+            <p className="text-xs font-semibold uppercase tracking-wide text-[#244447]/80 mb-1">Explore</p>
+            <Link href="#" className="block hover:text-[#e77d25] transition-colors">Past Events</Link>
+            <Link href="#" className="block hover:text-[#e77d25] transition-colors">Gallery</Link>
+            <Link href="#" className="block hover:text-[#e77d25] transition-colors">Feedback</Link>
+            <Link href="#" className="block hover:text-[#e77d25] transition-colors">Team</Link>
           </div>
       </div>
 
@@ -101,8 +91,8 @@ export default function Footer() {
       </div>
 
       {/* Brand wordmark */}
-      <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-8">
-        <h2 className="text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#244447]">SALT ESCAPES</h2>
+      <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-8 text-center">
+        <h2 className={`text-7xl md:text-9xl tracking-[0.20em] font-semibold text-[#e77d25] whitespace-nowrap ${tigerTerrainFont.className}`}>TIGER TERRAIN</h2>
       </div>
 
       {/* Divider under wordmark */}
@@ -113,7 +103,7 @@ export default function Footer() {
       {/* Bottom row */}
       <div className="max-w-[1325px] mx-auto px-4 sm:px-8 py-6 grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-xs text-[#244447]">
         {/* Left: Copyright */}
-        <p className="justify-self-start">© 2018–2025 Salt Escapes. All rights reserved.</p>
+        <p className="justify-self-start">© 2025 Tiger Terrain. All rights reserved.</p>
 
         {/* Middle: Policies */}
         <div className="flex items-center gap-8 justify-self-center">

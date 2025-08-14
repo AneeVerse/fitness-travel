@@ -37,7 +37,7 @@ const coaches: Coach[] = [
 ];
 
 const iconClasses = 'w-4 h-4 fill-current';
-const SocialIcon = ({ type }: { type: 'fb' | 'ig' | 'x' }) => {
+const SocialIcon = ({ type }: { type: 'fb' | 'ig' | 'li' }) => {
   if (type === 'fb') {
     return (
       <svg viewBox="0 0 24 24" className={iconClasses}>
@@ -52,9 +52,10 @@ const SocialIcon = ({ type }: { type: 'fb' | 'ig' | 'x' }) => {
       </svg>
     );
   }
+  // LinkedIn (brand-style square with "in")
   return (
-    <svg viewBox="0 0 24 24" className={iconClasses}>
-      <path d="M3 4.5l7.8 7.3L3 19.5h3.2l6-5.6 5.4 5.6H21l-7-7.2 6.7-6.3h-3.2l-5 4.7-5.1-4.7H3z" />
+    <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
+      <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
     </svg>
   );
 };
@@ -70,7 +71,7 @@ const CoachesSection: React.FC = () => {
           <div>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase">
               <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
-              Meet Our Coaches
+            Meet Your Tribe Leaders
             </span>
             <h2 className={`mt-3 text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
               Our Experienced Coaches
@@ -81,7 +82,7 @@ const CoachesSection: React.FC = () => {
           <div>
             <a
               href="#"
-              className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#e77d25] text-black font-semibold hover:bg-black hover:text-white"
+              className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white"
             >
               See Full Coaching Team
             </a>
@@ -100,14 +101,14 @@ const CoachesSection: React.FC = () => {
 
                 {/* Socials column */}
                 <div className="absolute left-3 top-3 flex flex-col gap-2">
-                  {['fb', 'ig', 'x'].map((type) => (
+                  {['fb', 'ig', 'li'].map((type) => (
                     <a
                       key={type}
                       href="#"
                       className="w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black"
                       aria-label={`Open ${type} profile`}
                     >
-                      <SocialIcon type={type as 'fb' | 'ig' | 'x'} />
+                      <SocialIcon type={type as 'fb' | 'ig' | 'li'} />
                     </a>
                   ))}
                 </div>

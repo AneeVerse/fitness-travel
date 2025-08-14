@@ -6,35 +6,23 @@ import Image from 'next/image';
 const FeaturesSection = () => {
   const [videoOpen, setVideoOpen] = useState(false);
   return (
-    <section className="relative -mt-12 min-h-screen w-full px-8">
-      {/* Top Section - White Background with Text */}
-      <div className="bg-gray-200 rounded-t-3xl pt-20 pb-16">
-        <div className="mx-8 sm:mx-12 lg:mx-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="relative -mt-12 min-h-screen w-full">
+      {/* Top Section - Light panel with balanced layout */}
+      <div className="bg-gray-200 rounded-3xl pt-16 pb-14 shadow-sm ring-1 ring-gray-200/60">
+        <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left Column - Main Heading */}
-            <div>
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-8 -mt-16 leading-tight font-unbounded">
-                The Most Feel-Good
-                
-                Week Of Your Life
+            <div className="self-center">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded text-balance">
+                Welcome to Tiger Terrain
               </h2>
+       
             </div>
 
             {/* Right Column - Description */}
-            <div className="space-y-6">
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">
-                Get ready to explore incredible destinations, stay in jaw-dropping private villas, 
-                workout with world class coaches, and make unforgettable memories with new friends.
-              </p>
-              
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">
-                The majority of our guests come solo and are in their 30s, but we welcome all 
-                adventurous souls, ready to get stuck into a week of fitness and relaxation.
-              </p>
-              
-              <p className="text-lg sm:text-xl text-gray-700 leading-relaxed">
-                Keep scrolling to find out why a week with us will be one of the best investments 
-                you&apos;ll make this year.
+            <div className="space-y-6 lg:pl-6 xl:pl-10">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed bg-white/60 rounded-2xl p-5 ring-1 ring-gray-200">
+                See how Tiger Terrain creates life-changing experiences that go beyond ordinary travel.
               </p>
             </div>
           </div>
@@ -55,14 +43,12 @@ const FeaturesSection = () => {
                   {/* Left Column - Text */}
                   <div className="space-y-3 max-w-2xl">
                     <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-snug font-unbounded uppercase tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)]">
-                      Run unintentionally, and
-                      
-                      feel the difference
+                      What Is Tiger Terrain? Your Journey Starts Here
                     </h3>
-                    <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md">
+                    {/* <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md">
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
                       incididunt ut labore et dolore magna aliqua.
-                    </p>
+                    </p> */}
                   </div>
 
                   {/* Right Column - Play Button */}

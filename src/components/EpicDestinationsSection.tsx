@@ -174,13 +174,11 @@ const EpicDestinationsSection: React.FC = () => {
         <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-10">
           <div className="space-y-4 lg:col-span-12">
             <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
-              Sweat, Explore & Relax In The
-              World&apos;s Most Epic Destinations
+              Journey Stories
             </h2>
             <p className="text-white/80 max-w-3xl lg:max-w-5xl">
-              Our regular guests, and hundreds of 5‑star reviews will all tell you that we’re so much more
-              than a fitness retreat. To find out what makes a trip with Salt Escapes unique, and to see
-              whether a week away with us is the right choice for you, read on.
+              Real transformations, real people, real adventures. See how our tribe members transformed their lives
+              through Tiger Terrain adventures.
             </p>
           </div>
         </div>
@@ -241,7 +239,7 @@ const EpicDestinationsSection: React.FC = () => {
           {/* CTA */}
           <div className="flex justify-center mt-8">
             <button
-              className="px-6 py-3 rounded-full bg-[#e77d25] text-[#0f1a17] font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
+              className="px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations

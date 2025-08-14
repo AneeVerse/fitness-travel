@@ -18,13 +18,10 @@ const TestimonialsSection = () => {
                          {/* Main Content */}
              <div className="space-y-4">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
-                 The Most Feel Good Week
+                 Adventure Awaits
                </h2>
                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 For over 10 years, I&apos;ve been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
-               </p>
-               <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 For over 10 years, I&apos;ve been dedicated to helping my clients transform their bodies and achieve lasting health. As a certified trainer and nutrition specialist, I create personalized fitness and nutrition plans that fit your specific goals.
+                 From sunrise yoga in the Himalayas to strength training on pristine beaches, every Tiger Terrain experience blends physical challenge with cultural immersion. Join solo travelers who transform their lives through carefully crafted adventures that push boundaries and create lasting connections.
                </p>
              </div>
 

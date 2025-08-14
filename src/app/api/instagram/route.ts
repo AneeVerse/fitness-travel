@@ -29,8 +29,9 @@ export async function GET() {
     }
     const data = await res.json();
     return NextResponse.json(data, { status: 200 });
-  } catch (error: any) {
-    return NextResponse.json({ error: error?.message ?? 'Unknown error' }, { status: 500 });
+  } catch (error) {
+    const err = error as { message?: string } | undefined;
+    return NextResponse.json({ error: err?.message ?? 'Unknown error' }, { status: 500 });
   }
 }
 
