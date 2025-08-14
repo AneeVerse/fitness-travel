@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 
 type Highlight = {
@@ -56,51 +56,122 @@ const highlights: Highlight[] = [
 ];
 
 const EpicDestinationsSection: React.FC = () => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const duplicatedHighlights = [...highlights, ...highlights];
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const duplicatedHighlights = [...highlights, ...highlights, ...highlights];
 
-  // seamless infinite auto-scroll of the horizontal list
+  // Measurements and animation state (same logic as VideoSlider)
+  const [slideSize, setSlideSize] = useState<number>(360);
+  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  const animationRef = useRef<number | null>(null);
+  const lastTimeRef = useRef<number>(0);
+  const basePositionRef = useRef<number>(0); // relative to start of middle copy
+
+  // Drag + snap
+  const isPointerDownRef = useRef<boolean>(false);
+  const dragStartXRef = useRef<number>(0);
+  const dragDeltaRef = useRef<number>(0);
+  const isSnappingRef = useRef<boolean>(false);
+  const snapStartRef = useRef<number>(0);
+  const snapTargetRef = useRef<number>(0);
+  const snapStartTimeRef = useRef<number>(0);
+  const snapDurationMsRef = useRef<number>(300);
+
+  const nextSlide = () => { basePositionRef.current -= slideSize; };
+  const prevSlide = () => { basePositionRef.current += slideSize; };
+
+  // Measure card width from DOM
   useEffect(() => {
-    const element = scrollerRef.current;
-    if (!element) return;
-
-    let rafId = 0;
-    const speedPerFrame = 0.6; // pixels per animation frame
-    let isPaused = false;
-
-    const onMouseEnter = () => {
-      isPaused = true;
+    const compute = () => {
+      const track = trackRef.current;
+      if (!track) return;
+      const cards = track.querySelectorAll('[data-card="true"]');
+      if (cards.length < 2) return;
+      const a = (cards[0] as HTMLElement).getBoundingClientRect();
+      const b = (cards[1] as HTMLElement).getBoundingClientRect();
+      const delta = Math.abs(b.left - a.left);
+      if (delta > 0) setSlideSize(delta);
     };
-    const onMouseLeave = () => {
-      isPaused = false;
-    };
+    compute();
+    window.addEventListener('resize', compute);
+    return () => window.removeEventListener('resize', compute);
+  }, []);
 
-    element.addEventListener('mouseenter', onMouseEnter);
-    element.addEventListener('mouseleave', onMouseLeave);
+  // Animation loop: continuous auto-scroll; pauses while dragging; smooth snap after release
+  useEffect(() => {
+    const speedPxPerSec = 30;
+    const copyWidth = highlights.length * slideSize;
 
-    const step = () => {
-      if (!isPaused) {
-        const halfWidth = element.scrollWidth / 2; // because content duplicated
-        element.scrollLeft += speedPerFrame;
-        if (element.scrollLeft >= halfWidth) {
-          element.scrollLeft -= halfWidth;
+    const animate = (currentTime: number) => {
+      const last = lastTimeRef.current || currentTime;
+      const deltaMs = currentTime - last;
+      lastTimeRef.current = currentTime;
+
+      if (!isPointerDownRef.current) {
+        if (isSnappingRef.current) {
+          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
+          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
+          const eased = easeOutCubic(t);
+          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
+          if (t >= 1) {
+            basePositionRef.current = snapTargetRef.current;
+            isSnappingRef.current = false;
+          }
+        } else {
+          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
+          basePositionRef.current -= deltaPx;
+          if (basePositionRef.current <= -copyWidth) basePositionRef.current += copyWidth;
+          else if (basePositionRef.current >= 0) basePositionRef.current -= copyWidth;
         }
       }
-      rafId = requestAnimationFrame(step);
+
+      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
+      setRenderTranslateX(x);
+      animationRef.current = requestAnimationFrame(animate);
     };
 
-    rafId = requestAnimationFrame(step);
-    return () => {
-      cancelAnimationFrame(rafId);
-      element.removeEventListener('mouseenter', onMouseEnter);
-      element.removeEventListener('mouseleave', onMouseLeave);
-    };
-  }, []);
+    animationRef.current = requestAnimationFrame(animate);
+    return () => { if (animationRef.current) cancelAnimationFrame(animationRef.current); };
+  }, [slideSize]);
+
+  const onPointerDown = (e: React.PointerEvent) => {
+    isPointerDownRef.current = true;
+    dragStartXRef.current = e.clientX;
+    dragDeltaRef.current = 0;
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!isPointerDownRef.current) return;
+    dragDeltaRef.current = e.clientX - dragStartXRef.current;
+  };
+  const startSnap = () => {
+    basePositionRef.current += dragDeltaRef.current;
+    dragDeltaRef.current = 0;
+    const copyWidth = highlights.length * slideSize;
+    if (basePositionRef.current <= -copyWidth) basePositionRef.current += copyWidth * Math.ceil((-basePositionRef.current)/copyWidth);
+    else if (basePositionRef.current >= 0) basePositionRef.current -= copyWidth * Math.ceil(basePositionRef.current/copyWidth);
+    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
+    isSnappingRef.current = true;
+    snapStartRef.current = basePositionRef.current;
+    snapTargetRef.current = snapped;
+    snapStartTimeRef.current = performance.now();
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    startSnap();
+  };
+  const onPointerLeave = () => {
+    if (!isPointerDownRef.current) return;
+    isPointerDownRef.current = false;
+    startSnap();
+  };
 
   return (
     <section className="relative bg-[#244447] py-16 sm:py-20">
-      <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-10">
+      <div className="w-full">
+        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-10">
           <div className="space-y-4 lg:col-span-12">
             <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
               Sweat, Explore & Relax In The
@@ -114,32 +185,42 @@ const EpicDestinationsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Horizontal scroller with nav buttons */}
+        {/* Horizontal scroller with nav buttons (same logic as VideoSlider) */}
         <div className="relative">
           <div
-            ref={scrollerRef}
-            className="flex gap-8 overflow-x-auto pb-2 scrollbar-hide"
+            ref={viewportRef}
+            className="overflow-hidden"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerLeave={onPointerLeave}
           >
-            {duplicatedHighlights.map((h, idx) => (
-              <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]">
-                <div className="flex flex-col h-full">
-                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
-                    <Image src={h.image} alt={h.title} fill className="object-cover" />
+            <div
+              ref={trackRef}
+              className="flex gap-8 will-change-transform px-4 sm:px-8"
+              style={{ transform: `translateX(${renderTranslateX}px)` }}
+            >
+              {duplicatedHighlights.map((h, idx) => (
+                <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]" data-card="true">
+                  <div className="flex flex-col h-full">
+                    <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
+                      <Image src={h.image} alt={h.title} fill className="object-cover" />
+                    </div>
+                    <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
+                    <p className="text-white/75 text-sm mt-2 leading-relaxed">
+                      {h.description}
+                    </p>
                   </div>
-                  <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
-                  <p className="text-white/75 text-sm mt-2 leading-relaxed">
-                    {h.description}
-                  </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Nav buttons */}
           <div className="flex gap-3 justify-end mt-6">
             <button
               aria-label="Previous"
-              onClick={() => scrollerRef.current?.scrollBy({ left: -380, behavior: 'smooth' })}
+              onClick={prevSlide}
               className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -148,7 +229,7 @@ const EpicDestinationsSection: React.FC = () => {
             </button>
             <button
               aria-label="Next"
-              onClick={() => scrollerRef.current?.scrollBy({ left: 380, behavior: 'smooth' })}
+              onClick={nextSlide}
               className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
