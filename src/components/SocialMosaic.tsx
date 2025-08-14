@@ -1,13 +1,13 @@
 "use client";
 
-import React from 'react';
+ import React from 'react';
 import Image from 'next/image';
 
-const images = [
-  '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-  '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
-  '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
-];
+ const images = [
+   '/images/social/piratecamp_phuket-20250814-0001.jpg',
+   '/images/social/piratecamp_phuket-20250814-0002.jpg',
+   '/images/social/piratecamp_phuket-20250814-0003.jpg',
+ ];
 
 const SocialMosaic: React.FC = () => {
   return (
@@ -15,15 +15,15 @@ const SocialMosaic: React.FC = () => {
       <div className="mx-8 sm:mx-12 lg:mx-16">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Big video left (spans 2 rows on large screens) */}
-          <div className="relative rounded-3xl overflow-hidden lg:row-span-2 h-[360px] sm:h-[420px] lg:h-full min-h-[520px]">
-            <video
+           <div className="relative rounded-3xl overflow-hidden lg:row-span-2 h-[360px] sm:h-[420px] lg:h-full min-h-[520px]">
+             <video
               autoPlay
               loop
               muted
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
-            >
-              <source src="/video/hero-bg.mp4" type="video/mp4" />
+             >
+               <source src="/images/social/piratecamp_phuket-20250814-0001.mp4" type="video/mp4" />
             </video>
           </div>
 
@@ -45,11 +45,16 @@ const SocialMosaic: React.FC = () => {
                 ullamcorper mattis, pulvinar dapibus leo.
               </p>
             </div>
-            <div className="mt-6">
-              <button className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-emerald-500 text-black font-semibold hover:bg-emerald-400 transition-colors">
-                Follow Us
-              </button>
-            </div>
+             <div className="mt-6">
+               <a
+                 href="https://www.instagram.com/mydenfitcation/"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-white hover:text-black transition-colors"
+               >
+                 Follow Us
+               </a>
+             </div>
           </div>
         </div>
       </div>

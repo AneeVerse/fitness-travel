@@ -69,7 +69,7 @@ const CoachesSection: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
           <div>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-600" />
+              <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
               Meet Our Coaches
             </span>
             <h2 className={`mt-3 text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
@@ -81,7 +81,7 @@ const CoachesSection: React.FC = () => {
           <div>
             <a
               href="#"
-              className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-emerald-400 text-black font-semibold hover:bg-emerald-300"
+              className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#e77d25] text-black font-semibold hover:bg-black hover:text-white"
             >
               See Full Coaching Team
             </a>
