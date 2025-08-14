@@ -118,6 +118,13 @@ export default function VideoSlider() {
   const dragStartXRef = useRef<number>(0);
   const dragDeltaRef = useRef<number>(0);
 
+  // Smooth snap animation state
+  const isSnappingRef = useRef<boolean>(false);
+  const snapStartRef = useRef<number>(0);
+  const snapTargetRef = useRef<number>(0);
+  const snapStartTimeRef = useRef<number>(0);
+  const snapDurationMsRef = useRef<number>(300);
+
   // Animation runs continuously; pauses only while dragging
 
   // Manual navigation helpers (adjust base position by one card)
@@ -158,16 +165,29 @@ export default function VideoSlider() {
       const deltaMs = currentTime - last;
       lastTimeRef.current = currentTime;
 
-      // Only animate if not dragging
+      // Update position when not dragging
       if (!isPointerDownRef.current) {
-        const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-        basePositionRef.current -= deltaPx;
+        if (isSnappingRef.current) {
+          // Smoothly interpolate to target
+          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
+          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
+          const eased = easeOutCubic(t);
+          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
+          if (t >= 1) {
+            basePositionRef.current = snapTargetRef.current;
+            isSnappingRef.current = false;
+          }
+        } else {
+          // Continuous auto-scroll
+          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
+          basePositionRef.current -= deltaPx;
 
-        // Seamless wrap within [-copyWidth, 0)
-        if (basePositionRef.current <= -copyWidth) {
-          basePositionRef.current += copyWidth;
-        } else if (basePositionRef.current >= 0) {
-          basePositionRef.current -= copyWidth;
+          // Seamless wrap within [-copyWidth, 0)
+          if (basePositionRef.current <= -copyWidth) {
+            basePositionRef.current += copyWidth;
+          } else if (basePositionRef.current >= 0) {
+            basePositionRef.current -= copyWidth;
+          }
         }
       }
 
@@ -204,29 +224,44 @@ export default function VideoSlider() {
     dragDeltaRef.current = e.clientX - dragStartXRef.current;
   };
 
-  const snapToNearestCard = () => {
-    // Merge the drag delta into the base position and snap to nearest card
+  const startSnapToNearestCard = () => {
+    // Merge drag delta into the base position and animate to the nearest card
     basePositionRef.current += dragDeltaRef.current;
     dragDeltaRef.current = 0;
+
+    const copyWidth = videos.length * slideSize;
+    // Normalize position into [-copyWidth, 0)
+    if (basePositionRef.current <= -copyWidth) {
+      const wraps = Math.ceil((-basePositionRef.current) / copyWidth);
+      basePositionRef.current += wraps * copyWidth;
+    } else if (basePositionRef.current >= 0) {
+      const wraps = Math.ceil(basePositionRef.current / copyWidth);
+      basePositionRef.current -= wraps * copyWidth;
+    }
+
     const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
-    basePositionRef.current = snapped;
+
+    isSnappingRef.current = true;
+    snapStartRef.current = basePositionRef.current;
+    snapTargetRef.current = snapped;
+    snapStartTimeRef.current = performance.now();
   };
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isPointerDownRef.current) return;
     isPointerDownRef.current = false;
     (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    snapToNearestCard();
+    startSnapToNearestCard();
   };
 
   const onPointerLeave = () => {
     if (!isPointerDownRef.current) return;
     isPointerDownRef.current = false;
-    snapToNearestCard();
+    startSnapToNearestCard();
   };
 
   return (
-    <section className="w-full bg-white mt-10 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden">
+    <section className="w-full bg-white mt-10 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
       <div className="w-full">
 
         {/* Header with Navigation */}
