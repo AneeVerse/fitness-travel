@@ -6,9 +6,9 @@ import Image from 'next/image';
 const FeaturesSection = () => {
   const [videoOpen, setVideoOpen] = useState(false);
   return (
-    <section className="relative -mt-12 min-h-screen w-full">
+    <section className="relative -mt-12 min-h-screen w-full px-8">
       {/* Top Section - Light panel with balanced layout */}
-      <div className="bg-gray-200 rounded-3xl pt-16 pb-14 shadow-sm ring-1 ring-gray-200/60">
+      <div className="bg-gray-200 rounded-t-3xl pt-16 pb-14 shadow-sm ring-1 ring-gray-200/60">
         <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             {/* Left Column - Main Heading */}
