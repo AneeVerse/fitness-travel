@@ -34,7 +34,7 @@ const Hero = () => {
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg text-white/90 mb-10 max-w-xl leading-relaxed">
-            Join a tribe of fearless souls who transform their mind and body through epic journeys. Tiger Terrain isn't about getting away it's about becoming who you were meant to be.
+            Join a tribe of fearless souls who transform their mind and body through epic journeys. Tiger Terrain isn&apos;t about getting away, it&apos;s about becoming who you were meant to be.
           </p>
 
           {/* CTA Buttons */}
