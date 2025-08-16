@@ -1,62 +1,35 @@
 "use client";
 
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 
 const FeaturesSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Scroll-stack items – using the same video for now as requested
+  const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
+    {
+      title: "What Is Tiger Terrain?",
+      subtitle: "Your Journey Starts Here",
+      description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
+      thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
+    },
+    {
+      title: "Train. Explore. Connect.",
+      subtitle: "Retreats that challenge and inspire",
+      description: "Structured workouts, epic adventures, and time to connect with like‑minded people.",
+      thumbnail: "/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif",
+    },
+    {
+      title: "Built For Community",
+      subtitle: "Move together. Grow together.",
+      description: "We design every moment to foster belonging and lifelong friendships.",
+      thumbnail: "/images/destination/67c950df732207c200bc9b76__MEN2735.jpg",
+    },
+  ];
+
   return (
-    <section className="relative -mt-12 min-h-screen w-full px-8">
-      {/* Top Section - Light panel with balanced layout */}
-      <div className="bg-gray-200 rounded-t-3xl pt-16 pb-14 shadow-sm ring-1 ring-gray-200/60">
-        <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
-          <div className="flex flex-col items-start gap-6">
-            {/* Main Heading */}
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded whitespace-nowrap">
-              Welcome to Tiger Terrain
-            </h2>
-
-            {/* Description under heading */}
-            <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl">
-              See how Tiger Terrain creates life-changing experiences that go beyond ordinary travel.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Section - Image Background with Play Button (inside gray background) */}
-      <div className="bg-gray-200 pb-6 rounded-b-3xl">
-        <div className="relative h-[600px] mx-8 sm:mx-12 lg:mx-16 mb-12">
-          <div className="relative h-full rounded-[32px] overflow-hidden">
-            {/* Image Background */}
-            <BackgroundImage />
-
-            {/* Content Overlay */}
-            {!isPlaying && (
-              <div className="relative z-10 h-full flex items-end px-8 sm:px-12 lg:px-16 pb-12">
-                <div className="max-w-6xl mx-auto w-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-                    {/* Left Column - Text */}
-                    <div className=" max-w-2xl">
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-snug font-unbounded uppercase tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] whitespace-nowrap">
-                        What Is Tiger Terrain?
-                        <br />
-                        Your Journey Starts Here
-                      </h3>
-                    </div>
-
-                    {/* Right Column - Play Button */}
-                    <PlayButton onOpen={() => setIsPlaying(true)} />
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {isPlaying && (
-              <InlineVideo src="/video/hero-bg.mp4" onClose={() => setIsPlaying(false)} />
-            )}
-          </div>
-        </div>
+    <section className="relative -mt-12 w-full px-0">
+      <div className="relative mx-8 sm:mx-12 lg:mx-10">
+        <ScrollStack items={items} />
       </div>
     </section>
   );
@@ -64,106 +37,112 @@ const FeaturesSection = () => {
 
 export default FeaturesSection;
 
-// Helper components
+// Scroll Stack implementation
+type StackItem = { title: string; subtitle: string; description: string; thumbnail?: string };
 
-const BackgroundImage: React.FC = () => {
-  // Use deterministic initial state for SSR, then randomize on client after mount
-  const images = useMemo(
-    () => [
-    
-      '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-     
-    ],
-    []
-  );
-  const [src, setSrc] = useState<string>(images[0]);
-  React.useEffect(() => {
-    setSrc(images[Math.floor(Math.random() * images.length)]);
-  }, [images]);
-  return (
-    <div className="absolute inset-0 z-0">
-      <Image src={src} alt="Backdrop" fill className="object-cover" priority />
-      <div className="absolute inset-0 bg-black/50" />
-    </div>
-  );
-};
-
-type PlayButtonProps = { onOpen: () => void };
-const PlayButton: React.FC<PlayButtonProps> = ({ onOpen }) => {
-  return (
-    <div className="flex justify-end">
-      <div className="relative group">
-        <span className="absolute -inset-2 rounded-full bg-[#e77d25] blur-lg opacity-80 transition-opacity" />
-        <button
-          onClick={onOpen}
-          className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center bg-black ring-2 ring-[#e77d25] text-[#e77d25] shadow-lg transition-all duration-200 group-hover:bg-[#e77d25] group-hover:text-black"
-          aria-label="Play video"
-        >
-          <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  );
-};
-
-type InlineVideoProps = { src: string; onClose: () => void };
-const InlineVideo: React.FC<InlineVideoProps> = ({ src, onClose }) => {
-  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
+  const panelHeight = 820; // must match the sticky panel height class below
+  const tailHeight = 160; // extra gray space after the last card
+  const [playingIndex, setPlayingIndex] = React.useState<number | null>(null);
+  const videoRefs = React.useRef<Array<HTMLVideoElement | null>>([]);
 
   React.useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-    const tryPlay = async () => {
-      try {
-        await v.play();
-      } catch {
-        v.muted = true;
-        try {
-          await v.play();
-        } catch {
-          // User can press play manually
-        }
-      }
-    };
-    tryPlay();
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      if (v) {
-        v.pause();
-        v.currentTime = 0;
-      }
-    };
-  }, [onClose]);
+    if (playingIndex === null) return;
+    const video = videoRefs.current[playingIndex];
+    if (!video) return;
+    try {
+      video.currentTime = 0;
+      void video.play();
+    } catch {
+      // ignore – user can press play from controls
+    }
+  }, [playingIndex]);
 
   return (
-    <div className="absolute inset-0 z-20">
-      <button
-        onClick={onClose}
-        aria-label="Close"
-        className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-gray-900 flex items-center justify-center hover:bg-white z-20"
-      >
-        <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
-      <video
-        ref={videoRef}
-        className="w-full h-full object-cover"
-        controls
-        autoPlay
-        playsInline
-        muted
-        preload="auto"
-      >
-        <source src={src} type="video/mp4" />
-      </video>
+    <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
+      {items.map((item, index) => (
+        <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden">
+          {/* Heading block at the top of the card */}
+          <div className="pt-16 pb-8">
+            <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
+              <div className="flex flex-col items-start gap-4">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
+                  {item.title}
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl">
+                  {item.subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Video block inside the same card */}
+          <div className="relative h-[600px] mx-8 sm:mx-12 lg:mx-16 rounded-[32px] overflow-hidden">
+            {playingIndex === index ? (
+              <>
+                <video
+                  ref={(el) => { videoRefs.current[index] = el; }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                >
+                  <source src="/video/hero-bg.mp4" type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-black/35" />
+                {/* Big heading overlay while playing */}
+                <div className="absolute left-6 sm:left-10 bottom-8 z-10">
+                  <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
+                    {item.title}
+                    <br />
+                    {item.subtitle}
+                  </h3>
+                </div>
+              </>
+            ) : (
+              <>
+                <Image
+                  src={item.thumbnail || "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg"}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+                <div className="absolute inset-0 bg-black/50" />
+                {/* Big heading bottom-left */}
+                <div className="absolute left-6 sm:left-10 bottom-8 z-10">
+                  <h3 className="text-white text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
+                    {item.title}
+                    <br />
+                    {item.subtitle}
+                  </h3>
+                </div>
+                {/* Play button bottom-right (slightly smaller and lifted) */}
+                <div className="absolute right-8 bottom-12 z-10 mr-10">
+                  <div className="relative group">
+                    <span className="absolute -inset-2 rounded-full bg-[#e77d25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
+                    <button
+                      onClick={() => setPlayingIndex(index)}
+                      className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#e77d25] text-[#e77d25] shadow-xl transition-colors hover:bg-[#e77d25] hover:text-black"
+                      aria-label={`Play ${item.title}`}
+                    >
+                      <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Spacer under card content */}
+          <div className="px-8 sm:px-12 lg:px-16 pb-10" />
+        </div>
+      ))}
+      {/* Extra gray tail after the last stack for breathing room */}
+      <div className="h-40 bg-gray-200 rounded-b-3xl ring-1 ring-gray-200/60 shadow-sm" />
     </div>
   );
 };
