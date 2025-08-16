@@ -29,12 +29,15 @@ const Hero = () => {
       {/* Content */}
       <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-50">
         <div className="max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight font-unbounded">
-            Stop Taking Vacations. <br />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-6 leading-tight font-unbounded">
+            Stop Taking Vacations. 
+          </h1>
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[42px] font-bold text-white mb-6 leading-tight font-unbounded -mt-3">
             Start Living Your Best Life.
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/90 mb-10 max-w-4xl leading-relaxed">
+
+          <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-10 max-w-4xl leading-relaxed">
             Join a tribe of fearless souls who transform their mind and body through epic journeys. <br />
             Tiger Terrain isn&apos;t about getting away, it&apos;s about becoming who you were meant to be.
           </p>
