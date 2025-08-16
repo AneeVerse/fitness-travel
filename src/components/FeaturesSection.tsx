@@ -4,7 +4,7 @@ import React, { useMemo, useState } from 'react';
 import Image from 'next/image';
 
 const FeaturesSection = () => {
-  const [videoOpen, setVideoOpen] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   return (
     <section className="relative -mt-12 min-h-screen w-full px-8">
       {/* Top Section - Light panel with balanced layout */}
@@ -32,31 +32,32 @@ const FeaturesSection = () => {
             <BackgroundImage />
 
             {/* Content Overlay */}
-            <div className="relative z-10 h-full flex items-end px-8 sm:px-12 lg:px-16 pb-12">
-              <div className="max-w-6xl mx-auto w-full">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
-                  {/* Left Column - Text */}
-                  <div className=" max-w-2xl">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-snug font-unbounded uppercase tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] whitespace-nowrap">
-                      What Is Tiger Terrain?
-                      <br />
-                      Your Journey Starts Here
-                    </h3>
-                    {/* <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-                      incididunt ut labore et dolore magna aliqua.
-                    </p> */}
-                  </div>
+            {!isPlaying && (
+              <div className="relative z-10 h-full flex items-end px-8 sm:px-12 lg:px-16 pb-12">
+                <div className="max-w-6xl mx-auto w-full">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+                    {/* Left Column - Text */}
+                    <div className=" max-w-2xl">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-snug font-unbounded uppercase tracking-tight drop-shadow-[0_2px_6px_rgba(0,0,0,0.45)] whitespace-nowrap">
+                        What Is Tiger Terrain?
+                        <br />
+                        Your Journey Starts Here
+                      </h3>
+                    </div>
 
-                  {/* Right Column - Play Button */}
-                  <PlayButton onOpen={() => setVideoOpen(true)} />
+                    {/* Right Column - Play Button */}
+                    <PlayButton onOpen={() => setIsPlaying(true)} />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {isPlaying && (
+              <InlineVideo src="/video/hero-bg.mp4" onClose={() => setIsPlaying(false)} />
+            )}
           </div>
         </div>
       </div>
-      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} />
     </section>
   );
 };
@@ -107,12 +108,11 @@ const PlayButton: React.FC<PlayButtonProps> = ({ onOpen }) => {
   );
 };
 
-type VideoModalProps = { open: boolean; onClose: () => void };
-const VideoModal: React.FC<VideoModalProps> = ({ open, onClose }) => {
+type InlineVideoProps = { src: string; onClose: () => void };
+const InlineVideo: React.FC<InlineVideoProps> = ({ src, onClose }) => {
   const videoRef = React.useRef<HTMLVideoElement | null>(null);
 
   React.useEffect(() => {
-    if (!open) return;
     const v = videoRef.current;
     if (!v) return;
     const tryPlay = async () => {
@@ -123,56 +123,47 @@ const VideoModal: React.FC<VideoModalProps> = ({ open, onClose }) => {
         try {
           await v.play();
         } catch {
-          // swallow – user can press play manually
+          // User can press play manually
         }
       }
     };
     tryPlay();
-  }, [open]);
 
-  React.useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
+    const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    if (open) window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [open, onClose]);
-
-  if (!open) return null;
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      if (v) {
+        v.pause();
+        v.currentTime = 0;
+      }
+    };
+  }, [onClose]);
 
   return (
-    <div
-      className="fixed inset-0 z-[60] bg-black/70 flex items-center justify-center p-4"
-      onClick={onClose}
-      role="dialog"
-      aria-modal="true"
-    >
-      <div
-        className="relative w-full max-w-3xl bg-black rounded-2xl overflow-hidden shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+    <div className="absolute inset-0 z-20">
+      <button
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-gray-900 flex items-center justify-center hover:bg-white z-20"
       >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 text-gray-900 flex items-center justify-center hover:bg-white z-20"
-        >
-          <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-        <video
-          ref={videoRef}
-          className="w-full h-[60vh] object-cover"
-          controls
-          autoPlay
-          playsInline
-          // muted allows instant autoplay across browsers; we will unmute if the user interacts
-          muted
-          preload="auto"
-        >
-          <source src="/video/hero-bg.mp4" type="video/mp4" />
-        </video>
-      </div>
+        <svg className="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" fill="none" strokeWidth="2">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <video
+        ref={videoRef}
+        className="w-full h-full object-cover"
+        controls
+        autoPlay
+        playsInline
+        muted
+        preload="auto"
+      >
+        <source src={src} type="video/mp4" />
+      </video>
     </div>
   );
 };
