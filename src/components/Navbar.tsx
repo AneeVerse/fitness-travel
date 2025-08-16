@@ -23,7 +23,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-transparent">
-      <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-[#244447] px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
+      <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
                  <div className="grid grid-cols-[auto_1fr_auto] items-center">
            {/* Logo + Brand */}
            <div className="flex-shrink-0 ">
