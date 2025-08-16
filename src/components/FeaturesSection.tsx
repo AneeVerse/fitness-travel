@@ -7,8 +7,8 @@ const FeaturesSection = () => {
   // Scroll-stack items – using the same video for now as requested
   const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
     {
-      title: "What Is Tiger Terrain?",
-      subtitle: "Your Journey Starts Here",
+      title: "Welcome to Tiger Terrain",  
+      subtitle: "See how Tiger Terrain creates life-changing experiences that go beyond ordinary travel",
       description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
       thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
     },
