@@ -45,7 +45,7 @@ const UpcomingEvents = () => {
     <section className="relative py-20 bg-gray-100">
       <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
         <div className="text-center mb-10">
-          <span className="inline-block px-3 py-1 rounded-full bg-black/50 text-[#e77d25] text-xs tracking-wider uppercase mb-4">
+          <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Adventures -
           </span>
                     <h2 className="mt-2 text-4xl sm:text-5xl md:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -60,16 +60,16 @@ const UpcomingEvents = () => {
                 className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200"
               >
               {/* Left ticket column */}
-                <div className="lg:col-span-2 bg-black text-white p-8 flex flex-col justify-between lg:border-r lg:border-gray-800">
+                <div className="lg:col-span-2 bg-[#e77d26] text-white p-8 flex flex-col justify-between">
                 <div>
                     <div className="text-base md:text-lg uppercase tracking-wide text-white" style={{ fontFamily: 'var(--font-teko)' }}>TICKET</div>
                     <div className="mt-3 flex items-baseline gap-2 whitespace-nowrap">
-                                                              <span className="text-5xl font-extrabold text-[#e77d25]">{event.priceLabel}</span>
+                                                              <span className="text-5xl font-extrabold text-white">{event.priceLabel}</span>
                       <span className="text-sm text-white">/ Ticket</span>
                   </div>
                 </div>
                                                   <button
-                    className="mt-8 inline-flex items-center justify-center rounded-full bg-[#e77d25] px-5 py-2.5 text-base md:text-lg font-semibold text-black hover:bg-[#7aff7a] transition-colors uppercase tracking-wide"
+                    className="mt-8 inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-base md:text-lg font-semibold text-black hover:bg-black hover:text-white transition-colors uppercase tracking-wide"
                     style={{ fontFamily: 'var(--font-teko)' }}
                   >
                     Register Now
@@ -127,7 +127,7 @@ const UpcomingEvents = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <button className="px-6 py-3 rounded-full bg-black text-[#e77d25] font-semibold hover:bg-gray-900 uppercase">
+          <button className="px-6 py-3 rounded-full text-white bg-[#e77d25] font-semibold hover:bg-gray-900 uppercase">
             View More Events
           </button>
         </div>

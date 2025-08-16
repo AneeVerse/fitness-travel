@@ -189,7 +189,7 @@ const EpicDestinationsSection: React.FC = () => {
               <button
                 aria-label="Previous"
                 onClick={prevSlide}
-                className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
+                className="w-10 h-10 rounded-full bg-[#e77d25] text-white flex items-center justify-center shadow hover:bg-black hover:text-white"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
@@ -198,7 +198,7 @@ const EpicDestinationsSection: React.FC = () => {
               <button
                 aria-label="Next"
                 onClick={nextSlide}
-                className="w-10 h-10 rounded-full bg-[#e77d25] text-[#0f1a17] flex items-center justify-center shadow hover:bg-black hover:text-[#e77d25]"
+                className="w-10 h-10 rounded-full bg-[#e77d25] text-white flex items-center justify-center shadow hover:bg-black hover:text-white"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
@@ -206,7 +206,7 @@ const EpicDestinationsSection: React.FC = () => {
               </button>
             </div>
             <button
-              className="order-1 lg:order-2 px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-[#e77d25] uppercase tracking-wide"
+              className="order-1 lg:order-2 px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations

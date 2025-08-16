@@ -59,7 +59,7 @@ const TestimonialsSection = () => {
 
                  {/* Event details */}
                  <div className="text-white">
-                   <div className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white/100 text-black text-[11px] tracking-[0.2em] uppercase mb-3">
+                   <div className="inline-flex ml-8 items-center justify-center px-4 py-1.5 rounded-full bg-[#e77d26] text-white text-[11px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
                      – Upcoming Races –
                    </div>
                    <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
