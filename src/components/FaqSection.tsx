@@ -50,8 +50,8 @@ const FaqSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           {/* Left – Content + Accordion */}
           <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
               FAQs
             </span>
             <h2 className={`mt-3 text-4xl md:text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>

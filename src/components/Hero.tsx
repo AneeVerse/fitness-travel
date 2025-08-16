@@ -27,7 +27,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-50">
+      <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-60">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-6 leading-tight font-unbounded">
             Stop Taking Vacations. 

@@ -69,8 +69,8 @@ const CoachesSection: React.FC = () => {
         {/* Heading */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
           <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-200 text-gray-700 text-xs tracking-wider uppercase">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#e77d25]" />
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
+              <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Meet Your Tribe Leaders
             </span>
             <h2 className={`mt-3 text-4xl md:text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
@@ -105,7 +105,7 @@ const CoachesSection: React.FC = () => {
                     <a
                       key={type}
                       href="#"
-                      className="w-8 h-8 rounded-full bg-black/70 text-white flex items-center justify-center hover:bg-black"
+                      className="w-8 h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
                       aria-label={`Open ${type} profile`}
                     >
                       <SocialIcon type={type as 'fb' | 'ig' | 'li'} />
