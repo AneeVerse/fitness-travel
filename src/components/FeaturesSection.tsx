@@ -58,6 +58,16 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
     }
   }, [playingIndex]);
 
+
+  const handleCloseVideo = (index: number) => {
+    const video = videoRefs.current[index];
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    setPlayingIndex(null);
+  };
+
   return (
     <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
       {items.map((item, index) => (
@@ -90,15 +100,18 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
                 >
                   <source src="/video/hero-bg.mp4" type="video/mp4" />
                 </video>
-                <div className="absolute inset-0 bg-black/35" />
-                {/* Big heading overlay while playing */}
-                <div className="absolute left-6 sm:left-10 bottom-8 z-10">
-                  <h3 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
-                    {item.title}
-                    <br />
-                    {item.subtitle}
-                  </h3>
-                </div>
+                {/* Close (X) button */}
+                <button
+                  type="button"
+                  aria-label="Close video"
+                  title="Close video"
+                  onClick={() => handleCloseVideo(index)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 text-white ring-1 ring-white/30 hover:bg-black/85"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
+                  </svg>
+                </button>
               </>
             ) : (
               <>
@@ -141,8 +154,7 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
           <div className="px-8 sm:px-12 lg:px-16 pb-10" />
         </div>
       ))}
-      {/* Extra gray tail after the last stack for breathing room */}
-      <div className="h-40 bg-gray-200 rounded-b-3xl ring-1 ring-gray-200/60 shadow-sm" />
+     
     </div>
   );
 };
