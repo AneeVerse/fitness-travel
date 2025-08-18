@@ -3,6 +3,95 @@
 import { useState, useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 
+// VideoCard component to avoid hooks in map function
+const VideoCard: React.FC<{
+  video: VideoCard;
+  index: number;
+  isHovered: boolean;
+  onHover: (videoId: string | null) => void;
+  videoId: string;
+  preloadedVideos: Set<string>;
+  loadingVideos: Set<string>;
+  preloadVideoWithPriority: (url: string, priority?: 'high' | 'medium' | 'low') => Promise<void>;
+  onPlayClick: (video: VideoCard) => void;
+}> = ({ video, index, isHovered, onHover, videoId, preloadedVideos, loadingVideos, preloadVideoWithPriority, onPlayClick }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Handle video play/pause on hover
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch(console.error);
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0; // Reset to beginning
+      }
+    }
+  }, [isHovered]);
+  
+  return (
+    <div
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] group"
+      data-card="true"
+      style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
+      onMouseEnter={() => onHover(videoId)}
+      onMouseLeave={() => onHover(null)}
+    >
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        muted
+        loop
+        playsInline
+        preload={preloadedVideos.has(video.videoUrl) ? "auto" : "metadata"}
+        onLoadStart={() => {
+          if (!preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl)) {
+            console.log(`Starting to load video: ${video.title}`);
+            preloadVideoWithPriority(video.videoUrl, 'high');
+          }
+        }}
+        onCanPlay={() => {
+          if (!preloadedVideos.has(video.videoUrl)) {
+            // This will be handled by the parent component
+          }
+        }}
+        onError={(e) => {
+          console.warn(`Video error for ${video.title}:`, e);
+        }}
+      >
+        <source src={video.videoUrl} type="video/mp4" />
+      </video>
+      
+      {/* Loading Overlay */}
+      {(!preloadedVideos.has(video.videoUrl) || loadingVideos.has(video.videoUrl)) && (
+        <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
+          <div className="flex flex-col items-center space-y-2">
+            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            <span className="text-white text-xs font-medium">
+              {loadingVideos.has(video.videoUrl) ? 'Preloading...' : 'Loading...'}
+            </span>
+          </div>
+        </div>
+      )}
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      {/* Play Button */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onPlayClick(video);
+        }}
+        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110"
+      >
+        <Play className="w-5 h-5 ml-1" fill="white" />
+      </button>
+    </div>
+  );
+};
+
 interface VideoCard {
   id: number;
   title: string;
@@ -199,31 +288,6 @@ export default function ReviewVideo() {
     });
   }, []);
 
-  // Aggressive adjacent video preloading
-  useEffect(() => {
-    const preloadAdjacentVideos = async () => {
-      const currentVideo = videos[activeIndex];
-      const nextIndex = (activeIndex + 1) % videos.length;
-      const prevIndex = (activeIndex - 1 + videos.length) % videos.length;
-      const nextNextIndex = (activeIndex + 2) % videos.length;
-      const prevPrevIndex = (activeIndex - 2 + videos.length) % videos.length;
-      
-      const videosToPreload = [
-        videos[nextIndex],
-        videos[prevIndex],
-        videos[nextNextIndex],
-        videos[prevPrevIndex]
-      ].filter(video => !preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl));
-
-      // Preload adjacent videos with high priority
-      videosToPreload.forEach(video => {
-        preloadVideoWithPriority(video.videoUrl, 'high');
-      });
-    };
-
-    preloadAdjacentVideos();
-  }, [activeIndex, preloadedVideos, loadingVideos]);
-
   // Helper function for preloading (defined outside useEffect to avoid recreation)
   const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
     if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
@@ -287,6 +351,30 @@ export default function ReviewVideo() {
       console.warn(`Failed to preload video ${url}:`, error);
     }
   };
+
+  // Aggressive adjacent video preloading
+  useEffect(() => {
+    const preloadAdjacentVideos = async () => {
+      const nextIndex = (activeIndex + 1) % videos.length;
+      const prevIndex = (activeIndex - 1 + videos.length) % videos.length;
+      const nextNextIndex = (activeIndex + 2) % videos.length;
+      const prevPrevIndex = (activeIndex - 2 + videos.length) % videos.length;
+      
+      const videosToPreload = [
+        videos[nextIndex],
+        videos[prevIndex],
+        videos[nextNextIndex],
+        videos[prevPrevIndex]
+      ].filter(video => !preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl));
+
+      // Preload adjacent videos with high priority
+      videosToPreload.forEach(video => {
+        preloadVideoWithPriority(video.videoUrl, 'high');
+      });
+    };
+
+    preloadAdjacentVideos();
+  }, [activeIndex, preloadedVideos, loadingVideos, preloadVideoWithPriority]);
 
   // Manual navigation helpers (adjust base position by one card)
   const nextSlide = () => {
@@ -505,81 +593,20 @@ export default function ReviewVideo() {
               {renderedVideos.map((video, index) => {
                 const videoId = `${video.__dup}-${video.id}-${index}`;
                 const isHovered = hoveredVideoId === videoId;
-                const videoRef = useRef<HTMLVideoElement>(null);
-                
-                // Handle video play/pause on hover
-                useEffect(() => {
-                  if (videoRef.current) {
-                    if (isHovered) {
-                      videoRef.current.play().catch(console.error);
-                    } else {
-                      videoRef.current.pause();
-                      videoRef.current.currentTime = 0; // Reset to beginning
-                    }
-                  }
-                }, [isHovered]);
                 
                 return (
-                  <div
+                  <VideoCard
                     key={videoId}
-                    className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] group"
-                    data-card="true"
-                    style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
-                    onMouseEnter={() => setHoveredVideoId(videoId)}
-                    onMouseLeave={() => setHoveredVideoId(null)}
-                  >
-                    {/* Video Background */}
-                    <video
-                      ref={videoRef}
-                      className="absolute inset-0 w-full h-full object-cover"
-                      muted
-                      loop
-                      playsInline
-                      preload={preloadedVideos.has(video.videoUrl) ? "auto" : "metadata"}
-                      onLoadStart={() => {
-                        if (!preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl)) {
-                          console.log(`Starting to load video: ${video.title}`);
-                          preloadVideoWithPriority(video.videoUrl, 'high');
-                        }
-                      }}
-                      onCanPlay={() => {
-                        if (!preloadedVideos.has(video.videoUrl)) {
-                          setPreloadedVideos(prev => new Set(prev).add(video.videoUrl));
-                        }
-                      }}
-                      onError={(e) => {
-                        console.warn(`Video error for ${video.title}:`, e);
-                      }}
-                    >
-                      <source src={video.videoUrl} type="video/mp4" />
-                    </video>
-                    
-                    {/* Loading Overlay */}
-                    {(!preloadedVideos.has(video.videoUrl) || loadingVideos.has(video.videoUrl)) && (
-                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
-                        <div className="flex flex-col items-center space-y-2">
-                          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-white text-xs font-medium">
-                            {loadingVideos.has(video.videoUrl) ? 'Preloading...' : 'Loading...'}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/40" />
-                    
-                    {/* Play Button */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handlePlayClick(video);
-                      }}
-                      className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110"
-                    >
-                      <Play className="w-5 h-5 ml-1" fill="white" />
-                    </button>
-                  </div>
+                    video={video}
+                    index={index}
+                    isHovered={isHovered}
+                    onHover={setHoveredVideoId}
+                    videoId={videoId}
+                    preloadedVideos={preloadedVideos}
+                    loadingVideos={loadingVideos}
+                    preloadVideoWithPriority={preloadVideoWithPriority}
+                    onPlayClick={handlePlayClick}
+                  />
                 );
               })}
             </div>

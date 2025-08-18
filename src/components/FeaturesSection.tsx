@@ -159,9 +159,9 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
                 {/* Big heading bottom-left */}
                 <div className="absolute left-6 sm:left-10 bottom-8 z-10">
                   <h3 className="text-white text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
-                    {item.title}
+                    What Is Tiger Terrain? 
                     <br />
-                    {item.subtitle}
+                    Your Journey Starts Here
                   </h3>
                 </div>
                 {/* Play button bottom-right (slightly smaller and lifted) */}

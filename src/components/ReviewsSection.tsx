@@ -71,8 +71,6 @@ const StarRow = () => (
 const ReviewsSection: React.FC = () => {
   const scrollerRef = React.useRef<HTMLDivElement>(null);
   const [cardsPerView, setCardsPerView] = React.useState(1);
-  const [currentPage, setCurrentPage] = React.useState(0);
-
   React.useEffect(() => {
     const update = () => {
       const width = window.innerWidth;
@@ -85,30 +83,10 @@ const ReviewsSection: React.FC = () => {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  React.useEffect(() => {
-    const node = scrollerRef.current;
-    if (!node) return;
-    const onScroll = () => {
-      const page = Math.round(node.scrollLeft / node.clientWidth);
-      setCurrentPage(page);
-    };
-    node.addEventListener("scroll", onScroll);
-    return () => node.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const totalPages = Math.max(1, Math.ceil(reviews.length / cardsPerView));
-
   const scrollByPage = (dir: 1 | -1) => {
     const node = scrollerRef.current;
     if (!node) return;
     node.scrollBy({ left: dir * node.clientWidth, behavior: "smooth" });
-  };
-
-  const goToPage = (page: number) => {
-    const node = scrollerRef.current;
-    if (!node) return;
-    const target = page * node.clientWidth;
-    node.scrollTo({ left: target, behavior: "smooth" });
   };
 
   return (

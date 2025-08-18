@@ -315,31 +315,6 @@ export default function VideoSlider() {
     });
   }, []);
 
-  // Aggressive adjacent video preloading
-  useEffect(() => {
-    const preloadAdjacentVideos = async () => {
-      const currentVideo = videos[activeIndex];
-      const nextIndex = (activeIndex + 1) % videos.length;
-      const prevIndex = (activeIndex - 1 + videos.length) % videos.length;
-      const nextNextIndex = (activeIndex + 2) % videos.length;
-      const prevPrevIndex = (activeIndex - 2 + videos.length) % videos.length;
-      
-      const videosToPreload = [
-        videos[nextIndex],
-        videos[prevIndex],
-        videos[nextNextIndex],
-        videos[prevPrevIndex]
-      ].filter(video => !preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl));
-
-      // Preload adjacent videos with high priority
-      videosToPreload.forEach(video => {
-        preloadVideoWithPriority(video.videoUrl, 'high');
-      });
-    };
-
-    preloadAdjacentVideos();
-  }, [activeIndex, preloadedVideos, loadingVideos]);
-
   // Helper function for preloading (defined outside useEffect to avoid recreation)
   const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
     if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
@@ -403,6 +378,30 @@ export default function VideoSlider() {
       console.warn(`Failed to preload video ${url}:`, error);
     }
   };
+
+  // Aggressive adjacent video preloading
+  useEffect(() => {
+    const preloadAdjacentVideos = async () => {
+      const nextIndex = (activeIndex + 1) % videos.length;
+      const prevIndex = (activeIndex - 1 + videos.length) % videos.length;
+      const nextNextIndex = (activeIndex + 2) % videos.length;
+      const prevPrevIndex = (activeIndex - 2 + videos.length) % videos.length;
+      
+      const videosToPreload = [
+        videos[nextIndex],
+        videos[prevIndex],
+        videos[nextNextIndex],
+        videos[prevPrevIndex]
+      ].filter(video => !preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl));
+
+      // Preload adjacent videos with high priority
+      videosToPreload.forEach(video => {
+        preloadVideoWithPriority(video.videoUrl, 'high');
+      });
+    };
+
+    preloadAdjacentVideos();
+  }, [activeIndex, preloadedVideos, loadingVideos, preloadVideoWithPriority]);
 
   // Animation runs continuously; pauses only while dragging
 
