@@ -18,7 +18,7 @@ const videos: VideoCard[] = [
     title: "FITNESS RETREAT",
     subtitle: "TIGER TERRAIN",
     description: "If the trip doesn't look like this, then I don't want it",
-    videoUrl: "/vids/vid (1).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(1).mp4?updatedAt=1755512901974",
     timestamp: "0:12"
   },
   {
@@ -26,7 +26,7 @@ const videos: VideoCard[] = [
     title: "ADVENTURE FITNESS",
     subtitle: "TIGER TERRAIN",
     description: "This is so much more than a fitness retreat",
-    videoUrl: "/vids/vid (2).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(2).mp4?updatedAt=1755512907189",
     timestamp: "0:15"
   },
   {
@@ -34,7 +34,7 @@ const videos: VideoCard[] = [
     title: "DAILY RETREAT",
     subtitle: "TIGER TERRAIN",
     description: "POV: a day with Salt Escapes",
-    videoUrl: "/vids/vid (3).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(3).mp4?updatedAt=1755512909390",
     timestamp: "0:47"
   },
   {
@@ -42,7 +42,7 @@ const videos: VideoCard[] = [
     title: "BOAT DAY",
     subtitle: "TIGER TERRAIN",
     description: "POV: boat day with Salt Escapes",
-    videoUrl: "/vids/vid (4).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(4).mp4?updatedAt=1755512910261",
     timestamp: "0:12"
   },
   {
@@ -50,7 +50,7 @@ const videos: VideoCard[] = [
     title: "IBIZA FITNESS",
     subtitle: "TIGER TERRAIN",
     description: "Ibiza, but make it fitness",
-    videoUrl: "/vids/vid (5).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(5).mp4/ik-video.mp4?updatedAt=1755512910789",
     timestamp: "0:19"
   },
   {
@@ -58,7 +58,7 @@ const videos: VideoCard[] = [
     title: "MOUNTAIN ADVENTURE",
     subtitle: "TIGER TERRAIN",
     description: "Mountain fitness adventure",
-    videoUrl: "/vids/vid (6).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(6).mp4?updatedAt=1755512910660",
     timestamp: "0:25"
   },
   {
@@ -66,7 +66,7 @@ const videos: VideoCard[] = [
     title: "SUNSET YOGA",
     subtitle: "TIGER TERRAIN",
     description: "Sunset yoga session",
-    videoUrl: "/vids/vid (7).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(7).mp4?updatedAt=1755512911229",
     timestamp: "0:32"
   },
   {
@@ -74,7 +74,7 @@ const videos: VideoCard[] = [
     title: "BEACH WORKOUT",
     subtitle: "TIGER TERRAIN",
     description: "Beach workout routine",
-    videoUrl: "/vids/vid (8).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(8).mp4/ik-video.mp4?updatedAt=1755512913437",
     timestamp: "0:18"
   },
   {
@@ -82,7 +82,7 @@ const videos: VideoCard[] = [
     title: "GROUP CHALLENGE",
     subtitle: "TIGER TERRAIN",
     description: "Group fitness challenge",
-    videoUrl: "/vids/vid (9).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(9).mp4?updatedAt=1755512912958",
     timestamp: "0:28"
   },
   {
@@ -90,7 +90,7 @@ const videos: VideoCard[] = [
     title: "WELLNESS HIGHLIGHTS",
     subtitle: "TIGER TERRAIN",
     description: "Wellness retreat highlights",
-    videoUrl: "/vids/vid (10).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(10).mp4?updatedAt=1755512904194",
     timestamp: "0:22"
   },
   {
@@ -98,15 +98,15 @@ const videos: VideoCard[] = [
     title: "OUTDOOR TRAINING",
     subtitle: "TIGER TERRAIN",
     description: "Outdoor fitness training session",
-    videoUrl: "/vids/vid (11).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(11).mp4/ik-video.mp4?updatedAt=1755512906264",
     timestamp: "0:20"
   },
   {
     id: 12,
     title: "COASTAL WORKOUT",
-        subtitle: "TIGER TERRAIN",
+    subtitle: "TIGER TERRAIN",
     description: "Coastal fitness experience",
-    videoUrl: "/vids/vid (12).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(12).mp4?updatedAt=1755512902290",
     timestamp: "0:16"
   },
   {
@@ -114,7 +114,7 @@ const videos: VideoCard[] = [
     title: "MOUNTAIN HIKE",
     subtitle: "TIGER TERRAIN",
     description: "Mountain hiking adventure",
-    videoUrl: "/vids/vid (13).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(13).mp4/ik-video.mp4?updatedAt=1755512906137",
     timestamp: "0:24"
   },
   {
@@ -122,7 +122,7 @@ const videos: VideoCard[] = [
     title: "BEACH YOGA",
     subtitle: "TIGER TERRAIN",
     description: "Beach yoga session",
-    videoUrl: "/vids/vid (14).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(14).mp4?updatedAt=1755512904941",
     timestamp: "0:18"
   },
   {
@@ -130,7 +130,7 @@ const videos: VideoCard[] = [
     title: "WATER SPORTS",
     subtitle: "TIGER TERRAIN",
     description: "Water sports and activities",
-    videoUrl: "/vids/vid (15).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(15).mp4?updatedAt=1755512904496",
     timestamp: "0:22"
   },
   {
@@ -138,7 +138,7 @@ const videos: VideoCard[] = [
     title: "SUNSET WORKOUT",
     subtitle: "TIGER TERRAIN",
     description: "Sunset fitness session",
-    videoUrl: "/vids/vid (16).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(16).mp4?updatedAt=1755512906347",
     timestamp: "0:26"
   },
   {
@@ -146,7 +146,7 @@ const videos: VideoCard[] = [
     title: "ADVENTURE RACE",
     subtitle: "TIGER TERRAIN",
     description: "Adventure race challenge",
-    videoUrl: "/vids/vid (17).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(17).mp4?updatedAt=1755512908036",
     timestamp: "0:30"
   },
   {
@@ -154,7 +154,7 @@ const videos: VideoCard[] = [
     title: "CLIFF TRAINING",
     subtitle: "TIGER TERRAIN",
     description: "Cliff training session",
-    videoUrl: "/vids/vid (18).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(18).mp4?updatedAt=1755512907557",
     timestamp: "0:28"
   },
   {
@@ -162,7 +162,7 @@ const videos: VideoCard[] = [
     title: "BEACH RUN",
     subtitle: "TIGER TERRAIN",
     description: "Beach running workout",
-    videoUrl: "/vids/vid (19).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(19).mp4?updatedAt=1755512907582",
     timestamp: "0:20"
   },
   {
@@ -170,7 +170,7 @@ const videos: VideoCard[] = [
     title: "MOUNTAIN CLIMB",
     subtitle: "TIGER TERRAIN",
     description: "Mountain climbing adventure",
-    videoUrl: "/vids/vid (20).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(20).mp4?updatedAt=1755512909334",
     timestamp: "0:25"
   },
   {
@@ -178,7 +178,7 @@ const videos: VideoCard[] = [
     title: "OCEAN WORKOUT",
     subtitle: "TIGER TERRAIN",
     description: "Ocean fitness experience",
-    videoUrl: "/vids/vid (21).mp4",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(21).mp4?updatedAt=1755512908582",
     timestamp: "0:18"
   }
 ];
