@@ -60,8 +60,8 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative -mt-32 w-full px-0">
-      <div className="relative mx-8 sm:mx-12 lg:mx-10">
+    <section ref={sectionRef} className="relative -mt-32 w-full px-0 mb-8">
+      <div className="relative mx-8 sm:mx-12 lg:mx-10 ">
         <ScrollStack items={items} />
       </div>
     </section>
@@ -106,13 +106,13 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
       {items.map((item, index) => (
         <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden ">
           {/* Heading block at the top of the card */}
-          <div className="pt-16 pb-8">
+          <div className="pt-10 -pb-8">
             <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
               <div className="flex flex-col items-start gap-4">
                 <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
                   {item.title}
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl">
+                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mb-8">
                   {item.subtitle}
                 </p>
               </div>
