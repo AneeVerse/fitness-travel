@@ -193,9 +193,12 @@ export default function VideoSlider() {
   const [slideSize, setSlideSize] = useState<number>(244); // px per card incl. gap
   const [activeIndex, setActiveIndex] = useState<number>(0); // 0..videos.length-1
   const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  const [preloadedVideos, setPreloadedVideos] = useState<Set<string>>(new Set());
+  const [loadingVideos, setLoadingVideos] = useState<Set<string>>(new Set());
   const sliderRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
+  const videoCacheRef = useRef<Map<string, HTMLVideoElement>>(new Map());
 
   // Continuous position in px relative to the start of the middle copy
   // Negative values move left. We wrap this value within one copy width.
@@ -212,6 +215,194 @@ export default function VideoSlider() {
   const snapTargetRef = useRef<number>(0);
   const snapStartTimeRef = useRef<number>(0);
   const snapDurationMsRef = useRef<number>(300);
+
+  // Ultra-fast video preloading with priority system
+  useEffect(() => {
+    const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
+      if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
+
+      setLoadingVideos(prev => new Set(prev).add(url));
+
+      try {
+        const video = document.createElement('video');
+        video.preload = priority === 'high' ? 'auto' : 'metadata';
+        video.muted = true;
+        video.playsInline = true;
+        video.crossOrigin = 'anonymous';
+        
+        // Set higher priority for critical videos
+        if (priority === 'high') {
+          video.preload = 'auto';
+        }
+
+        return new Promise<void>((resolve, reject) => {
+          const timeout = setTimeout(() => {
+            reject(new Error(`Video preload timeout: ${url}`));
+          }, 10000); // 10 second timeout
+
+          video.onloadedmetadata = () => {
+            clearTimeout(timeout);
+            setPreloadedVideos(prev => new Set(prev).add(url));
+            setLoadingVideos(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(url);
+              return newSet;
+            });
+            videoCacheRef.current.set(url, video);
+            resolve();
+          };
+
+          video.oncanplay = () => {
+            clearTimeout(timeout);
+            setPreloadedVideos(prev => new Set(prev).add(url));
+            setLoadingVideos(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(url);
+              return newSet;
+            });
+            videoCacheRef.current.set(url, video);
+            resolve();
+          };
+
+          video.onerror = () => {
+            clearTimeout(timeout);
+            setLoadingVideos(prev => {
+              const newSet = new Set(prev);
+              newSet.delete(url);
+              return newSet;
+            });
+            reject(new Error(`Failed to preload video: ${url}`));
+          };
+
+          video.src = url;
+        });
+      } catch (error) {
+        setLoadingVideos(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(url);
+          return newSet;
+        });
+        console.warn(`Failed to preload video ${url}:`, error);
+      }
+    };
+
+    // Immediate high-priority preloading of first few videos
+    const preloadCriticalVideos = async () => {
+      const criticalVideos = videos.slice(0, 5).map(v => v.videoUrl);
+      await Promise.allSettled(
+        criticalVideos.map(url => preloadVideoWithPriority(url, 'high'))
+      );
+    };
+
+    // Medium priority preloading of remaining videos
+    const preloadRemainingVideos = async () => {
+      const remainingVideos = videos.slice(5).map(v => v.videoUrl);
+      // Preload in batches to avoid overwhelming the network
+      const batchSize = 3;
+      for (let i = 0; i < remainingVideos.length; i += batchSize) {
+        const batch = remainingVideos.slice(i, i + batchSize);
+        await Promise.allSettled(
+          batch.map(url => preloadVideoWithPriority(url, 'medium'))
+        );
+        // Small delay between batches
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    };
+
+    // Start preloading immediately
+    preloadCriticalVideos().then(() => {
+      preloadRemainingVideos();
+    });
+  }, []);
+
+  // Aggressive adjacent video preloading
+  useEffect(() => {
+    const preloadAdjacentVideos = async () => {
+      const currentVideo = videos[activeIndex];
+      const nextIndex = (activeIndex + 1) % videos.length;
+      const prevIndex = (activeIndex - 1 + videos.length) % videos.length;
+      const nextNextIndex = (activeIndex + 2) % videos.length;
+      const prevPrevIndex = (activeIndex - 2 + videos.length) % videos.length;
+      
+      const videosToPreload = [
+        videos[nextIndex],
+        videos[prevIndex],
+        videos[nextNextIndex],
+        videos[prevPrevIndex]
+      ].filter(video => !preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl));
+
+      // Preload adjacent videos with high priority
+      videosToPreload.forEach(video => {
+        preloadVideoWithPriority(video.videoUrl, 'high');
+      });
+    };
+
+    preloadAdjacentVideos();
+  }, [activeIndex, preloadedVideos, loadingVideos]);
+
+  // Helper function for preloading (defined outside useEffect to avoid recreation)
+  const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
+    if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
+
+    setLoadingVideos(prev => new Set(prev).add(url));
+
+    try {
+      const video = document.createElement('video');
+      video.preload = priority === 'high' ? 'auto' : 'metadata';
+      video.muted = true;
+      video.playsInline = true;
+      video.crossOrigin = 'anonymous';
+      
+      return new Promise<void>((resolve, reject) => {
+        const timeout = setTimeout(() => {
+          reject(new Error(`Video preload timeout: ${url}`));
+        }, 10000);
+
+        video.onloadedmetadata = () => {
+          clearTimeout(timeout);
+          setPreloadedVideos(prev => new Set(prev).add(url));
+          setLoadingVideos(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(url);
+            return newSet;
+          });
+          videoCacheRef.current.set(url, video);
+          resolve();
+        };
+
+        video.oncanplay = () => {
+          clearTimeout(timeout);
+          setPreloadedVideos(prev => new Set(prev).add(url));
+          setLoadingVideos(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(url);
+            return newSet;
+          });
+          videoCacheRef.current.set(url, video);
+          resolve();
+        };
+
+        video.onerror = () => {
+          clearTimeout(timeout);
+          setLoadingVideos(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(url);
+            return newSet;
+          });
+          reject(new Error(`Failed to preload video: ${url}`));
+        };
+
+        video.src = url;
+      });
+    } catch (error) {
+      setLoadingVideos(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(url);
+        return newSet;
+      });
+      console.warn(`Failed to preload video ${url}:`, error);
+    }
+  };
 
   // Animation runs continuously; pauses only while dragging
 
@@ -416,9 +607,36 @@ export default function VideoSlider() {
                   muted
                   loop
                   playsInline
+                  preload={preloadedVideos.has(video.videoUrl) ? "auto" : "metadata"}
+                  onLoadStart={() => {
+                    if (!preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl)) {
+                      console.log(`Starting to load video: ${video.title}`);
+                      preloadVideoWithPriority(video.videoUrl, 'high');
+                    }
+                  }}
+                  onCanPlay={() => {
+                    if (!preloadedVideos.has(video.videoUrl)) {
+                      setPreloadedVideos(prev => new Set(prev).add(video.videoUrl));
+                    }
+                  }}
+                  onError={(e) => {
+                    console.warn(`Video error for ${video.title}:`, e);
+                  }}
                 >
                   <source src={video.videoUrl} type="video/mp4" />
                 </video>
+                
+                {/* Loading Overlay */}
+                {(!preloadedVideos.has(video.videoUrl) || loadingVideos.has(video.videoUrl)) && (
+                  <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
+                    <div className="flex flex-col items-center space-y-2">
+                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span className="text-white text-xs font-medium">
+                        {loadingVideos.has(video.videoUrl) ? 'Preloading...' : 'Loading...'}
+                      </span>
+                    </div>
+                  </div>
+                )}
                 
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40" />
