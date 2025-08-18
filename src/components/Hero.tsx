@@ -1,14 +1,75 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const Hero = () => {
+  const heroRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hero = heroRef.current;
+    const video = videoRef.current;
+    const content = contentRef.current;
+
+    if (!hero || !video || !content) return;
+
+    // Create a timeline for the scroll animations
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: hero,
+        start: "top top",
+        end: "+=400",
+        scrub: 0.5,
+        pin: false,
+      }
+    });
+
+    // Animate the hero section to become smaller and move up (but not too much)
+    tl.to(hero, {
+      scale: 0.90,
+      y: -80,
+      duration: 1,
+      ease: "power2.out"
+    }, 0)
+    
+    // Animate the video to scale and move (subtle effect)
+    .to(video, {
+      scale: 1.05,
+      y: -25,
+      duration: 1,
+      ease: "power2.out"
+    }, 0)
+    
+    // Animate the content to move up and scale down slightly (subtle effect)
+    .to(content, {
+      y: -40,
+      scale: 0.95,
+      duration: 1,
+      ease: "power2.out"
+    }, 0);
+
+    // Cleanup function
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-[115vh] w-full overflow-hidden">
+    <section ref={heroRef} className="relative min-h-[115vh] w-full overflow-hidden mb-32 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -27,7 +88,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-60">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-60">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-6 leading-tight font-unbounded">
             Stop Taking Vacations. 
@@ -35,7 +96,6 @@ const Hero = () => {
           <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[42px] font-bold text-white mb-6 leading-tight font-unbounded -mt-3">
             Start Living Your Best Life.
           </h1>
-
 
           <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-10 max-w-4xl leading-relaxed">
             Join a tribe of fearless souls who transform their mind and body through epic journeys. <br />
@@ -61,7 +121,14 @@ const Hero = () => {
       </div>
 
       {/* Scroll Indicator */}
-     
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="flex flex-col items-center text-white/80">
+          <span className="text-sm mb-2">Scroll Down</span>
+          <div className="w-6 h-10 border-2 border-white/60 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce"></div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

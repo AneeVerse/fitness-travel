@@ -1,9 +1,53 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const FeaturesSection = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Create animation for the features section to slide up as hero moves up
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "top center",
+        scrub: 1,
+      }
+    });
+
+    // Animate the section to slide up from below
+    tl.fromTo(section, 
+      {
+        y: 200,
+        opacity: 0
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }
+    );
+
+    // Cleanup function
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
   // Scroll-stack items – using the same video for now as requested
   const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
     {
@@ -12,22 +56,11 @@ const FeaturesSection = () => {
       description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
       thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
     },
-    {
-      title: "Train. Explore. Connect.",
-      subtitle: "Retreats that challenge and inspire",
-      description: "Structured workouts, epic adventures, and time to connect with like‑minded people.",
-      thumbnail: "/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif",
-    },
-    {
-      title: "Built For Community",
-      subtitle: "Move together. Grow together.",
-      description: "We design every moment to foster belonging and lifelong friendships.",
-      thumbnail: "/images/destination/67c950df732207c200bc9b76__MEN2735.jpg",
-    },
+   
   ];
 
   return (
-    <section className="relative -mt-12 w-full px-0">
+    <section ref={sectionRef} className="relative -mt-32 w-full px-0">
       <div className="relative mx-8 sm:mx-12 lg:mx-10">
         <ScrollStack items={items} />
       </div>
@@ -71,7 +104,7 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
   return (
     <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
       {items.map((item, index) => (
-        <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden">
+        <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden ">
           {/* Heading block at the top of the card */}
           <div className="pt-16 pb-8">
             <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
