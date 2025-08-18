@@ -112,7 +112,7 @@ const ReviewsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 bg-white">
+    <section className="relative py-20 bg-white -mb-25">
       <div className="mx-8 sm:mx-12 lg:mx-16">
         <div className="text-center mb-10">
           <h2 className="text-3xl sm:text-5xl font-extrabold text-black  font-unbounded">
