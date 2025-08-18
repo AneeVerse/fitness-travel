@@ -35,8 +35,8 @@ const Hero = () => {
 
     // Animate the hero section to become smaller and move up (but not too much)
     tl.to(hero, {
-      scale: 0.90,
-      y: -80,
+      scale: 0.80,
+      y: -90,
       duration: 1,
       ease: "power2.out"
     }, 0)
