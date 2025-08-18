@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Play, X } from "lucide-react";
 
 // VideoCard component to avoid hooks in map function
 const VideoCard: React.FC<{
   video: VideoCard;
-  index: number;
   isHovered: boolean;
   onHover: (videoId: string | null) => void;
   videoId: string;
@@ -14,7 +13,7 @@ const VideoCard: React.FC<{
   loadingVideos: Set<string>;
   preloadVideoWithPriority: (url: string, priority?: 'high' | 'medium' | 'low') => Promise<void>;
   onPlayClick: (video: VideoCard) => void;
-}> = ({ video, index, isHovered, onHover, videoId, preloadedVideos, loadingVideos, preloadVideoWithPriority, onPlayClick }) => {
+}> = ({ video, isHovered, onHover, videoId, preloadedVideos, loadingVideos, preloadVideoWithPriority, onPlayClick }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   
   // Handle video play/pause on hover
@@ -189,107 +188,8 @@ export default function ReviewVideo() {
   const snapStartTimeRef = useRef<number>(0);
   const snapDurationMsRef = useRef<number>(300);
 
-  // Ultra-fast video preloading with priority system
-  useEffect(() => {
-    const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
-      if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
-
-      setLoadingVideos(prev => new Set(prev).add(url));
-
-      try {
-        const video = document.createElement('video');
-        video.preload = priority === 'high' ? 'auto' : 'metadata';
-        video.muted = true;
-        video.playsInline = true;
-        video.crossOrigin = 'anonymous';
-        
-        // Set higher priority for critical videos
-        if (priority === 'high') {
-          video.preload = 'auto';
-        }
-
-        return new Promise<void>((resolve, reject) => {
-          const timeout = setTimeout(() => {
-            reject(new Error(`Video preload timeout: ${url}`));
-          }, 10000); // 10 second timeout
-
-          video.onloadedmetadata = () => {
-            clearTimeout(timeout);
-            setPreloadedVideos(prev => new Set(prev).add(url));
-            setLoadingVideos(prev => {
-              const newSet = new Set(prev);
-              newSet.delete(url);
-              return newSet;
-            });
-            videoCacheRef.current.set(url, video);
-            resolve();
-          };
-
-          video.oncanplay = () => {
-            clearTimeout(timeout);
-            setPreloadedVideos(prev => new Set(prev).add(url));
-            setLoadingVideos(prev => {
-              const newSet = new Set(prev);
-              newSet.delete(url);
-              return newSet;
-            });
-            videoCacheRef.current.set(url, video);
-            resolve();
-          };
-
-          video.onerror = () => {
-            clearTimeout(timeout);
-            setLoadingVideos(prev => {
-              const newSet = new Set(prev);
-              newSet.delete(url);
-              return newSet;
-            });
-            reject(new Error(`Failed to preload video: ${url}`));
-          };
-
-          video.src = url;
-        });
-      } catch (error) {
-        setLoadingVideos(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(url);
-          return newSet;
-        });
-        console.warn(`Failed to preload video ${url}:`, error);
-      }
-    };
-
-    // Immediate high-priority preloading of first few videos
-    const preloadCriticalVideos = async () => {
-      const criticalVideos = videos.slice(0, 5).map(v => v.videoUrl);
-      await Promise.allSettled(
-        criticalVideos.map(url => preloadVideoWithPriority(url, 'high'))
-      );
-    };
-
-    // Medium priority preloading of remaining videos
-    const preloadRemainingVideos = async () => {
-      const remainingVideos = videos.slice(5).map(v => v.videoUrl);
-      // Preload in batches to avoid overwhelming the network
-      const batchSize = 3;
-      for (let i = 0; i < remainingVideos.length; i += batchSize) {
-        const batch = remainingVideos.slice(i, i + batchSize);
-        await Promise.allSettled(
-          batch.map(url => preloadVideoWithPriority(url, 'medium'))
-        );
-        // Small delay between batches
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-    };
-
-    // Start preloading immediately
-    preloadCriticalVideos().then(() => {
-      preloadRemainingVideos();
-    });
-  }, []);
-
-  // Helper function for preloading (defined outside useEffect to avoid recreation)
-  const preloadVideoWithPriority = async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
+  // Helper function for preloading (wrapped in useCallback to fix dependency warnings)
+  const preloadVideoWithPriority = useCallback(async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
     if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
 
     setLoadingVideos(prev => new Set(prev).add(url));
@@ -350,7 +250,38 @@ export default function ReviewVideo() {
       });
       console.warn(`Failed to preload video ${url}:`, error);
     }
-  };
+  }, [preloadedVideos, loadingVideos]);
+
+  // Ultra-fast video preloading with priority system
+  useEffect(() => {
+    // Immediate high-priority preloading of first few videos
+    const preloadCriticalVideos = async () => {
+      const criticalVideos = videos.slice(0, 5).map(v => v.videoUrl);
+      await Promise.allSettled(
+        criticalVideos.map(url => preloadVideoWithPriority(url, 'high'))
+      );
+    };
+
+    // Medium priority preloading of remaining videos
+    const preloadRemainingVideos = async () => {
+      const remainingVideos = videos.slice(5).map(v => v.videoUrl);
+      // Preload in batches to avoid overwhelming the network
+      const batchSize = 3;
+      for (let i = 0; i < remainingVideos.length; i += batchSize) {
+        const batch = remainingVideos.slice(i, i + batchSize);
+        await Promise.allSettled(
+          batch.map(url => preloadVideoWithPriority(url, 'medium'))
+        );
+        // Small delay between batches
+        await new Promise(resolve => setTimeout(resolve, 100));
+      }
+    };
+
+    // Start preloading immediately
+    preloadCriticalVideos().then(() => {
+      preloadRemainingVideos();
+    });
+  }, [preloadVideoWithPriority]);
 
   // Aggressive adjacent video preloading
   useEffect(() => {
@@ -375,15 +306,6 @@ export default function ReviewVideo() {
 
     preloadAdjacentVideos();
   }, [activeIndex, preloadedVideos, loadingVideos, preloadVideoWithPriority]);
-
-  // Manual navigation helpers (adjust base position by one card)
-  const nextSlide = () => {
-    basePositionRef.current -= slideSize;
-  };
-
-  const prevSlide = () => {
-    basePositionRef.current += slideSize;
-  };
 
   // Handle play button click
   const handlePlayClick = (video: VideoCard) => {
@@ -559,7 +481,6 @@ export default function ReviewVideo() {
                   <VideoCard
                     key={videoId}
                     video={video}
-                    index={index}
                     isHovered={isHovered}
                     onHover={setHoveredVideoId}
                     videoId={videoId}

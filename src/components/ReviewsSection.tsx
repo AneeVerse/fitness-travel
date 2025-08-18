@@ -71,18 +71,6 @@ const StarRow = () => (
 
 const ReviewsSection: React.FC = () => {
   const scrollerRef = React.useRef<HTMLDivElement>(null);
-  const [cardsPerView, setCardsPerView] = React.useState(1);
-  React.useEffect(() => {
-    const update = () => {
-      const width = window.innerWidth;
-      if (width >= 1024) setCardsPerView(3);
-      else if (width >= 640) setCardsPerView(2);
-      else setCardsPerView(1);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
 
   const scrollByPage = (dir: 1 | -1) => {
     const node = scrollerRef.current;
@@ -141,7 +129,7 @@ const ReviewsSection: React.FC = () => {
                   <div className="h-full rounded-2xl border border-[#244447]/30 bg-white p-6 shadow-sm">
                     <StarRow />
                     <p className="mt-4 text-gray-800 text-sm leading-relaxed">
-                      "{r.text}"
+                      &ldquo;{r.text}&rdquo;
                     </p>
                     <div className="mt-6">
                       <GoogleBadge />
