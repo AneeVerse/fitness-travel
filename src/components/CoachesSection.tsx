@@ -11,29 +11,19 @@ type Coach = {
 
 const coaches: Coach[] = [
   {
-    id: 'luca-moretti',
-    name: 'VIKRAM MANGHNANI',
-    role: 'CO-FOUNDER',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team02.png?updatedAt=1755520773145',
-  },
-  {
     id: 'emily-carter',
     name: 'MANOJ',
     role: 'FOUNDER',
     imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team01.png?updatedAt=1755520737963',
   },
   {
-    id: 'sophie-muller',
-    name: 'SOPHIE MÜLLER',
-    role: 'Recovery Prevention Coach',
-    imageSrc: '/images/coach/67901401204b65f18364f44f_license img 12.avif',
+    id: 'luca-moretti',
+    name: 'VIKRAM MANGHNANI',
+    role: 'CO-FOUNDER',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team02.png?updatedAt=1755520773145',
   },
-  {
-    id: 'james-bennett',
-    name: 'JAMES BENNETT',
-    role: 'Marathon Strategy',
-    imageSrc: '/images/coach/67901401f78a86377fc8764d_license img 19.avif',
-  },
+
+  
 ];
 
 const iconClasses = 'w-4 h-4 fill-current';
@@ -99,38 +89,40 @@ const CoachesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {coaches.map((c) => (
-            <article
-              key={c.id}
-              className="rounded-3xl bg-gray-200/70 border border-gray-200 shadow-sm overflow-hidden flex flex-col p-3"
-            >
-              <div className="relative h-[420px] rounded-2xl overflow-hidden">
-                <Image src={c.imageSrc} alt={c.name} fill className="object-cover" />
+        {/* Cards - Centered for 2 coaches */}
+        <div className="flex justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
+            {coaches.map((c) => (
+              <article
+                key={c.id}
+                className="rounded-3xl bg-gray-200/70 border border-gray-200 shadow-sm overflow-hidden flex flex-col p-3"
+              >
+                <div className="relative h-[420px] rounded-2xl overflow-hidden">
+                  <Image src={c.imageSrc} alt={c.name} fill className="object-cover" />
 
-                {/* Socials column */}
-                <div className="absolute left-3 top-3 flex flex-col gap-2">
-                  {['li', 'ig', 'fb', 'email'].map((type) => (
-                    <a
-                      key={type}
-                      href="#"
-                      className="w-8 h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
-                      aria-label={`Open ${type} profile`}
-                    >
-                      <SocialIcon type={type as 'li' | 'ig' | 'fb' | 'email'} />
-                    </a>
-                  ))}
+                  {/* Socials column */}
+                  <div className="absolute left-3 top-3 flex flex-col gap-2">
+                    {['li', 'ig', 'fb', 'email'].map((type) => (
+                      <a
+                        key={type}
+                        href="#"
+                        className="w-8 h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
+                        aria-label={`Open ${type} profile`}
+                      >
+                        <SocialIcon type={type as 'li' | 'ig' | 'fb' | 'email'} />
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="px-4 py-4">
-                <h3 className={`text-xl font-extrabold tracking-tight text-gray-900 uppercase ${teko.className}`}>
-                  {c.name}
-                </h3>
-                <p className="mt-1 text-sm text-gray-600">{c.role}</p>
-              </div>
-            </article>
-          ))}
+                <div className="px-4 py-4">
+                  <h3 className={`text-xl font-extrabold tracking-tight text-gray-900 uppercase ${teko.className}`}>
+                    {c.name}
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-600">{c.role}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

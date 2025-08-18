@@ -6,7 +6,6 @@ import UpcomingEvents from '@/components/UpcomingEvents';
 import EpicDestinationsSection from '@/components/EpicDestinationsSection';
 import SocialMosaic from '@/components/SocialMosaic';
 import ReviewsSection from '@/components/ReviewsSection';
-import ReviewVideo from '@/components/ReviewVideo';
 import CoachesSection from '@/components/CoachesSection';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
@@ -23,7 +22,6 @@ export default function Home() {
       <SocialMosaic />
       <CoachesSection />
       <ReviewsSection />
-      <ReviewVideo />
       <FaqSection />
       {/* Additional sections can be added here */}
       <Footer />

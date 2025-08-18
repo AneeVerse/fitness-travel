@@ -534,47 +534,8 @@ export default function ReviewVideo() {
 
   return (
     <>
-      <section className="w-full bg-white  lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden ">
+      <section className="w-full bg-white py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mt-25 -mb-16">
         <div className="w-full">
-
-          {/* Header with Navigation */}
-          <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
-            <div className="text-center sm:text-left">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-black"
-              style={{ fontFamily: 'var(--font-teko)' }}
-              >
-                Client Reviews
-              </h2>
-             
-            </div>
-           
-
-            
-            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-              {/* Discover Events Link */}
-              <div className="hidden sm:flex items-center text-gray-600 hover:text-black transition-colors cursor-pointer">
-                <span className="text-sm md:text-base mr-2">Watch more reviews</span>
-                <ChevronRight className="w-4 h-4" />
-              </div>
-              
-              {/* Navigation Arrows */}
-              <div className="flex gap-2 sm:gap-3">
-                <button
-                  onClick={prevSlide}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
-                >
-                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
-                >
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </button>
-              </div>
-            </div>
-          </div>
-
           {/* Slider Container */}
           <div 
             className="relative mt-4 sm:mt-6"

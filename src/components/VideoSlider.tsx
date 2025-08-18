@@ -90,7 +90,7 @@ const videos: VideoCard[] = [
     title: "WELLNESS HIGHLIGHTS",
     subtitle: "TIGER TERRAIN",
     description: "Wellness retreat highlights",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(10).mp4?updatedAt=1755512904194",
+    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(21).mp4?updatedAt=1755512908582",
     timestamp: "0:22"
   },
   {
@@ -173,14 +173,7 @@ const videos: VideoCard[] = [
     videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(20).mp4?updatedAt=1755512909334",
     timestamp: "0:25"
   },
-  {
-    id: 21,
-    title: "OCEAN WORKOUT",
-    subtitle: "TIGER TERRAIN",
-    description: "Ocean fitness experience",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/vids/vid%20(21).mp4?updatedAt=1755512908582",
-    timestamp: "0:18"
-  }
+
 ];
 
 export default function VideoSlider() {

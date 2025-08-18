@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import ReviewVideo from "./ReviewVideo";
 
 type Review = {
   id: number;
@@ -11,12 +12,12 @@ const reviews: Review[] = [
   {
     id: 1,
     text:
-      "By far one of the best decisions I’ve made all year and Salt Escapes blew my expectations out of the water! If you want a week long trip that consists of challenging workouts, fueling your body with farm‑to‑table balanced meals, and stunning villa accommodations filled with like‑minded people — this is it.",
+      "By far one of the best decisions I've made all year and Salt Escapes blew my expectations out of the water! If you want a week long trip that consists of challenging workouts, fueling your body with farm‑to‑table balanced meals, and stunning villa accommodations filled with like‑minded people — this is it.",
   },
   {
     id: 2,
     text:
-      "If you’re thinking about doing this – GO! I just finished my first Salt Escape and already want to do another! The experience was perfection.",
+      "If you're thinking about doing this – GO! I just finished my first Salt Escape and already want to do another! The experience was perfection.",
   },
   {
     id: 3,
@@ -26,7 +27,7 @@ const reviews: Review[] = [
   {
     id: 4,
     text:
-      "Hands down the best investment I’ve ever made. What you get with Salt Escapes is unique. I’ve been on other group exercise holidays before and met amazing people, but this was something else.",
+      "Hands down the best investment I've ever made. What you get with Salt Escapes is unique. I've been on other group exercise holidays before and met amazing people, but this was something else.",
   },
   {
     id: 5,
@@ -90,10 +91,11 @@ const ReviewsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 bg-white -mb-25">
+    <section className="relative py-20 bg-white">
       <div className="mx-8 sm:mx-12 lg:mx-16">
+        {/* Voices of Transformation Header */}
         <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black  font-unbounded">
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-black font-unbounded">
             Voices of Transformation
           </h2>
           <p className="mt-3 text-xl sm:text-base text-black">
@@ -101,6 +103,12 @@ const ReviewsSection: React.FC = () => {
           </p>
         </div>
 
+        {/* Review Videos Section */}
+        <div className="mb-16">
+          <ReviewVideo />
+        </div>
+
+        {/* Google Reviews Section */}
         <div className="relative">
           {/* Left Nav */}
           <button
@@ -133,7 +141,7 @@ const ReviewsSection: React.FC = () => {
                   <div className="h-full rounded-2xl border border-[#244447]/30 bg-white p-6 shadow-sm">
                     <StarRow />
                     <p className="mt-4 text-gray-800 text-sm leading-relaxed">
-                      “{r.text}”
+                      "{r.text}"
                     </p>
                     <div className="mt-6">
                       <GoogleBadge />
@@ -143,8 +151,6 @@ const ReviewsSection: React.FC = () => {
               ))}
             </div>
           </div>
-
-
         </div>
       </div>
     </section>

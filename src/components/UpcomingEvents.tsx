@@ -14,18 +14,18 @@ type EventItem = {
 };
 
 const events: EventItem[] = [
-  {
-    id: 'coastal-half-marathon',
-    title: 'COASTAL HALF MARATHON',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.',
-    date: 'September 20, 2025',
-    access: 'General',
-    time: 'Start 05:00 AM – Finish',
-    location: 'South Jakarta',
-    priceLabel: '$50',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
-  },
+  // {
+  //   id: 'coastal-half-marathon',
+  //   title: 'COASTAL HALF MARATHON',
+  //   description:
+  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.',
+  //   date: 'September 20, 2025',
+  //   access: 'General',
+  //   time: 'Start 05:00 AM – Finish',
+  //   location: 'South Jakarta',
+  //   priceLabel: '$50',
+  //   imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
+  // },
   {
     id: 'PHUKET',
     title: 'PHUKET',
@@ -34,7 +34,7 @@ const events: EventItem[] = [
     date: 'December 12, 2025',
     access: 'Member Only',
     time: 'Start 05:00 AM – Finish',
-    location: 'Gadjah Mada Street',
+    location: 'Phuket',
     priceLabel: '$50',
     imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
   },
@@ -84,12 +84,12 @@ const UpcomingEvents = () => {
                 <p className="mt-3 text-base text-gray-700 max-w-2xl">{event.description}</p>
 
                 <div className="mt-5 space-y-3 text-sm text-gray-800">
-                  {/* <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3">
                     <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" /><path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" /></svg>
                     </span>
                     <span>{event.date}</span>
-                  </div> */}
+                  </div>
                   {/* <div className="flex items-center gap-3">
                     <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10a5 5 0 1110 0 5 5 0 01-10 0zm-4 9a7 7 0 0114 0v1H3v-1z" /></svg>
@@ -102,12 +102,12 @@ const UpcomingEvents = () => {
                     </span>
                     <span>{event.time}</span>
                   </div> */}
-                  {/* <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3">
                     <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" /></svg>
                     </span>
                     <span>{event.location}</span>
-                  </div> */}
+                  </div>
                 </div>
               </div>
 

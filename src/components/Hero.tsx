@@ -65,7 +65,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[115vh] w-full overflow-hidden mb-32 rounded-b-3xl">
+    <section ref={heroRef} className="relative min-h-[115vh] w-full overflow-hidden mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
