@@ -16,82 +16,170 @@ const videos: VideoCard[] = [
   {
     id: 1,
     title: "FITNESS RETREAT",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "If the trip doesn't look like this, then I don't want it",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (1).mp4",
     timestamp: "0:12"
   },
   {
     id: 2,
     title: "ADVENTURE FITNESS",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "This is so much more than a fitness retreat",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (2).mp4",
     timestamp: "0:15"
   },
   {
     id: 3,
     title: "DAILY RETREAT",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "POV: a day with Salt Escapes",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (3).mp4",
     timestamp: "0:47"
   },
   {
     id: 4,
     title: "BOAT DAY",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "POV: boat day with Salt Escapes",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (4).mp4",
     timestamp: "0:12"
   },
   {
     id: 5,
     title: "IBIZA FITNESS",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Ibiza, but make it fitness",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (5).mp4",
     timestamp: "0:19"
   },
   {
     id: 6,
     title: "MOUNTAIN ADVENTURE",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Mountain fitness adventure",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (6).mp4",
     timestamp: "0:25"
   },
   {
     id: 7,
     title: "SUNSET YOGA",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Sunset yoga session",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (7).mp4",
     timestamp: "0:32"
   },
   {
     id: 8,
     title: "BEACH WORKOUT",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Beach workout routine",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (8).mp4",
     timestamp: "0:18"
   },
   {
     id: 9,
     title: "GROUP CHALLENGE",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Group fitness challenge",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (9).mp4",
     timestamp: "0:28"
   },
   {
     id: 10,
     title: "WELLNESS HIGHLIGHTS",
-    subtitle: "SALT ESCAPES",
+    subtitle: "TIGER TERRAIN",
     description: "Wellness retreat highlights",
-    videoUrl: "/video/hero-bg.mp4",
+    videoUrl: "/vids/vid (10).mp4",
     timestamp: "0:22"
+  },
+  {
+    id: 11,
+    title: "OUTDOOR TRAINING",
+    subtitle: "TIGER TERRAIN",
+    description: "Outdoor fitness training session",
+    videoUrl: "/vids/vid (11).mp4",
+    timestamp: "0:20"
+  },
+  {
+    id: 12,
+    title: "COASTAL WORKOUT",
+        subtitle: "TIGER TERRAIN",
+    description: "Coastal fitness experience",
+    videoUrl: "/vids/vid (12).mp4",
+    timestamp: "0:16"
+  },
+  {
+    id: 13,
+    title: "MOUNTAIN HIKE",
+    subtitle: "TIGER TERRAIN",
+    description: "Mountain hiking adventure",
+    videoUrl: "/vids/vid (13).mp4",
+    timestamp: "0:24"
+  },
+  {
+    id: 14,
+    title: "BEACH YOGA",
+    subtitle: "TIGER TERRAIN",
+    description: "Beach yoga session",
+    videoUrl: "/vids/vid (14).mp4",
+    timestamp: "0:18"
+  },
+  {
+    id: 15,
+    title: "WATER SPORTS",
+    subtitle: "TIGER TERRAIN",
+    description: "Water sports and activities",
+    videoUrl: "/vids/vid (15).mp4",
+    timestamp: "0:22"
+  },
+  {
+    id: 16,
+    title: "SUNSET WORKOUT",
+    subtitle: "TIGER TERRAIN",
+    description: "Sunset fitness session",
+    videoUrl: "/vids/vid (16).mp4",
+    timestamp: "0:26"
+  },
+  {
+    id: 17,
+    title: "ADVENTURE RACE",
+    subtitle: "TIGER TERRAIN",
+    description: "Adventure race challenge",
+    videoUrl: "/vids/vid (17).mp4",
+    timestamp: "0:30"
+  },
+  {
+    id: 18,
+    title: "CLIFF TRAINING",
+    subtitle: "TIGER TERRAIN",
+    description: "Cliff training session",
+    videoUrl: "/vids/vid (18).mp4",
+    timestamp: "0:28"
+  },
+  {
+    id: 19,
+    title: "BEACH RUN",
+    subtitle: "TIGER TERRAIN",
+    description: "Beach running workout",
+    videoUrl: "/vids/vid (19).mp4",
+    timestamp: "0:20"
+  },
+  {
+    id: 20,
+    title: "MOUNTAIN CLIMB",
+    subtitle: "TIGER TERRAIN",
+    description: "Mountain climbing adventure",
+    videoUrl: "/vids/vid (20).mp4",
+    timestamp: "0:25"
+  },
+  {
+    id: 21,
+    title: "OCEAN WORKOUT",
+    subtitle: "TIGER TERRAIN",
+    description: "Ocean fitness experience",
+    videoUrl: "/vids/vid (21).mp4",
+    timestamp: "0:18"
   }
 ];
 
@@ -350,10 +438,7 @@ export default function VideoSlider() {
                   </div>
                 </div>
 
-                {/* Timestamp */}
-                <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-                  {video.timestamp}
-                </div>
+
               </div>
             ))}
           </div>
