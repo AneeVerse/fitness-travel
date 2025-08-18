@@ -97,9 +97,9 @@ const FaqSection: React.FC = () => {
           </div>
 
           {/* Right – Image */}
-          <div className="relative h-[520px] rounded-3xl overflow-hidden">
+          <div className="relative h-[580px] rounded-3xl overflow-hidden">
             <Image
-              src="/images/faq/679014013257a1647f536b51_license img 17.avif"
+              src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755520472845"
               alt="High five after a race"
               fill
               className="object-cover"

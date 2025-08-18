@@ -12,15 +12,15 @@ type Coach = {
 const coaches: Coach[] = [
   {
     id: 'luca-moretti',
-    name: 'LUCA MORETTI',
-    role: 'Trail Running Expert',
-    imageSrc: '/images/coach/6790140149edfaf408fa8ef7_license img 9.avif',
+    name: 'VIKRAM MANGHNANI',
+    role: 'CO-FOUNDER',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team02.png?updatedAt=1755520773145',
   },
   {
     id: 'emily-carter',
-    name: 'EMILY CARTER',
-    role: "Women's Running Coach",
-    imageSrc: '/images/coach/67901401c1810a8d2b8412a1_license img 11.avif',
+    name: 'MANOJ',
+    role: 'FOUNDER',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team01.png?updatedAt=1755520737963',
   },
   {
     id: 'sophie-muller',
@@ -37,11 +37,12 @@ const coaches: Coach[] = [
 ];
 
 const iconClasses = 'w-4 h-4 fill-current';
-const SocialIcon = ({ type }: { type: 'fb' | 'ig' | 'li' }) => {
-  if (type === 'fb') {
+const SocialIcon = ({ type }: { type: 'li' | 'ig' | 'fb' | 'email' }) => {
+  if (type === 'li') {
+    // LinkedIn (brand-style square with "in")
     return (
-      <svg viewBox="0 0 24 24" className={iconClasses}>
-        <path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.8-1.6 1.6V12H17l-.5 3h-2.1v7A10 10 0 0022 12z" />
+      <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
+        <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
       </svg>
     );
   }
@@ -52,12 +53,21 @@ const SocialIcon = ({ type }: { type: 'fb' | 'ig' | 'li' }) => {
       </svg>
     );
   }
-  // LinkedIn (brand-style square with "in")
-  return (
-    <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
-      <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
-    </svg>
-  );
+  if (type === 'fb') {
+    return (
+      <svg viewBox="0 0 24 24" className={iconClasses}>
+        <path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.8-1.6 1.6V12H17l-.5 3h-2.1v7A10 10 0 0022 12z" />
+      </svg>
+    );
+  }
+  if (type === 'email') {
+    return (
+      <svg viewBox="0 0 24 24" className={iconClasses}>
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+      </svg>
+    );
+  }
+  return null;
 };
 
 const teko = Teko({ subsets: ['latin'], weight: ['400','600','700'] });
@@ -101,14 +111,14 @@ const CoachesSection: React.FC = () => {
 
                 {/* Socials column */}
                 <div className="absolute left-3 top-3 flex flex-col gap-2">
-                  {['fb', 'ig', 'li'].map((type) => (
+                  {['li', 'ig', 'fb', 'email'].map((type) => (
                     <a
                       key={type}
                       href="#"
                       className="w-8 h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
                       aria-label={`Open ${type} profile`}
                     >
-                      <SocialIcon type={type as 'fb' | 'ig' | 'li'} />
+                      <SocialIcon type={type as 'li' | 'ig' | 'fb' | 'email'} />
                     </a>
                   ))}
                 </div>

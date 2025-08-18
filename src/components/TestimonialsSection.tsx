@@ -49,8 +49,8 @@ const TestimonialsSection = () => {
                  {/* Event image */}
                  <div className="rounded-xl overflow-hidden ring-4 ring-white/15">
                    <Image
-                     src="/images/events/keep-going-even-when-its-hard-2025-04-05-23-40-04-4AY2ELM.jpg"
-                     alt="Runmate City Sprint 10K"
+                     src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200"
+                     alt="Client Review Background"
                      width={600}
                      height={384}
                      className="w-full h-64 md:h-72 object-cover"
@@ -59,29 +59,18 @@ const TestimonialsSection = () => {
 
                  {/* Event details */}
                  <div className="text-white">
-                   <div className="inline-flex ml-8 items-center justify-center px-4 py-1.5 rounded-full bg-[#e77d26] text-white text-[11px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
-                     – Upcoming Races –
+                   <div className="inline-flex ml-8 items-center justify-center px-3.5 py-1.5 rounded-full bg-[#e77d26] text-white text-[10px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
+                     – Upcoming Adventures –
                    </div>
                    <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
-                     RUNMATE CITY SPRINT
-                     <br />
-                     10K
+                   FIND OUT WHAT YOU ARE MADE UP OF 10K
                    </h3>
                    <div className="mt-1 bg-black/85 rounded-xl p-4 sm:p-5 space-y-3">
-                     {/* Date */}
-                     <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 012 0v1zm13 7H4v9h16V9z"/></svg>
-                       <p className="text-sm">September 20, 2025</p>
-                     </div>
-                     {/* Time */}
-                     <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l3.3 3.3-1.42 1.42L11 13V7h2v5.59z"/></svg>
-                       <p className="text-sm">Start 05:00 AM – Finish</p>
-                     </div>
+                    
                      {/* Location */}
                      <div className="flex items-start gap-3">
                        <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
-                       <p className="text-sm">South Jekardah</p>
+                       <p className="text-sm">Phuket</p>
                      </div>
                    </div>
                  </div>

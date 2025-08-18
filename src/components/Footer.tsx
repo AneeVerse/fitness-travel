@@ -45,17 +45,17 @@ export default function Footer() {
       {/* Top: columns */}
       <div className="  max-w-[1325px] mx-auto px-4 sm:px-8 py-12 grid grid-cols-1 md:[grid-template-columns:300px_1fr_1fr] gap-12 md:gap-16 items-start text-[#244447]">
         {/* Left: logo + contact */}
-        <div className="space-y-4">
+        <div className="space-y-4 ">
           <Image
             src="/images/website-logo.png"
             alt="Tiger Terrain"
             width={56}
             height={56}
-            className="w-24 h-24"
+            className="w-24 h-24 ml-11"
           />
           <div className="text-sm leading-7 ">
-            <a href="tel:+61401207856" className="block hover:text-[#e77d25] transition-colors">+61 401 207 856</a>
-            <a href="mailto:info@salt-escapes.com" className="block hover:text-[#e77d25] transition-colors">info@salt-escapes.com</a>
+            <a href="tel:+61401207856" className="block hover:text-[#e77d25] transition-colors ml-8">+61 401 207 856</a>
+            <a href="mailto:info@salt-escapes.com" className="block hover:text-[#e77d25] transition-colors ml-3">info@salt-escapes.com</a>
           </div>
           <div className="flex items-center gap-3 text-[#244447]">
             <Link href="#" aria-label="Facebook" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors"><IconFacebook className="w-4 h-4" /></Link>
