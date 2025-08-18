@@ -232,11 +232,11 @@ const EpicDestinationsSection: React.FC = () => {
             {duplicatedHighlights.map((h, idx) => (
                 <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]" data-card="true">
                 <div className="flex flex-col h-full">
-                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
+                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden pointer-events-none select-none">
                     <Image src={h.image} alt={h.title} fill className="object-cover" />
                   </div>
-                  <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
-                  <p className="text-white/75 text-sm mt-2 leading-relaxed">
+                  <h3 className="text-white font-semibold text-lg mt-4 pointer-events-none select-none">{h.title}</h3>
+                  <p className="text-white/75 text-sm mt-2 leading-relaxed pointer-events-none select-none">
                     {h.description}
                   </p>
                 </div>
