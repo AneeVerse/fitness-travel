@@ -166,17 +166,7 @@ const ReviewsSection: React.FC = () => {
             </div>
           </div>
 
-          {/* Dots */}
-          <div className="flex justify-center gap-2 mt-6">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button
-                key={i}
-                aria-label={`Go to page ${i + 1}`}
-                onClick={() => goToPage(i)}
-                className={`w-2.5 h-2.5 rounded-full ${i === currentPage ? "bg-[#244447]" : "bg-gray-300"}`}
-              />
-            ))}
-          </div>
+
         </div>
       </div>
     </section>
