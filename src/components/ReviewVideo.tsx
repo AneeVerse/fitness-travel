@@ -106,7 +106,7 @@ const videos: VideoCard[] = [
     title: "POWERHOUSE ATHLETE",
     subtitle: "CLIENT SPOTLIGHT",
     description: "Meet our powerhouse athlete - proof that strength knows no age! His determination and grit have been nothing short of inspiring.",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/1?updatedAt=1755515991411",
+    videoUrl: "/tESTIMONIALS _/1.mp4",
     timestamp: "0:15"
   },
   {
@@ -114,7 +114,7 @@ const videos: VideoCard[] = [
     title: "CLIENT FEEDBACK",
     subtitle: "TESTIMONIALS",
     description: "We value your opinion! Clients feedback matters!",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/2?updatedAt=1755516019241",
+    videoUrl: "/tESTIMONIALS _/2.mp4",
     timestamp: "0:12"
   },
   {
@@ -122,7 +122,7 @@ const videos: VideoCard[] = [
     title: "PHUKET FITCATION",
     subtitle: "CLIENT JOURNEY",
     description: "Client Spotlight - An Unbelievable Journey at Phuket Fitcation. When it comes to coaching, working with elite athletes is one thing.",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/3?updatedAt=1755516036241",
+    videoUrl: "/tESTIMONIALS _/3.mp4",
     timestamp: "0:20"
   },
   {
@@ -130,7 +130,7 @@ const videos: VideoCard[] = [
     title: "FITNESS GOALS",
     subtitle: "TRANSFORMATION",
     description: "Turning every getaway into a step closer to your fitness goals! Hearing how our fitcation changed your journey makes it all worth it.",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/4?updatedAt=1755516054142",
+    videoUrl: "/tESTIMONIALS _/4.mp4",
     timestamp: "0:18"
   },
   {
@@ -138,7 +138,7 @@ const videos: VideoCard[] = [
     title: "PHUKET VIBES",
     subtitle: "FITCATION 2023",
     description: "Phuket Fitcation 2023 wasn't just a trip - it was a vibe! Hear it from those who lived it.",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/5?updatedAt=1755516072164",
+    videoUrl: "/tESTIMONIALS _/5.mp4",
     timestamp: "0:25"
   },
   {
@@ -146,7 +146,7 @@ const videos: VideoCard[] = [
     title: "COACH JIBBY",
     subtitle: "PHUKET ADVENTURE",
     description: "Get ready to push limits and soak in the Phuket vibes with Coach Jibby at the helm!",
-    videoUrl: "https://ik.imagekit.io/t8xk4h5as/reviews/6?updatedAt=1755516088534",
+    videoUrl: "/tESTIMONIALS _/6.mp4",
     timestamp: "0:22"
   }
 ];
@@ -494,23 +494,7 @@ export default function ReviewVideo() {
             </div>
           </div>
 
-          {/* Pagination Dots */}
-          <div className="flex justify-center mt-6 sm:mt-8 gap-2">
-            {videos.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  // Jump to selected index within middle copy
-                  basePositionRef.current = -index * slideSize;
-                }}
-                className={`w-2 h-2 rounded-full transition-colors duration-300 disabled:opacity-50 ${
-                  index === activeIndex
-                    ? 'bg-black'
-                    : 'bg-gray-400 hover:bg-gray-600'
-                }`}
-              />
-            ))}
-          </div>
+
         </div>
       </section>
 

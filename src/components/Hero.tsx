@@ -76,7 +76,7 @@ const Hero = () => {
           playsInline
           className="absolute min-w-full min-h-full object-cover"
         >
-          <source src="https://ik.imagekit.io/t8xk4h5as/BG.mp4?updatedAt=1755514155145" type="video/mp4" />
+          <source src="/video/BG.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
