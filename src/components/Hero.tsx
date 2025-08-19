@@ -84,7 +84,7 @@ const Hero = () => {
         <div className="absolute inset-0 bg-black/25"></div>
 
         {/* Stronger black highlight that fades left → right */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
       </div>
 
       {/* Content */}
