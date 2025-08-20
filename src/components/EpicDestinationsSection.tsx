@@ -244,7 +244,7 @@ const EpicDestinationsSection: React.FC = () => {
 
           {/* Right: Actions (carousel nav + CTA) */}
           <div className="lg:col-span-4 flex flex-wrap gap-3 items-center justify-center lg:justify-end mt-4 lg:mt-0">
-            <div className="flex gap-3 order-2 lg:order-1">
+            <div className="hidden md:flex gap-3 order-2 lg:order-1">
               <button
                 aria-label="Previous"
                 onClick={prevSlide}
