@@ -126,12 +126,12 @@ const Navbar = () => {
           </div>
 
           {/* Navigation Items */}
-          <div className="flex flex-col p-6 space-y-4">
+          <div className="flex flex-col p-6 space-y-3">
             {navItems.map((item, index) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-lg font-semibold text-gray-800 hover:text-[#e77d25] transition-colors duration-300 flex items-center justify-between py-3 border-b border-gray-100"
+                className="text-base font-semibold text-gray-800 hover:text-[#e77d25] transition-colors duration-300 flex items-center justify-between py-2 border-b border-gray-100"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -146,10 +146,10 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="absolute bottom-8 left-6 right-6">
+          <div className="absolute bottom-12 left-6 right-6">
             <Link
               href="/book-now"
-              className="block w-full px-8 py-4 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-lg"
+              className="block w-full px-8 py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-base"
               style={{ fontFamily: 'var(--font-unbounded)' }}
               onClick={() => setIsMenuOpen(false)}
             >
