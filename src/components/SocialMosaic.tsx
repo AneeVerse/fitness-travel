@@ -37,7 +37,7 @@ const SocialMosaic: React.FC = () => {
           <CardImage src={images[2]} />
 
           {/* Poster card bottom-right */}
-          <div className="rounded-3xl bg-orange-500 text-white p-8 flex flex-col justify-between">
+          <div className="rounded-3xl bg-[#e77d26] text-white p-8 flex flex-col justify-between">
             <div>
               <h3 className="text-xl sm:text-2xl font-extrabold font-unbounded">Follow our Instagram</h3>
               <p className="mt-4 text-white/80 text-sm leading-relaxed">
