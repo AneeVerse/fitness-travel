@@ -10,13 +10,13 @@ const TestimonialsSection = () => {
   
 
   return (
-    <section className="relative py-20 bg-white">
-      <div className="mx-8 sm:mx-12 lg:mx-16 -mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+    <section className="relative py-12 sm:py-20 bg-white mobile-testimonials">
+      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 -mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-4 items-start">
           {/* Left Column - Content */}
-          <div className="space-y-12 md:pl-10 ">
+          <div className="space-y-8 sm:space-y-12 md:pl-0 lg:pl-10">
                          {/* Main Content */}
-             <div className="space-y-4">
+             <div className="space-y-3 sm:space-y-4">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
                  Adventure Awaits
                </h2>
@@ -26,17 +26,17 @@ const TestimonialsSection = () => {
              </div>
 
                          {/* Statistics */}
-             <div className="grid grid-cols-3 gap-6">
+             <div className="grid grid-cols-3 gap-4 sm:gap-6">
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">15+</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">15+</div>
                  <div className="text-xs text-gray-600">Years of experience</div>
                </div>
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">8</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">8</div>
                  <div className="text-xs text-gray-600">World Sports Awards</div>
                </div>
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">3</div>
                  <div className="text-xs text-gray-600">Training Centers</div>
                </div>
              </div>

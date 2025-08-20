@@ -532,7 +532,7 @@ export default function VideoSlider() {
   };
 
   return (
-    <section className="w-full bg-white mt-10 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
+    <section className="w-full bg-white mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
       <div className="w-full">
 
         {/* Header with Navigation */}

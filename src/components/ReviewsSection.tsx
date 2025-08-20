@@ -79,20 +79,20 @@ const ReviewsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 bg-white">
-      <div className="mx-8 sm:mx-12 lg:mx-16">
+    <section className="relative py-12 sm:py-20 bg-white mobile-section">
+      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16">
         {/* Voices of Transformation Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-black font-unbounded">
+        <div className="text-center mb-8 sm:mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-black font-unbounded">
             Voices of Transformation
           </h2>
-          <p className="mt-3 text-xl sm:text-base text-black">
+          <p className="mt-3 text-base sm:text-xl text-black">
             Hear from souls who discovered their force and change through Tiger Terrain journeys.
           </p>
         </div>
 
         {/* Review Videos Section */}
-        <div className="mb-16">
+        <div className="mb-12 sm:mb-16">
           <ReviewVideo />
         </div>
 
@@ -122,16 +122,16 @@ const ReviewsSection: React.FC = () => {
 
           {/* Scroller */}
           <div ref={scrollerRef} className="overflow-x-auto scroll-smooth scrollbar-hide">
-            <div className="grid grid-flow-col auto-cols-[minmax(280px,1fr)] sm:auto-cols-[minmax(340px,1fr)] lg:auto-cols-[minmax(360px,1fr)] gap-6 px-1"
+            <div className="grid grid-flow-col auto-cols-[minmax(260px,1fr)] sm:auto-cols-[minmax(340px,1fr)] lg:auto-cols-[minmax(360px,1fr)] gap-4 sm:gap-6 px-1"
                  style={{ width: "100%" }}>
               {reviews.map((r) => (
                 <div key={r.id} className="h-full">
-                  <div className="h-full rounded-2xl border border-[#244447]/30 bg-white p-6 shadow-sm">
+                  <div className="h-full rounded-2xl border border-[#244447]/30 bg-white p-4 sm:p-6 shadow-sm">
                     <StarRow />
-                    <p className="mt-4 text-gray-800 text-sm leading-relaxed">
+                    <p className="mt-3 sm:mt-4 text-gray-800 text-xs sm:text-sm leading-relaxed">
                       &ldquo;{r.text}&rdquo;
                     </p>
-                    <div className="mt-6">
+                    <div className="mt-4 sm:mt-6">
                       <GoogleBadge />
                     </div>
                   </div>

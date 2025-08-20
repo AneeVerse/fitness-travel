@@ -169,22 +169,22 @@ const EpicDestinationsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative bg-[#244447] py-16 sm:py-20">
+    <section className="relative bg-[#244447] py-12 sm:py-16 md:py-20 mobile-destinations">
       <div className="w-full">
-        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-10">
+        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-8 sm:mb-10">
           {/* Left: Title + Subtitle */}
           <div className="space-y-3 lg:col-span-8">
-            <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
               Journey Stories
             </h2>
-            <p className="text-white/80 max-w-3xl lg:max-w-5xl">
+            <p className="text-white/80 max-w-3xl lg:max-w-5xl text-sm sm:text-base">
               Real transformations, real people, real adventures. See how our tribe members transformed their lives
               through Tiger Terrain adventures.
             </p>
           </div>
 
           {/* Right: Actions (carousel nav + CTA) */}
-          <div className="lg:col-span-4 flex flex-wrap gap-3 items-center justify-start lg:justify-end mt-4 lg:mt-0">
+          <div className="lg:col-span-4 flex flex-wrap gap-3 items-center justify-center lg:justify-end mt-4 lg:mt-0">
             <div className="flex gap-3 order-2 lg:order-1">
               <button
                 aria-label="Previous"
@@ -206,7 +206,7 @@ const EpicDestinationsSection: React.FC = () => {
               </button>
             </div>
             <button
-              className="order-1 lg:order-2 px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide"
+              className="order-1 lg:order-2 px-4 sm:px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-sm sm:text-base mobile-btn"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations
@@ -230,13 +230,13 @@ const EpicDestinationsSection: React.FC = () => {
               style={{ transform: `translateX(${renderTranslateX}px)` }}
           >
             {duplicatedHighlights.map((h, idx) => (
-                <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]" data-card="true">
+                <div key={`${h.id}-${idx}`} className="min-w-[280px] sm:min-w-[320px] md:min-w-[360px]" data-card="true">
                 <div className="flex flex-col h-full">
-                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden pointer-events-none select-none">
+                  <div className="relative w-full h-48 sm:h-60 md:h-72 rounded-2xl overflow-hidden pointer-events-none select-none">
                     <Image src={h.image} alt={h.title} fill className="object-cover" />
                   </div>
-                  <h3 className="text-white font-semibold text-lg mt-4 pointer-events-none select-none">{h.title}</h3>
-                  <p className="text-white/75 text-sm mt-2 leading-relaxed pointer-events-none select-none">
+                  <h3 className="text-white font-semibold text-base sm:text-lg mt-3 sm:mt-4 pointer-events-none select-none">{h.title}</h3>
+                  <p className="text-white/75 text-xs sm:text-sm mt-2 leading-relaxed pointer-events-none select-none">
                     {h.description}
                   </p>
                 </div>

@@ -65,7 +65,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[115vh] w-full overflow-hidden mb-4 rounded-b-3xl">
+    <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -88,7 +88,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-32 sm:mt-60">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-75 md:mt-60">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
             Stop Taking Vacations. 

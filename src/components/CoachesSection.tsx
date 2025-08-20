@@ -64,16 +64,16 @@ const teko = Teko({ subsets: ['latin'], weight: ['400','600','700'] });
 
 const CoachesSection: React.FC = () => {
   return (
-    <section className="relative py-16 bg-gray-100">
-      <div className="mx-8 sm:mx-12 lg:mx-16">
+    <section className="relative py-12 sm:py-16 bg-gray-100 mobile-coaches">
+      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16">
         {/* Heading */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-8 sm:mb-10">
           <div>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Meet Your Tribe Leaders
             </span>
-            <h2 className={`mt-3 text-4xl md:text-5xl sm:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
+            <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
               Our Experienced Coaches
               <br className="hidden sm:block" />
               Are Here To Support
@@ -82,7 +82,7 @@ const CoachesSection: React.FC = () => {
           <div>
             <a
               href="#"
-              className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white"
+              className="inline-flex items-center justify-center px-4 sm:px-5 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white text-sm sm:text-base mobile-btn"
             >
               See Full Coaching Team
             </a>
@@ -91,13 +91,13 @@ const CoachesSection: React.FC = () => {
 
         {/* Cards - Centered for 2 coaches */}
         <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-4xl">
             {coaches.map((c) => (
               <article
                 key={c.id}
                 className="rounded-3xl bg-gray-200/70 border border-gray-200 shadow-sm overflow-hidden flex flex-col p-3"
               >
-                <div className="relative h-[420px] rounded-2xl overflow-hidden">
+                <div className="relative h-[300px] sm:h-[350px] md:h-[420px] rounded-2xl overflow-hidden">
                   <Image src={c.imageSrc} alt={c.name} fill className="object-cover" />
 
                   {/* Socials column */}
@@ -106,7 +106,7 @@ const CoachesSection: React.FC = () => {
                       <a
                         key={type}
                         href="#"
-                        className="w-8 h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
                         aria-label={`Open ${type} profile`}
                       >
                         <SocialIcon type={type as 'li' | 'ig' | 'fb' | 'email'} />
@@ -114,11 +114,11 @@ const CoachesSection: React.FC = () => {
                     ))}
                   </div>
                 </div>
-                <div className="px-4 py-4">
-                  <h3 className={`text-xl font-extrabold tracking-tight text-gray-900 uppercase ${teko.className}`}>
+                <div className="px-3 sm:px-4 py-3 sm:py-4">
+                  <h3 className={`text-lg sm:text-xl font-extrabold tracking-tight text-gray-900 uppercase ${teko.className}`}>
                     {c.name}
                   </h3>
-                  <p className="mt-1 text-sm text-gray-600">{c.role}</p>
+                  <p className="mt-1 text-xs sm:text-sm text-gray-600">{c.role}</p>
                 </div>
               </article>
             ))}

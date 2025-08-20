@@ -456,7 +456,7 @@ export default function ReviewVideo() {
 
   return (
     <>
-      <section className="w-full bg-white py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mt-25 -mb-16">
+      <section className="w-full bg-white py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
         <div className="w-full">
           {/* Slider Container */}
           <div 

@@ -24,18 +24,17 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 md:px-8 py-2 sm:py-4 bg-transparent">
       <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-6 md:px-8 py-2 sm:py-3 max-w-[1325px] mx-auto">
-                 <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-4">
+                 <div className="flex items-center justify-between">
            {/* Logo + Brand */}
            <div className="flex-shrink-0">
              <Link href="/" className="flex items-center gap-2 sm:gap-3">
                <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
-               <span className={`${tigerTerrainFont.className} text-lg sm:text-xl md:text-[27px] leading-none text-[#0f1a17] mt-1 hidden sm:block`}>TIGER TERRAIN</span>
-               <span className={`${tigerTerrainFont.className} text-sm leading-none text-[#0f1a17] mt-1 sm:hidden`}>TT</span>
+               <span className={`${tigerTerrainFont.className} text-[20px] sm:text-[20px] md:text-xl lg:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
              </Link>
            </div>
 
            {/* Desktop Navigation (centered) */}
-           <div className="hidden md:flex items-center justify-center gap-12 justify-self-center">
+           <div className="hidden md:flex items-center justify-center gap-12 absolute left-1/2 transform -translate-x-1/2">
              {navItems.map((item) => (
                <Link
                  key={item.name}
@@ -54,7 +53,7 @@ const Navbar = () => {
            </div>
 
             {/* Right-aligned CTA */}
-           <div className="hidden md:block justify-self-end">
+           <div className="hidden md:block">
              <Link
                href="/book-now"
                className="px-6 py-4 rounded-full font-semibold text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"

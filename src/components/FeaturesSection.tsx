@@ -60,8 +60,8 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative -mt-32 w-full px-0 mb-8">
-      <div className="relative mx-8 sm:mx-12 lg:mx-10 ">
+    <section ref={sectionRef} className="relative -mt-16 sm:-mt-32 w-full px-0 mb-8 mobile-features">
+      <div className="relative mx-4 sm:mx-8 md:mx-12 lg:mx-10">
         <ScrollStack items={items} />
       </div>
     </section>
@@ -104,15 +104,15 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
   return (
     <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
       {items.map((item, index) => (
-        <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden ">
+        <div key={index} className="sticky -top-30 h-[600px] sm:h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden">
           {/* Heading block at the top of the card */}
-          <div className="pt-10 -pb-8">
+          <div className="pt-6 sm:pt-10 -pb-8">
             <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
-              <div className="flex flex-col items-start gap-4">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
+              <div className="flex flex-col items-start gap-3 sm:gap-4">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
                   {item.title}
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl mb-8">
+                <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-4xl mb-4 sm:mb-8">
                   {item.subtitle}
                 </p>
               </div>
@@ -120,7 +120,7 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
           </div>
 
           {/* Video block inside the same card */}
-          <div className="relative h-[600px] mx-8 sm:mx-12 lg:mx-16 rounded-[32px] overflow-hidden">
+          <div className="relative h-[400px] sm:h-[600px] mx-4 sm:mx-8 md:mx-12 lg:mx-16 rounded-[20px] sm:rounded-[32px] overflow-hidden">
             {playingIndex === index ? (
               <>
                 <video
@@ -157,23 +157,23 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
                 />
                 <div className="absolute inset-0 bg-black/50" />
                 {/* Big heading bottom-left */}
-                <div className="absolute left-6 sm:left-10 bottom-8 z-10">
-                  <h3 className="text-white text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
+                <div className="absolute left-4 sm:left-6 md:left-10 bottom-14 sm:bottom-8 z-10">
+                  <h3 className="text-white text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
                     What Is Tiger Terrain? 
                     <br />
                     Your Journey Starts Here
                   </h3>
                 </div>
                 {/* Play button bottom-right (slightly smaller and lifted) */}
-                <div className="absolute right-8 bottom-12 z-10 mr-10">
+                <div className="absolute right-4 sm:right-8 bottom-6 sm:bottom-12 z-10 mr-4 sm:mr-10">
                   <div className="relative group">
                     <span className="absolute -inset-2 rounded-full bg-[#e77d25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
                     <button
                       onClick={() => setPlayingIndex(index)}
-                      className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#e77d25] text-[#e77d25] shadow-xl transition-colors hover:bg-[#e77d25] hover:text-black"
+                      className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#e77d25] text-[#e77d25] shadow-xl transition-colors hover:bg-[#e77d25] hover:text-black"
                       aria-label={`Play ${item.title}`}
                     >
-                      <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </button>
@@ -184,7 +184,7 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
           </div>
 
           {/* Spacer under card content */}
-          <div className="px-8 sm:px-12 lg:px-16 pb-10" />
+          <div className="px-4 sm:px-8 md:px-12 lg:px-16 pb-6 sm:pb-10" />
         </div>
       ))}
      
