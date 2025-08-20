@@ -168,6 +168,65 @@ const EpicDestinationsSection: React.FC = () => {
     startSnap();
   };
 
+  // Add touch event listeners with proper options to handle passive event listener issue
+  useEffect(() => {
+    const container = viewportRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        console.log('Touch start detected (useEffect)');
+        isPointerDownRef.current = true;
+        dragStartXRef.current = e.touches[0].clientX;
+        dragDeltaRef.current = 0;
+        lastTimeRef.current = performance.now();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isPointerDownRef.current || e.touches.length !== 1) return;
+      
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - dragStartXRef.current;
+      dragDeltaRef.current = deltaX;
+      console.log('Touch move (useEffect):', deltaX);
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isPointerDownRef.current) return;
+      
+      console.log('Touch end detected (useEffect)');
+      
+      const currentTime = performance.now();
+      const timeDelta = currentTime - lastTimeRef.current;
+      const velocity = dragDeltaRef.current / timeDelta;
+      
+      isPointerDownRef.current = false;
+      
+      // Lower threshold and higher momentum for better sensitivity
+      if (Math.abs(velocity) > 0.1) { // Reduced from 0.5
+        const momentumDistance = velocity * 500; // Increased from 300
+        dragDeltaRef.current += momentumDistance;
+        console.log('Applied momentum (useEffect):', momentumDistance);
+      }
+      
+      startSnap();
+    };
+
+    // Add event listeners with passive: false to allow preventDefault
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
+  // Touch event handlers for mobile scrolling
+
   return (
     <section className="relative bg-[#244447] py-12 sm:py-16 md:py-20 mobile-destinations">
       <div className="w-full">
@@ -218,7 +277,7 @@ const EpicDestinationsSection: React.FC = () => {
         <div className="relative">
           <div
             ref={viewportRef}
-            className="overflow-hidden"
+            className="overflow-hidden carousel-container"
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
@@ -226,11 +285,11 @@ const EpicDestinationsSection: React.FC = () => {
           >
             <div
               ref={trackRef}
-              className="flex gap-8 will-change-transform px-4 sm:px-8"
+              className="flex gap-8 will-change-transform px-4 sm:px-8 carousel-track"
               style={{ transform: `translateX(${renderTranslateX}px)` }}
           >
             {duplicatedHighlights.map((h, idx) => (
-                <div key={`${h.id}-${idx}`} className="min-w-[280px] sm:min-w-[320px] md:min-w-[360px]" data-card="true">
+                <div key={`${h.id}-${idx}`} className="min-w-[280px] sm:min-w-[320px] md:min-w-[360px] carousel-item" data-card="true">
                 <div className="flex flex-col h-full">
                   <div className="relative w-full h-48 sm:h-60 md:h-72 rounded-2xl overflow-hidden pointer-events-none select-none">
                     <Image src={h.image} alt={h.title} fill className="object-cover" />

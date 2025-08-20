@@ -213,3 +213,25 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Enhanced mobile carousel scrolling */
+.carousel-container {
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  touch-action: none; /* Disable default touch actions */
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.carousel-track {
+  will-change: transform; /* Optimize for animations */
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Touch-friendly carousel items */
+.carousel-item {
+  touch-action: none; /* Disable default touch actions */
+  user-select: none; /* Prevent text selection during drag */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto; /* Ensure touch events work */
+}

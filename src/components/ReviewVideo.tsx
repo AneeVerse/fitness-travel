@@ -30,7 +30,7 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] group"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] group carousel-item"
       data-card="true"
       style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
       onMouseEnter={() => onHover(videoId)}
@@ -454,13 +454,67 @@ export default function ReviewVideo() {
     startSnapToNearestCard();
   };
 
+  // Add touch event listeners with proper options to handle passive event listener issue
+  useEffect(() => {
+    const container = sliderRef.current;
+    if (!container) return;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        isPointerDownRef.current = true;
+        dragStartXRef.current = e.touches[0].clientX;
+        dragDeltaRef.current = 0;
+        lastTimeRef.current = performance.now();
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isPointerDownRef.current || e.touches.length !== 1) return;
+      
+      const currentX = e.touches[0].clientX;
+      const deltaX = currentX - dragStartXRef.current;
+      dragDeltaRef.current = deltaX;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (!isPointerDownRef.current) return;
+      
+      const currentTime = performance.now();
+      const timeDelta = currentTime - lastTimeRef.current;
+      const velocity = dragDeltaRef.current / timeDelta;
+      
+      isPointerDownRef.current = false;
+      
+      // Lower threshold and higher momentum for better sensitivity
+      if (Math.abs(velocity) > 0.1) { // Reduced from 0.5
+        const momentumDistance = velocity * 500; // Increased from 300
+        dragDeltaRef.current += momentumDistance;
+      }
+      
+      startSnapToNearestCard();
+    };
+
+    // Add event listeners with passive: false to allow preventDefault
+    container.addEventListener('touchstart', handleTouchStart, { passive: false });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+    return () => {
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, []);
+
+  // Touch event handlers for mobile scrolling
+
   return (
     <>
       <section className="w-full bg-white py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
         <div className="w-full">
           {/* Slider Container */}
           <div 
-            className="relative mt-4 sm:mt-6"
+            className="relative mt-4 sm:mt-6 carousel-container"
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
@@ -468,7 +522,7 @@ export default function ReviewVideo() {
           >
             <div 
               ref={sliderRef}
-              className="flex gap-6"
+              className="flex gap-6 carousel-track"
               style={{
                 transform: `translateX(${renderTranslateX}px)`
               }}
