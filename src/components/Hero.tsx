@@ -65,7 +65,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[115vh] w-full overflow-hidden mb-4 rounded-b-3xl">
+    <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[115vh] w-full overflow-hidden mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         <video
@@ -88,31 +88,31 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-8 sm:px-12 lg:px-16 ml-10 mt-60">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-32 sm:mt-60">
         <div className="max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-6 leading-tight font-unbounded">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
             Stop Taking Vacations. 
           </h1>
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[42px] font-bold text-white mb-6 leading-tight font-unbounded -mt-3">
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[42px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-3">
             Start Living Your Best Life.
           </h1>
 
-          <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-10 max-w-4xl leading-relaxed">
-            Join a tribe of fearless souls who transform their mind and body through epic journeys. <br />
+          <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-6 sm:mb-10 max-w-4xl leading-relaxed">
+            Join a tribe of fearless souls who transform their mind and body through epic journeys. <br className="hidden sm:block" />
             Tiger Terrain isn&apos;t about getting away, it&apos;s about becoming who you were meant to be.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               href="/book-now"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-base sm:text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Join Your Tribe
             </Link>
             <Link
               href="/retreats"
-              className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-base sm:text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 mobile-btn"
             >
               Watch How It Works
             </Link>

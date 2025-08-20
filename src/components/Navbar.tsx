@@ -22,14 +22,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8 py-4 bg-transparent">
-      <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-6 sm:px-8 py-3 max-w-[1325px] mx-auto">
-                 <div className="grid grid-cols-[auto_1fr_auto] items-center">
+    <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 md:px-8 py-2 sm:py-4 bg-transparent">
+      <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-6 md:px-8 py-2 sm:py-3 max-w-[1325px] mx-auto">
+                 <div className="grid grid-cols-[auto_1fr_auto] items-center gap-2 sm:gap-4">
            {/* Logo + Brand */}
-           <div className="flex-shrink-0 ">
-             <Link href="/" className="flex items-center gap-3 ">
-               <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
-               <span className={`${tigerTerrainFont.className} text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
+           <div className="flex-shrink-0">
+             <Link href="/" className="flex items-center gap-2 sm:gap-3">
+               <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+               <span className={`${tigerTerrainFont.className} text-lg sm:text-xl md:text-[27px] leading-none text-[#0f1a17] mt-1 hidden sm:block`}>TIGER TERRAIN</span>
+               <span className={`${tigerTerrainFont.className} text-sm leading-none text-[#0f1a17] mt-1 sm:hidden`}>TT</span>
              </Link>
            </div>
 
@@ -67,7 +68,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-emerald-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#e77d25] transition-colors duration-200"
             >
               <span className="sr-only">Open main menu</span>
               {!isMenuOpen ? (
@@ -85,13 +86,13 @@ const Navbar = () => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pt-4 border-t border-gray-200">
-            <div className="space-y-2">
+          <div className="md:hidden mt-4 pt-4 border-t border-gray-200 bg-white/95 backdrop-blur-md rounded-lg shadow-lg">
+            <div className="space-y-1 p-2">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-emerald-600 hover:bg-gray-50 flex items-center justify-between"
+                  className="block px-4 py-3 rounded-lg text-base font-medium text-gray-700 hover:text-[#e77d25] hover:bg-gray-50 flex items-center justify-between transition-colors duration-200"
                   style={{ fontFamily: 'var(--font-unbounded)' }}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -104,14 +105,14 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
-            <div className="mt-4">
+            <div className="p-4 border-t border-gray-200">
               <Link
-                href="/contact"
-                className="block w-full px-4 py-2 text-center rounded-full font-semibold bg-[#e77d25] text-[#0f1a17] hover:bg-black hover:text-[#e77d25]"
+                href="/book-now"
+                className="block w-full px-6 py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-200 text-sm"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Contact Us
+                BOOK ADVENTURE
               </Link>
             </div>
           </div>

@@ -43,7 +43,7 @@ const events: EventItem[] = [
 const UpcomingEvents = () => {
   return (
     <section className="relative py-20 bg-gray-100">
-      <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
+      <div className="max-w-[1425px] mx-auto px-4 sm:px-8">
         <div className="text-center mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Adventures -
@@ -60,24 +60,66 @@ const UpcomingEvents = () => {
               className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200"
             >
               {/* Left ticket column */}
-              <div className="lg:col-span-2 bg-[#e77d26] text-white p-12 flex flex-col justify-between">
-                <div>
-                  <div className="text-xl md:text-2xl lg:text-3xl uppercase tracking-wide text-white leading-tight" style={{ fontFamily: 'var(--font-teko)' }}>
-                    VIEW<br />
-                    EVENT<br />
-                    ITINERARY
+              <div className="lg:col-span-3 bg-[#e77d26] text-white p-12 flex flex-col justify-between">
+                <div className="space-y-6">
+                  {/* Morning Event */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0">
+                      <svg className="h-6 w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>
+                      </svg>
+                    </div>
+                    <div className="text-white text-sm font-medium">
+                      Morning – Beach Bootcamp
+                    </div>
                   </div>
+
+                  {/* Afternoon Event */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0">
+                      <Image
+                        src="/images/leaf.png"
+                        alt="Leaf"
+                        width={24}
+                        height={24}
+                        className="h-6 w-6 brightness-0 invert"
+                      />
+                    </div>
+                    <div className="text-white text-sm font-medium">
+                      Afternoon – Nutrition Workshop
+                    </div>
+                  </div>
+
+                  {/* Evening Event */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex-shrink-0">
+                      <Image
+                        src="/images/networking.png"
+                        alt="Networking"
+                        width={24}
+                        height={24}
+                        className="h-6 w-6 brightness-0 invert"
+                      />
+                    </div>
+                    <div className="text-white text-sm font-medium">
+                      Evening – Networking Party
+                    </div>
+                  </div>
+                </div>
+
+                {/* Button */}
+                <div className="mt-8">
                   <button
-                    className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-base md:text-lg font-semibold text-black hover:bg-black hover:text-white transition-colors uppercase tracking-wide whitespace-nowrap"
+                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-base uppercase tracking-wide hover:bg-gray-100 transition-colors"
                     style={{ fontFamily: 'var(--font-teko)' }}
                   >
-                    See Details
+                    VIEW FULL ITINERARY
                   </button>
                 </div>
               </div>
 
               {/* Middle content */}
-              <div className="lg:col-span-6 p-8 lg:border-r lg:border-gray-200">
+              <div className="lg:col-span-5 p-8 lg:border-r lg:border-gray-200">
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-teko)' }}>
                   {event.title}
                 </h3>
