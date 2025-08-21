@@ -127,7 +127,7 @@ const Navbar = () => {
 
           {/* Navigation Items */}
           <div className="flex flex-col p-6 space-y-3">
-            {navItems.map((item, index) => (
+            {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}

@@ -346,10 +346,10 @@ export default function VideoSlider() {
     const container = sliderRef.current;
     if (!container) return;
 
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) {
+    const handleTouchStart = (_e: TouchEvent) => {
+      if (_e.touches.length === 1) {
         isPointerDownRef.current = true;
-        dragStartXRef.current = e.touches[0].clientX;
+        dragStartXRef.current = _e.touches[0].clientX;
         dragDeltaRef.current = 0;
         lastTimeRef.current = performance.now();
       }
@@ -391,7 +391,7 @@ export default function VideoSlider() {
       container.removeEventListener('touchmove', handleTouchMove);
       container.removeEventListener('touchend', handleTouchEnd);
     };
-  }, []);
+  }, [startSnapToNearestCard]);
 
   // Touch event handlers for mobile scrolling
 
