@@ -39,6 +39,9 @@ const SocialMosaic: React.FC = () => {
                 height={500}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '315px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -51,6 +54,9 @@ const SocialMosaic: React.FC = () => {
                 height={250}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '180px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -63,6 +69,9 @@ const SocialMosaic: React.FC = () => {
                 height={350}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '240px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -117,6 +126,9 @@ const SocialMosaic: React.FC = () => {
                 height={400}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '300px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -129,6 +141,9 @@ const SocialMosaic: React.FC = () => {
                 height={250}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '220px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -141,6 +156,9 @@ const SocialMosaic: React.FC = () => {
                 height={350}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '280px' }}
+                priority
+                unoptimized={false}
+                quality={85}
               />
             </div>
 
@@ -221,7 +239,15 @@ const SocialMosaic: React.FC = () => {
 
 const CardImage = ({ src }: { src: string }) => (
   <div className="relative rounded-3xl overflow-hidden h-56 sm:h-72">
-    <Image src={src} alt="Gallery" fill className="object-cover" />
+    <Image 
+      src={src} 
+      alt="Gallery" 
+      fill 
+      className="object-cover"
+      priority
+      unoptimized={false}
+      quality={85}
+    />
   </div>
 );
 
