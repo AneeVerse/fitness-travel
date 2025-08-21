@@ -63,7 +63,7 @@ const TestimonialsSection = () => {
                      – Upcoming Adventures –
                    </div>
                    <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
-                   FIND OUT WHAT YOU ARE MADE UP OF 10K
+                   FIND OUT WHAT YOU ARE MADE UP OF
                    </h3>
                    <div className="mt-1 bg-black/85 rounded-xl p-4 sm:p-5 space-y-3">
                     
