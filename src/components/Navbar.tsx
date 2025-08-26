@@ -153,7 +153,7 @@ const Navbar = () => {
               style={{ fontFamily: 'var(--font-unbounded)' }}
               onClick={() => setIsMenuOpen(false)}
             >
-              BOOK ADVENTURE
+              BOOK JOURNEY
             </Link>
           </div>
         </div>
