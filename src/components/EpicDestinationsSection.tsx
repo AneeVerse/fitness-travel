@@ -234,7 +234,8 @@ const EpicDestinationsSection: React.FC = () => {
           {/* Left: Title + Subtitle */}
           <div className="space-y-3 lg:col-span-8">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
-              Journey Stories
+            stunning coastal boat days
+
             </h2>
             <p className="text-white/80 max-w-3xl lg:max-w-5xl text-sm sm:text-base">
               Real transformations, real people, real adventures. See how our tribe members transformed their lives

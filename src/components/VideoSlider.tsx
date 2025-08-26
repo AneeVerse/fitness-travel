@@ -15,78 +15,78 @@ interface VideoCard {
 const videos: VideoCard[] = [
   {
     id: 1,
-    title: "FITNESS RETREAT",
+    title: "FUNCTIONAL FITNESS",
     subtitle: "TIGER TERRAIN",
     description: "If the trip doesn't look like this, then I don't want it",
     videoUrl: "/video/vids/vid (1).mp4",
     timestamp: "0:12"
   },
+  // {
+  //   id: 2,
+  //   title: "ADVENTURE FITNESS",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "This is so much more than a fitness retreat",
+  //   videoUrl: "/video/vids/vid (2).mp4",
+  //   timestamp: "0:15"
+  // },
   {
     id: 2,
-    title: "ADVENTURE FITNESS",
-    subtitle: "TIGER TERRAIN",
-    description: "This is so much more than a fitness retreat",
-    videoUrl: "/video/vids/vid (2).mp4",
-    timestamp: "0:15"
-  },
-  {
-    id: 3,
-    title: "DAILY RETREAT",
+    title: "DAILY ACTIVITIES",
     subtitle: "TIGER TERRAIN",
     description: "POV: a day with Salt Escapes",
     videoUrl: "/video/vids/vid (3).mp4",
     timestamp: "0:47"
   },
+  // {
+  //   id: 4,
+  //   title: "BOAT DAY",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "POV: boat day with Salt Escapes",
+  //   videoUrl: "/video/vids/vid (4).mp4",
+  //   timestamp: "0:12"
+  // },
+  // {
+  //   id: 5,
+  //   title: "IBIZA FITNESS",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Ibiza, but make it fitness",
+  //   videoUrl: "/video/vids/vid (5).mp4",
+  //   timestamp: "0:19"
+  // },
+  // {
+  //   id: 6,
+  //   title: "MOUNTAIN ADVENTURE",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Mountain fitness adventure",
+  //   videoUrl: "/video/vids/vid (6).mp4",
+  //   timestamp: "0:25"
+  // },
   {
-    id: 4,
-    title: "BOAT DAY",
-    subtitle: "TIGER TERRAIN",
-    description: "POV: boat day with Salt Escapes",
-    videoUrl: "/video/vids/vid (4).mp4",
-    timestamp: "0:12"
-  },
-  {
-    id: 5,
-    title: "IBIZA FITNESS",
-    subtitle: "TIGER TERRAIN",
-    description: "Ibiza, but make it fitness",
-    videoUrl: "/video/vids/vid (5).mp4",
-    timestamp: "0:19"
-  },
-  {
-    id: 6,
-    title: "MOUNTAIN ADVENTURE",
-    subtitle: "TIGER TERRAIN",
-    description: "Mountain fitness adventure",
-    videoUrl: "/video/vids/vid (6).mp4",
-    timestamp: "0:25"
-  },
-  {
-    id: 7,
+    id: 3,
     title: "SUNSET YOGA",
     subtitle: "TIGER TERRAIN",
     description: "Sunset yoga session",
     videoUrl: "/video/vids/vid (7).mp4",
     timestamp: "0:32"
   },
+  // {
+  //   id: 8,
+  //   title: "BEACH WORKOUT",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Beach workout routine",
+  //   videoUrl: "/video/vids/vid (8).mp4",
+  //   timestamp: "0:18"
+  // },
   {
-    id: 8,
-    title: "BEACH WORKOUT",
-    subtitle: "TIGER TERRAIN",
-    description: "Beach workout routine",
-    videoUrl: "/video/vids/vid (8).mp4",
-    timestamp: "0:18"
-  },
-  {
-    id: 9,
-    title: "GROUP CHALLENGE",
+    id: 4,
+    title: "GROUP ACTIVITIES",
     subtitle: "TIGER TERRAIN",
     description: "Group fitness challenge",
     videoUrl: "/video/vids/vid (9).mp4",
     timestamp: "0:28"
   },
   {
-    id: 10,
+    id: 5,
     title: "WELLNESS HIGHLIGHTS",
     subtitle: "TIGER TERRAIN",
     description: "Wellness retreat highlights",
@@ -94,71 +94,71 @@ const videos: VideoCard[] = [
     timestamp: "0:22"
   },
   {
-    id: 11,
+    id: 6,
     title: "OUTDOOR TRAINING",
     subtitle: "TIGER TERRAIN",
     description: "Outdoor fitness training session",
     videoUrl: "/video/vids/vid (11).mp4",
     timestamp: "0:20"
   },
+  // {
+  //   id: 12,
+  //   title: "COASTAL WORKOUT",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Coastal fitness experience",
+  //   videoUrl: "/video/vids/vid (12).mp4",
+  //   timestamp: "0:16"
+  // },
+  // {
+  //   id: 13,
+  //   title: "MOUNTAIN HIKE",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Mountain hiking adventure",
+  //   videoUrl: "/video/vids/vid (13).mp4",
+  //   timestamp: "0:24"
+  // },
   {
-    id: 12,
-    title: "COASTAL WORKOUT",
-    subtitle: "TIGER TERRAIN",
-    description: "Coastal fitness experience",
-    videoUrl: "/video/vids/vid (12).mp4",
-    timestamp: "0:16"
-  },
-  {
-    id: 13,
-    title: "MOUNTAIN HIKE",
-    subtitle: "TIGER TERRAIN",
-    description: "Mountain hiking adventure",
-    videoUrl: "/video/vids/vid (13).mp4",
-    timestamp: "0:24"
-  },
-  {
-    id: 14,
+    id: 7,
     title: "BEACH YOGA",
     subtitle: "TIGER TERRAIN",
     description: "Beach yoga session",
     videoUrl: "/video/vids/vid (14).mp4",
     timestamp: "0:18"
   },
+  // {
+  //   id: 15,
+  //   title: "WATER SPORTS",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Water sports and activities",
+  //   videoUrl: "/video/vids/vid (15).mp4",
+  //   timestamp: "0:22"
+  // },
   {
-    id: 15,
-    title: "WATER SPORTS",
-    subtitle: "TIGER TERRAIN",
-    description: "Water sports and activities",
-    videoUrl: "/video/vids/vid (15).mp4",
-    timestamp: "0:22"
-  },
-  {
-    id: 16,
+    id: 8,
     title: "SUNSET WORKOUT",
     subtitle: "TIGER TERRAIN",
     description: "Sunset fitness session",
     videoUrl: "/video/vids/vid (16).mp4",
     timestamp: "0:26"
   },
+  // {
+  //   id: 17,
+  //   title: "ADVENTURE RACE",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Adventure race challenge",
+  //   videoUrl: "/video/vids/vid (17).mp4",
+  //   timestamp: "0:30"
+  // },
+  // {
+  //   id: 18,
+  //   title: "CLIFF TRAINING",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Cliff training session",
+  //   videoUrl: "/video/vids/vid (18).mp4",
+  //   timestamp: "0:28"
+  // },
   {
-    id: 17,
-    title: "ADVENTURE RACE",
-    subtitle: "TIGER TERRAIN",
-    description: "Adventure race challenge",
-    videoUrl: "/video/vids/vid (17).mp4",
-    timestamp: "0:30"
-  },
-  {
-    id: 18,
-    title: "CLIFF TRAINING",
-    subtitle: "TIGER TERRAIN",
-    description: "Cliff training session",
-    videoUrl: "/video/vids/vid (18).mp4",
-    timestamp: "0:28"
-  },
-  {
-    id: 19,
+    id: 9,
     title: "BEACH RUN",
     subtitle: "TIGER TERRAIN",
     description: "Beach running workout",
@@ -166,8 +166,8 @@ const videos: VideoCard[] = [
     timestamp: "0:20"
   },
   {
-    id: 20,
-    title: "MOUNTAIN CLIMB",
+    id: 10,
+    title: "MOUNTAIN RUN",
     subtitle: "TIGER TERRAIN",
     description: "Mountain climbing adventure",
     videoUrl: "/video/vids/vid (20).mp4",
@@ -357,7 +357,7 @@ export default function VideoSlider() {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (!isPointerDownRef.current || e.touches.length !== 1) return;
-      
+
       const currentX = e.touches[0].clientX;
       const deltaX = currentX - dragStartXRef.current;
       dragDeltaRef.current = deltaX;
@@ -365,19 +365,19 @@ export default function VideoSlider() {
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (!isPointerDownRef.current) return;
-      
+
       const currentTime = performance.now();
       const timeDelta = currentTime - lastTimeRef.current;
       const velocity = dragDeltaRef.current / timeDelta;
-      
+
       isPointerDownRef.current = false;
-      
+
       // Lower threshold and higher momentum for better sensitivity
       if (Math.abs(velocity) > 0.1) { // Reduced from 0.5
         const momentumDistance = velocity * 500; // Increased from 300
         dragDeltaRef.current += momentumDistance;
       }
-      
+
       startSnapToNearestCard();
     };
 
@@ -402,20 +402,21 @@ export default function VideoSlider() {
         {/* Header with Navigation */}
         <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-black"
-          style={{ fontFamily: 'var(--font-teko)' }}
+            style={{ fontFamily: 'var(--font-teko)' }}
           >
-            Fitness Retreats
-          </h2>
-         
+            Tiger Terrain Highlights
 
-          
+          </h2>
+
+
+
           <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
             {/* Discover Events Link */}
             <div className="hidden sm:flex items-center text-gray-600 hover:text-black transition-colors cursor-pointer">
               <span className="text-sm md:text-base mr-2">Discover retreats</span>
               <ChevronRight className="w-4 h-4" />
             </div>
-            
+
             {/* Navigation Arrows */}
             <div className="hidden md:flex gap-2 sm:gap-3">
               <button
@@ -435,14 +436,14 @@ export default function VideoSlider() {
         </div>
 
         {/* Slider Container */}
-        <div 
+        <div
           className="relative mt-4 sm:mt-6 carousel-container"
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={onPointerUp}
           onPointerLeave={onPointerLeave}
         >
-          <div 
+          <div
             ref={sliderRef}
             className="flex gap-6 carousel-track"
             style={{
@@ -466,13 +467,13 @@ export default function VideoSlider() {
                 >
                   <source src={video.videoUrl} type="video/mp4" />
                 </video>
-                
+
                 {/* Loading Overlay */}
                 {/* Removed preloading overlay as it's no longer needed */}
-                
+
                 {/* Overlay */}
                 <div className="absolute inset-0 bg-black/40" />
-                
+
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
                   <div className="space-y-1 sm:space-y-2">

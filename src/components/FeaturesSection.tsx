@@ -52,7 +52,7 @@ const FeaturesSection = () => {
   const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
     {
       title: "Welcome to Tiger Terrain",  
-      subtitle: "See how Tiger Terrain creates life-changing experiences that go beyond ordinary travel",
+      subtitle: "In the pool, over the hill on the beach, basically, you're all over the place!",
       description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
       thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
     },
@@ -191,7 +191,7 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
                     <h3 className="text-white text-lg sm:text-2xl md:text-3xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
                       What Is Tiger Terrain? 
                       <br />
-                      Your Journey Starts Here
+                      take a look!
                     </h3>
                   </div>
                   {/* Play button bottom-right (slightly smaller and lifted) */}

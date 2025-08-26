@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,6 +14,8 @@ const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -22,45 +24,105 @@ const Hero = () => {
 
     if (!hero || !video || !content) return;
 
-    // Create a timeline for the scroll animations
+    // Performance optimization: Use transform3d for GPU acceleration
+    gsap.set([hero, video, content], { 
+      willChange: "transform",
+      backfaceVisibility: "hidden",
+      perspective: 1000
+    });
+
+    // Create a timeline for the scroll animations with performance optimizations
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: hero,
         start: "top top",
         end: "+=400",
-        scrub: 0.5,
+        scrub: 1, // Increased scrub value for smoother performance
         pin: false,
+        anticipatePin: 1, // Better performance
+        fastScrollEnd: true, // Optimize for fast scrolling
+        preventOverlaps: true, // Prevent overlapping triggers
+        onUpdate: (self) => {
+          // Throttle updates for better performance
+          if (self.progress < 0.01 || self.progress > 0.99) return;
+        }
       }
     });
 
-    // Animate the hero section to become smaller and move up (but not too much)
+    // Optimized animations using transform3d and better easing
     tl.to(hero, {
       scale: 0.80,
       y: -90,
       duration: 1,
-      ease: "power2.out"
+      ease: "power1.out", // Changed to power1.out for better performance
+      force3D: true, // Force 3D transforms
+      transformOrigin: "center center"
     }, 0)
     
-    // Animate the video to scale and move (subtle effect)
     .to(video, {
       scale: 1.05,
       y: -25,
       duration: 1,
-      ease: "power2.out"
+      ease: "power1.out",
+      force3D: true,
+      transformOrigin: "center center"
     }, 0)
     
-    // Animate the content to move up and scale down slightly (subtle effect)
     .to(content, {
       y: -40,
       scale: 0.95,
       duration: 1,
-      ease: "power2.out"
+      ease: "power1.out",
+      force3D: true,
+      transformOrigin: "center center"
     }, 0);
 
+    // Performance optimization: Kill animations when component unmounts
+    return () => {
+      if (tl) {
+        tl.kill();
+        tl.scrollTrigger?.kill();
+      }
+      // Clean up all ScrollTrigger instances
+      ScrollTrigger.getAll().forEach(trigger => {
+        if (trigger.vars.trigger === hero) {
+          trigger.kill();
+        }
+      });
+    };
+  }, []);
+
+  // Video event handlers
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+    setVideoError(false);
+  };
+
+  const handleVideoError = () => {
+    setVideoError(true);
+    setVideoLoaded(false);
+  };
+
+  const handleVideoCanPlay = () => {
+    setVideoLoaded(true);
+  };
+
+  // Optimize video loading
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Set video properties for better performance
+    video.preload = 'metadata';
+    video.load();
+    
     // Cleanup function
     return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      if (video) {
+        video.pause();
+        video.src = '';
+        video.load();
+      }
     };
   }, []);
 
@@ -68,17 +130,55 @@ const Hero = () => {
     <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
+        {/* Fallback background when video is loading or has error */}
+        <div className={`absolute inset-0 transition-opacity duration-500 ${
+          videoLoaded ? 'opacity-0' : 'opacity-100'
+        }`}>
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
+        </div>
+
+        {/* Video with proper loading states */}
         <video
           ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="absolute min-w-full min-h-full object-cover"
+          preload="metadata"
+          className={`absolute min-w-full min-h-full object-cover transition-opacity duration-700 will-change-transform ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          onLoadedData={handleVideoLoad}
+          onCanPlay={handleVideoCanPlay}
+          onError={handleVideoError}
+          style={{
+            transform: 'translateZ(0)', // Force hardware acceleration
+            backfaceVisibility: 'hidden'
+          }}
         >
-          <source src="/video/BG.mp4" type="video/mp4" />
+          {/* Local video first (faster loading) */}
+          <source 
+            src="/video/BG2.mp4" 
+            type="video/mp4" 
+          />
+          <source 
+            src="/video/BG2.mp4" 
+            type="video/mp4" 
+          />
+          {/* CDN as fallback */}
+          <source 
+            src="https://ik.imagekit.io/cuovrrwder/BG-(2).mp4?updatedAt=1756192776676" 
+            type="video/mp4" 
+          />
           Your browser does not support the video tag.
         </video>
+        
+        {/* Loading indicator */}
+        {!videoLoaded && !videoError && (
+          <div className="absolute inset-0 flex items-center justify-center z-10">
+            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+          </div>
+        )}
         
         {/* Base dim overlay */}
         <div className="absolute inset-0 bg-black/25"></div>
@@ -91,15 +191,14 @@ const Hero = () => {
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-75 md:mt-60">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
-            Stop Taking Vacations. 
+          This is more than a 
           </h1>
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[42px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-3">
-            Start Living Your Best Life.
+          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[40.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-3">
+           vacation. It&apos;s a journey.
           </h1>
 
           <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-6 sm:mb-10 max-w-4xl leading-relaxed">
-            Join a tribe of fearless souls who transform their mind and body through epic journeys. <br className="hidden sm:block" />
-            Tiger Terrain isn&apos;t about getting away, it&apos;s about becoming who you were meant to be.
+          Tiger Terrain is for anyone and everyone eager to begin the pursuit of a <br /> better life and do so while exploring new places.
           </p>
 
           {/* CTA Buttons */}

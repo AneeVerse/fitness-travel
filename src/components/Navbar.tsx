@@ -14,10 +14,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: 'HOME', href: '/', hasDropdown: false },
+
     { name: 'UPCOMING EVENTS', href: '/programs', hasDropdown: false },
     { name: 'ABOUT', href: '/about-us', hasDropdown: false },
-    { name: 'BLOGS', href: '/pages', hasDropdown: false },
+    { name: 'FAQ', href: '/faq', hasDropdown: false },
     { name: 'CONTACT', href: '/coaches', hasDropdown: false },
   ];
 
@@ -60,7 +60,7 @@ const Navbar = () => {
                 className="px-6 py-4 rounded-full font-semibold text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
               >
-                BOOK ADVENTURE
+                BOOK JOURNEY
               </Link>
             </div>
 

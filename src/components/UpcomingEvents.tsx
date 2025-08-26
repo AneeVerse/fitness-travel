@@ -11,6 +11,8 @@ type EventItem = {
   location: string;
   priceLabel: string;
   imageSrc: string;
+  totalSlots: number;
+  bookedSlots: number;
 };
 
 const events: EventItem[] = [
@@ -30,13 +32,15 @@ const events: EventItem[] = [
     id: 'PHUKET',
     title: 'PHUKET',
     description:
-      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: 'December 12, 2025',
+      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. The local vibe is energetic and supportive, making it easy for visitors to immerse themselves in a dynamic fitness culture.',
+    date: '14th sept - 21st sept',
     access: 'Member Only',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
     priceLabel: '$50',
     imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    totalSlots: 25,
+    bookedSlots: 18,
   },
 ];
 
@@ -46,15 +50,19 @@ const UpcomingEvents = () => {
       <div className="max-w-[1425px] mx-auto px-4  sm:px-8">
         <div className="text-center mb-8 sm:mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
-            - Upcoming Adventures -
+            - Upcoming Journeys -
           </span>
           <h2 className="mt-2 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-            Upcoming Adventures
+            Upcoming  Journeys
           </h2>
         </div>
 
         <div className="space-y-6">
-          {events.map((event) => (
+          {events.map((event) => {
+            const availableSlots = event.totalSlots - event.bookedSlots;
+            const bookingPercentage = (event.bookedSlots / event.totalSlots) * 100;
+            
+            return (
             <div
               key={event.id}
               className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200"
@@ -151,6 +159,50 @@ const UpcomingEvents = () => {
                     <span>{event.location}</span>
                   </div>
                 </div>
+
+                {/* Booking Slots Countdown Section */}
+                <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-medium text-gray-600 uppercase tracking-wide">
+                      Slots
+                    </span>
+                    <span className="text-xs text-gray-500">
+                      {bookingPercentage.toFixed(0)}% Full
+                    </span>
+                  </div>
+                  
+                  {/* Progress Bar */}
+                  <div className="w-full bg-gray-200 rounded-full h-1.5 mb-3">
+                    <div 
+                      className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
+                      style={{ width: `${bookingPercentage}%` }}
+                    ></div>
+                  </div>
+                  
+                  {/* Compact Slots Counter */}
+                  <div className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                      <span className="text-gray-700 font-medium">{availableSlots} Available</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                      <span className="text-gray-700 font-medium">{event.bookedSlots} Booked</span>
+                    </div>
+                  </div>
+                  
+                  {/* Small Urgency Message */}
+                  {availableSlots <= 5 && (
+                    <div className="mt-2 text-center">
+                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-600 text-xs rounded-md">
+                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                        </svg>
+                        Only {availableSlots} left!
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Right image */}
@@ -165,7 +217,7 @@ const UpcomingEvents = () => {
                 />
               </div>
             </div>
-          ))}
+          )})}
         </div>
 
         <div className="flex justify-center mt-8 sm:mt-10">

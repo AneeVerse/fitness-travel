@@ -18,26 +18,26 @@ const TestimonialsSection = () => {
                          {/* Main Content */}
              <div className="space-y-3 sm:space-y-4">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
-                 Adventure Awaits
+               Are you game?
                </h2>
                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 From sunrise yoga in the Himalayas to strength training on pristine beaches, every Tiger Terrain experience blends physical challenge with cultural immersion. Join solo travelers who transform their lives through carefully crafted adventures that push boundaries and create lasting connections.
+               Tiger Terrain offers an immersive fitness journey that seamlessly fuses physical fitness, mental well-being, and the thrill of travel. Participants experience a diverse range of fitness modalities, including Yoga, CrossFit, Running, Weight Training, and Muay Thai, all set
                </p>
              </div>
 
                          {/* Statistics */}
              <div className="grid grid-cols-3 gap-4 sm:gap-6">
                <div className="text-center">
-                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">15+</div>
-                 <div className="text-xs text-gray-600">Years of experience</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">15</div>
+                 <div className="text-xs text-gray-600">Trips</div>
                </div>
                <div className="text-center">
-                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">8</div>
-                 <div className="text-xs text-gray-600">World Sports Awards</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">10+</div>
+                 <div className="text-xs text-gray-600">Years of Experience</div>
                </div>
                <div className="text-center">
-                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">3</div>
-                 <div className="text-xs text-gray-600">Training Centers</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">4</div>
+                 <div className="text-xs text-gray-600">Locations</div>
                </div>
              </div>
           </div>
