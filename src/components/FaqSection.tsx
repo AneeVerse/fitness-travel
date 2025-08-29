@@ -46,7 +46,7 @@ const FaqSection: React.FC = () => {
 
   return (
     <section className="relative py-12 sm:py-16 bg-gray-100 mobile-faq">
-      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16">
+      <div className="max-w-[1325px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 items-start">
           {/* Left – Content + Accordion */}
           <div>

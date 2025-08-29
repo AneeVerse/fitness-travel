@@ -18,7 +18,7 @@ const Navbar = () => {
     { name: 'UPCOMING EVENTS', href: '/programs', hasDropdown: false },
     { name: 'ABOUT', href: '/about-us', hasDropdown: false },
     { name: 'FAQ', href: '/faq', hasDropdown: false },
-    { name: 'CONTACT', href: '/coaches', hasDropdown: false },
+    { name: 'CONTACT', href: '/contact', hasDropdown: false },
   ];
 
   return (
