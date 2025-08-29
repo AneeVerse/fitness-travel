@@ -105,23 +105,56 @@ const Hero = () => {
 
   const handleVideoCanPlay = () => {
     setVideoLoaded(true);
+    // Ensure video plays
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    }
   };
 
-  // Optimize video loading
+  // Optimize video loading and handle navigation
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Reset loading state
+    setVideoLoaded(false);
+    setVideoError(false);
+
     // Set video properties for better performance
     video.preload = 'metadata';
+    
+    // Force reload and play
     video.load();
+    
+    // Fallback timeout to show video even if events don't fire
+    const fallbackTimer = setTimeout(() => {
+      if (!videoLoaded && !videoError) {
+        setVideoLoaded(true);
+        video.play().catch(() => {
+          // Ignore autoplay errors
+        });
+      }
+    }, 2000);
+
+    // Ensure video plays after loading
+    const handleCanPlayThrough = () => {
+      setVideoLoaded(true);
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
     
     // Cleanup function
     return () => {
+      clearTimeout(fallbackTimer);
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
       if (video) {
         video.pause();
-        video.src = '';
-        video.load();
       }
     };
   }, []);

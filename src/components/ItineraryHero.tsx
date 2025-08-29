@@ -103,21 +103,56 @@ const ItineraryHero = () => {
 
   const handleVideoCanPlay = () => {
     setVideoLoaded(true);
+    // Ensure video plays
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    }
   };
 
-  // Optimize video loading
+  // Optimize video loading and handle navigation
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    // Reset loading state
+    setVideoLoaded(false);
+    setVideoError(false);
+
+    // Set video properties for better performance
     video.preload = 'metadata';
+    
+    // Force reload and play
     video.load();
     
+    // Fallback timeout to show video even if events don't fire
+    const fallbackTimer = setTimeout(() => {
+      if (!videoLoaded && !videoError) {
+        setVideoLoaded(true);
+        video.play().catch(() => {
+          // Ignore autoplay errors
+        });
+      }
+    }, 2000);
+
+    // Ensure video plays after loading
+    const handleCanPlayThrough = () => {
+      setVideoLoaded(true);
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    
+    // Cleanup function
     return () => {
+      clearTimeout(fallbackTimer);
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
       if (video) {
         video.pause();
-        video.src = '';
-        video.load();
       }
     };
   }, []);
@@ -220,7 +255,7 @@ const ItineraryHero = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <Link
               href="/book-now"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#e77d26] text-white rounded-[15px] font-semibold text-base sm:text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-black rounded-[15px] font-semibold text-base sm:text-lg transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Book Now
             </Link>
