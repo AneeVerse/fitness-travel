@@ -195,8 +195,7 @@ html {
 
 /* Improve focus states for accessibility */
 button:focus, a:focus, input:focus, textarea:focus, select:focus {
-  outline: 2px solid #e77d25;
-  outline-offset: 2px;
+  outline: none;
 }
 
 /* Better loading states for mobile */

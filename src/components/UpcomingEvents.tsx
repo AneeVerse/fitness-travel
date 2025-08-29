@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type EventItem = {
   id: string;
@@ -117,17 +118,18 @@ const UpcomingEvents = () => {
 
                 {/* Button */}
                 <div className="mt-6 sm:mt-8">
-                  <button
-                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn"
+                  <Link
+                    href="/itinerary"
+                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn inline-flex items-center justify-center"
                     style={{ fontFamily: 'var(--font-teko)' }}
                   >
                     VIEW FULL ITINERARY
-                  </button>
+                  </Link>
                 </div>
               </div>
 
               {/* Middle content */}
-              <div className="lg:col-span-5 p-6 sm:p-8 lg:border-r lg:border-gray-200">
+              <div className="lg:col-span-4 p-6 sm:p-8 lg:border-r lg:border-gray-200">
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-teko)' }}>
                   {event.title}
                 </h3>
@@ -140,18 +142,6 @@ const UpcomingEvents = () => {
                     </span>
                     <span>{event.date}</span>
                   </div>
-                  {/* <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10a5 5 0 1110 0 5 5 0 01-10 0zm-4 9a7 7 0 0114 0v1H3v-1z" /></svg>
-                    </span>
-                    <span>{event.access}</span>
-                  </div> */}
-                  {/* <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 8a1 1 0 011 1v3.382l2.447 1.224a1 1 0 11-.894 1.788l-3.106-1.555A1 1 0 0111 14V9a1 1 0 011-1z" /><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z" /></svg>
-                    </span>
-                    <span>{event.time}</span>
-                  </div> */}
                   <div className="flex items-center gap-3">
                     <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" /></svg>
@@ -161,52 +151,29 @@ const UpcomingEvents = () => {
                 </div>
 
                 {/* Booking Slots Countdown Section */}
-                <div className="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-medium text-gray-600 uppercase tracking-wide">
-                      Slots
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {bookingPercentage.toFixed(0)}% Full
-                    </span>
-                  </div>
-                  
-                  {/* Progress Bar */}
-                  <div className="w-full bg-gray-200 rounded-full h-1.5 mb-3">
-                    <div 
-                      className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
-                      style={{ width: `${bookingPercentage}%` }}
-                    ></div>
-                  </div>
-                  
-                  {/* Compact Slots Counter */}
-                  <div className="flex items-center justify-between text-xs">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                      <span className="text-gray-700 font-medium">{availableSlots} Available</span>
+                <div className="mt-4">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      {/* Rounded box icon */}
+                      <div className="w-12 h-6 bg-gray-200 rounded-md border-2 border-[#e77d25] relative">
+                        {/* Fill level */}
+                        <div 
+                          className="h-full bg-[#e77d25] rounded-sm transition-all duration-300"
+                          style={{ width: `${(availableSlots / event.totalSlots) * 100}%` }}
+                        ></div>
+                        {/* Number overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-sm font-bold text-[#e77d25] drop-shadow-sm">{availableSlots}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-                      <span className="text-gray-700 font-medium">{event.bookedSlots} Booked</span>
-                    </div>
+                    <span className="text-[#e77d25] font-medium">Spots left !</span>
                   </div>
-                  
-                  {/* Small Urgency Message */}
-                  {availableSlots <= 5 && (
-                    <div className="mt-2 text-center">
-                      <span className="inline-flex items-center gap-1 px-2 py-1 bg-red-100 text-red-600 text-xs rounded-md">
-                        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                        </svg>
-                        Only {availableSlots} left!
-                      </span>
-                    </div>
-                  )}
                 </div>
               </div>
 
               {/* Right image */}
-              <div className="lg:col-span-4 relative h-64 sm:h-64 md:h-72 lg:h-auto">
+              <div className="lg:col-span-5 relative h-64 sm:h-64 md:h-72 lg:h-auto">
                 <Image
                   src={event.imageSrc}
                   alt={event.title}
@@ -221,7 +188,7 @@ const UpcomingEvents = () => {
         </div>
 
         <div className="flex justify-center mt-8 sm:mt-10">
-          <button className="px-6 py-3 rounded-full text-white bg-[#e77d25] font-semibold hover:bg-gray-900 uppercase mobile-btn">
+          <button className="px-6 py-3 rounded-full text-white bg-[#e77d26] font-semibold hover:bg-[#d16d1f] uppercase mobile-btn">
             View More Events
           </button>
         </div>
