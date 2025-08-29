@@ -80,9 +80,9 @@ const ContactPage = () => {
             <div className="space-y-8">
               {/* Header */}
               <div className="mb-8">
-                <div className="inline-block px-4 py-2 bg-gray-100 rounded-full text-sm text-gray-600 font-medium mb-4">
-                  — CONTACT US —
-                </div>
+                                 <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
+                   — CONTACT US —
+                 </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-unbounded leading-tight">
                   WE'D LOVE TO HEAR FROM YOU
                 </h2>
@@ -90,65 +90,65 @@ const ContactPage = () => {
 
               {/* Contact Information */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                {/* Email Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 font-unbounded">EMAIL</h3>
-                  </div>
+                                 {/* Email Section */}
+                 <div className="space-y-4">
+                   <div className="flex items-center gap-3 mb-4">
+                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                       </svg>
+                     </div>
+                     <h3 className="text-xl font-bold text-gray-900 font-unbounded">EMAIL</h3>
+                   </div>
                   <div className="space-y-2 text-gray-600">
                     <p>team.tigerterrain@gmail.com</p>
                     <p>info.tigerterrain@gmail.com</p>
                   </div>
                 </div>
 
-                {/* Phone Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 font-unbounded">PHONE</h3>
-                  </div>
+                                 {/* Phone Section */}
+                 <div className="space-y-4">
+                   <div className="flex items-center gap-3 mb-4">
+                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                       </svg>
+                     </div>
+                     <h3 className="text-xl font-bold text-gray-900 font-unbounded">PHONE</h3>
+                   </div>
                   <div className="space-y-2 text-gray-600">
                     <p>+91 98209 42632</p>
                     <p>+91 98765 43210</p>
                   </div>
                 </div>
 
-                {/* Working Hours Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 font-unbounded">WORKING HOURS</h3>
-                  </div>
+                                 {/* Working Hours Section */}
+                 <div className="space-y-4">
+                   <div className="flex items-center gap-3 mb-4">
+                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                       </svg>
+                     </div>
+                     <h3 className="text-xl font-bold text-gray-900 font-unbounded">WORKING HOURS</h3>
+                   </div>
                   <div className="space-y-2 text-gray-600">
                     <p>Mon - Sat: 7:00 - 5:00</p>
                     <p>Sunday: Close</p>
                   </div>
                 </div>
 
-                {/* Our Camp Section */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 font-unbounded">OUR CAMP</h3>
-                  </div>
+                                 {/* Our Camp Section */}
+                 <div className="space-y-4">
+                   <div className="flex items-center gap-3 mb-4">
+                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                       </svg>
+                     </div>
+                     <h3 className="text-xl font-bold text-gray-900 font-unbounded">OUR CAMP</h3>
+                   </div>
                   <div className="space-y-2 text-gray-600">
                     <p>Mumbai, Maharashtra</p>
                     <p>India 400001</p>
