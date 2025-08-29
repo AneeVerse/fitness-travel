@@ -75,25 +75,50 @@ const ItinerarySection = () => {
     const timeline = timelineRef.current;
     if (!timeline) return;
 
+    // Animate main timeline progress line
+    const progressLine = timeline.querySelector('.timeline-progress');
+    if (progressLine) {
+      // Create the main timeline animation
+      gsap.to(progressLine, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: timeline,
+          start: "top bottom-=100",
+          end: "bottom top+=100",
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+    }
+
+    // Refresh ScrollTrigger to ensure proper calculation
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
     // Animate timeline dots on scroll
     const dots = timeline.querySelectorAll('.timeline-dot');
     const lines = timeline.querySelectorAll('.timeline-line');
 
     dots.forEach((dot, index) => {
-      gsap.fromTo(dot, 
-        { scale: 0.5, opacity: 0.3 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.3,
-          scrollTrigger: {
-            trigger: dot,
-            start: "top center+=100",
-            end: "bottom center-=100",
-            toggleActions: "play none none reverse"
-          }
+      // Set initial state - smaller and less prominent
+      gsap.set(dot, { scale: 0.7, opacity: 0.6 });
+      
+      // Animate dot to highlighted state when timeline reaches it
+      gsap.to(dot, {
+        scale: 1.2,
+        opacity: 1,
+        backgroundColor: "#e77d26",
+        duration: 0.3,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: dot,
+          start: "top center+=150",
+          end: "bottom center-=150",
+          toggleActions: "play none none reverse"
         }
-      );
+      });
     });
 
     // Animate timeline lines
@@ -136,13 +161,16 @@ const ItinerarySection = () => {
 
         {/* Timeline */}
         <div ref={timelineRef} className="relative">
-          {/* Center Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full"></div>
+          {/* Center Line - Background */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full z-0"></div>
+          
+          {/* Center Line - Animated Progress */}
+          <div className="timeline-progress absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
 
           {itineraryData.map((day, index) => (
             <div key={day.day} className="relative mb-20 last:mb-0">
               {/* Timeline Dot */}
-              <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#e77d26] rounded-full z-10 border-4 border-white shadow-md"></div>
+              <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full z-10 border-4 border-white shadow-md transition-colors duration-300"></div>
               
               {/* Timeline Line */}
               {index < itineraryData.length - 1 && (
