@@ -102,7 +102,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                       Get Your Pricing
                     </h2>
                     <p className="text-gray-600">
-                      Fill out the form below and we'll send you detailed pricing information and a complete itinerary PDF within 24 hours.
+                      Fill out the form below and we&apos;ll send you detailed pricing information and a complete itinerary PDF within 24 hours.
                     </p>
                   </div>
 
@@ -201,10 +201,10 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4 font-unbounded">Request Sent!</h3>
                   <p className="text-gray-600 mb-4">
-                    Thank you for your interest! We've sent your pricing information to your email and your PDF should start downloading shortly.
+                    Thank you for your interest! We&apos;ve sent your pricing information to your email and your PDF should start downloading shortly.
                   </p>
                   <p className="text-sm text-gray-500">
-                    We'll be in touch within 24 hours with any additional information you might need.
+                    We&apos;ll be in touch within 24 hours with any additional information you might need.
                   </p>
                 </div>
               )}

@@ -93,7 +93,7 @@ const TripDetailsSection = () => {
         },
         {
           title: 'Garden-to-Table Dining',
-          description: 'Many of our fruits, vegetables, and herbs will be harvested straight from the villa\'s garden, bringing the freshest ingredients straight to your plate.'
+          description: 'Many of our fruits, vegetables, and herbs will be harvested straight from the villa&apos;s garden, bringing the freshest ingredients straight to your plate.'
         },
         {
           title: 'Sunset Alfresco Meals',
@@ -113,7 +113,7 @@ const TripDetailsSection = () => {
             What to Expect on this Escape
           </h2>
           <p className="text-lg text-gray-700 max-w-4xl mx-auto">
-            Sun-soaked workouts in the villa's grounds, Mediterranean feasts whipped up by our private chef and off the beaten path adventures along Ibiza's beautiful coastline. Unwind by the pool with new friends, relax with yoga in the villa's yoga dome, and sip ice cold drinks as the golden sun sets on our summer days in Ibiza.
+            Sun-soaked workouts in the villa&apos;s grounds, Mediterranean feasts whipped up by our private chef and off the beaten path adventures along Ibiza&apos;s beautiful coastline. Unwind by the pool with new friends, relax with yoga in the villa&apos;s yoga dome, and sip ice cold drinks as the golden sun sets on our summer days in Ibiza.
           </p>
         </div>
 

@@ -155,7 +155,7 @@ const ItinerarySection = () => {
             Your Week in Ibiza
           </h2>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            Here's a closer look at what to expect on our Escape to the Balearic island of Ibiza.
+            Here&apos;s a closer look at what to expect on our Escape to the Balearic island of Ibiza.
           </p>
         </div>
 

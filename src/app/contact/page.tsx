@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
@@ -55,7 +56,7 @@ const ContactPage = () => {
                  {/* Breadcrumb */}
                  <nav className="mb-6">
                    <div className="flex items-center space-x-2 text-white/80 text-sm">
-                     <a href="/" className="hover:text-white transition-colors">Home</a>
+                     <Link href="/" className="hover:text-white transition-colors">Home</Link>
                      <span>-</span>
                      <span className="text-white">Contact</span>
                    </div>
@@ -84,7 +85,7 @@ const ContactPage = () => {
                    — CONTACT US —
                  </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-unbounded leading-tight">
-                  WE'D LOVE TO HEAR FROM YOU
+                  WE&apos;D LOVE TO HEAR FROM YOU
                 </h2>
               </div>
 

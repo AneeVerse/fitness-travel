@@ -26,14 +26,14 @@ const OverviewSection = () => {
             <p className="text-lg text-gray-700 leading-relaxed">
               Traditionally known as an island world-famous for it&apos;s party scene, Ibiza&apos;s north is 
               relaxed and low key. Our Escape villa sits in a charming, quiet village, but remains 
-              close to the islands golden sands, turquoise bays, and pine tree-lined coast, making 
+              close to the island&apos;s golden sands, turquoise bays, and pine tree-lined coast, making 
               it the perfect spot to unwind and soak up a week of workouts, adventures and new friends.
             </p>
             
             <p className="text-lg text-gray-700 leading-relaxed">
               With our villa&apos;s incredible spaces for workouts, socialising and soaking up the sun, 
               plus an itinerary packed full of salty adventures, this is your chance to see a 
-              different side of magical Ibiza With our villa's incredible spaces for workouts, socialising and soaking up the sun, plus an itinerary packed full of salty adventures, this is your chance to see a different side of magical Ibiza.
+              different side of magical Ibiza.
             </p>
           </div>
 

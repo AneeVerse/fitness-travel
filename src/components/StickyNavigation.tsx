@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 
 const StickyNavigation = () => {
   const [activeSection, setActiveSection] = useState('');
@@ -17,7 +16,6 @@ const StickyNavigation = () => {
   // Scroll spy functionality
   useEffect(() => {
     const handleScroll = () => {
-      const sections = navItems.filter(item => !item.isExternal);
       let currentSection = '';
 
       // Check if we're in hero section (top of page)
@@ -26,7 +24,7 @@ const StickyNavigation = () => {
         return;
       }
 
-      for (const item of sections) {
+      for (const item of navItems) {
         const element = document.querySelector(item.href);
         if (element) {
           const rect = element.getBoundingClientRect();
@@ -45,14 +43,9 @@ const StickyNavigation = () => {
     handleScroll(); // Call once on mount
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
-  const handleNavClick = (item: any) => {
-    if (item.isExternal) {
-      window.location.href = item.href;
-      return;
-    }
-
+  const handleNavClick = (item: { id: string; label: string; href: string }) => {
     setActiveSection(item.label);
     
     // Smooth scroll to section
