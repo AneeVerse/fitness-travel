@@ -5,6 +5,7 @@ import OverviewSection from '@/components/OverviewSection';
 import TripDetailsSection from '@/components/TripDetailsSection';
 import PricingSection from '@/components/PricingSection';
 import BookNowSection from '@/components/BookNowSection';
+import ItinerarySection from '@/components/ItinerarySection';
 import Footer from '@/components/Footer';
 
 export default function ItineraryPage() {
@@ -17,6 +18,7 @@ export default function ItineraryPage() {
       <TripDetailsSection />
       <PricingSection />
       <BookNowSection />
+      <ItinerarySection />
       <Footer />
     </>
   );
