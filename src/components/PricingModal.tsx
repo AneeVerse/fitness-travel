@@ -30,27 +30,41 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Send form data to API
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData);
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
 
-    // Simulate PDF download
-    const link = document.createElement('a');
-    link.href = '#'; // This would be your actual PDF URL
-    link.download = 'ibiza-escape-pricing.pdf';
-    link.click();
+      // Simulate PDF download
+      const link = document.createElement('a');
+      link.href = '#'; // This would be your actual PDF URL
+      link.download = 'tiger-terrain-pricing.pdf';
+      link.click();
 
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      setIsSubmitting(false);
+      setIsSubmitted(true);
 
-    // Auto close after success message
-    setTimeout(() => {
-      onClose();
-      setIsSubmitted(false);
-      setFormData({ firstName: '', lastName: '', email: '', phone: '' });
-    }, 3000);
+      // Auto close after success message
+      setTimeout(() => {
+        onClose();
+        setIsSubmitted(false);
+        setFormData({ firstName: '', lastName: '', email: '', phone: '' });
+      }, 5000);
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      // You could add error state handling here
+      alert('Failed to submit form. Please try again.');
+    }
   };
 
   if (!isOpen) return null;
@@ -99,10 +113,10 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                 <>
                   <div className="mb-8">
                     <h2 className="text-3xl font-bold text-gray-900 mb-4 font-unbounded">
-                      Get Your Pricing
+                      Book Your Adventure
                     </h2>
                     <p className="text-gray-600">
-                      Fill out the form below and we&apos;ll send you detailed pricing information and a complete itinerary PDF within 24 hours.
+                      Fill out the form below and we&apos;ll send you detailed pricing information, a complete itinerary PDF, and contact you within 24 hours.
                     </p>
                   </div>
 
@@ -183,7 +197,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           Sending Request...
                         </div>
                       ) : (
-                        'Get Pricing & Download PDF'
+                        'Book Now & Download PDF'
                       )}
                     </button>
 
@@ -199,12 +213,12 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 font-unbounded">Request Sent!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4 font-unbounded">Thank You!</h3>
                   <p className="text-gray-600 mb-4">
-                    Thank you for your interest! We&apos;ve sent your pricing information to your email and your PDF should start downloading shortly.
+                    Your booking request has been submitted successfully! Our team will contact you within 24 hours to discuss your adventure.
                   </p>
                   <p className="text-sm text-gray-500">
-                    We&apos;ll be in touch within 24 hours with any additional information you might need.
+                    We&apos;ve also sent pricing information to your email and your PDF should start downloading shortly.
                   </p>
                 </div>
               )}

@@ -1,4 +1,6 @@
-import React from 'react';
+"use client";
+
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -46,8 +48,50 @@ const events: EventItem[] = [
 ];
 
 const UpcomingEvents = () => {
+  const [displayedSlots, setDisplayedSlots] = useState(25);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (hasAnimated) return;
+
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const rect = section.getBoundingClientRect();
+      const isVisible = rect.top <= window.innerHeight * 0.8 && rect.bottom >= 0;
+
+      if (isVisible) {
+        setHasAnimated(true);
+        
+        // Start countdown animation from 25 to 15
+        let currentCount = 25;
+        const targetCount = 15;
+        const duration = 2000; // 2 seconds
+        const interval = 50; // Update every 50ms
+        const steps = duration / interval;
+        const decrement = (currentCount - targetCount) / steps;
+
+        const timer = setInterval(() => {
+          currentCount -= decrement;
+          if (currentCount <= targetCount) {
+            currentCount = targetCount;
+            clearInterval(timer);
+          }
+          setDisplayedSlots(Math.round(currentCount));
+        }, interval);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on initial load
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasAnimated]);
+
   return (
-    <section className="relative md:py-12  bg-gray-100 mobile-section">
+    <section ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
       <div className="max-w-[1425px] mx-auto px-4  sm:px-8">
         <div className="text-center mb-8 sm:mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
@@ -159,11 +203,11 @@ const UpcomingEvents = () => {
                         {/* Fill level */}
                         <div 
                           className="h-full bg-[#e77d25] rounded-sm transition-all duration-300"
-                          style={{ width: `${(availableSlots / event.totalSlots) * 100}%` }}
+                          style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
                         ></div>
                         {/* Number overlay */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-sm font-bold text-[#e77d25] drop-shadow-sm">{availableSlots}</span>
+                          <span className="text-sm font-bold text-white drop-shadow-sm">{displayedSlots}</span>
                         </div>
                       </div>
                     </div>

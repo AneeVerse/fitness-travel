@@ -6,7 +6,7 @@ import localFont from 'next/font/local';
 import { useState } from 'react';
 
 const tigerTerrainFont = localFont({
-  src: '../../public/font/P22 Operina Romano Romano.ttf',
+  src: '../../public/font/Fira_Sans/FiraSans-Bold.ttf',
   display: 'swap',
 });
 

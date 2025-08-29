@@ -1,11 +1,15 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import PricingModal from './PricingModal';
 
 const BookNowSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
+    <>
     <section id="book-now" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -36,12 +40,12 @@ const BookNowSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/book-now"
+              <button
+                onClick={() => setIsModalOpen(true)}
                 className="inline-flex items-center justify-center px-8 py-4 bg-[#e77d26] text-white rounded-full font-semibold text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg"
               >
                 Book Now
-              </Link>
+              </button>
               <Link
                 href="#pricing"
                 className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-gray-700 border-2 border-gray-300 rounded-full font-semibold text-lg hover:border-gray-400 hover:text-gray-900 transition-all duration-200"
@@ -53,6 +57,13 @@ const BookNowSection = () => {
         </div>
       </div>
     </section>
+
+      {/* Pricing Modal */}
+      <PricingModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
+    </>
   );
 };
 

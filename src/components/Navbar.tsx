@@ -6,7 +6,7 @@ import Image from 'next/image';
 import localFont from 'next/font/local';
 
 const tigerTerrainFont = localFont({
-  src: '../../public/font/P22 Operina Romano Romano.ttf',
+  src: '../../public/font/Fira_Sans/FiraSans-Bold.ttf',
   display: 'swap',
 });
 
@@ -29,7 +29,7 @@ const Navbar = () => {
             {/* Logo + Brand */}
             <div className="flex-shrink-0">
               <Link href="/" className="flex items-center gap-2 sm:gap-3">
-                <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+                <Image src="/images/website-logo1.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
                 <span className={`${tigerTerrainFont.className} text-[20px] sm:text-[20px] md:text-xl lg:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
               </Link>
             </div>
