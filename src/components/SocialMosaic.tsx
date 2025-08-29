@@ -86,7 +86,7 @@ const SocialMosaic: React.FC = () => {
                   </div>
 
                   <a
-                    href="https://www.instagram.com/mydenfitcation/"
+                    href="https://www.instagram.com/tigerterrain.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-3 py-1.5 rounded-full bg-white text-black font-semibold hover:bg-black hover:text-white transition-all duration-300 text-xs shadow-md hover:shadow-lg transform hover:scale-105"
@@ -194,7 +194,7 @@ const SocialMosaic: React.FC = () => {
                   </div>
 
                   <a
-                    href="https://www.instagram.com/mydenfitcation/"
+                    href="https://www.instagram.com/tigerterrain.in"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white text-black font-semibold hover:bg-black hover:text-white transition-all duration-300 text-sm shadow-md hover:shadow-lg transform hover:scale-105"
@@ -263,7 +263,7 @@ const SocialMosaic: React.FC = () => {
               </div >
             
               <a
-                href="https://www.instagram.com/mydenfitcation/"
+                href="https://www.instagram.com/tigerterrain.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 inline-flex items-center justify-center px-4 sm:px-6 py-3 rounded-full bg-white text-black font-semibold hover:bg-black hover:text-white transition-all duration-300 text-sm sm:text-base mobile-btn shadow-md hover:shadow-lg transform hover:scale-105"

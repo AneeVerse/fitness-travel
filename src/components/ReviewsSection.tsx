@@ -96,9 +96,9 @@ const ReviewsSection: React.FC = () => {
           <ReviewVideo />
         </div>
 
-        {/* Google Reviews Section */}
+        {/* Google Reviews Section - Commented out for now */}
+        {/*
         <div className="relative">
-          {/* Left Nav */}
           <button
             aria-label="Previous"
             onClick={() => scrollByPage(-1)}
@@ -109,7 +109,6 @@ const ReviewsSection: React.FC = () => {
             </svg>
           </button>
 
-          {/* Right Nav */}
           <button
             aria-label="Next"
             onClick={() => scrollByPage(1)}
@@ -120,7 +119,6 @@ const ReviewsSection: React.FC = () => {
             </svg>
           </button>
 
-          {/* Scroller */}
           <div ref={scrollerRef} className="overflow-x-auto scroll-smooth scrollbar-hide">
             <div className="grid grid-flow-col auto-cols-[minmax(260px,1fr)] sm:auto-cols-[minmax(340px,1fr)] lg:auto-cols-[minmax(360px,1fr)] gap-4 sm:gap-6 px-1"
                  style={{ width: "100%" }}>
@@ -140,6 +138,7 @@ const ReviewsSection: React.FC = () => {
             </div>
           </div>
         </div>
+        */}
       </div>
     </section>
   );

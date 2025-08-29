@@ -74,18 +74,10 @@ const CoachesSection: React.FC = () => {
             Meet Your Tribe Leaders
             </span>
             <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
-              Our Experienced Coaches
+              Our Experienced Mentors
               <br className="hidden sm:block" />
               Are Here To Support
             </h2>
-          </div>
-          <div>
-            <a
-              href="#"
-              className="inline-flex items-center justify-center px-4 sm:px-5 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white text-sm sm:text-base mobile-btn"
-            >
-              See Full Coaching Team
-            </a>
           </div>
         </div>
 
@@ -102,14 +94,14 @@ const CoachesSection: React.FC = () => {
 
                   {/* Socials column */}
                   <div className="absolute left-3 top-3 flex flex-col gap-2">
-                    {['li', 'ig', 'fb', 'email'].map((type) => (
+                    {['li', 'ig', 'email'].map((type) => (
                       <a
                         key={type}
                         href="#"
                         className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
                         aria-label={`Open ${type} profile`}
                       >
-                        <SocialIcon type={type as 'li' | 'ig' | 'fb' | 'email'} />
+                        <SocialIcon type={type as 'li' | 'ig' | 'email'} />
                       </a>
                     ))}
                   </div>
