@@ -93,16 +93,16 @@ const UpcomingEvents = () => {
   return (
     <section ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
       <div className="max-w-[1425px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-9 md:mb-10">
+        <div className="text-center mb-16 sm:mb-9 md:mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Journeys -
           </span>
-          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+          <h2 className="mt-2 sm:mb-12 md:mb-16 lg:mb-20  text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             Upcoming  Journeys
           </h2>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 mt-10">
           {events.map((event) => {
             const availableSlots = event.totalSlots - event.bookedSlots;
             const bookingPercentage = (event.bookedSlots / event.totalSlots) * 100;
@@ -110,8 +110,26 @@ const UpcomingEvents = () => {
             return (
             <div
               key={event.id}
-              className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto"
+              className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-visible shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto relative"
             >
+              {/* Countdown Badge - Top Left */}
+              <div className="absolute -top-12 left-4 z-[9999]">
+                <div className="bg-[#e77d26]  text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                  <div className="w-8 h-6 bg-white/20 rounded-md border border-white/30 relative">
+                    {/* Fill level */}
+                    <div 
+                      className="h-full bg-white rounded-sm transition-all duration-300"
+                      style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
+                    ></div>
+                    {/* Number overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-sm font-bold text-[#e77d26] drop-shadow-sm">{displayedSlots}</span>
+                    </div>
+                  </div>
+                  <span className="text-sm font-semibold">Spots left!</span>
+                </div>
+              </div>
+
               {/* Left ticket column */}
               <div className="xl:col-span-3 bg-[#e77d26] text-white p-6 sm:p-7 md:p-8 lg:p-12 flex flex-col justify-between">
                 <div className="space-y-4 sm:space-y-5 md:space-y-6">
@@ -194,26 +212,7 @@ const UpcomingEvents = () => {
                   </div>
                 </div>
 
-                {/* Booking Slots Countdown Section */}
-                <div className="mt-4">
-                  <div className="flex items-center gap-3">
-                    <div className="relative">
-                      {/* Rounded box icon */}
-                      <div className="w-12 h-6 bg-gray-200 rounded-md border-2 border-[#e77d25] relative">
-                        {/* Fill level */}
-                        <div 
-                          className="h-full bg-[#e77d25] rounded-sm transition-all duration-300"
-                          style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
-                        ></div>
-                        {/* Number overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <span className="text-sm font-bold text-white drop-shadow-sm">{displayedSlots}</span>
-                        </div>
-                      </div>
-                    </div>
-                    <span className="text-[#e77d25] font-medium">Spots left !</span>
-                  </div>
-                </div>
+
               </div>
 
               {/* Right image */}
@@ -231,11 +230,7 @@ const UpcomingEvents = () => {
           )})}
         </div>
 
-        <div className="flex justify-center mt-8 sm:mt-9 md:mt-10">
-          <button className="px-6 py-3 rounded-full text-white bg-[#e77d26] font-semibold hover:bg-[#d16d1f] uppercase mobile-btn">
-            View More Events
-          </button>
-        </div>
+
       </div>
     </section>
   );

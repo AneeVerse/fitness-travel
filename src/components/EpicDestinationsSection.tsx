@@ -92,7 +92,7 @@ const EpicDestinationsSection: React.FC = () => {
                   <Image src={h.image} alt={h.title} fill className="object-cover" />
                 </div>
                 <h3 className="text-white font-semibold text-base sm:text-lg md:text-lg mt-3 sm:mt-3.5 md:mt-4">{h.title}</h3>
-                <p className="text-white/75 text-xs sm:text-sm md:text-sm mt-2 leading-relaxed">
+                <p className="text-white/75 text-xs sm:text-sm md:text-sm mt-2 leading-relaxed text-justify">
                   {h.description}
                 </p>
               </div>

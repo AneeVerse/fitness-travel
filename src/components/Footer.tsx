@@ -115,12 +115,11 @@ export default function Footer() {
           
           {/* Mobile Contact Information */}
           <div className="space-y-2 mb-6">
-            <a href="tel:+61401207856" className="block text-gray-600 text-sm hover:text-[#e77d25] transition-colors">
-            +91 98209 42632
+            <a href="tel:+919820942632" className="block text-gray-600 text-sm hover:text-[#e77d25] transition-colors">
+              +91 98209 42632
             </a>
-            <a href="mailto:info@salt-escapes.com" className="block text-gray-600 text-sm hover:text-[#e77d25] transition-colors">
-            team.tigerterrain@gmail.com
-
+            <a href="mailto:team.tigerterrain@gmail.com" className="block text-gray-600 text-sm hover:text-[#e77d25] transition-colors">
+              team.tigerterrain@gmail.com
             </a>
           </div>
           
@@ -128,8 +127,6 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 mb-6">
             <Link href="#" className="hover:text-[#e77d25] transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-[#e77d25] transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-[#e77d25] transition-colors">Status page</Link>
-            <Link href="#" className="hover:text-[#e77d25] transition-colors">DMCA</Link>
           </div>
           
           {/* Mobile Social Icons */}
@@ -233,11 +230,11 @@ export default function Footer() {
           
           {/* Tablet Contact Information */}
           <div className="space-y-3 mb-8">
-            <a href="tel:+61401207856" className="block text-gray-600 text-base hover:text-[#e77d25] transition-colors">
-              +61 401 207 856
+            <a href="tel:+919820942632" className="block text-gray-600 text-base hover:text-[#e77d25] transition-colors">
+              +91 98209 42632
             </a>
-            <a href="mailto:info@salt-escapes.com" className="block text-gray-600 text-base hover:text-[#e77d25] transition-colors">
-              info@salt-escapes.com
+            <a href="mailto:team.tigerterrain@gmail.com" className="block text-gray-600 text-base hover:text-[#e77d25] transition-colors">
+              team.tigerterrain@gmail.com
             </a>
           </div>
           
@@ -245,8 +242,6 @@ export default function Footer() {
           <div className="flex flex-wrap justify-center gap-6 text-base text-gray-600 mb-8">
             <Link href="#" className="hover:text-[#e77d25] transition-colors">Privacy Policy</Link>
             <Link href="#" className="hover:text-[#e77d25] transition-colors">Terms of Service</Link>
-            <Link href="#" className="hover:text-[#e77d25] transition-colors">Status page</Link>
-            <Link href="#" className="hover:text-[#e77d25] transition-colors">DMCA</Link>
           </div>
           
           {/* Tablet Social Icons */}
@@ -285,8 +280,8 @@ export default function Footer() {
               className="w-20 h-20 sm:w-24 sm:h-24 mx-auto md:ml-11 md:mx-0"
             />
             <div className="text-sm leading-7 space-y-2">
-              <a href="tel:+61401207856" className="block hover:text-[#e77d25] transition-colors md:ml-8">+61 401 207 856</a>
-              <a href="mailto:info@salt-escapes.com" className="block hover:text-[#e77d25] transition-colors md:ml-3">info@salt-escapes.com</a>
+              <a href="tel:+919820942632" className="block hover:text-[#e77d25] transition-colors md:ml-8">+91 98209 42632</a>
+              <a href="mailto:team.tigerterrain@gmail.com" className="block hover:text-[#e77d25] transition-colors md:ml-3">team.tigerterrain@gmail.com</a>
             </div>
             <div className="flex items-center justify-center md:justify-start gap-3 text-[#244447] mobile-social ml-12">
               <Link href="https://www.instagram.com/tigerterrain.in" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 rounded-full bg-[#e77d25] text-white flex items-center justify-center ring-1 ring-[#244447]/20 hover:bg-[#e77d25] transition-colors">
