@@ -26,11 +26,11 @@ export const metadata: Metadata = {
   keywords: "fitness retreats, travel, adventure, wellness, vacation, fitness travel",
   icons: {
     icon: [
-      { url: "/images/website-logo.png", type: "image/png", sizes: "32x32" },
-      { url: "/images/website-logo.png", type: "image/png", sizes: "16x16" },
+      { url: "/images/website-logo1.png", type: "image/png", sizes: "32x32" },
+      { url: "/images/website-logo1.png", type: "image/png", sizes: "16x16" },
     ],
-    shortcut: "/images/website-logo.png",
-    apple: "/images/website-logo.png",
+    shortcut: "/images/website-logo1.png",
+    apple: "/images/website-logo1.png",
   },
 };
 

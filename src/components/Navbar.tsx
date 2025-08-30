@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const navItems = [
 
-    { name: 'UPCOMING EVENTS', href: '/programs', hasDropdown: false },
+    { name: 'EVENTS', href: '/programs', hasDropdown: false },
     { name: 'ABOUT', href: '/about-us', hasDropdown: false },
     { name: 'FAQ', href: '/faq', hasDropdown: false },
     { name: 'CONTACT', href: '/contact', hasDropdown: false },
@@ -23,29 +23,29 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-4 md:px-8 py-2 sm:py-4 bg-transparent">
-        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-6 md:px-8 py-2 sm:py-3 max-w-[1325px] mx-auto">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 bg-transparent">
+        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 max-w-[1325px] mx-auto">
           <div className="flex items-center justify-between">
             {/* Logo + Brand */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center gap-2 sm:gap-3">
-                <Image src="/images/website-logo1.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-10 sm:w-10 object-contain" />
-                <span className={`${tigerTerrainFont.className} text-[20px] sm:text-[20px] md:text-xl lg:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
+            <div className="flex-shrink-0 md:mt-1 lg:mt-0">
+              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 md:gap-3 lg:gap-3.5">
+                <Image src="/images/website-logo1.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-8.5 md:h-9 lg:h-10 sm:w-8.5 md:w-9 lg:w-10 object-contain" />
+                <span className={`${tigerTerrainFont.className} text-[18px] sm:text-[19px] md:text-[20px] lg:text-xl xl:text-2xl 2xl:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
               </Link>
             </div>
 
             {/* Desktop Navigation (centered) */}
-            <div className="hidden md:flex items-center justify-center gap-12 absolute left-1/2 transform -translate-x-1/2">
+            <div className="hidden md:flex items-center justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 absolute left-1/2 transform -translate-x-1/2 md:mt-1 lg:mt-0">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[12px] tracking-[0.08em] flex items-center"
+                  className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center"
                   style={{ fontFamily: 'var(--font-unbounded)' }}
                 >
                   {item.name}
                   {item.hasDropdown && (
-                    <svg className="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="ml-1 w-2.5 h-2.5 md:w-3 md:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   )}
@@ -54,10 +54,10 @@ const Navbar = () => {
             </div>
 
             {/* Right-aligned CTA */}
-            <div className="hidden md:block">
+            <div className="hidden md:block md:mt-1 lg:mt-0">
               <Link
                 href="/book-now"
-                className="px-6 py-4 rounded-full font-semibold text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
+                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
               >
                 BOOK JOURNEY
@@ -68,15 +68,15 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#e77d25] transition-colors duration-200 z-50"
+                className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#e77d25] transition-colors duration-200 z-50"
               >
                 <span className="sr-only">Open main menu</span>
                 {!isMenuOpen ? (
-                  <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 ) : (
-                  <svg className="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 )}
@@ -110,34 +110,34 @@ const Navbar = () => {
           style={{ minHeight: '100vh' }}
         >
           {/* Header with close button */}
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-3 sm:p-4 md:p-5 lg:p-6 border-b border-gray-200">
             {/* <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
               <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
               <span className={`${tigerTerrainFont.className} text-xl leading-none text-[#0f1a17]`}>TIGER TERRAIN</span>
             </Link> */}
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 transition-colors duration-200"
+              className="p-1.5 sm:p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 transition-colors duration-200"
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
           {/* Navigation Items */}
-          <div className="flex flex-col p-6 space-y-3">
+          <div className="flex flex-col p-3 sm:p-4 md:p-5 lg:p-6 space-y-2 sm:space-y-2.5 md:space-y-3">
             {navItems.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-base font-semibold text-gray-800 hover:text-[#e77d25] transition-colors duration-300 flex items-center justify-between py-2 border-b border-gray-100"
+                className="text-xs sm:text-sm md:text-base font-semibold text-gray-800 hover:text-[#e77d25] transition-colors duration-300 flex items-center justify-between py-2 sm:py-2.5 md:py-3 border-b border-gray-100"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
                 {item.hasDropdown && (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 )}
@@ -146,10 +146,10 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="absolute bottom-12 left-6 right-6">
+          <div className="absolute bottom-12 left-3 sm:left-4 md:left-5 lg:left-6 right-3 sm:right-4 md:right-5 lg:right-6">
             <Link
               href="/book-now"
-              className="block w-full px-8 py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-base"
+              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
               style={{ fontFamily: 'var(--font-unbounded)' }}
               onClick={() => setIsMenuOpen(false)}
             >

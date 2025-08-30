@@ -45,9 +45,9 @@ const FaqSection: React.FC = () => {
   const [openId, setOpenId] = React.useState<string>(faqs[0].id);
 
   return (
-    <section className="relative py-12 sm:py-16 bg-gray-100 mobile-faq">
-      <div className="max-w-[1325px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 items-start">
+    <section className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-gray-100 mobile-faq">
+      <div className="max-w-[1325px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 items-start">
           {/* Left – Content + Accordion */}
           <div>
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
@@ -60,14 +60,14 @@ const FaqSection: React.FC = () => {
               Questions
             </h2>
 
-            <div className="mt-6 space-y-3 sm:space-y-4">
+            <div className="mt-6 space-y-3 sm:space-y-3.5 md:space-y-4">
               {faqs.map((f) => {
                 const isOpen = openId === f.id;
                 return (
                   <div key={f.id} className="rounded-xl overflow-hidden">
                     <button
                       onClick={() => setOpenId(isOpen ? '' : f.id)}
-                      className={`w-full flex items-center justify-between gap-3 sm:gap-4 px-4 sm:px-5 py-3 sm:py-4 text-left uppercase text-xs sm:text-sm font-extrabold tracking-wide rounded-xl transition-colors ${
+                      className={`w-full flex items-center justify-between gap-3 sm:gap-3.5 md:gap-4 px-4 sm:px-4.5 md:px-5 py-3 sm:py-3.5 md:py-4 text-left uppercase text-xs sm:text-sm font-extrabold tracking-wide rounded-xl transition-colors ${
                         isOpen ? 'bg-black text-white' : 'bg-white text-gray-900 border border-gray-200'
                       }`}
                       aria-expanded={isOpen}
@@ -86,7 +86,7 @@ const FaqSection: React.FC = () => {
                       </svg>
                     </button>
                     {isOpen && (
-                      <div className="px-4 sm:px-5 pt-3 sm:pt-4 pb-4 sm:pb-5 bg-white rounded-b-xl text-gray-700 text-xs sm:text-sm">
+                      <div className="px-4 sm:px-4.5 md:px-5 pt-3 sm:pt-3.5 md:pt-4 pb-4 sm:pb-4.5 md:pb-5 bg-white rounded-b-xl text-gray-700 text-xs sm:text-sm">
                         {f.answer}
                       </div>
                     )}
@@ -97,7 +97,7 @@ const FaqSection: React.FC = () => {
           </div>
 
           {/* Right – Image */}
-          <div className="relative h-[400px] sm:h-[500px] md:h-[580px] rounded-3xl overflow-hidden">
+          <div className="relative h-[400px] sm:h-[480px] md:h-[520px] lg:h-[580px] rounded-3xl overflow-hidden">
             <Image
               src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755520472845"
               alt="High five after a race"

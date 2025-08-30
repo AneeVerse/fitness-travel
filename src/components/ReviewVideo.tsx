@@ -30,9 +30,8 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] group carousel-item"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[240px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] w-[280px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[380px] group carousel-item"
       data-card="true"
-      style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
     >
@@ -125,14 +124,14 @@ const videos: VideoCard[] = [
     videoUrl: "/tESTIMONIALS _/3.mp4",
     timestamp: "0:20"
   },
-  {
-    id: 4,
-    title: "FITNESS GOALS",
-    subtitle: "TRANSFORMATION",
-    description: "Turning every getaway into a step closer to your fitness goals! Hearing how our fitcation changed your journey makes it all worth it.",
-    videoUrl: "/tESTIMONIALS _/4.mp4",
-    timestamp: "0:18"
-  },
+  // {
+  //   id: 4,
+  //   title: "FITNESS GOALS",
+  //   subtitle: "TRANSFORMATION",
+  //   description: "Turning every getaway into a step closer to your fitness goals! Hearing how our fitcation changed your journey makes it all worth it.",
+  //   videoUrl: "/tESTIMONIALS _/4.mp4",
+  //   timestamp: "0:18"
+  // },
   {
     id: 5,
     title: "PHUKET VIBES",

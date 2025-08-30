@@ -79,20 +79,20 @@ const ReviewsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-12 sm:py-20 bg-white mobile-section">
-      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16">
+    <section className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white mobile-section">
+      <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
         {/* Voices of Transformation Header */}
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold text-black font-unbounded">
+        <div className="text-center mb-8 sm:mb-9 md:mb-10">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-black font-unbounded">
             Voices of Transformation
           </h2>
-          <p className="mt-3 text-base sm:text-xl text-black">
+          <p className="mt-3 text-base sm:text-lg md:text-xl text-black">
             Hear from souls who discovered their force and change through Tiger Terrain journeys.
           </p>
         </div>
 
         {/* Review Videos Section */}
-        <div className="mb-12 sm:mb-16">
+        <div className="mb-12 sm:mb-14 md:mb-16">
           <ReviewVideo />
         </div>
 

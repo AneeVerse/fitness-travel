@@ -10,23 +10,23 @@ const TestimonialsSection = () => {
   
 
   return (
-    <section className="relative py-12 sm:py-20 bg-white mobile-testimonials">
-      <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 -mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-4 items-start">
+    <section className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white">
+      <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-4 items-start">
           {/* Left Column - Content */}
-          <div className="space-y-8 sm:space-y-12 md:pl-0 lg:pl-10">
+          <div className="space-y-8 sm:space-y-10 md:space-y-11 lg:space-y-12 md:pl-0 lg:pl-6 lg:pr-4 xl:pl-10 xl:pr-0">
                          {/* Main Content */}
-             <div className="space-y-3 sm:space-y-4">
+             <div className="space-y-3 sm:space-y-3.5 md:space-y-4">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
                Are you game?
                </h2>
-               <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+               <p className="text-sm sm:text-base md:text-base text-gray-700 leading-relaxed">
                Tiger Terrain offers an immersive fitness journey that seamlessly fuses physical fitness, mental well-being, and the thrill of travel. Participants experience a diverse range of fitness modalities, including Yoga, CrossFit, Running, Weight Training, and Muay Thai, all set
                </p>
              </div>
 
                          {/* Statistics */}
-             <div className="grid grid-cols-3 gap-4 sm:gap-6">
+             <div className="grid grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                <div className="text-center">
                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">15</div>
                  <div className="text-xs text-gray-600">Trips</div>
@@ -43,19 +43,23 @@ const TestimonialsSection = () => {
           </div>
 
           {/* Right Column - Event Card */}
-           <div className="relative lg:flex lg:justify-end lg:-ml-16  md:pr-8 ">
-             <div className="rounded-3xl bg-gray-200  shadow-xl p-4 sm:p-6 lg:p-7  max-w-xl w-full ">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
-                 {/* Event image */}
-                 <div className="rounded-xl overflow-hidden ring-4 ring-white/15">
-                   <Image
-                     src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200"
-                     alt="Client Review Background"
-                     width={600}
-                     height={384}
-                     className="w-full h-64 md:h-72 object-cover"
-                   />
-                 </div>
+           <div className="relative lg:flex lg:justify-end lg:-ml-8 xl:-ml-16 md:pt-2 lg:pt-3 xl:pt-0 md:pr-6 lg:pr-8 lg:pl-4">
+             <div className="rounded-3xl bg-gray-200 shadow-xl p-4 sm:p-5 md:p-6 lg:p-7 max-w-2xl md:max-w-3xl lg:max-w-xl w-full border-2 border-red-500">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+                   {/* Event image */}
+                   <div className="rounded-xl overflow-hidden ring-4 ring-white/15 md:ml-4 lg:ml-0">
+                     <Image
+                       src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200"
+                       alt="Client Review Background"
+                       width={600}
+                       height={384}
+                       className="w-full h-64 sm:h-68 md:h-80 lg:h-72 object-cover"
+                       onError={(e) => {
+                         const target = e.target as HTMLImageElement;
+                         target.src = '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg';
+                       }}
+                     />
+                   </div>
 
                  {/* Event details */}
                  <div className="text-white">

@@ -12,7 +12,7 @@ import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <Navbar />
       <Hero />
       <FeaturesSection />
@@ -25,6 +25,6 @@ export default function Home() {
       <FaqSection />
       {/* Additional sections can be added here */}
       <Footer />
-    </>
+    </div>
   );
 }

@@ -73,6 +73,7 @@ export default function VideoSlider() {
   const [slideSize, setSlideSize] = useState<number>(244); // px per card incl. gap
   const [activeIndex, setActiveIndex] = useState<number>(0); // 0..videos.length-1
   const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  const [hoveredVideoId, setHoveredVideoId] = useState<string | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number>(0);
@@ -357,53 +358,146 @@ export default function VideoSlider() {
               transform: `translateX(${renderTranslateX}px)`
             }}
           >
-            {renderedVideos.map((video, index) => (
-              <div
-                key={`${video.__dup}-${video.id}-${index}`}
-                className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] carousel-item"
-                data-card="true"
-                style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
-              >
-                {/* Video Background */}
-                <video
-                  className="absolute inset-0 w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src={video.videoUrl} type="video/mp4" />
-                </video>
-
-                {/* Loading Overlay */}
-                {/* Removed preloading overlay as it's no longer needed */}
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40" />
-
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
-                  <div className="space-y-1 sm:space-y-2">
-                    <p className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90">
-                      {video.subtitle}
-                    </p>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                      {video.title}
-                    </h3>
-                    <p className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2">
-                      {video.description}
-                    </p>
-                  </div>
-                </div>
-
-
-              </div>
-            ))}
+            {renderedVideos.map((video, index) => {
+              const videoId = `${video.__dup}-${video.id}-${index}`;
+              const isHovered = hoveredVideoId === videoId;
+              
+              return (
+                <VideoCard
+                  key={videoId}
+                  video={video}
+                  isHovered={isHovered}
+                  onHover={setHoveredVideoId}
+                  videoId={videoId}
+                  onPlayClick={handlePlayClick}
+                />
+              );
+            })}
           </div>
         </div>
 
 
       </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedVideo && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="relative max-w-4xl w-full max-h-[80vh] bg-white rounded-2xl overflow-hidden">
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-all z-10"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+            
+            {/* Video Content */}
+            <div className="relative">
+              <video
+                ref={modalVideoRef}
+                className="w-full h-auto max-h-[80vh] object-contain"
+                controls
+                autoPlay
+                muted
+                playsInline
+                onLoadedMetadata={() => {
+                  if (modalVideoRef.current) {
+                    modalVideoRef.current.muted = false;
+                    modalVideoRef.current.play();
+                  }
+                }}
+              >
+                <source src={selectedVideo.videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
+// VideoCard component to avoid hooks in map function
+const VideoCard: React.FC<{
+  video: VideoCard;
+  isHovered: boolean;
+  onHover: (videoId: string | null) => void;
+  videoId: string;
+  onPlayClick: (video: VideoCard) => void;
+}> = ({ video, isHovered, onHover, videoId, onPlayClick }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Handle video play/pause on hover
+  useEffect(() => {
+    if (videoRef.current) {
+      if (isHovered) {
+        videoRef.current.play().catch(console.error);
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0; // Reset to beginning
+      }
+    }
+  }, [isHovered]);
+  
+  return (
+    <div
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[240px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] w-[280px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[380px] group carousel-item"
+      data-card="true"
+      onMouseEnter={() => onHover(videoId)}
+      onMouseLeave={() => onHover(null)}
+    >
+      {/* Video Background */}
+      <video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover"
+        muted
+        loop
+        playsInline
+      >
+        <source src={video.videoUrl} type="video/mp4" />
+      </video>
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      {/* Play Button */}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          // Pause the hover video before opening modal
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+          onPlayClick(video);
+        }}
+        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-10"
+      >
+        <svg 
+          className="w-5 h-5 ml-1" 
+          fill="white" 
+          viewBox="0 0 24 24"
+        >
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      {/* Content */}
+      <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
+        <div className="space-y-1 sm:space-y-2">
+          <p className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90">
+            {video.subtitle}
+          </p>
+          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+            {video.title}
+          </h3>
+          <p className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2">
+            {video.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -160,7 +160,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
+    <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[112vh] md:min-h-[114vh] lg:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* Fallback background when video is loading or has error */}
@@ -221,30 +221,30 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-75 md:mt-60">
-        <div className="max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-0 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-10 mt-75 sm:mt-70 md:mt-65 lg:mt-60">
+        <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded">
           This is more than a 
           </h1>
-          <h1 className="text-2xl sm:text-3xl md:text-3xl lg:text-[40.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-3">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-2.5 md:-mt-3">
            vacation. It&apos;s a journey.
           </h1>
 
-          <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-6 sm:mb-10 max-w-4xl leading-relaxed">
-          Tiger Terrain is for anyone and everyone eager to begin the pursuit of a <br /> better life and do so while exploring new places.
+          <p className="text-sm sm:text-base md:text-[17px] lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
+          Tiger Terrain is for anyone and everyone eager to begin the pursuit of a <br className="hidden sm:block" /> better life and do so while exploring new places.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5">
             <Link
               href="/book-now"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-base sm:text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+              className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Join Your Tribe
             </Link>
             <Link
               href="/retreats"
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-base sm:text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 mobile-btn"
+              className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 mobile-btn"
             >
               Watch How It Works
             </Link>

@@ -92,12 +92,12 @@ const UpcomingEvents = () => {
 
   return (
     <section ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
-      <div className="max-w-[1425px] mx-auto px-4  sm:px-8">
-        <div className="text-center mb-8 sm:mb-10">
+      <div className="max-w-[1425px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        <div className="text-center mb-8 sm:mb-9 md:mb-10">
           <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Journeys -
           </span>
-          <h2 className="mt-2 text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+          <h2 className="mt-2 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             Upcoming  Journeys
           </h2>
         </div>
@@ -110,19 +110,19 @@ const UpcomingEvents = () => {
             return (
             <div
               key={event.id}
-              className="grid grid-cols-1 lg:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200"
+              className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-hidden shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto"
             >
               {/* Left ticket column */}
-              <div className="lg:col-span-3 bg-[#e77d26] text-white p-6 sm:p-8 lg:p-12 flex flex-col justify-between">
-                <div className="space-y-4 sm:space-y-6">
+              <div className="xl:col-span-3 bg-[#e77d26] text-white p-6 sm:p-7 md:p-8 lg:p-12 flex flex-col justify-between">
+                <div className="space-y-4 sm:space-y-5 md:space-y-6">
                   {/* Morning Event */}
                   <div className="flex items-center gap-3">
                     <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 sm:h-6 sm:w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>
                       </svg>
                     </div>
-                    <div className="text-white text-xs sm:text-sm font-medium">
+                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
                       Morning – Beach Bootcamp
                     </div>
                   </div>
@@ -135,10 +135,10 @@ const UpcomingEvents = () => {
                         alt="Leaf"
                         width={24}
                         height={24}
-                        className="h-5 w-5 sm:h-6 sm:w-6 brightness-0 invert"
+                        className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 brightness-0 invert"
                       />
                     </div>
-                    <div className="text-white text-xs sm:text-sm font-medium">
+                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
                       Afternoon – Nutrition Workshop
                     </div>
                   </div>
@@ -151,20 +151,20 @@ const UpcomingEvents = () => {
                         alt="Networking"
                         width={24}
                         height={24}
-                        className="h-5 w-5 sm:h-6 sm:w-6 brightness-0 invert"
+                        className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 brightness-0 invert"
                       />
                     </div>
-                    <div className="text-white text-xs sm:text-sm font-medium">
+                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
                       Evening – Networking Party
                     </div>
                   </div>
                 </div>
 
                 {/* Button */}
-                <div className="mt-6 sm:mt-8">
+                <div className="mt-6 sm:mt-7 md:mt-8">
                   <Link
                     href="/itinerary"
-                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn inline-flex items-center justify-center"
+                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base md:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn inline-flex items-center justify-center"
                     style={{ fontFamily: 'var(--font-teko)' }}
                   >
                     VIEW FULL ITINERARY
@@ -173,13 +173,13 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Middle content */}
-              <div className="lg:col-span-4 p-6 sm:p-8 lg:border-r lg:border-gray-200">
+              <div className="xl:col-span-4 p-6 sm:p-7 md:p-8 lg:border-r xl:border-r xl:border-gray-200">
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-teko)' }}>
                   {event.title}
                 </h3>
-                <p className="mt-3 text-sm sm:text-base text-gray-700 max-w-2xl">{event.description}</p>
+                <p className="mt-3 text-sm sm:text-base md:text-base text-gray-700 max-w-2xl">{event.description}</p>
 
-                <div className="mt-4 sm:mt-5 space-y-3 text-sm text-gray-800">
+                <div className="mt-4 sm:mt-4.5 md:mt-5 space-y-3 text-sm text-gray-800">
                   <div className="flex items-center gap-3">
                     <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" /><path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" /></svg>
@@ -217,7 +217,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Right image */}
-              <div className="lg:col-span-5 relative h-64 sm:h-64 md:h-72 lg:h-auto">
+              <div className="xl:col-span-5 relative h-64 sm:h-64 md:h-72 lg:h-auto">
                 <Image
                   src={event.imageSrc}
                   alt={event.title}
@@ -231,7 +231,7 @@ const UpcomingEvents = () => {
           )})}
         </div>
 
-        <div className="flex justify-center mt-8 sm:mt-10">
+        <div className="flex justify-center mt-8 sm:mt-9 md:mt-10">
           <button className="px-6 py-3 rounded-full text-white bg-[#e77d26] font-semibold hover:bg-[#d16d1f] uppercase mobile-btn">
             View More Events
           </button>
