@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PricingModal from './PricingModal';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
@@ -16,6 +17,7 @@ const ItineraryHero = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -220,49 +222,54 @@ const ItineraryHero = () => {
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-16 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
-            The Ibiza Escape
+            PHUKET
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
-            Get ready to work up a sweat on the glittering island of Ibiza, swim in<br className="hidden sm:block" /> 
-            the crystal clear waters of the Balearics, hike magical coastal trails to<br className="hidden sm:block" />
-            hidden beaches, and enjoy some of the most mouth-watering<br className="hidden sm:block" />
-            Mediterranean food you&apos;ll ever eat.
+            Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. The local vibe is energetic and supportive, making it easy for visitors to immerse themselves in a dynamic fitness culture.
           </p>
 
           {/* Event Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Dates</h3>
-              <p className="text-white/90 text-xs sm:text-sm">2025 Sold Out.</p>
-              <p className="text-white/90 text-xs sm:text-sm">2026: June & September</p>
+              <p className="text-white/90 text-xs sm:text-sm">14th sept - 21st sept</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Rooms</h3>
-              <p className="text-white/90 text-xs sm:text-sm">Shared rooms and private</p>
-              <p className="text-white/90 text-xs sm:text-sm">rooms available</p>
+              <p className="text-white/90 text-xs sm:text-sm">Single, double and triple</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Pricing</h3>
-              <p className="text-white/90 text-xs sm:text-sm">Price is from</p>
-              <p className="text-white font-bold text-base sm:text-lg">£2660 per person</p>
+              <button
+                onClick={() => setIsPricingModalOpen(true)}
+                className="inline-flex items-center justify-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold text-sm transform hover:scale-105 transition-all duration-200 backdrop-blur-md"
+              >
+                See Pricing
+              </button>
             </div>
           </div>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Link
-              href="/book-now"
+            <button
+              onClick={() => setIsPricingModalOpen(true)}
               className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-black rounded-[15px] font-semibold text-base sm:text-lg transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Book Now
-            </Link>
+            </button>
            
           </div>
         </div>
       </div>
+      
+      {/* Pricing Modal */}
+      <PricingModal 
+        isOpen={isPricingModalOpen} 
+        onClose={() => setIsPricingModalOpen(false)} 
+      />
     </section>
   );
 };

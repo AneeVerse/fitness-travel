@@ -10,35 +10,37 @@ const OverviewSection = () => {
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-8 sm:mb-12 font-unbounded">
-            Ibiza, Reimagined
+            FIND OUT WHAT YOU <br /> ARE MADE UP OF
           </h2>
         </div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-start">
           {/* Left Content */}
-          <div className="space-y-4 sm:space-y-6">
+          <div className="space-y-4 sm:space-y-6 pb-14">
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-              On this 6-night luxury Escape to Ibiza, we&apos;ll stay in a stunning countryside estate, 
-              surrounded by pine forests and citrus groves.
+              Tiger Terrain is about embarking on a journey of self-discovery. It&apos;s not about taking a holiday or chasing a fleeting transformation.
             </p>
             
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-              Traditionally known as an island world-famous for it&apos;s party scene, Ibiza&apos;s north is 
-              relaxed and low key. Our Escape villa sits in a charming, quiet village, but remains 
-              close to the island&apos;s golden sands, turquoise bays, and pine tree-lined coast, making 
-              it the perfect spot to unwind and soak up a week of workouts, adventures and new friends.
+              Instead, it&apos;s about regaining your sense of direction and embracing a sustainable lifestyle change. It&apos;s about breaking bad habits and adopting new ones, improving your fitness and mental well-being.
             </p>
             
             <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-              With our villa&apos;s incredible spaces for workouts, socialising and soaking up the sun, 
-              plus an itinerary packed full of salty adventures, this is your chance to see a 
-              different side of magical Ibiza.
+              Helping you meet a stronger, more authentic version of yourself.
+            </p>
+            
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 font-unbounded">
+              Who is it for?
+            </h3>
+            
+            <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+              Tiger Terrain isn&apos;t reserved only for elite athletes, nor is it exclusive to any gender. It&apos;s designed for anyone and everyone eager to begin the pursuit of a better life - and do so while exploring new places.
             </p>
           </div>
 
           {/* Right Images Grid */}
-          <div className="space-y-3 sm:space-y-4 -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-28">
+          <div className="space-y-3 sm:space-y-4 -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-38">
             {/* Top Large Image */}
             <div className="relative h-64 sm:h-72 md:h-80 lg:h-96 rounded-2xl sm:rounded-3xl overflow-hidden">
               <Image
