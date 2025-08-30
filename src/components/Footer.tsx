@@ -278,7 +278,7 @@ export default function Footer() {
           {/* Left: logo + contact */}
           <div className="space-y-6 text-center md:text-left">
             <Image
-              src="/images/website-logo.png"
+              src="/images/website-logo1.png"
               alt="Tiger Terrain"
               width={56}
               height={56}

@@ -63,7 +63,7 @@ const StickyNavigation = () => {
       id="sticky-navigation"
       className="fixed bottom-0 left-0 right-0 z-[9999] px-4 sm:px-6 md:px-8"
     >
-      <div className="bg-white/55 backdrop-blur-md shadow-lg mx-auto mb-4 sm:mb-6 rounded-full max-w-[95%] sm:max-w-[80%] md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] border border-white/20">
+      <div className="bg-white/55 backdrop-blur-md shadow-lg mx-auto mb-4 sm:mb-6 rounded-full max-w-[95%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[60%] xl:max-w-[40%] border border-white/20">
         <div className="px-3 sm:px-4 py-2 sm:py-3">
           <div className="flex items-center justify-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hide">
             {navItems.map((item) => (

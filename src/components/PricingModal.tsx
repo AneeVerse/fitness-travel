@@ -31,22 +31,25 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      // Send form data to API
+      // Send form data to API with PDF link
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          pdfLink: 'https://drive.google.com/file/d/1JJUEMumBSM0QnfywoQzuoFXqOU46SBNs/view?usp=sharing'
+        }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to submit form');
       }
 
-      // Simulate PDF download
+      // Download the local PDF file
       const link = document.createElement('a');
-      link.href = '#'; // This would be your actual PDF URL
+      link.href = '/pdf/Price.pdf.pdf';
       link.download = 'tiger-terrain-pricing.pdf';
       link.click();
 
@@ -116,7 +119,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                       Book Your Adventure
                     </h2>
                     <p className="text-gray-600">
-                      Fill out the form below and we&apos;ll send you detailed pricing information, a complete itinerary PDF, and contact you within 24 hours.
+                      Fill out the form below and we&apos;ll send you detailed pricing information, a complete itinerary PDF via email, and contact you within 24 hours.
                     </p>
                   </div>
 
@@ -197,7 +200,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           Sending Request...
                         </div>
                       ) : (
-                        'Book Now & Download PDF'
+                        'Book Now & Get PDF'
                       )}
                     </button>
 
@@ -218,7 +221,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                     Your booking request has been submitted successfully! Our team will contact you within 24 hours to discuss your adventure.
                   </p>
                   <p className="text-sm text-gray-500">
-                    We&apos;ve also sent pricing information to your email and your PDF should start downloading shortly.
+                    We&apos;ve sent pricing information and the PDF link to your email. The PDF has also been downloaded to your device.
                   </p>
                 </div>
               )}

@@ -16,7 +16,7 @@ const PricingSection = () => {
               Ready for Your Ibiza Adventure?
             </h2>
             <p className="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto mb-8 sm:mb-12 leading-relaxed">
-              Get personalized pricing for your perfect Ibiza escape. Our team will send you detailed pricing information and a comprehensive itinerary PDF within 24 hours.
+              Get personalized pricing for your perfect Ibiza escape. Our team will send you detailed pricing information and a comprehensive itinerary PDF via email within 24 hours.
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
