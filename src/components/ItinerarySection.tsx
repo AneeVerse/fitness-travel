@@ -14,60 +14,68 @@ const ItinerarySection = () => {
 
   const itineraryData = [
     {
-      day: 'Sunday',
-      title: 'Ibiza, Baby!',
-      description: 'Arrive anytime after 2 PM and step into your private countryside retreat for the week. Take a dip in the pool, explore the villa\'s gardens, and meet your crew on the sunloungers.',
-      extraContent: 'Shake off travel day with a guided stretch session, then ease into the evening with welcome drinks by the olive groves. As the sun sets, we\'ll come together for our first chef-prepared feast, raising a glass to an epic week ahead.',
+      day: 'Day 1',
+      title: 'Arrive and Welcome to Phuket',
+      description: 'Check In, Intros & Briefing on the week ahead',
+      extraContent: 'Leave for Phuket Town for Tour',
       image: '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
       position: 'right'
     },
     {
-      day: 'Monday',
-      title: 'Sweat, Recover & Unwind',
-      description: 'Our first full day kicks off with a high-energy team workout, followed by a big Spanish-style breakfast. The rest of the morning is yours to lounge by the pool, soak up the sun and get to know your new mates.',
-      extraContent: 'Midday brings a guided recovery session, followed by a fresh feast for lunch. After an afternoon of chill time, we\'ll ramp things up with sweat session number two. As the sun dips behind the pine trees, we\'ll kick back with a sunset group dinner.',
+      day: 'Day 2',
+      title: 'HIIT Workout & Hot Yoga',
+      description: '9.30 - Head to Pirates camp for HIIT Workout',
+      extraContent: '10.30 - Breakfast followed by free exploration, 4.30PM - Hot Yoga session',
       image: '/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg',
       position: 'left'
     },
     {
-      day: 'Tuesday',
-      title: 'Coastal Adventures & Sunset Sweat',
-      description: 'Lace up for a stunning coastal hike, winding through rugged trails and pine forests leading to hidden bays only accessible by foot. Along the way, we\'ll stop for refreshing dips in the crystal-clear sea.',
-      extraContent: 'Back at the villa, the afternoon is yours to unwind, recharge, and soak up the sun before we turn up the heat for sweat session number two. As another hot summer day comes to a close, settle in for an evening under the stars.',
+      day: 'Day 3',
+      title: 'BodyFit & Outdoor Training',
+      description: '8.00 - BodyFit Workout',
+      extraContent: '9.30 - Breakfast followed by free exploration, 4.30PM - Outdoor Session',
       image: '/images/itinerary/overview/67caa708e544afc27b621096_DJI_20240906165547_0062_D.jpg',
       position: 'right'
     },
     {
-      day: 'Wednesday',
-      title: 'Boat Day! Swims, Salt & Sailing the Balearics',
-      description: 'Kickstart the day with an early morning workout, followed by a big breakfast spread to fuel everyone\'s favourite day of the week - Ibiza Boat Day baby!',
-      extraContent: 'We\'ll set sail on our luxury private motor yachts, cruising along the stunning south coast and across to Formentera. Expect crystal-clear swim stops, snorkelling in hidden coves, and a day of pure, sun-soaked adventure.',
+      day: 'Day 4',
+      title: 'Beach Training & Muay Thai',
+      description: '7.15 - Beach Training',
+      extraContent: '10.00 - Breakfast followed by free exploration, 5.00 PM - Muay Thai Session',
       image: '/images/itinerary/trip-detail/67caa2ebf51676caac79a4b1__IBZ2168.jpg',
       position: 'left'
     },
     {
-      day: 'Thursday',
-      title: 'Sweat, Ice & Sunset Feasts',
-      description: 'Start the morning strong with a big team workout, followed by a hearty breakfast and some well-earned downtime in the Spanish sunshine.',
-      extraContent: 'Today is all about recovery - a guided stretch session, ice baths, and massages to reset your body for the final days ahead. As the afternoon melts into evening, we\'ll enjoy aperitifs under the orange trees.',
+      day: 'Day 5',
+      title: 'Big Buddha Run & Recovery',
+      description: '7.15 - Big Buddha Run',
+      extraContent: '10.00 - Breakfast followed by free exploration, 4.00 PM - Pool Recovery Session',
       image: '/images/itinerary/trip-detail/67caa2ec0caaf1415ff27c65__IBZ4671.jpg',
       position: 'right'
     },
     {
-      day: 'Friday',
-      title: 'Final Day & A Farewell Feast',
-      description: 'Our last full day together, so we\'re making it count. We\'ll kick things off with a morning workout, followed by a juicy recovery session to keep the body feeling fresh.',
-      extraContent: 'Then, it\'s all about soaking up the last of Ibiza\'s magic - whether that\'s kicking back by the pool, unwinding in the hot tub, or heading out to explore more of what this magical island has to offer.',
+      day: 'Day 6',
+      title: 'Partner Chipper & Spa',
+      description: '9.30 - Breakfast',
+      extraContent: '11.00 - Partner Chipper, 4.00 PM - OnSen Spa',
       image: '/images/itinerary/trip-detail/67caa4ac34cc07b6457e13c1_saguaita_06.jpg',
       position: 'left'
     },
     {
-      day: 'Saturday',
-      title: 'One for the Memory Books!',
-      description: 'Checkout is at 10 AM, but there\'s still time for one last sunrise workout, a final breakfast feast, and a few more laughs with your crew.',
-      extraContent: 'What started as a week with strangers ends with new friendships, unforgettable memories, and stories to last a lifetime. Whether you\'re off to explore more of Ibiza or heading home, remember - this isn\'t goodbye, it\'s see you on the next adventure.',
+      day: 'Day 7',
+      title: 'Free Day & Boat Party',
+      description: '10.00 - Breakfast followed by free exploration',
+      extraContent: '11.00 - 7PM - Boat Party (optional)',
       image: '/images/itinerary/trip-detail/67caa4b2e6dc3ee2fb637f43_1salt escapes-ibz--2 2.jpg',
       position: 'right'
+    },
+    {
+      day: 'Day 8',
+      title: 'Departure',
+      description: '8.00 AM Transfer back to Airport',
+      extraContent: 'Check out and farewell to your new fitness family',
+      image: '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
+      position: 'left'
     }
   ];
 
@@ -209,10 +217,10 @@ const ItinerarySection = () => {
             Itinerary
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 font-unbounded">
-            Your Week in Ibiza
+            Your 8 Days in Phuket
           </h2>
           <p className="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Here&apos;s a closer look at what to expect on our Escape to the Balearic island of Ibiza.
+            Here&apos;s a closer look at what to expect on our fitness retreat to the beautiful island of Phuket.
           </p>
         </div>
 
