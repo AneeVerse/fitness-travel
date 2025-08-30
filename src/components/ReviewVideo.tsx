@@ -30,7 +30,7 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[240px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] w-[280px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[380px] group carousel-item"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[320px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] w-[230px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[380px] group carousel-item"
       data-card="true"
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
