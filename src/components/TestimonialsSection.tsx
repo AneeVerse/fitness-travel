@@ -44,7 +44,7 @@ const TestimonialsSection = () => {
 
           {/* Right Column - Event Card */}
            <div className="relative lg:flex lg:justify-end lg:-ml-8 xl:-ml-16 md:pt-2 lg:pt-3 xl:pt-0 md:pr-6 lg:pr-8 lg:pl-4">
-             <div className="rounded-3xl bg-gray-200 shadow-xl p-4 sm:p-5 md:p-6 lg:p-7 max-w-2xl md:max-w-3xl lg:max-w-xl w-full border-2 border-red-500">
+             <div className="rounded-3xl bg-gray-200 shadow-xl p-4 sm:p-5 md:p-6 lg:p-7 max-w-2xl md:max-w-3xl lg:max-w-xl w-full">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
                    {/* Event image */}
                    <div className="rounded-xl overflow-hidden ring-4 ring-white/15 md:ml-4 lg:ml-0">
