@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import localFont from 'next/font/local';
+import PricingModal from './PricingModal';
 
 const tigerTerrainFont = localFont({
   src: '../../public/font/Fira_Sans/FiraSans-Bold.ttf',
@@ -12,6 +13,7 @@ const tigerTerrainFont = localFont({
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   const navItems = [
 
@@ -55,13 +57,13 @@ const Navbar = () => {
 
             {/* Right-aligned CTA */}
             <div className="hidden md:block md:mt-1 lg:mt-0">
-              <Link
-                href="/book-now"
+              <button
+                onClick={() => setIsPricingModalOpen(true)}
                 className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
               >
                 BOOK JOURNEY
-              </Link>
+              </button>
             </div>
 
             {/* Mobile menu button */}
@@ -147,17 +149,25 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="absolute bottom-12 left-3 sm:left-4 md:left-5 lg:left-6 right-3 sm:right-4 md:right-5 lg:right-6">
-            <Link
-              href="/book-now"
+            <button
+              onClick={() => {
+                setIsPricingModalOpen(true);
+                setIsMenuOpen(false);
+              }}
               className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
               style={{ fontFamily: 'var(--font-unbounded)' }}
-              onClick={() => setIsMenuOpen(false)}
             >
               BOOK JOURNEY
-            </Link>
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Pricing Modal */}
+      <PricingModal 
+        isOpen={isPricingModalOpen} 
+        onClose={() => setIsPricingModalOpen(false)} 
+      />
     </>
   );
 };
