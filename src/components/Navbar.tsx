@@ -111,10 +111,10 @@ const Navbar = () => {
         >
           {/* Header with close button */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
-            <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
+            {/* <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
               <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
               <span className={`${tigerTerrainFont.className} text-xl leading-none text-[#0f1a17]`}>TIGER TERRAIN</span>
-            </Link>
+            </Link> */}
             <button
               onClick={() => setIsMenuOpen(false)}
               className="p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 transition-colors duration-200"
