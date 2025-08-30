@@ -11,7 +11,7 @@ import FaqSection from '@/components/FaqSection';
 
 export default function ItineraryPage() {
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen">
       <Navbar />
       <ItineraryHero />
       <StickyNavigation />
@@ -22,6 +22,6 @@ export default function ItineraryPage() {
       <ItinerarySection />
       <FaqSection />
       <Footer />
-    </>
+    </div>
   );
 }

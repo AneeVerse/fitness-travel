@@ -75,11 +75,27 @@ const ItinerarySection = () => {
     const timeline = timelineRef.current;
     if (!timeline) return;
 
-    // Animate main timeline progress line
+    // Animate main timeline progress line (Desktop)
     const progressLine = timeline.querySelector('.timeline-progress');
     if (progressLine) {
       // Create the main timeline animation
       gsap.to(progressLine, {
+        scaleY: 1,
+        ease: "none",
+        scrollTrigger: {
+          trigger: timeline,
+          start: "top bottom-=100",
+          end: "bottom top+=100",
+          scrub: 1,
+          invalidateOnRefresh: true
+        }
+      });
+    }
+
+    // Animate mobile timeline progress line
+    const progressLineMobile = timeline.querySelector('.timeline-progress-mobile');
+    if (progressLineMobile) {
+      gsap.to(progressLineMobile, {
         scaleY: 1,
         ease: "none",
         scrollTrigger: {
@@ -121,8 +137,49 @@ const ItinerarySection = () => {
       });
     });
 
-    // Animate timeline lines
+    // Animate timeline lines (Desktop)
     lines.forEach((line) => {
+      gsap.fromTo(line,
+        { scaleY: 0 },
+        {
+          scaleY: 1,
+          duration: 0.5,
+          scrollTrigger: {
+            trigger: line,
+            start: "top center+=200",
+            end: "bottom center-=200",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
+    // Animate mobile timeline dots with better highlighting
+    const dotsMobile = timeline.querySelectorAll('.timeline-dot-mobile');
+    const linesMobile = timeline.querySelectorAll('.timeline-line-mobile');
+
+    dotsMobile.forEach((dot, index) => {
+      // Set initial state - smaller and less prominent
+      gsap.set(dot, { scale: 0.8, opacity: 0.7 });
+      
+      // Animate dot to highlighted state when timeline reaches it
+      gsap.to(dot, {
+        scale: 1.3,
+        opacity: 1,
+        backgroundColor: "#e77d26",
+        duration: 0.4,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: dot,
+          start: "top center+=150",
+          end: "bottom center-=150",
+          toggleActions: "play none none reverse"
+        }
+      });
+    });
+
+    // Animate mobile timeline lines
+    linesMobile.forEach((line) => {
       gsap.fromTo(line,
         { scaleY: 0 },
         {
@@ -147,42 +204,92 @@ const ItinerarySection = () => {
     <section id="itinerary" className="py-16 sm:py-20 bg-white">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-sm font-medium text-[#e77d26] uppercase tracking-wide mb-4">
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-xs sm:text-sm font-medium text-[#e77d26] uppercase tracking-wide mb-3 sm:mb-4">
             Itinerary
           </p>
-          <h2 className="text-4xl sm:text-5xl lg:text-5xl font-bold text-gray-900 mb-8 font-unbounded">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 font-unbounded">
             Your Week in Ibiza
           </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
             Here&apos;s a closer look at what to expect on our Escape to the Balearic island of Ibiza.
           </p>
         </div>
 
         {/* Timeline */}
         <div ref={timelineRef} className="relative">
-          {/* Center Line - Background */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full z-0"></div>
-          
-          {/* Center Line - Animated Progress */}
-          <div className="timeline-progress absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
+          {/* Desktop Timeline - Center Line */}
+          <div className="hidden lg:block">
+            {/* Center Line - Background */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full z-0"></div>
+            
+            {/* Center Line - Animated Progress */}
+            <div className="timeline-progress absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
+          </div>
+
+          {/* Mobile Timeline - Left Side */}
+          <div className="lg:hidden">
+            {/* Left Line - Background */}
+            <div className="absolute left-6 w-0.5 bg-gray-300 h-full z-0"></div>
+            
+            {/* Left Line - Animated Progress */}
+            <div className="timeline-progress-mobile absolute left-6 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
+          </div>
 
           {itineraryData.map((day, index) => (
-            <div key={day.day} className="relative mb-20 last:mb-0">
-              {/* Timeline Dot */}
-              <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full z-10 border-4 border-white shadow-md transition-colors duration-300"></div>
+            <div key={day.day} className="relative mb-12 sm:mb-16 md:mb-20 last:mb-0">
+              {/* Desktop Timeline Dot - Center */}
+              <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gray-400 rounded-full z-10 border-4 border-white shadow-md transition-colors duration-300 hidden lg:block"></div>
               
-              {/* Timeline Line */}
+              {/* Mobile Timeline Dot - Left Side - More Left Position */}
+              <div className="timeline-dot-mobile absolute left-4 w-5 h-5 bg-gray-400 rounded-full z-10 border-4 border-white shadow-lg transition-all duration-300 lg:hidden"></div>
+
+              {/* Desktop Timeline Line */}
               {index < itineraryData.length - 1 && (
-                <div className="timeline-line absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-200 h-20 top-4"></div>
+                <div className="timeline-line absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-200 h-20 top-4 hidden lg:block"></div>
+              )}
+
+              {/* Mobile Timeline Line */}
+              {index < itineraryData.length - 1 && (
+                <div className="timeline-line-mobile absolute left-6 w-0.5 bg-gray-200 h-16 sm:h-20 top-5 lg:hidden"></div>
               )}
 
               {/* Content */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
                 
+                {/* Mobile Layout - Single Column with Left Timeline */}
+                <div className="lg:hidden pl-20">
+                  <div className="space-y-4 sm:space-y-6">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 font-unbounded">
+                        {day.day}
+                      </h3>
+                      <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 mb-3 sm:mb-4">
+                        {day.title}
+                      </h4>
+                      <p className="text-gray-700 leading-relaxed mb-3 sm:mb-4 text-sm sm:text-base">
+                        {day.description}
+                      </p>
+                      <p className="text-gray-600 leading-relaxed mb-4 sm:mb-6 text-sm sm:text-base">
+                        {day.extraContent}
+                      </p>
+                    </div>
+                    <div className="relative h-48 sm:h-56 md:h-64 rounded-2xl sm:rounded-3xl overflow-hidden">
+                      <Image
+                        src={day.image}
+                        alt={`${day.day} - ${day.title}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 100vw"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Desktop Layout - Two Column Grid */}
                 {/* Left Side Content */}
                 {day.position === 'left' && (
-                  <div className="lg:col-start-1 lg:pr-16 space-y-6">
+                  <div className="hidden lg:block lg:col-start-1 lg:pr-16 space-y-6">
                     <div>
                       <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 font-unbounded">
                         {day.day}
@@ -210,14 +317,14 @@ const ItinerarySection = () => {
                 )}
 
                 {/* Empty space for left positioned content */}
-                {day.position === 'left' && <div className="lg:col-start-2"></div>}
+                {day.position === 'left' && <div className="hidden lg:block lg:col-start-2"></div>}
 
                 {/* Empty space for right positioned content */}
-                {day.position === 'right' && <div className="lg:col-start-1"></div>}
+                {day.position === 'right' && <div className="hidden lg:block lg:col-start-1"></div>}
 
                 {/* Right Side Content */}
                 {day.position === 'right' && (
-                  <div className="lg:col-start-2 lg:pl-16 space-y-6">
+                  <div className="hidden lg:block lg:col-start-2 lg:pl-16 space-y-6">
                     <div>
                       <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 font-unbounded">
                         {day.day}

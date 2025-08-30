@@ -105,26 +105,26 @@ const TripDetailsSection = () => {
   };
 
   return (
-    <section id="trip-details" className="py-16 sm:py-20 bg-gray-50">
+    <section id="trip-details" className="py-12 sm:py-16 md:py-20 bg-gray-50">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl sm:text-5xl lg:text-5xl font-bold text-gray-900 mb-8 font-unbounded">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 font-unbounded">
             What to Expect on this Escape
           </h2>
-          <p className="text-lg text-gray-700 max-w-4xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
             Sun-soaked workouts in the villa&apos;s grounds, Mediterranean feasts whipped up by our private chef and off the beaten path adventures along Ibiza&apos;s beautiful coastline. Unwind by the pool with new friends, relax with yoga in the villa&apos;s yoga dome, and sip ice cold drinks as the golden sun sets on our summer days in Ibiza.
           </p>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-8 sm:mb-12">
           <div className="flex flex-wrap gap-2 bg-white rounded-full p-2 shadow-lg">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-3 rounded-full text-sm font-medium transition-all duration-200 border-0 outline-none focus:outline-none ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border-0 outline-none focus:outline-none ${
                   activeTab === tab.id
                     ? 'bg-[#e77d26] text-white shadow-md'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
@@ -137,20 +137,20 @@ const TripDetailsSection = () => {
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-start">
           {/* Left Content */}
-          <div className="space-y-8">
-            <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 font-unbounded">
+          <div className="space-y-6 sm:space-y-8">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 font-unbounded">
               {content[activeTab as keyof typeof content].title}
             </h3>
             
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {content[activeTab as keyof typeof content].features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 w-2 h-2 bg-gray-900 rounded-full mt-3"></div>
+                <div key={index} className="flex items-start gap-3 sm:gap-4">
+                  <div className="flex-shrink-0 w-2 h-2 bg-gray-900 rounded-full mt-2 sm:mt-3"></div>
                   <div>
-                    <h4 className="font-bold text-gray-900 mb-2">{feature.title}</h4>
-                    <p className="text-gray-700 leading-relaxed">{feature.description}</p>
+                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">{feature.title}</h4>
+                    <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -158,13 +158,13 @@ const TripDetailsSection = () => {
           </div>
 
           {/* Right Image */}
-          <div className="relative h-96 sm:h-[500px] rounded-3xl overflow-hidden">
+          <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden">
             <Image
               src={content[activeTab as keyof typeof content].image}
               alt={`${activeTab} in Ibiza`}
               fill
               className="object-cover transition-opacity duration-300"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
             />
           </div>
         </div>

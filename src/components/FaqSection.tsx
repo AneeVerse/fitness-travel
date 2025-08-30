@@ -54,7 +54,7 @@ const FaqSection: React.FC = () => {
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
               FAQs
             </span>
-            <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
+            <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
               Frequently Asked
               <br className="hidden sm:block" />
               Questions
@@ -72,7 +72,7 @@ const FaqSection: React.FC = () => {
                       }`}
                       aria-expanded={isOpen}
                     >
-                      <span className="text-left">{f.question}</span>
+                      <span className="text-left leading-tight">{f.question}</span>
                       <svg
                         className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform flex-shrink-0 ${isOpen ? 'rotate-180' : 'rotate-0'} ${
                           isOpen ? 'text-white' : 'text-gray-700'
@@ -86,7 +86,7 @@ const FaqSection: React.FC = () => {
                       </svg>
                     </button>
                     {isOpen && (
-                      <div className="px-4 sm:px-4.5 md:px-5 pt-3 sm:pt-3.5 md:pt-4 pb-4 sm:pb-4.5 md:pb-5 bg-white rounded-b-xl text-gray-700 text-xs sm:text-sm">
+                      <div className="px-4 sm:px-4.5 md:px-5 pt-3 sm:pt-3.5 md:pt-4 pb-4 sm:pb-4.5 md:pb-5 bg-white rounded-b-xl text-gray-700 text-xs sm:text-sm leading-relaxed">
                         {f.answer}
                       </div>
                     )}

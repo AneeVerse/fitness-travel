@@ -195,7 +195,8 @@ html {
 
 /* Improve focus states for accessibility */
 button:focus, a:focus, input:focus, textarea:focus, select:focus {
-  outline: none;
+  outline: 2px solid #e77d26;
+  outline-offset: 2px;
 }
 
 /* Better loading states for mobile */
@@ -211,6 +212,130 @@ button:focus, a:focus, input:focus, textarea:focus, select:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Additional mobile optimizations for itinerary page */
+@media (max-width: 640px) {
+  /* Ensure proper touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Improve text readability on small screens */
+  .mobile-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  /* Better button sizing for mobile */
+  .mobile-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+  }
+  
+  /* Improve image containers on mobile */
+  .mobile-image {
+    height: 200px;
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Better grid layouts for mobile */
+  .mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Improve navigation on mobile */
+  .mobile-nav {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Better form elements on mobile */
+  .mobile-form {
+    padding: 0.75rem;
+    font-size: 16px;
+    border-radius: 0.75rem;
+  }
+}
+
+/* Enhanced tablet support */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Better spacing for tablet */
+  .tablet-spacing {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  /* Improve grid layouts for tablet */
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Better text sizing for tablet */
+  .tablet-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Improve button sizing for tablet */
+  .tablet-btn {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    border-radius: 1rem;
+  }
+  
+  /* Better image sizing for tablet */
+  .tablet-image {
+    height: 300px;
+    border-radius: 1.5rem;
+  }
+}
+
+/* Ensure proper scrolling behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Improve performance on mobile devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection where needed */
+p, h1, h2, h3, h4, h5, h6, span, div {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure proper touch handling */
+button, a, [role="button"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 /* Enhanced mobile carousel scrolling */

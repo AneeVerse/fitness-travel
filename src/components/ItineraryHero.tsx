@@ -158,7 +158,7 @@ const ItineraryHero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
+    <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-20 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* Fallback background when video is loading or has error */}
@@ -205,7 +205,7 @@ const ItineraryHero = () => {
         {/* Loading indicator */}
         {!videoLoaded && !videoError && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
-            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
           </div>
         )}
         
@@ -217,37 +217,37 @@ const ItineraryHero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 ml-4 sm:ml-10 mt-75 md:mt-40">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-16 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
         <div className="max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
             The Ibiza Escape
           </h1>
 
-          <p className="text-sm sm:text-base md:text-[17px] text-white/90 mb-6 sm:mb-10 max-w-4xl leading-relaxed">
-            Get ready to work up a sweat on the glittering island of Ibiza, swim in<br /> 
-            the crystal clear waters of the Balearics, hike magical coastal trails to<br />
-            hidden beaches, and enjoy some of the most mouth-watering<br />
+          <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
+            Get ready to work up a sweat on the glittering island of Ibiza, swim in<br className="hidden sm:block" /> 
+            the crystal clear waters of the Balearics, hike magical coastal trails to<br className="hidden sm:block" />
+            hidden beaches, and enjoy some of the most mouth-watering<br className="hidden sm:block" />
             Mediterranean food you&apos;ll ever eat.
           </p>
 
           {/* Event Details */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8 sm:mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
-              <h3 className="text-white font-semibold text-lg mb-2">Dates</h3>
-              <p className="text-white/90 text-sm">2025 Sold Out.</p>
-              <p className="text-white/90 text-sm">2026: June & September</p>
+              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Dates</h3>
+              <p className="text-white/90 text-xs sm:text-sm">2025 Sold Out.</p>
+              <p className="text-white/90 text-xs sm:text-sm">2026: June & September</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
-              <h3 className="text-white font-semibold text-lg mb-2">Rooms</h3>
-              <p className="text-white/90 text-sm">Shared rooms and private</p>
-              <p className="text-white/90 text-sm">rooms available</p>
+              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Rooms</h3>
+              <p className="text-white/90 text-xs sm:text-sm">Shared rooms and private</p>
+              <p className="text-white/90 text-xs sm:text-sm">rooms available</p>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
-              <h3 className="text-white font-semibold text-lg mb-2">Pricing</h3>
-              <p className="text-white/90 text-sm">Price is from</p>
-              <p className="text-white font-bold text-lg">£2660 per person</p>
+            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
+              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Pricing</h3>
+              <p className="text-white/90 text-xs sm:text-sm">Price is from</p>
+              <p className="text-white font-bold text-base sm:text-lg">£2660 per person</p>
             </div>
           </div>
 
