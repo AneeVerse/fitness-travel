@@ -45,22 +45,24 @@ const videos: VideoCard[] = [
     videoUrl: "/video/small/vid-14.mp4",
     timestamp: "0:18"
   },
-  {
-    id: 5,
-    title: "SUNSET WORKOUT",
-    subtitle: "TIGER TERRAIN",
-    description: "Sunset fitness session",
-    videoUrl: "/video/small/vid-16.mp4",
-    timestamp: "0:26"
-  },
-  {
-    id: 6,
-    title: "ADVENTURE RACE",
-    subtitle: "TIGER TERRAIN",
-    description: "Adventure race challenge",
-    videoUrl: "/video/small/vid-17.mp4",
-    timestamp: "0:30"
-  }
+  
+  // {
+  //   id: 5,
+  //   title: "SUNSET WORKOUT",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Sunset fitness session",
+  //   videoUrl: "/video/small/vid-16.mp4",
+  //   timestamp: "0:26"
+  // },
+  // {
+  //   id: 6,
+  //   title: "ADVENTURE RACE",
+  //   subtitle: "TIGER TERRAIN",
+  //   description: "Adventure race challenge",
+  //   videoUrl: "/video/small/vid-17.mp4",
+  //   timestamp: "0:30"
+  // }
+
 ];
 
 export default function VideoSlider() {
