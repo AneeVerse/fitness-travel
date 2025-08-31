@@ -18,8 +18,8 @@ const Navbar = () => {
   const navItems = [
 
     { name: 'EVENTS', href: '/itinerary', hasDropdown: false },
-    { name: 'ABOUT', href: '/about-us', hasDropdown: false },
-    { name: 'FAQ', href: '/faq', hasDropdown: false },
+    // { name: 'ABOUT', href: '/about-us', hasDropdown: false },
+    { name: 'FAQ', href: '/faqSection', hasDropdown: false },
     { name: 'CONTACT', href: '/contact', hasDropdown: false },
   ];
 
