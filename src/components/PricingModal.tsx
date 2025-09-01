@@ -136,7 +136,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           required
                           value={formData.firstName}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                           placeholder="Enter your first name"
                         />
                       </div>
@@ -151,7 +151,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           required
                           value={formData.lastName}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                           placeholder="Enter your last name"
                         />
                       </div>
@@ -168,7 +168,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                         required
                         value={formData.email}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                         placeholder="Enter your email address"
                       />
                     </div>
@@ -184,7 +184,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                         required
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
                         placeholder="Enter your phone number"
                       />
                     </div>
@@ -204,9 +204,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                       )}
                     </button>
 
-                    <p className="text-sm text-gray-500 text-center">
-                      By submitting this form, you agree to receive pricing information and promotional emails from Tiger Terrain.
-                    </p>
+                   
                   </form>
                 </>
               ) : (

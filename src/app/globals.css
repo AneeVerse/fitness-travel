@@ -355,3 +355,35 @@ button, a, [role="button"] {
   -ms-user-select: none;
   pointer-events: auto; /* Ensure touch events work */
 }
+
+/* Chrome-specific form input fixes */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="number"],
+textarea,
+select {
+  background-color: white !important;
+  color: #111827 !important; /* text-gray-900 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Chrome autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #111827 !important;
+  background-color: white !important;
+}
+
+/* Ensure placeholders are visible */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+  opacity: 1;
+}
