@@ -50,7 +50,7 @@ export default function Footer() {
           {isNavigationOpen && (
             <div className="py-4 space-y-3 border-b border-gray-200">
                               <Link href="/" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Home</Link>
-                <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">About</Link>
+                <Link href="/about" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">About</Link>
                 <Link href="/itinerary" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Events</Link>
                 <Link href="/contact" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Contact</Link>
             </div>
@@ -163,7 +163,7 @@ export default function Footer() {
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-3">
                   <Link href="/" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Home</Link>
-                  <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">About</Link>
+                  <Link href="/about" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">About</Link>
                   <Link href="/itinerary" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Events</Link>
                 </div>
                 <div className="space-y-3">
@@ -290,7 +290,7 @@ export default function Footer() {
           {/* Column 1 – Navigation */}
           <div className="space-y-4 text-lg leading-7 text-center md:text-left md:self-start md:ml-50">
               <Link href="/" className="block hover:text-[#ef4a25] transition-colors">Home</Link>
-              <Link href="#" className="block hover:text-[#ef4a25] transition-colors">About</Link>
+              <Link href="/about" className="block hover:text-[#ef4a25] transition-colors">About</Link>
               <Link href="/itinerary" className="block hover:text-[#ef4a25] transition-colors">Events</Link>
               <Link href="/contact" className="block hover:text-[#ef4a25] transition-colors">Contact Us</Link>
             </div>
