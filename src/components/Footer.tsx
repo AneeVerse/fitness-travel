@@ -107,9 +107,18 @@ export default function Footer() {
 
         {/* Mobile Brand Section */}
         <div className="px-6 py-8 text-center">
-                          <h2 className={`text-4xl tracking-wide font-bold text-[#ef4a25] mb-4`}>
-            <span className={tigerTerrainFont.className}>TIGER TERRAIN</span>
-          </h2>
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Image
+              src="/images/website-logo1.png"
+              alt="Tiger Terrain"
+              width={40}
+              height={40}
+              className="w-10 h-10"
+            />
+            <h2 className={`text-4xl tracking-wide font-bold text-[#ef4a25]`}>
+              <span className={tigerTerrainFont.className}>TIGER TERRAIN</span>
+            </h2>
+          </div>
           <p className="text-gray-600 text-sm mb-6">© 2025 Tiger Terrain. All rights reserved.</p>
           
           {/* Mobile Contact Information */}
@@ -221,9 +230,18 @@ export default function Footer() {
 
         {/* Tablet Brand Section */}
         <div className="px-8 py-10 text-center">
-          <h2 className={`text-5xl tracking-wide font-bold text-[#ef4a25] mb-6`}>
-            <span className={tigerTerrainFont.className}>TIGER TERRAIN</span>
-          </h2>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <Image
+              src="/images/website-logo1.png"
+              alt="Tiger Terrain"
+              width={48}
+              height={48}
+              className="w-12 h-12"
+            />
+            <h2 className={`text-5xl tracking-wide font-bold text-[#ef4a25]`}>
+              <span className={tigerTerrainFont.className}>TIGER TERRAIN</span>
+            </h2>
+          </div>
           <p className="text-gray-600 text-base mb-8">© 2025 Tiger Terrain. All rights reserved.</p>
           
           {/* Tablet Contact Information */}
