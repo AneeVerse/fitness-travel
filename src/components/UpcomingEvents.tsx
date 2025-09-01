@@ -113,8 +113,8 @@ const UpcomingEvents = () => {
               className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-visible shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto relative"
             >
               {/* Countdown Badge - Top Left */}
-              <div className="absolute -top-15 left-4 z-[9999]">
-                <div className="bg-[#ef4a25] text-white px-5 py-3 sm:px-4 sm:py-2 rounded-full shadow-lg flex items-center gap-2 sm:gap-2">
+              <div className="absolute -top-15 left-4 z-[99999]">
+                <div className="bg-[#ef4a25] text-white px-5 py-3 sm:px-4 sm:py-2 rounded-full shadow-xl flex items-center gap-2 sm:gap-2">
                   <div className="w-10 h-7 sm:w-8 sm:h-6 bg-white/20 rounded-md border border-white/30 relative">
                     {/* Fill level */}
                     <div 
@@ -131,7 +131,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Left ticket column */}
-              <div className="xl:col-span-3 bg-[#ef4a25] text-white p-6 sm:p-7 md:p-8 lg:p-12 flex flex-col justify-between">
+              <div className="xl:col-span-3 bg-[#ef4a25] text-white p-8 sm:p-9 md:p-10 lg:p-16 flex flex-col justify-between rounded-l-2xl">
                 <div className="space-y-4 sm:space-y-5 md:space-y-6">
                   {/* Morning Event */}
                   <div className="flex items-center gap-3">
@@ -201,7 +201,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Middle content */}
-              <div className="xl:col-span-4 p-6 sm:p-7 md:p-8 lg:border-r xl:border-r xl:border-gray-200">
+              <div className="xl:col-span-4 p-8 sm:p-9 md:p-10 lg:border-r xl:border-r xl:border-gray-200">
                 <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-teko)' }}>
                   {event.title}
                 </h3>
@@ -226,7 +226,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Right image */}
-              <div className="xl:col-span-5 relative h-64 sm:h-64 md:h-72 lg:h-auto">
+              <div className="xl:col-span-5 relative h-80 sm:h-80 md:h-96 lg:h-auto rounded-r-2xl">
                 <Image
                   src={event.imageSrc}
                   alt={event.title}

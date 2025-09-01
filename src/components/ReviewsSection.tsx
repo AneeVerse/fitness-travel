@@ -79,7 +79,7 @@ const ReviewsSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white mobile-section">
+    <section id="reviews-section" className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white mobile-section">
       <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
         {/* Voices of Transformation Header */}
         <div className="text-center mb-8 sm:mb-9 md:mb-10">

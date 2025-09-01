@@ -97,10 +97,10 @@ export default function Footer() {
           {/* Explore Dropdown Content */}
           {isServicesOpen && (
             <div className="py-4 space-y-3 border-b border-gray-200">
-                              <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Past Events</Link>
-                <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Gallery</Link>
-                <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Feedback</Link>
-                <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Team</Link>
+                              <Link href="#upcoming-events" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Past Events</Link>
+                <Link href="#social-mosaic" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Gallery</Link>
+                <Link href="#reviews-section" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Feedback</Link>
+                <Link href="#coaches-section" className="block text-gray-600 hover:text-[#ef4a25] transition-colors">Team</Link>
             </div>
           )}
         </div>
@@ -216,12 +216,12 @@ export default function Footer() {
             <div className="py-6 space-y-4 border-b border-gray-200">
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Past Events</Link>
-                  <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Gallery</Link>
+                  <Link href="#upcoming-events" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Past Events</Link>
+                  <Link href="#social-mosaic" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Gallery</Link>
                 </div>
                 <div className="space-y-3">
-                  <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Feedback</Link>
-                  <Link href="#" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Team</Link>
+                  <Link href="#reviews-section" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Feedback</Link>
+                  <Link href="#coaches-section" className="block text-gray-600 hover:text-[#ef4a25] transition-colors text-lg">Team</Link>
                 </div>
               </div>
             </div>
@@ -319,10 +319,10 @@ export default function Footer() {
 
             {/* Column 2 – Explore */}
             <div className="space-y-4 text-lg leading-7 text-center md:text-left md:self-start md:justify-self-end md:mr-10">
-              <Link href="#" className="block hover:text-[#ef4a25] transition-colors">Past Events</Link>
-              <Link href="#" className="block hover:text-[#ef4a25] transition-colors">Gallery</Link>
-              <Link href="#" className="block hover:text-[#ef4a25] transition-colors">Feedback</Link>
-              <Link href="#" className="block hover:text-[#ef4a25] transition-colors">Team</Link>
+              <Link href="#upcoming-events" className="block hover:text-[#ef4a25] transition-colors">Past Events</Link>
+              <Link href="#social-mosaic" className="block hover:text-[#ef4a25] transition-colors">Gallery</Link>
+              <Link href="#reviews-section" className="block hover:text-[#ef4a25] transition-colors">Feedback</Link>
+              <Link href="#coaches-section" className="block hover:text-[#ef4a25] transition-colors">Team</Link>
             </div>
         </div>
 

@@ -64,7 +64,7 @@ const teko = Teko({ subsets: ['latin'], weight: ['400','600','700'] });
 
 const CoachesSection: React.FC = () => {
   return (
-    <section className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-gray-100 mobile-coaches">
+    <section id="coaches-section" className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-gray-100 mobile-coaches">
       <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
         {/* Heading */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-9 md:mb-10">
