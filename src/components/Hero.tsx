@@ -26,72 +26,76 @@ const Hero = () => {
 
     if (!hero || !video || !content) return;
 
-    // Performance optimization: Use transform3d for GPU acceleration
-    gsap.set([hero, video, content], { 
-      willChange: "transform",
-      backfaceVisibility: "hidden",
-      perspective: 1000
-    });
+    let cleanup: () => void = () => {};
 
-    // Create a timeline for the scroll animations with performance optimizations
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: hero,
-        start: "top top",
-        end: "+=400",
-        scrub: 1, // Increased scrub value for smoother performance
-        pin: false,
-        anticipatePin: 1, // Better performance
-        fastScrollEnd: true, // Optimize for fast scrolling
-        preventOverlaps: true, // Prevent overlapping triggers
-        onUpdate: (self) => {
-          // Throttle updates for better performance
-          if (self.progress < 0.01 || self.progress > 0.99) return;
-        }
-      }
-    });
+    const init = () => {
+      // Scope animations to this component and make cleanup trivial
+      const ctx = gsap.context(() => {
+        // GPU-friendly properties only
+        gsap.set([hero, video, content], {
+          willChange: "transform",
+          backfaceVisibility: "hidden",
+          perspective: 1000,
+          force3D: true
+        });
 
-    // Optimized animations using transform3d and better easing
-    tl.to(hero, {
-      scale: 0.80,
-      y: -90,
-      duration: 1,
-      ease: "power1.out", // Changed to power1.out for better performance
-      force3D: true, // Force 3D transforms
-      transformOrigin: "center center"
-    }, 0)
-    
-    .to(video, {
-      scale: 1.05,
-      y: -25,
-      duration: 1,
-      ease: "power1.out",
-      force3D: true,
-      transformOrigin: "center center"
-    }, 0)
-    
-    .to(content, {
-      y: -40,
-      scale: 0.95,
-      duration: 1,
-      ease: "power1.out",
-      force3D: true,
-      transformOrigin: "center center"
-    }, 0);
+        const mm = gsap.matchMedia();
 
-    // Performance optimization: Kill animations when component unmounts
-    return () => {
-      if (tl) {
-        tl.kill();
-        tl.scrollTrigger?.kill();
-      }
-      // Clean up all ScrollTrigger instances
-      ScrollTrigger.getAll().forEach(trigger => {
-        if (trigger.vars.trigger === hero) {
-          trigger.kill();
-        }
-      });
+        const createTimeline = (
+          heroScale: number,
+          heroY: number,
+          videoScale: number,
+          videoY: number,
+          contentY: number,
+          contentScale: number
+        ) => {
+          return gsap.timeline({
+            defaults: { ease: "power1.out" },
+            scrollTrigger: {
+              trigger: hero,
+              start: "top top",
+              end: "+=350",
+              scrub: 0.6,
+              pin: false,
+              anticipatePin: 1,
+              fastScrollEnd: true,
+              preventOverlaps: true,
+              invalidateOnRefresh: true
+            }
+          })
+          .to(hero, { scale: heroScale, y: heroY, duration: 1 }, 0)
+          .to(video, { scale: videoScale, y: videoY, duration: 1 }, 0)
+          .to(content, { y: contentY, scale: contentScale, duration: 1 }, 0);
+        };
+
+        // Respect user's reduced motion settings
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+          gsap.set([hero, video, content], { clearProps: "all" });
+        });
+
+        // Lighter animation on small screens
+        mm.add("(max-width: 767px)", () => {
+          createTimeline(0.92, -40, 1.02, -10, -20, 0.98);
+        });
+
+        // Default animation on larger screens
+        mm.add("(min-width: 768px)", () => {
+          createTimeline(0.8, -90, 1.05, -25, -40, 0.95);
+        });
+      }, hero);
+
+      cleanup = () => ctx.revert();
     };
+
+    // Defer initialization to idle to avoid blocking first paint
+    const anyWindow = window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
+    if (anyWindow.requestIdleCallback) {
+      anyWindow.requestIdleCallback(init, { timeout: 200 });
+    } else {
+      setTimeout(init, 1);
+    }
+
+    return () => cleanup();
   }, []);
 
   // Video event handlers
