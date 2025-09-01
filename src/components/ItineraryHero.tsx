@@ -160,7 +160,8 @@ const ItineraryHero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-20 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
+    <>
+      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-20 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* Fallback background when video is loading or has error */}
@@ -219,7 +220,7 @@ const ItineraryHero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-16 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
             PHUKET
@@ -242,10 +243,9 @@ const ItineraryHero = () => {
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
-              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Pricing</h3>
               <button
                 onClick={() => setIsPricingModalOpen(true)}
-                className="inline-flex items-center justify-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold text-sm transform hover:scale-105 transition-all duration-200 backdrop-blur-md"
+                className="w-full h-full inline-flex items-center justify-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold text-sm transform hover:scale-105 transition-all duration-200 backdrop-blur-md"
               >
                 See Pricing
               </button>
@@ -265,12 +265,14 @@ const ItineraryHero = () => {
         </div>
       </div>
       
-      {/* Pricing Modal */}
+      </section>
+      
+      {/* Pricing Modal - Moved outside section for proper z-index */}
       <PricingModal 
         isOpen={isPricingModalOpen} 
         onClose={() => setIsPricingModalOpen(false)} 
       />
-    </section>
+    </>
   );
 };
 

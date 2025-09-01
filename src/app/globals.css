@@ -193,11 +193,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Improve focus states for accessibility */
-button:focus, a:focus, input:focus, textarea:focus, select:focus {
-  outline: 2px solid #e77d26;
-  outline-offset: 2px;
-}
+
 
 /* Better loading states for mobile */
 .loading {

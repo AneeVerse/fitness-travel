@@ -14,19 +14,19 @@ const tigerTerrainFont = localFont({
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const navItems = [
-
     { name: 'EVENTS', href: '/itinerary', hasDropdown: false },
-    { name: 'ABOUT', href: '/about-us', hasDropdown: false },
-    { name: 'FAQ', href: '/faq', hasDropdown: false },
+    { name: 'ABOUT', href: '#', hasDropdown: false },
+    { name: 'FAQ', href: '#', hasDropdown: false },
     { name: 'CONTACT', href: '/contact', hasDropdown: false },
   ];
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 bg-transparent">
-        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 max-w-[1325px] mx-auto">
+      <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
+        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto">
           <div className="flex items-center justify-between">
             {/* Logo + Brand */}
             <div className="flex-shrink-0 md:mt-1 lg:mt-0">
@@ -42,7 +42,15 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-gray-800 hover:text-[#e77d25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center"
+                  onClick={() => {
+                    if (item.href !== '#' && !isNavigating) {
+                      setIsNavigating(true);
+                      setTimeout(() => setIsNavigating(false), 1000);
+                    }
+                  }}
+                  className={`text-gray-800 hover:text-[#ef4a25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center ${
+                    isNavigating ? 'pointer-events-none opacity-50' : ''
+                  }`}
                   style={{ fontFamily: 'var(--font-unbounded)' }}
                 >
                   {item.name}
@@ -59,7 +67,7 @@ const Navbar = () => {
             <div className="hidden md:block md:mt-1 lg:mt-0">
               <button
                 onClick={() => setIsPricingModalOpen(true)}
-                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#e77d26] hover:bg-black hover:text-white transition-colors duration-200"
+                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-black hover:text-white transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-unbounded)' }}
               >
                 BOOK JOURNEY
@@ -70,7 +78,7 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#e77d25] transition-colors duration-200 z-50"
+                className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-gray-700 hover:text-[#ef4a25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#ef4a25] transition-colors duration-200 z-50"
               >
                 <span className="sr-only">Open main menu</span>
                 {!isMenuOpen ? (
@@ -119,7 +127,7 @@ const Navbar = () => {
             </Link> */}
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="p-1.5 sm:p-2 rounded-md text-gray-700 hover:text-[#e77d25] hover:bg-gray-100 transition-colors duration-200"
+                              className="p-1.5 sm:p-2 rounded-md text-gray-700 hover:text-[#ef4a25] hover:bg-gray-100 transition-colors duration-200"
             >
               <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -133,9 +141,17 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-xs sm:text-sm md:text-base font-semibold text-gray-800 hover:text-[#e77d25] transition-colors duration-300 flex items-center justify-between py-2 sm:py-2.5 md:py-3 border-b border-gray-100"
+                onClick={() => {
+                  setIsMenuOpen(false);
+                  if (item.href !== '#' && !isNavigating) {
+                    setIsNavigating(true);
+                    setTimeout(() => setIsNavigating(false), 1000);
+                  }
+                }}
+                                  className={`text-xs sm:text-sm md:text-base font-semibold text-gray-800 hover:text-[#ef4a25] transition-colors duration-300 flex items-center justify-between py-2 sm:py-2.5 md:py-3 border-b border-gray-100 ${
+                  isNavigating ? 'pointer-events-none opacity-50' : ''
+                }`}
                 style={{ fontFamily: 'var(--font-unbounded)' }}
-                onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
                 {item.hasDropdown && (
@@ -154,7 +170,7 @@ const Navbar = () => {
                 setIsPricingModalOpen(true);
                 setIsMenuOpen(false);
               }}
-              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#e77d25] text-white hover:bg-black hover:text-[#e77d25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
+                              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-black hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
               style={{ fontFamily: 'var(--font-unbounded)' }}
             >
               BOOK JOURNEY

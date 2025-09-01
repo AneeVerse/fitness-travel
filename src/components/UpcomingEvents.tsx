@@ -91,10 +91,10 @@ const UpcomingEvents = () => {
   }, [hasAnimated]);
 
   return (
-    <section ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
+    <section id="upcoming-events" ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
       <div className="max-w-[1425px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         <div className="text-center mb-16 sm:mb-9 md:mb-10">
-          <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
+          <span className="inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Journeys -
           </span>
           <h2 className="mt-2 sm:mb-12 md:mb-16 lg:mb-20  text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -114,7 +114,7 @@ const UpcomingEvents = () => {
             >
               {/* Countdown Badge - Top Left */}
               <div className="absolute -top-12 left-4 z-[9999]">
-                <div className="bg-[#e77d26]  text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
+                <div className="bg-[#ef4a25]  text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
                   <div className="w-8 h-6 bg-white/20 rounded-md border border-white/30 relative">
                     {/* Fill level */}
                     <div 
@@ -123,7 +123,7 @@ const UpcomingEvents = () => {
                     ></div>
                     {/* Number overlay */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold text-[#e77d26] drop-shadow-sm">{displayedSlots}</span>
+                      <span className="text-sm font-bold text-[#ef4a25] drop-shadow-sm">{displayedSlots}</span>
                     </div>
                   </div>
                   <span className="text-sm font-semibold">Spots left!</span>
@@ -131,7 +131,7 @@ const UpcomingEvents = () => {
               </div>
 
               {/* Left ticket column */}
-              <div className="xl:col-span-3 bg-[#e77d26] text-white p-6 sm:p-7 md:p-8 lg:p-12 flex flex-col justify-between">
+              <div className="xl:col-span-3 bg-[#ef4a25] text-white p-6 sm:p-7 md:p-8 lg:p-12 flex flex-col justify-between">
                 <div className="space-y-4 sm:space-y-5 md:space-y-6">
                   {/* Morning Event */}
                   <div className="flex items-center gap-3">
@@ -182,6 +182,16 @@ const UpcomingEvents = () => {
                 <div className="mt-6 sm:mt-7 md:mt-8">
                   <Link
                     href="/itinerary"
+                    onClick={(e) => {
+                      // Prevent multiple rapid clicks
+                      const target = e.currentTarget;
+                      if (target.classList.contains('navigating')) {
+                        e.preventDefault();
+                        return;
+                      }
+                      target.classList.add('navigating');
+                      setTimeout(() => target.classList.remove('navigating'), 1000);
+                    }}
                     className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base md:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn inline-flex items-center justify-center"
                     style={{ fontFamily: 'var(--font-teko)' }}
                   >
@@ -199,13 +209,13 @@ const UpcomingEvents = () => {
 
                 <div className="mt-4 sm:mt-4.5 md:mt-5 space-y-3 text-sm text-gray-800">
                   <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
+                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#ef4a25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" /><path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" /></svg>
                     </span>
                     <span>{event.date}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#e77d25]">
+                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#ef4a25]">
                       <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" /></svg>
                     </span>
                     <span>{event.location}</span>

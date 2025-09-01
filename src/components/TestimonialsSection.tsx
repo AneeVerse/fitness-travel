@@ -63,7 +63,7 @@ const TestimonialsSection = () => {
 
                  {/* Event details */}
                  <div className="text-white">
-                   <div className="inline-flex ml-8 items-center justify-center px-3.5 py-1.5 rounded-full bg-[#e77d26] text-white text-[10px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
+                   <div className="inline-flex ml-8 items-center justify-center px-3.5 py-1.5 rounded-full bg-[#ef4a25] text-white text-[10px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
                      – Upcoming Adventures –
                    </div>
                    <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -73,7 +73,7 @@ const TestimonialsSection = () => {
                     
                      {/* Location */}
                      <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+                       <svg className="w-5 h-5 text-[#ef4a25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
                        <p className="text-sm">Phuket</p>
                      </div>
                    </div>

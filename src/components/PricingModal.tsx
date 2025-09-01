@@ -192,7 +192,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#e77d26] text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+                      className="w-full bg-[#ef4a25] text-white py-4 px-6 rounded-xl font-semibold text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                     >
                       {isSubmitting ? (
                         <div className="flex items-center justify-center gap-2">

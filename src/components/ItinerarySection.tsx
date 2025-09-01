@@ -133,7 +133,7 @@ const ItinerarySection = () => {
       gsap.to(dot, {
         scale: 1.2,
         opacity: 1,
-        backgroundColor: "#e77d26",
+        backgroundColor: "#ef4a25",
         duration: 0.3,
         ease: "back.out(1.7)",
         scrollTrigger: {
@@ -174,7 +174,7 @@ const ItinerarySection = () => {
       gsap.to(dot, {
         scale: 1.3,
         opacity: 1,
-        backgroundColor: "#e77d26",
+        backgroundColor: "#ef4a25",
         duration: 0.4,
         ease: "back.out(1.7)",
         scrollTrigger: {
@@ -213,7 +213,7 @@ const ItinerarySection = () => {
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
-          <p className="text-xs sm:text-sm font-medium text-[#e77d26] uppercase tracking-wide mb-3 sm:mb-4">
+          <p className="text-xs sm:text-sm font-medium text-[#ef4a25] uppercase tracking-wide mb-3 sm:mb-4">
             Itinerary
           </p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 font-unbounded">
@@ -232,7 +232,7 @@ const ItinerarySection = () => {
             <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gray-300 h-full z-0"></div>
             
             {/* Center Line - Animated Progress */}
-            <div className="timeline-progress absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
+            <div className="timeline-progress absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-[#ef4a25] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
           </div>
 
           {/* Mobile Timeline - Left Side */}
@@ -241,7 +241,7 @@ const ItinerarySection = () => {
             <div className="absolute left-6 w-0.5 bg-gray-300 h-full z-0"></div>
             
             {/* Left Line - Animated Progress */}
-            <div className="timeline-progress-mobile absolute left-6 w-0.5 bg-[#e77d26] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
+            <div className="timeline-progress-mobile absolute left-6 w-0.5 bg-[#ef4a25] h-full z-5" style={{ transformOrigin: 'top center', transform: 'scaleY(0)' }}></div>
           </div>
 
           {itineraryData.map((day, index) => (

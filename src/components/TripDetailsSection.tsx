@@ -126,7 +126,7 @@ const TripDetailsSection = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border-0 outline-none focus:outline-none ${
                   activeTab === tab.id
-                    ? 'bg-[#e77d26] text-white shadow-md'
+                    ? 'bg-[#ef4a25] text-white shadow-md'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >

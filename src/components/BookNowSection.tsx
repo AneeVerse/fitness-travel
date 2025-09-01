@@ -27,7 +27,7 @@ const BookNowSection = () => {
           {/* Right Content */}
           <div className="space-y-6 sm:space-y-8">
             <div>
-              <p className="text-xs sm:text-sm font-medium text-[#e77d26] uppercase tracking-wide mb-3 sm:mb-4">
+              <p className="text-xs sm:text-sm font-medium text-[#ef4a25] uppercase tracking-wide mb-3 sm:mb-4">
                 Book Now
               </p>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 font-unbounded">
@@ -42,7 +42,7 @@ const BookNowSection = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#e77d26] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+                className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#ef4a25] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
               >
                 Book Now
               </button>

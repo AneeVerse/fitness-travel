@@ -20,7 +20,7 @@ const PricingSection = () => {
             </p>
             <button
               onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#e77d26] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-[#ef4a25] text-white rounded-full font-semibold text-base sm:text-lg hover:bg-[#d16d1f] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Get Pricing & Itinerary
             </button>

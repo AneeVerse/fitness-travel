@@ -81,7 +81,7 @@ const ContactPage = () => {
             <div className="space-y-8">
               {/* Header */}
               <div className="mb-8">
-                                 <span className="inline-block px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
+                                 <span className="inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
                    — CONTACT US —
                  </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-unbounded leading-tight">
@@ -94,7 +94,7 @@ const ContactPage = () => {
                                  {/* Email Section */}
                  <div className="space-y-4">
                    <div className="flex items-center gap-3 mb-4">
-                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                     <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center">
                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                        </svg>
@@ -110,7 +110,7 @@ const ContactPage = () => {
                                  {/* Phone Section */}
                  <div className="space-y-4">
                    <div className="flex items-center gap-3 mb-4">
-                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                     <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center">
                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                        </svg>
@@ -126,7 +126,7 @@ const ContactPage = () => {
                                  {/* Working Hours Section */}
                  <div className="space-y-4">
                    <div className="flex items-center gap-3 mb-4">
-                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                     <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center">
                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                        </svg>
@@ -142,7 +142,7 @@ const ContactPage = () => {
                                  {/* Our Camp Section */}
                  <div className="space-y-4">
                    <div className="flex items-center gap-3 mb-4">
-                     <div className="w-12 h-12 bg-[#e77d25] rounded-full flex items-center justify-center">
+                     <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center">
                        <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -173,7 +173,7 @@ const ContactPage = () => {
                      placeholder="Full Name"
                      value={formData.fullName}
                      onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#e77d25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
+                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
                      required
                    />
                  </div>
@@ -186,7 +186,7 @@ const ContactPage = () => {
                      placeholder="Email Address"
                      value={formData.email}
                      onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#e77d25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
+                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
                      required
                    />
                    <input
@@ -195,7 +195,7 @@ const ContactPage = () => {
                      placeholder="Phone Number"
                      value={formData.phone}
                      onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#e77d25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
+                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
                    />
                  </div>
 
@@ -207,7 +207,7 @@ const ContactPage = () => {
                      placeholder="Subject / Topic"
                      value={formData.subject}
                      onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#e77d25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
+                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
                      required
                    />
                  </div>
@@ -220,7 +220,7 @@ const ContactPage = () => {
                      rows={6}
                      value={formData.message}
                      onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#e77d25] focus:border-transparent outline-none transition-all resize-vertical bg-white text-gray-900 placeholder-gray-500"
+                     className="w-full px-4 py-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all resize-vertical bg-white text-gray-900 placeholder-gray-500"
                      required
                    />
                  </div>
@@ -228,7 +228,7 @@ const ContactPage = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-[#e77d25] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#d66d1f] transform hover:scale-[1.02] transition-all duration-200 font-unbounded text-sm tracking-wide"
+                  className="w-full bg-[#ef4a25] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#d66d1f] transform hover:scale-[1.02] transition-all duration-200 font-unbounded text-sm tracking-wide"
                 >
                   SEND MESSAGE
                 </button>

@@ -69,7 +69,7 @@ const CoachesSection: React.FC = () => {
         {/* Heading */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-9 md:mb-10">
           <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e77d26] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Meet Your Tribe Leaders
             </span>
@@ -98,7 +98,7 @@ const CoachesSection: React.FC = () => {
                       <a
                         key={type}
                         href="#"
-                        className="w-7 h-7 sm:w-7.5 md:w-8 sm:h-7.5 md:h-8 rounded-full bg-[#e77d26] text-white flex items-center justify-center hover:bg-black"
+                        className="w-7 h-7 sm:w-7.5 md:w-8 sm:h-7.5 md:h-8 rounded-full bg-[#ef4a25] text-white flex items-center justify-center hover:bg-black"
                         aria-label={`Open ${type} profile`}
                       >
                         <SocialIcon type={type as 'li' | 'ig' | 'email'} />

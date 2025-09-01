@@ -53,14 +53,7 @@ const videos: VideoCard[] = [
     videoUrl: "/video/small/vid-16.mp4",
     timestamp: "0:26"
   },
-  {
-    id: 6,
-    title: "ADVENTURE RACE",
-    subtitle: "TIGER TERRAIN",
-    description: "Adventure race challenge",
-    videoUrl: "/video/small/vid-17.mp4",
-    timestamp: "0:30"
-  }
+
 ];
 
 export default function VideoSlider() {
@@ -304,7 +297,7 @@ export default function VideoSlider() {
   // Touch event handlers for mobile scrolling
 
   return (
-    <section className="w-full bg-white mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
+    <section id="tiger-terrain-highlights" className="w-full bg-white mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
       <div className="w-full">
 
         {/* Header with Navigation */}

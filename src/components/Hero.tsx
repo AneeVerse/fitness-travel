@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PricingModal from './PricingModal';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
@@ -16,6 +17,7 @@ const Hero = () => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -160,7 +162,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[112vh] md:min-h-[114vh] lg:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
+    <>
+      <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[112vh] md:min-h-[114vh] lg:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">
         {/* Fallback background when video is loading or has error */}
@@ -236,18 +239,23 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5">
-            <Link
-              href="/book-now"
+            <button
+              onClick={() => setIsPricingModalOpen(true)}
               className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Join Your Tribe
-            </Link>
-            <Link
-              href="/retreats"
+            </button>
+            <button
+              onClick={() => {
+                const videoHighlightsSection = document.querySelector('#tiger-terrain-highlights');
+                if (videoHighlightsSection) {
+                  videoHighlightsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 mobile-btn"
             >
               Watch How It Works
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -261,7 +269,14 @@ const Hero = () => {
           </div>
         </div>
       </div> */}
-    </section>
+      </section>
+      
+      {/* Pricing Modal */}
+      <PricingModal 
+        isOpen={isPricingModalOpen} 
+        onClose={() => setIsPricingModalOpen(false)} 
+      />
+    </>
   );
 };
 

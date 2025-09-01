@@ -104,7 +104,7 @@ const StickyNavigation = () => {
         id="sticky-navigation"
         className="fixed bottom-0 left-0 right-0 z-[9999] px-4 sm:px-6 md:px-8"
       >
-      <div className="bg-white/55 backdrop-blur-md shadow-lg mx-auto mb-4 sm:mb-6 rounded-full max-w-[95%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[60%] xl:max-w-[40%] border border-white/20">
+      <div className="bg-white/55 backdrop-blur-md shadow-lg mx-auto mb-4 sm:mb-6 rounded-full max-w-[100%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[60%] xl:max-w-[40%] border border-white/20">
         <div className="px-3 sm:px-4 py-2 sm:py-3">
           <div className="flex items-center justify-center gap-1 sm:gap-2 overflow-x-auto scrollbar-hide">
             {navItems.map((item) => (
@@ -113,7 +113,7 @@ const StickyNavigation = () => {
                 onClick={() => handleNavClick(item)}
                 className={`flex-shrink-0 px-2 sm:px-3 md:px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap hover:scale-105 focus:outline-none border-0 ring-0 [&:focus]:outline-none [&:focus]:ring-0 [&:focus]:border-0 [&:focus]:outline-offset-0 ${
                   activeSection === item.label
-                    ? 'bg-[#e77d26] text-white'
+                    ? 'bg-[#ef4a25] text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >

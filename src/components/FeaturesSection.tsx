@@ -197,10 +197,10 @@ const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
                   {/* Play button bottom-right (slightly smaller and lifted) */}
                   <div className="absolute right-4 sm:right-6 md:right-8 lg:right-8 bottom-6 sm:bottom-10 md:bottom-8 lg:bottom-12 z-10 mr-4 sm:mr-6 md:mr-8 lg:mr-10">
                     <div className="relative group">
-                      <span className="absolute -inset-2 rounded-full bg-[#e77d25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
+                      <span className="absolute -inset-2 rounded-full bg-[#ef4a25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
                       <button
                         onClick={() => handlePlayClick(index)}
-                        className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#e77d25] text-[#e77d25] shadow-xl transition-colors hover:bg-[#e77d25] hover:text-black"
+                        className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#ef4a25] text-[#ef4a25] shadow-xl transition-colors hover:bg-[#ef4a25] hover:text-black"
                         aria-label={`Play ${item.title}`}
                       >
                         <svg className="w-4 h-4 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">

@@ -75,7 +75,7 @@ const EpicDestinationsSection: React.FC = () => {
           {/* Right: CTA Button */}
           <div className="lg:col-span-4 flex justify-center lg:justify-end mt-4 lg:mt-0">
             <button
-              className="px-4 sm:px-5 md:px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-sm sm:text-base mobile-btn"
+                              className="px-4 sm:px-5 md:px-6 py-3 rounded-full bg-[#ef4a25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-sm sm:text-base mobile-btn"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations

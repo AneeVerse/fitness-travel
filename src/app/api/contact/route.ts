@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       subject: 'Thank you for contacting Tiger Terrain - Your Ibiza Adventure Awaits!',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #e77d26, #d16d1f); padding: 30px; text-align: center; border-radius: 15px 15px 0 0;">
+          <div style="background: linear-gradient(135deg, #ef4a25, #d16d1f); padding: 30px; text-align: center; border-radius: 15px 15px 0 0;">
             <h1 style="color: white; margin: 0; font-size: 28px;">Thank You!</h1>
             <p style="color: white; margin: 10px 0 0 0; font-size: 16px;">Your adventure request has been received</p>
           </div>
@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
               Thank you for contacting Tiger Terrain about your Ibiza adventure! We're excited to help you plan the perfect fitness retreat.
             </p>
             
-            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #e77d26;">
-              <h3 style="color: #e77d26; margin-top: 0;">What happens next?</h3>
+            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
+              <h3 style="color: #ef4a25; margin-top: 0;">What happens next?</h3>
               <ul style="color: #555; line-height: 1.6;">
                 <li>Our team will review your request within 24 hours</li>
                 <li>You'll receive personalized pricing information</li>
@@ -61,12 +61,12 @@ export async function POST(request: NextRequest) {
               </ul>
             </div>
             
-            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #e77d26;">
-              <h3 style="color: #e77d26; margin-top: 0;">Your Itinerary PDF</h3>
+            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
+              <h3 style="color: #ef4a25; margin-top: 0;">Your Itinerary PDF</h3>
               <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">
                 Access your complete Ibiza itinerary and pricing details:
               </p>
-              <a href="${pdfLink}" style="display: inline-block; background: #e77d26; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Download Itinerary PDF</a>
+              <a href="${pdfLink}" style="display: inline-block; background: #ef4a25; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Download Itinerary PDF</a>
             </div>
             
             <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
       subject: `New Booking Request from ${firstName} ${lastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: #e77d26; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
+          <div style="background: #ef4a25; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
             <h1 style="color: white; margin: 0;">New Booking Request</h1>
           </div>
           
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
               <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
             </div>
             
-            <div style="background: #e77d26; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+            <div style="background: #ef4a25; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
               <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${firstName}</a>
             </div>
             
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
       subject: `New Booking Request from ${firstName} ${lastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: #e77d26; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
+          <div style="background: #ef4a25; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
             <h1 style="color: white; margin: 0;">New Booking Request</h1>
           </div>
           
@@ -138,7 +138,7 @@ export async function POST(request: NextRequest) {
               <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
             </div>
             
-            <div style="background: #e77d26; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
+            <div style="background: #ef4a25; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
               <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${firstName}</a>
             </div>
             
