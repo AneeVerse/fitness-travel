@@ -93,8 +93,8 @@ const UpcomingEvents = () => {
   return (
     <section id="upcoming-events" ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
       <div className="max-w-[1425px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-16 sm:mb-9 md:mb-10">
-          <span className="inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
+        <div className="text-center mb-18 sm:mb-9 md:mb-10">
+          <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
             - Upcoming Journeys -
           </span>
           <h2 className="mt-2 sm:mb-12 md:mb-16 lg:mb-20  text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -113,9 +113,9 @@ const UpcomingEvents = () => {
               className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-visible shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto relative"
             >
               {/* Countdown Badge - Top Left */}
-              <div className="absolute -top-12 left-4 z-[9999]">
-                <div className="bg-[#ef4a25]  text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2">
-                  <div className="w-8 h-6 bg-white/20 rounded-md border border-white/30 relative">
+              <div className="absolute -top-15 left-4 z-[9999]">
+                <div className="bg-[#ef4a25] text-white px-5 py-3 sm:px-4 sm:py-2 rounded-full shadow-lg flex items-center gap-2 sm:gap-2">
+                  <div className="w-10 h-7 sm:w-8 sm:h-6 bg-white/20 rounded-md border border-white/30 relative">
                     {/* Fill level */}
                     <div 
                       className="h-full bg-white rounded-sm transition-all duration-300"
@@ -123,10 +123,10 @@ const UpcomingEvents = () => {
                     ></div>
                     {/* Number overlay */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-sm font-bold text-[#ef4a25] drop-shadow-sm">{displayedSlots}</span>
+                      <span className="text-base sm:text-sm font-bold text-[#ef4a25] drop-shadow-sm">{displayedSlots}</span>
                     </div>
                   </div>
-                  <span className="text-sm font-semibold">Spots left!</span>
+                  <span className="text-base sm:text-sm font-semibold">Spots left!</span>
                 </div>
               </div>
 

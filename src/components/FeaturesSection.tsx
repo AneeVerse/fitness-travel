@@ -60,7 +60,7 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="relative -mt-16 sm:-mt-24 md:-mt-28 lg:-mt-32 w-full px-0 mb-8 mobile-features">
+    <section ref={sectionRef} className="relative -mt-16 sm:-mt-24 md:-mt-28 lg:-mt-32 w-full px-0 -mb-90 sm:mb-4 md:mb-6 lg:mb-8 mobile-features">
       <div className="relative mx-2 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-10">
         <ScrollStack items={items} />
       </div>

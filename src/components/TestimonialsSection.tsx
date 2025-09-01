@@ -10,13 +10,13 @@ const TestimonialsSection = () => {
   
 
   return (
-    <section className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white">
+    <section className="relative pt-4 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-18 lg:pt-12 lg:pb-20 bg-white">
       <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-4 items-start">
           {/* Left Column - Content */}
           <div className="space-y-8 sm:space-y-10 md:space-y-11 lg:space-y-12 md:pl-0 lg:pl-6 lg:pr-4 xl:pl-10 xl:pr-0">
                          {/* Main Content */}
-             <div className="space-y-3 sm:space-y-3.5 md:space-y-4">
+             <div className="space-y-3 sm:space-y-3.5 md:space-y-4 px-5">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
                Are you game?
                </h2>

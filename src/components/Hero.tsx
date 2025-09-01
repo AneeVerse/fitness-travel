@@ -245,7 +245,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5">
             <button
               onClick={() => setIsPricingModalOpen(true)}
-              className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-white text-gray-900 rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+              className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-black transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
             >
               Join Your Tribe
             </button>
