@@ -5,6 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import VideoSection from '@/components/VideoSection';
+import CoachesSection from '@/components/CoachesSection';
 
 const AboutPage = () => {
   return (
@@ -215,8 +217,28 @@ const AboutPage = () => {
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="mt-16 flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
+
+        </div>
+      </section>
+
+      {/* Video Section - Full Width */}
+      <section className="w-full px-0 py-16 bg-gray-50">
+        <div className="w-full">
+          <VideoSection />
+        </div>
+      </section>
+
+      {/* Coaches Section - Aligned with Video Width */}
+      <section className="w-full px-0 py-16 bg-white">
+        <div className="w-full">
+          <CoachesSection />
+        </div>
+      </section>
+
+      {/* CTA - Moved here and aligned with Video Width */}
+      <section className="w-full px-0 py-16 bg-gray-50">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          <div className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
             <div>
               <p className="text-sm uppercase tracking-wide text-[#ef4a25] font-bold">Join the journey</p>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-unbounded mt-1">Ready to write your story?</h3>
