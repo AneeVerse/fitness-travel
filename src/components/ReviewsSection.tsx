@@ -3,43 +3,7 @@
 import React from "react";
 import ReviewVideo from "./ReviewVideo";
 
-type Review = {
-  id: number;
-  text: string;
-};
 
-const reviews: Review[] = [
-  {
-    id: 1,
-    text:
-      "By far one of the best decisions I've made all year and Salt Escapes blew my expectations out of the water! If you want a week long trip that consists of challenging workouts, fueling your body with farm‑to‑table balanced meals, and stunning villa accommodations filled with like‑minded people — this is it.",
-  },
-  {
-    id: 2,
-    text:
-      "If you're thinking about doing this – GO! I just finished my first Salt Escape and already want to do another! The experience was perfection.",
-  },
-  {
-    id: 3,
-    text:
-      "I just returned from Salt Escapes in Menorca and had such an incredible experience on that trip. The villa was gorgeous, the workouts were challenging and fun, the food was amazing and fresh, and the outings were great.",
-  },
-  {
-    id: 4,
-    text:
-      "Hands down the best investment I've ever made. What you get with Salt Escapes is unique. I've been on other group exercise holidays before and met amazing people, but this was something else.",
-  },
-  {
-    id: 5,
-    text:
-      "If you love a challenging workout, beautiful meals, gorgeous views, and laughing until it hurts – give yourself the gift of a Salt Escape! The team truly think and take care of everything from the moment you arrive until departure day.",
-  },
-  {
-    id: 6,
-    text:
-      "The most incredible week in Bali. We woke up with ocean views, loved the daily workouts, and the food was exceptional. The team went above and beyond to make sure everyone was happy and having the best time.",
-  },
-];
 
 const GoogleBadge = () => (
   <div className="flex items-center gap-2 select-none">
@@ -70,13 +34,9 @@ const StarRow = () => (
 );
 
 const ReviewsSection: React.FC = () => {
-  const scrollerRef = React.useRef<HTMLDivElement>(null);
 
-  const scrollByPage = (dir: 1 | -1) => {
-    const node = scrollerRef.current;
-    if (!node) return;
-    node.scrollBy({ left: dir * node.clientWidth, behavior: "smooth" });
-  };
+
+
 
   return (
     <section id="reviews-section" className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white mobile-section">

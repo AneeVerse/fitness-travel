@@ -1,19 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 const StickyNavigation = () => {
   const [activeSection, setActiveSection] = useState('');
   const [clickedSection, setClickedSection] = useState('');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const navItems = [
+  const navItems = useMemo(() => [
     { id: 'overview', label: 'Overview', href: '#overview' },
     { id: 'trip-details', label: 'Trip Details', href: '#trip-details' },
     { id: 'pricing', label: 'Pricing', href: '#pricing' },
     { id: 'book-now', label: 'Book Now', href: '#book-now' },
     { id: 'itinerary', label: 'Itinerary', href: '#itinerary' },
-  ];
+  ], []);
 
   // Scroll spy functionality
   useEffect(() => {

@@ -125,7 +125,7 @@ const ItinerarySection = () => {
     const dots = timeline.querySelectorAll('.timeline-dot');
     const lines = timeline.querySelectorAll('.timeline-line');
 
-    dots.forEach((dot, index) => {
+    dots.forEach((dot) => {
       // Set initial state - smaller and less prominent
       gsap.set(dot, { scale: 0.7, opacity: 0.6 });
       
@@ -166,7 +166,7 @@ const ItinerarySection = () => {
     const dotsMobile = timeline.querySelectorAll('.timeline-dot-mobile');
     const linesMobile = timeline.querySelectorAll('.timeline-line-mobile');
 
-    dotsMobile.forEach((dot, index) => {
+    dotsMobile.forEach((dot) => {
       // Set initial state - smaller and less prominent
       gsap.set(dot, { scale: 0.8, opacity: 0.7 });
       

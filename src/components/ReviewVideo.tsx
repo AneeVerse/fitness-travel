@@ -107,7 +107,7 @@ const VideoCard: React.FC<{
         {/* Transcript Preview */}
         <div className="relative">
           <p className="text-xs sm:text-sm leading-relaxed line-clamp-3 opacity-90">
-            "{video.transcript}"
+            &quot;{video.transcript}&quot;
           </p>
           
           {/* Read More Gradient */}
@@ -127,7 +127,7 @@ const VideoCard: React.FC<{
             <h4 className="font-bold text-lg mb-2">{video.reviewerName}</h4>
             <p className="text-sm text-gray-300 mb-3">{video.title}</p>
             <p className="text-sm leading-relaxed text-gray-200">
-              "{video.transcript}"
+              &quot;{video.transcript}&quot;
             </p>
             <div className="mt-4">
               <button
@@ -511,7 +511,7 @@ export default function ReviewVideo() {
     dragDeltaRef.current = e.clientX - dragStartXRef.current;
   };
 
-  const startSnapToNearestCard = () => {
+  const startSnapToNearestCard = useCallback(() => {
     // Merge drag delta into the base position and animate to the nearest card
     basePositionRef.current += dragDeltaRef.current;
     dragDeltaRef.current = 0;
@@ -532,7 +532,7 @@ export default function ReviewVideo() {
     snapStartRef.current = basePositionRef.current;
     snapTargetRef.current = snapped;
     snapStartTimeRef.current = performance.now();
-  };
+  }, [slideSize]);
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isPointerDownRef.current) return;
@@ -698,7 +698,7 @@ export default function ReviewVideo() {
                     <h4 className="text-lg font-semibold text-gray-900 mb-3">What They Said</h4>
                     <div className="bg-white p-4 rounded-lg border border-gray-200">
                       <p className="text-gray-700 leading-relaxed italic">
-                        "{selectedVideo.transcript}"
+                        &quot;{selectedVideo.transcript}&quot;
                       </p>
                     </div>
                   </div>

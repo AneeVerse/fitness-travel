@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface VideoCard {
@@ -206,7 +206,7 @@ export default function VideoSlider() {
     dragDeltaRef.current = e.clientX - dragStartXRef.current;
   };
 
-  const startSnapToNearestCard = () => {
+  const startSnapToNearestCard = useCallback(() => {
     // Merge drag delta into the base position and animate to the nearest card
     basePositionRef.current += dragDeltaRef.current;
     dragDeltaRef.current = 0;
@@ -227,7 +227,7 @@ export default function VideoSlider() {
     snapStartRef.current = basePositionRef.current;
     snapTargetRef.current = snapped;
     snapStartTimeRef.current = performance.now();
-  };
+  }, [slideSize]);
 
   const onPointerUp = (e: React.PointerEvent) => {
     if (!isPointerDownRef.current) return;
@@ -264,7 +264,7 @@ export default function VideoSlider() {
       dragDeltaRef.current = deltaX;
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
+    const handleTouchEnd = () => {
       if (!isPointerDownRef.current) return;
 
       const currentTime = performance.now();

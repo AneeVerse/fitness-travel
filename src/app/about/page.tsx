@@ -182,7 +182,7 @@ const AboutPage = () => {
                   STRONGER WITH EVERY STRIDE
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-8">
-                  Tiger Terrain is more than just a fitness club—it's a thriving, inclusive community where athletes of all levels come together to train, race, and grow. Founded in 2016, we've helped over 3,000 members across the region reach their goals—whether it's a couch-to-5K transformation or a marathon dream.
+                  Tiger Terrain is more than just a fitness club—it&apos;s a thriving, inclusive community where athletes of all levels come together to train, race, and grow. Founded in 2016, we&apos;ve helped over 3,000 members across the region reach their goals—whether it&apos;s a couch-to-5K transformation or a marathon dream.
                 </p>
                 
                 <div className="space-y-4">

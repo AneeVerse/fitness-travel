@@ -31,7 +31,7 @@ const Navbar = () => {
             {/* Logo + Brand */}
             <div className="flex-shrink-0 md:mt-1 lg:mt-0">
               <Link href="/" className="flex items-center gap-2 sm:gap-2.5 md:gap-3 lg:gap-3.5">
-                <Image src="/images/website-logo1.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-8.5 md:h-9 lg:h-10 sm:w-8.5 md:w-9 lg:w-10 object-contain" />
+                <Image src="/images/logo.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-8.5 md:h-9 lg:h-10 sm:w-8.5 md:w-9 lg:w-10 object-contain" />
                 <span className={`${tigerTerrainFont.className} text-[18px] sm:text-[19px] md:text-[20px] lg:text-xl xl:text-2xl 2xl:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
               </Link>
             </div>

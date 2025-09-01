@@ -104,9 +104,6 @@ const UpcomingEvents = () => {
 
         <div className="space-y-6 mt-10">
           {events.map((event) => {
-            const availableSlots = event.totalSlots - event.bookedSlots;
-            const bookingPercentage = (event.bookedSlots / event.totalSlots) * 100;
-            
             return (
             <div
               key={event.id}

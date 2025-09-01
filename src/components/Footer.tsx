@@ -10,29 +10,7 @@ const tigerTerrainFont = localFont({
   display: 'swap',
 });
 
-function IconFacebook(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M13.5 9H16V6h-2.5C11.6 6 10 7.6 10 9.5V11H8v3h2v6h3v-6h2.1l.9-3H13v-1.5c0-.3.2-.5.5-.5z" />
-    </svg>
-  );
-}
 
-function IconInstagram(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0-5C7 2 2 7 2 12s5 10 10 10 10-5 10-10S17 2 12 2zm5 3a1 1 0 110 2 1 1 0 010-2z" />
-    </svg>
-  );
-}
-
-function IconLinkedIn(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
-      <path d="M6.94 8.5H4V20h2.94V8.5zM5.47 4a1.77 1.77 0 100 3.54A1.77 1.77 0 005.47 4zM20 20v-6.54c0-3.02-1.6-4.43-3.73-4.43-1.72 0-2.49.95-2.92 1.62v-1.4H10.5V20h2.94v-6.2c0-1.64.31-3.23 2.35-3.23 2 0 2.03 1.87 2.03 3.33V20H20z" />
-    </svg>
-  );
-}
 
 function IconMail(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -109,7 +87,7 @@ export default function Footer() {
         <div className="px-6 py-8 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
             <Image
-              src="/images/website-logo1.png"
+              src="/images/logo.png"
               alt="Tiger Terrain"
               width={40}
               height={40}
