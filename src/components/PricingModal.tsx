@@ -124,7 +124,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                           First Name *
@@ -137,7 +137,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           value={formData.firstName}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="Enter your first name"
+                          placeholder="First name"
                         />
                       </div>
                       <div>
@@ -152,7 +152,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
                           value={formData.lastName}
                           onChange={handleInputChange}
                           className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="Enter your last name"
+                          placeholder="Last name"
                         />
                       </div>
                     </div>

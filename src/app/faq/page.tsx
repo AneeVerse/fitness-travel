@@ -30,14 +30,14 @@ const FaqPage = () => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center px-8 sm:px-12 md:px-16 lg:px-20 py-16">
+            <div className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 py-16">
               <div className="max-w-4xl">
                 {/* Breadcrumb */}
                 <nav className="mb-6">
-                  <div className="flex items-center space-x-2 text-white/80 text-sm">
+                  <div className="breadcrumb-container flex items-center space-x-2 text-white/80 text-sm">
                     <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                    <span>-</span>
-                    <span className="text-white">FAQ</span>
+                    <span className="breadcrumb-separator">-</span>
+                    <span className="text-white breadcrumb-current">FAQ</span>
                   </div>
                 </nav>
 
