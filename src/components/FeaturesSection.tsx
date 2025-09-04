@@ -79,7 +79,7 @@ const FeaturesSection = () => {
   };
 
   return (
-    <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:mb-24 mobile-features">
+    <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:-mb-34 mobile-features ">
       <div className="relative px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="max-w-[1325px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">

@@ -3,6 +3,17 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+// Add CSS for 3D flip effect
+const flipStyles = `
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
+`;
 
 type EventItem = {
   id: string;
@@ -14,44 +25,85 @@ type EventItem = {
   location: string;
   priceLabel: string;
   imageSrc: string;
+  videoSrc: string;
   totalSlots: number;
   bookedSlots: number;
 };
 
 const events: EventItem[] = [
-  // {
-  //   id: 'coastal-half-marathon',
-  //   title: 'COASTAL HALF MARATHON',
-  //   description:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.',
-  //   date: 'September 20, 2025',
-  //   access: 'General',
-  //   time: 'Start 05:00 AM – Finish',
-  //   location: 'South Jakarta',
-  //   priceLabel: '$50',
-  //   imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
-  // },
   {
     id: 'PHUKET',
     title: 'PHUKET',
     description:
-      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. The local vibe is energetic and supportive, making it easy for visitors to immerse themselves in a dynamic fitness culture.',
+      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. making it easy for visitors to immerse themselves in a dynamic fitness culture.',
     date: '14th sept - 21st sept',
     access: 'Member Only',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
     priceLabel: '$50',
     imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    videoSrc: '/video/vids/vid (1).mp4',
     totalSlots: 25,
-    bookedSlots: 18,
+    bookedSlots: 10,
+  },
+  {
+    id: 'BALI',
+    title: 'BALI',
+    description:
+      'Experience the perfect blend of fitness and tropical paradise in Bali. Our retreat combines challenging workouts with the serene beauty of Indonesian culture.',
+    date: '21st sept - 28th sept',
+    access: 'Member Only',
+    time: 'Start 06:00 AM – Finish',
+    location: 'Bali',
+    priceLabel: '$60',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
+    videoSrc: '/video/vids/vid (2).mp4',
+    totalSlots: 20,
+    bookedSlots: 8,
+  },
+  {
+    id: 'THAILAND',
+    title: 'THAILAND',
+    description:
+      'Discover the vibrant fitness culture of Thailand. From beach bootcamps to mountain adventures, experience fitness like never before.',
+    date: '28th sept - 5th oct',
+    access: 'Member Only',
+    time: 'Start 05:30 AM – Finish',
+    location: 'Thailand',
+    priceLabel: '$55',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    videoSrc: '/video/vids/vid (3).mp4',
+    totalSlots: 30,
+    bookedSlots: 15,
+  },
+  {
+    id: 'VIETNAM',
+    title: 'VIETNAM',
+    description:
+      'Explore the rich culture and stunning landscapes of Vietnam while achieving your fitness goals. A unique blend of adventure and wellness.',
+    date: '5th oct - 12th oct',
+    access: 'Member Only',
+    time: 'Start 06:00 AM – Finish',
+    location: 'Vietnam',
+    priceLabel: '$45',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
+    videoSrc: '/video/vids/vid (4).mp4',
+    totalSlots: 25,
+    bookedSlots: 12,
   },
 ];
 
 const UpcomingEvents = () => {
+  const router = useRouter();
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Countdown animation effect
   useEffect(() => {
     const handleScroll = () => {
       if (hasAnimated) return;
@@ -90,156 +142,267 @@ const UpcomingEvents = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasAnimated]);
 
+  // Auto-scroll functionality
+  useEffect(() => {
+    if (events.length <= 4) return;
+
+    const startAutoScroll = () => {
+      autoScrollRef.current = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % events.length);
+      }, 3000);
+    };
+
+    const stopAutoScroll = () => {
+      if (autoScrollRef.current) {
+        clearInterval(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+    };
+
+    startAutoScroll();
+
+    // Pause auto-scroll on hover
+    const container = scrollContainerRef.current;
+    if (container) {
+      container.addEventListener('mouseenter', stopAutoScroll);
+      container.addEventListener('mouseleave', startAutoScroll);
+    }
+
+    return () => {
+      stopAutoScroll();
+      if (container) {
+        container.removeEventListener('mouseenter', stopAutoScroll);
+        container.removeEventListener('mouseleave', startAutoScroll);
+      }
+    };
+  }, []);
+
+  // Handle card flip on click (permanent flip)
+  const handleCardFlip = (eventId: string) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(eventId)) {
+        newSet.delete(eventId);
+      } else {
+        newSet.add(eventId);
+      }
+      return newSet;
+    });
+  };
+
+  // Handle hover flip (temporary)
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
   return (
-    <section id="upcoming-events" ref={sectionRef} className="relative md:py-12  bg-gray-100 mobile-section">
-      <div className="max-w-[1425px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="text-center mb-18 sm:mb-9 md:mb-10">
-          <span className="hidden sm:inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
-            - Upcoming Journeys -
-          </span>
-          <h2 className="mt-2 sm:mb-12 md:mb-16 lg:mb-20  text-xl sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-            Upcoming  Journeys
+    <>
+      <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
+      <section id="upcoming-events" ref={sectionRef} className="relative py-12 md:py-16 bg-gray-100 z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        {/* Section Title */}
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+            UPCOMING JOURNEYS
           </h2>
         </div>
 
-        <div className="space-y-6 mt-10">
-          {events.map((event) => {
-            return (
-            <div
-              key={event.id}
-              className="grid grid-cols-1 xl:grid-cols-12 gap-0 bg-white rounded-2xl overflow-visible shadow-md ring-1 ring-gray-200 max-w-6xl xl:max-w-7xl 2xl:max-w-full mx-auto relative"
-            >
-              {/* Countdown Badge - Top Left */}
-              <div className="absolute -top-15 left-4 z-[99999]">
-                <div className="bg-[#ef4a25] text-white px-5 py-3 sm:px-4 sm:py-2 rounded-full shadow-xl flex items-center gap-2 sm:gap-2">
-                  <div className="w-10 h-7 sm:w-8 sm:h-6 bg-white/20 rounded-md border border-white/30 relative">
-                    {/* Fill level */}
-                    <div 
-                      className="h-full bg-white rounded-sm transition-all duration-300"
-                      style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
-                    ></div>
-                    {/* Number overlay */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-base sm:text-sm font-bold text-[#ef4a25] drop-shadow-sm">{displayedSlots}</span>
+        {/* Cards Container */}
+        <div 
+          ref={scrollContainerRef}
+          className="relative overflow-hidden pt-8"
+          style={{ zIndex: 1 }}
+        >
+          <div 
+            className="flex transition-transform duration-500 ease-in-out overflow-visible"
+            style={{ 
+              transform: events.length > 4 ? `translateX(-${currentIndex * (100 / 4)}%)` : 'none',
+              width: events.length > 4 ? `${(events.length / 4) * 100}%` : '100%'
+            }}
+          >
+            {events.map((event) => {
+              const isFlipped = flippedCards.has(event.id);
+              const isHovered = hoveredCard === event.id;
+              const shouldFlip = isFlipped || isHovered;
+              const availableSlots = event.totalSlots - event.bookedSlots;
+              
+              return (
+                <div
+                  key={event.id}
+                  className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 px-2 relative"
+                  style={{ width: events.length > 4 ? '25%' : `${100 / events.length}%` }}
+                >
+                  {/* Spots Badge - Only on first card, positioned outside card container */}
+                  {event.id === 'PHUKET' && (
+                    <div className="absolute -top-5 left-6 z-[9999]">
+                      <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2">
+                        <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
+                          <div 
+                            className="h-full bg-white rounded-sm transition-all duration-300"
+                            style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="text-xs font-bold text-black">{displayedSlots}</span>
+                          </div>
+                        </div>
+                        <span className="text-xs font-semibold">Spots left!</span>
+                      </div>
                     </div>
-                  </div>
-                  <span className="text-base sm:text-sm font-semibold">Spots left!</span>
-                </div>
-              </div>
-
-              {/* Left ticket column */}
-              <div className="xl:col-span-3 bg-[#ef4a25] text-white p-8 sm:p-9 md:p-10 lg:p-16 flex flex-col justify-between rounded-l-2xl">
-                <div className="space-y-4 sm:space-y-5 md:space-y-6">
-                  {/* Morning Event */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/>
-                      </svg>
-                    </div>
-                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
-                      Morning – Beach Bootcamp
-                    </div>
-                  </div>
-
-                  {/* Afternoon Event */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0">
-                      <Image
-                        src="/images/leaf.png"
-                        alt="Leaf"
-                        width={24}
-                        height={24}
-                        className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 brightness-0 invert"
-                      />
-                    </div>
-                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
-                      Afternoon – Nutrition Workshop
-                    </div>
-                  </div>
-
-                  {/* Evening Event */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-shrink-0">
-                      <Image
-                        src="/images/networking.png"
-                        alt="Networking"
-                        width={24}
-                        height={24}
-                        className="h-5 w-5 sm:h-5.5 md:h-6 sm:w-5.5 md:w-6 brightness-0 invert"
-                      />
-                    </div>
-                    <div className="text-white text-xs sm:text-sm md:text-sm font-medium">
-                      Evening – Networking Party
-                    </div>
-                  </div>
-                </div>
-
-                {/* Button */}
-                <div className="mt-6 sm:mt-7 md:mt-8">
-                  <Link
-                    href="/itinerary"
-                    onClick={(e) => {
-                      // Prevent multiple rapid clicks
-                      const target = e.currentTarget;
-                      if (target.classList.contains('navigating')) {
-                        e.preventDefault();
-                        return;
-                      }
-                      target.classList.add('navigating');
-                      setTimeout(() => target.classList.remove('navigating'), 1000);
-                    }}
-                    className="w-full bg-white text-black px-4 py-3 rounded-full font-semibold text-sm sm:text-base md:text-base uppercase tracking-wide hover:bg-gray-100 transition-colors mobile-btn inline-flex items-center justify-center"
-                    style={{ fontFamily: 'var(--font-teko)' }}
+                  )}
+                  
+                  <div 
+                    className="relative h-96 cursor-pointer group"
+                    onClick={() => handleCardFlip(event.id)}
+                    onMouseEnter={() => setHoveredCard(event.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{ perspective: '1000px', zIndex: 1 }}
                   >
-                    VIEW FULL ITINERARY
-                  </Link>
-                </div>
-              </div>
+                    {/* Card Container */}
+                    <div 
+                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                        shouldFlip ? 'rotate-y-180' : ''
+                      }`}
+                      style={{ 
+                        transformStyle: 'preserve-3d',
+                        transform: shouldFlip ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                      }}
+                    >
+                      {/* Front of Card */}
+                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl">
+                        {/* Video Background */}
+                        <div className="relative w-full h-full">
+                          <video
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            className="w-full h-full object-cover"
+                          >
+                            <source src={event.videoSrc} type="video/mp4" />
+                          </video>
+                          
+                          {/* Overlay */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                          
+                          {/* Content */}
+                          <div className="absolute bottom-4 left-4 right-4 z-10">
+                            <div className="text-white space-y-2">
+                              <p className="text-xs opacity-80">TIGER TERRAIN</p>
+                              <h3 className="text-lg sm:text-xl font-bold uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+                                {event.title}
+                              </h3>
+                              <p className="text-sm opacity-90">{event.description.substring(0, 80)}...</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-              {/* Middle content */}
-              <div className="xl:col-span-4 p-8 sm:p-9 md:p-10 lg:border-r xl:border-r xl:border-gray-200">
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900" style={{ fontFamily: 'var(--font-teko)' }}>
-                  {event.title}
-                </h3>
-                <p className="mt-3 text-sm sm:text-base md:text-base text-gray-700 max-w-2xl">{event.description}</p>
-
-                <div className="mt-4 sm:mt-4.5 md:mt-5 space-y-3 text-sm text-gray-800">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#ef4a25]">
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" /><path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" /></svg>
-                    </span>
-                    <span>{event.date}</span>
+                      {/* Back of Card */}
+                      <div 
+                        className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white"
+                        style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
+                      >
+                        <div className="p-6 h-full flex flex-col justify-between relative z-20">
+                          {/* Header */}
+                          <div>
+                            <div className="flex items-center justify-between mb-4">
+                              <h3 className="text-xl font-bold text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+                                {event.title}
+                              </h3>
+                              <div className="bg-[#ef4a25] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                {availableSlots} left
+                              </div>
+                            </div>
+                            
+                            <p className="text-gray-600 text-sm mb-4">{event.description}</p>
+                            
+                            {/* Details */}
+                            <div className="space-y-2 text-sm text-gray-700">
+                              <div className="flex items-center gap-2">
+                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
+                                  <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
+                                </svg>
+                                <span>{event.date}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+                                </svg>
+                                <span>{event.location}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                                <span>{event.access}</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Button */}
+                          <div className="mt-6 relative" style={{ zIndex: 9999 }}>
+                            <button
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                console.log('Button clicked, navigating to itinerary');
+                                
+                                // Use window.location for more reliable navigation
+                                window.location.href = '/itinerary';
+                              }}
+                              onMouseDown={(e) => {
+                                e.stopPropagation();
+                              }}
+                              onMouseUp={(e) => {
+                                e.stopPropagation();
+                              }}
+                              onTouchStart={(e) => {
+                                e.stopPropagation();
+                              }}
+                              onTouchEnd={(e) => {
+                                e.stopPropagation();
+                              }}
+                              className="w-full bg-[#ef4a25] text-white px-4 py-3 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer"
+                              style={{ 
+                                fontFamily: 'var(--font-teko)', 
+                                pointerEvents: 'auto',
+                                position: 'relative',
+                                zIndex: 9999,
+                                transform: 'translateZ(0)',
+                                backfaceVisibility: 'hidden'
+                              }}
+                            >
+                              <span style={{ position: 'relative', zIndex: 9999 }}>
+                                See the itinerary
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-5 w-5 items-center justify-center text-[#ef4a25]">
-                      <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" /></svg>
-                    </span>
-                    <span>{event.location}</span>
-                  </div>
                 </div>
-
-
-              </div>
-
-              {/* Right image */}
-              <div className="xl:col-span-5 relative h-80 sm:h-80 md:h-96 lg:h-auto rounded-r-2xl">
-                <Image
-                  src={event.imageSrc}
-                  alt={event.title}
-                  fill
-                  className="object-cover"
-                  sizes="(min-width: 1280px) 33vw, (min-width: 1024px) 40vw, 100vw"
-                  priority={false}
-                />
-              </div>
-            </div>
-          )})}
+              );
+            })}
+          </div>
         </div>
 
-
-      </div>
-    </section>
+        {/* Navigation Dots (if more than 4 events) */}
+        {events.length > 4 && (
+          <div className="flex justify-center mt-8 space-x-2">
+            {Array.from({ length: Math.ceil(events.length / 4) }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  Math.floor(currentIndex / 4) === index ? 'bg-[#ef4a25]' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+        </div>
+      </section>
+    </>
   );
 };
 
