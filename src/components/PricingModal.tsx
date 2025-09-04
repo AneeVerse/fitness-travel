@@ -73,7 +73,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[10000] overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] overflow-y-auto" style={{ zIndex: 9999 }}>
       {/* Backdrop */}
       <div 
         className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
@@ -81,7 +81,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
       />
       
       {/* Modal */}
-      <div className="flex min-h-full items-center justify-center p-4">
+      <div className="flex min-h-full items-center justify-center p-4" style={{ zIndex: 10000 }}>
         <div className="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
           {/* Close Button */}
           <button

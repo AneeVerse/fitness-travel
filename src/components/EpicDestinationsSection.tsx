@@ -57,25 +57,25 @@ const highlights: Highlight[] = [
 
 const EpicDestinationsSection: React.FC = () => {
   return (
-    <section className="relative bg-[#244447] py-12 sm:py-14 md:py-16 lg:py-20 mobile-destinations">
-      <div className="w-full">
-        <div className="px-2 sm:px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 items-center mb-8 sm:mb-9 md:mb-10">
+    <section className="relative bg-[#244447] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
+      <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8 items-center mb-6 sm:mb-8 md:mb-10">
           {/* Left: Title + Subtitle */}
-          <div className="space-y-3 sm:space-y-3.5 md:space-y-4 lg:col-span-8">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
-            JOURNEY STORIES SECTION
+          <div className="space-y-2 sm:space-y-3 lg:col-span-8">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight font-unbounded">
+            COMPLETE EXPERIENCE
 
             </h2>
-            <p className="text-white/80 max-w-3xl lg:max-w-5xl text-sm sm:text-base md:text-base">
+            <p className="text-white/80 max-w-2xl text-sm sm:text-base">
               Real transformations, real people, real adventures. See how our tribe members transformed their lives
               through Tiger Terrain adventures.
             </p>
           </div>
 
           {/* Right: CTA Button */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end mt-4 lg:mt-0">
+          <div className="lg:col-span-4 flex justify-center lg:justify-end mt-2 lg:mt-0">
             <button
-                              className="px-4 sm:px-5 md:px-6 py-3 rounded-full bg-[#ef4a25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-sm sm:text-base mobile-btn"
+              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#ef4a25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-xs sm:text-sm mobile-btn"
               style={{ fontFamily: 'var(--font-teko)' }}
             >
               View More Destinations
@@ -84,20 +84,18 @@ const EpicDestinationsSection: React.FC = () => {
         </div>
 
         {/* Fixed 4-card grid layout */}
-        <div className="px-2 sm:px-4 md:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8">
-            {highlights.slice(0, 4).map((h) => (
-              <div key={h.id} className="flex flex-col h-full">
-                <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 rounded-2xl overflow-hidden">
-                  <Image src={h.image} alt={h.title} fill className="object-cover" />
-                </div>
-                <h3 className="text-white font-semibold text-base sm:text-lg md:text-lg mt-3 sm:mt-3.5 md:mt-4">{h.title}</h3>
-                <p className="text-white/75 text-xs sm:text-sm md:text-sm mt-2 leading-relaxed text-justify">
-                  {h.description}
-                </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+          {highlights.slice(0, 4).map((h) => (
+            <div key={h.id} className="flex flex-col h-full">
+              <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
+                <Image src={h.image} alt={h.title} fill className="object-cover" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
+              <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
+                {h.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

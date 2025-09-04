@@ -73,9 +73,9 @@ const CoachesSection: React.FC = () => {
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Meet Your Tribe Leaders
             </span>
-            <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
+            <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[40px] xl:max-w-7xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
               Our Experienced Mentors
-              <br className="hidden sm:block" />
+
               Are Here To Support
             </h2>
           </div>
@@ -89,7 +89,7 @@ const CoachesSection: React.FC = () => {
                 key={c.id}
                 className="rounded-3xl bg-gray-200/70 border border-gray-200 shadow-sm overflow-hidden flex flex-col p-3 sm:p-3.5 md:p-4"
               >
-                <div className="relative h-[350px] sm:h-[320px] md:h-[380px] lg:h-[420px] rounded-2xl overflow-hidden">
+                <div className="relative h-[350px] sm:h-[320px] md:h-[380px] lg:h-[420px] xl:h-[380px] rounded-2xl overflow-hidden">
                   <Image src={c.imageSrc} alt={c.name} fill className="object-cover" />
 
                   {/* Socials column */}

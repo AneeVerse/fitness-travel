@@ -47,17 +47,15 @@ const FaqSection: React.FC = () => {
   return (
     <section className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-gray-100 mobile-faq">
       <div className="max-w-[1325px] mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10 items-start">
           {/* Left – Content + Accordion */}
-          <div>
+          <div className="lg:col-span-7">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
               FAQs
             </span>
-            <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
-              Frequently Asked
-              <br className="hidden sm:block" />
-              Questions
+            <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
+              Frequently Asked Questions
             </h2>
 
             <div className="mt-6 space-y-3 sm:space-y-3.5 md:space-y-4">
@@ -97,12 +95,12 @@ const FaqSection: React.FC = () => {
           </div>
 
           {/* Right – Image */}
-          <div className="relative h-[400px] sm:h-[480px] md:h-[520px] lg:h-[580px] rounded-3xl overflow-hidden">
+          <div className="lg:col-span-5 relative h-[400px] sm:h-[480px] md:h-[520px] lg:h-[580px] xl:w-[420px] xl:h-[570px] rounded-3xl overflow-hidden xl:ml-20 ">
             <Image
-              src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755520472845"
+              src="/images/faq/faq1.png"
               alt="High five after a race"
               fill
-              className="object-cover"
+              className="object-cover object-center"
               priority={false}
             />
           </div>

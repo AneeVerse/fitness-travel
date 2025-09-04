@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PricingModal from './PricingModal';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
@@ -13,6 +14,7 @@ const FeaturesSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -79,6 +81,7 @@ const FeaturesSection = () => {
   };
 
   return (
+    <>
     <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 mb-8 sm:mb-12 md:mb-16 lg:mb-20 xl:-mb-34 mobile-features ">
       <div className="relative px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <div className="max-w-[1325px] mx-auto">
@@ -104,21 +107,16 @@ const FeaturesSection = () => {
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
                   <button
-                    onClick={() => {
-                      const pricingSection = document.querySelector('#pricing-section');
-                      if (pricingSection) {
-                        pricingSection.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
+                    onClick={() => setIsPricingModalOpen(true)}
                     className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-black transform hover:scale-105 transition-all duration-200 shadow-lg"
                   >
                     Book Adventure
                   </button>
                   <button
                     onClick={() => {
-                      const destinationsSection = document.querySelector('#destinations-section');
-                      if (destinationsSection) {
-                        destinationsSection.scrollIntoView({ behavior: 'smooth' });
+                      const upcomingEventsSection = document.querySelector('#upcoming-events');
+                      if (upcomingEventsSection) {
+                        upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
                       }
                     }}
                     className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-gray-900 border-2 border-gray-900 rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-gray-900 hover:text-white transform hover:scale-105 transition-all duration-200"
@@ -211,6 +209,13 @@ const FeaturesSection = () => {
         </div>
       </div>
     </section>
+    
+    {/* Pricing Modal - Rendered outside section to avoid stacking context issues */}
+    <PricingModal 
+      isOpen={isPricingModalOpen} 
+      onClose={() => setIsPricingModalOpen(false)} 
+    />
+    </>
   );
 };
 
