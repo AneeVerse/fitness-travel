@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -12,6 +11,8 @@ if (typeof window !== 'undefined') {
 
 const FeaturesSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -48,214 +49,169 @@ const FeaturesSection = () => {
     };
   }, []);
 
-  // Scroll-stack items – using the same video for now as requested
-  const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
-    {
-      title: "Welcome to Tiger Terrain",  
-      subtitle: "In the pool, over the hill on the beach, basically, you're all over the place!",
-      description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
-      thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
-    },
-   
-  ];
+  // Handle video loading
+  useEffect(() => {
+    if (isVideoPlaying && videoRef.current) {
+      const video = videoRef.current;
+      video.load(); // Reload the video source
+    }
+  }, [isVideoPlaying]);
+
+  const handlePlayVideo = async () => {
+    setIsVideoPlaying(true);
+    // Wait for the video element to be rendered
+    setTimeout(async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (error) {
+          console.error('Error playing video:', error);
+        }
+      }
+    }, 100);
+  };
+
+  const handlePauseVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    }
+  };
 
   return (
-    <section ref={sectionRef} className="relative -mt-16 sm:-mt-24 md:-mt-28 lg:-mt-32 w-full px-0 -mb-90 sm:mb-4 md:mb-6 lg:mb-8 mobile-features">
-      <div className="relative mx-2 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-10">
-        <ScrollStack items={items} />
+    <section id="features-section" ref={sectionRef} className="relative -mt-16 sm:-mt-24 md:-mt-28 lg:-mt-32 w-full px-0 -mb-90 sm:mb-4 md:mb-6 lg:mb-8 mobile-features">
+      <div className="relative px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8">
+        <div className="max-w-[1325px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center py-12 lg:py-16">
+            
+            {/* Left Column - Text Content */}
+            <div className="flex flex-col justify-center space-y-6 lg:col-span-7">
+              <div className="max-w-2xl">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight font-unbounded mb-6">
+                  Need a fitness retreat or adventure travel experience?
+                </h2>
+                
+                <div className="space-y-5 text-gray-600 leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl">
+                    Finding the right fitness retreat that combines training, travel, and community can be challenging. Choosing the wrong one can lead to disappointment and wasted time.
+                  </p>
+                  
+                  <p className="text-base sm:text-lg md:text-xl">
+                    With Tiger Terrain, we make this easy. Join legitimate fitness retreats and adventure travel experiences at incredible value. Book transformative experiences to any destination instantly.
+                  </p>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <button
+                    onClick={() => {
+                      const pricingSection = document.querySelector('#pricing-section');
+                      if (pricingSection) {
+                        pricingSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    className="inline-flex items-center justify-center px-8 py-4 bg-[#ef4a25] text-white rounded-2xl font-semibold text-lg hover:bg-black transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  >
+                    Book Adventure
+                  </button>
+                  <button
+                    onClick={() => {
+                      const destinationsSection = document.querySelector('#destinations-section');
+                      if (destinationsSection) {
+                        destinationsSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
+                    className="inline-flex items-center justify-center px-8 py-4 bg-transparent text-gray-900 border-2 border-gray-900 rounded-2xl font-semibold text-lg hover:bg-gray-900 hover:text-white transform hover:scale-105 transition-all duration-200"
+                  >
+                    View Destinations
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Video Card */}
+            <div className="flex justify-center lg:justify-end lg:col-span-5">
+              <div className="relative w-full max-w-sm">
+                {/* Video Card Container */}
+                <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+                  {!isVideoPlaying ? (
+                    <div className="relative aspect-[4/5] overflow-hidden">
+                      {/* Video Thumbnail Image */}
+                      <img 
+                        src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
+                        alt="Fitness retreat thumbnail"
+                        className="w-full h-full object-cover"
+                      />
+                      
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      
+                      {/* Play Button - Bottom Right */}
+                      <div className="absolute bottom-6 right-6 z-10">
+                        <div className="relative group">
+                          <span className="absolute -inset-3 rounded-full bg-[#ef4a25] opacity-60 blur-lg animate-pulse group-hover:bg-[#ef4a25] group-hover:opacity-80" />
+                          <button
+                            onClick={handlePlayVideo}
+                            className="relative w-14 h-14 rounded-full flex items-center justify-center bg-black ring-2 ring-[#ef4a25] text-[#ef4a25] shadow-xl transition-all duration-200 hover:bg-[#ef4a25] hover:text-white hover:ring-[#ef4a25] hover:scale-110"
+                            aria-label="Play video"
+                          >
+                            <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Video Title - Bottom Left */}
+                      <div className="absolute bottom-6 left-6 z-10">
+                        <p className="text-white text-lg font-bold font-unbounded drop-shadow-lg">
+                          Watch Our Story
+                        </p>
+                        <p className="text-white/80 text-sm mt-1">
+                          See what makes us different
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="relative aspect-[4/5] bg-black">
+                      <video
+                        ref={videoRef}
+                        className="w-full h-full object-cover"
+                        controls
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                        muted
+                        onEnded={() => setIsVideoPlaying(false)}
+                        onError={(e) => {
+                          console.error('Video error:', e);
+                          setIsVideoPlaying(false);
+                        }}
+                      >
+                        <source src="/video/vids/vid (4).mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      
+                      {/* Close Button */}
+                      <button
+                        onClick={handlePauseVideo}
+                        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 text-white ring-1 ring-white/30 hover:bg-black/85 transition-colors backdrop-blur-sm"
+                        aria-label="Close video"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                          <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
 export default FeaturesSection;
-
-// Scroll Stack implementation
-type StackItem = { title: string; subtitle: string; description: string; thumbnail?: string };
-
-const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
-  const panelHeight = 820; // must match the sticky panel height class below
-  const tailHeight = 160; // extra gray space after the last card
-  const [playingIndex, setPlayingIndex] = React.useState<number | null>(null);
-  const [showMobileModal, setShowMobileModal] = useState(false);
-  const videoRefs = React.useRef<Array<HTMLVideoElement | null>>([]);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
-
-  React.useEffect(() => {
-    if (playingIndex === null) return;
-    const video = videoRefs.current[playingIndex];
-    if (!video) return;
-    try {
-      video.currentTime = 0;
-      void video.play();
-    } catch {
-      // ignore – user can press play from controls
-    }
-  }, [playingIndex]);
-
-  const handlePlayClick = (index: number) => {
-    // Check if mobile device
-    const isMobile = window.innerWidth < 768;
-    
-    if (isMobile) {
-      setShowMobileModal(true);
-      // Start playing the mobile video after a short delay
-      setTimeout(() => {
-        if (mobileVideoRef.current) {
-          mobileVideoRef.current.currentTime = 0;
-          mobileVideoRef.current.play().catch(() => {
-            // Ignore autoplay errors
-          });
-        }
-      }, 100);
-    } else {
-      setPlayingIndex(index);
-    }
-  };
-
-  const handleCloseVideo = (index: number) => {
-    const video = videoRefs.current[index];
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-    }
-    setPlayingIndex(null);
-  };
-
-  const handleCloseMobileModal = () => {
-    if (mobileVideoRef.current) {
-      mobileVideoRef.current.pause();
-      mobileVideoRef.current.currentTime = 0;
-    }
-    setShowMobileModal(false);
-  };
-
-  return (
-    <>
-      <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
-        {items.map((item, index) => (
-          <div key={index} className="sticky -top-30 h-[600px] sm:h-[720px] md:h-[780px] lg:h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden">
-            {/* Heading block at the top of the card */}
-            <div className="pt-6 sm:pt-8 md:pt-9 lg:pt-10 -pb-8">
-              <div className="max-w-[1325px] mx-auto px-4 sm:px-6 md:px-7 lg:px-8">
-                <div className="flex flex-col items-start gap-3 sm:gap-3.5 md:gap-4">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
-                    {item.title}
-                  </h2>
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 leading-relaxed max-w-4xl mb-4 sm:mb-6 md:mb-7 lg:mb-8">
-                    {item.subtitle}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Video block inside the same card */}
-            <div className="relative h-[400px] sm:h-[550px] md:h-[600px] lg:h-[600px] mx-2 sm:mx-4 md:mx-6 lg:mx-10 xl:mx-16 rounded-[20px] sm:rounded-[28px] md:rounded-[30px] lg:rounded-[32px] overflow-hidden">
-              {playingIndex === index ? (
-                <>
-                  <video
-                    ref={(el) => { videoRefs.current[index] = el; }}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    controls
-                    autoPlay
-                    playsInline
-                    preload="auto"
-                  >
-                    <source src="/video/hero-bg.mp4" type="video/mp4" />
-                  </video>
-                  {/* Close (X) button */}
-                  <button
-                    type="button"
-                    aria-label="Close video"
-                    title="Close video"
-                    onClick={() => handleCloseVideo(index)}
-                    className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 text-white ring-1 ring-white/30 hover:bg-black/85"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                      <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Image
-                    src={item.thumbnail || "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg"}
-                    alt={item.title}
-                    fill
-                    className="object-cover"
-                    priority={index === 0}
-                  />
-                  <div className="absolute inset-0 bg-black/50" />
-                  {/* Big heading bottom-left */}
-                  <div className="absolute left-4 sm:left-5 md:left-8 lg:left-10 bottom-14 sm:bottom-10 md:bottom-9 lg:bottom-8 z-10">
-                    <h3 className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
-                      What Is Tiger Terrain? 
-                      <br />
-                      take a look!
-                    </h3>
-                  </div>
-                  {/* Play button bottom-right (slightly smaller and lifted) */}
-                  <div className="absolute right-4 sm:right-6 md:right-8 lg:right-8 bottom-6 sm:bottom-10 md:bottom-8 lg:bottom-12 z-10 mr-4 sm:mr-6 md:mr-8 lg:mr-10">
-                    <div className="relative group">
-                      <span className="absolute -inset-2 rounded-full bg-[#ef4a25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
-                      <button
-                        onClick={() => handlePlayClick(index)}
-                        className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#ef4a25] text-[#ef4a25] shadow-xl transition-colors hover:bg-[#ef4a25] hover:text-black"
-                        aria-label={`Play ${item.title}`}
-                      >
-                        <svg className="w-4 h-4 sm:w-6 sm:h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Spacer under card content */}
-            <div className="px-2 sm:px-4 md:px-6 lg:px-10 xl:px-16 pb-6 sm:pb-8 md:pb-9 lg:pb-10" />
-          </div>
-        ))}
-       
-      </div>
-
-      {/* Mobile Video Modal */}
-      {showMobileModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center md:hidden">
-          {/* Backdrop */}
-          <div 
-            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={handleCloseMobileModal}
-          />
-          
-          {/* Modal Content */}
-          <div className="relative w-full h-full flex items-center justify-center p-4">
-            <div className="relative w-full max-w-md aspect-video bg-black rounded-lg overflow-hidden shadow-2xl">
-              <video
-                ref={mobileVideoRef}
-                className="w-full h-full object-cover"
-                controls
-                playsInline
-                preload="auto"
-              >
-                <source src="/video/hero-bg.mp4" type="video/mp4" />
-              </video>
-              
-              {/* Close Button */}
-              <button
-                onClick={handleCloseMobileModal}
-                className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full flex items-center justify-center bg-black/70 text-white hover:bg-black/90 transition-colors"
-                aria-label="Close video"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                  <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-};

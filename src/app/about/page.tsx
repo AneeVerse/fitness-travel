@@ -250,7 +250,7 @@ const AboutPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">ADVENTURES FOR EVERY FITNESS LEVEL</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">Whether you're a beginner or an elite athlete, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger.</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">Whether you&apos;re a beginner or an elite athlete, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger.</p>
                 </div>
               </div>
 
@@ -310,7 +310,7 @@ const AboutPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">TRACK YOUR PROGRESS LIKE A PRO</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">With digital tools, weekly insights, and fitness tracking integration, you'll always know how far you've come and where you're heading next.</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">With digital tools, weekly insights, and fitness tracking integration, you&apos;ll always know how far you&apos;ve come and where you&apos;re heading next.</p>
                 </div>
               </div>
 
@@ -322,7 +322,7 @@ const AboutPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">EVENTS & CHALLENGES THAT INSPIRE</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">From local meetups to epic destination races, monthly challenges, and adventure expeditions, there's always something exciting to train for.</p>
+                  <p className="text-gray-600 text-sm leading-relaxed">From local meetups to epic destination races, monthly challenges, and adventure expeditions, there&apos;s always something exciting to train for.</p>
                 </div>
               </div>
 
@@ -358,7 +358,7 @@ const AboutPage = () => {
               </h2>
               
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                Numbers tell a story of persistence, performance, and progress. Every statistic represents real people who've pushed their limits, discovered new destinations, and transformed their lives through adventure fitness.
+                Numbers tell a story of persistence, performance, and progress. Every statistic represents real people who&apos;ve pushed their limits, discovered new destinations, and transformed their lives through adventure fitness.
               </p>
               
               {/* Statistics Grid */}
@@ -385,7 +385,7 @@ const AboutPage = () => {
                 <div className="border-b border-gray-200 pb-8">
                   <h3 className="text-xl font-bold text-gray-900 mb-4 font-unbounded">OUR MISSION</h3>
                   <p className="text-gray-600 leading-relaxed">
-                    To create transformative adventure experiences that combine fitness with travel, empowering individuals to push their physical and mental boundaries while exploring the world's most beautiful destinations.
+                    To create transformative adventure experiences that combine fitness with travel, empowering individuals to push their physical and mental boundaries while exploring the world&apos;s most beautiful destinations.
                   </p>
                 </div>
 
@@ -434,7 +434,7 @@ const AboutPage = () => {
                 </h2>
                 
                 <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
-                  Whether you're taking your first adventure step or chasing your next personal best, Tiger Terrain is your adventure home base. Come explore with us!
+                  Whether you&apos;re taking your first adventure step or chasing your next personal best, Tiger Terrain is your adventure home base. Come explore with us!
                 </p>
                 
                 <Link 

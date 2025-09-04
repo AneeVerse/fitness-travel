@@ -250,9 +250,9 @@ const Hero = () => {
             </button>
             <button
               onClick={() => {
-                const videoHighlightsSection = document.querySelector('#tiger-terrain-highlights');
-                if (videoHighlightsSection) {
-                  videoHighlightsSection.scrollIntoView({ behavior: 'smooth' });
+                const featuresSection = document.querySelector('#features-section');
+                if (featuresSection) {
+                  featuresSection.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
               className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-white hover:text-gray-900 transform hover:scale-105 transition-all duration-200 mobile-btn"

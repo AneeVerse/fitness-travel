@@ -16,8 +16,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturesSection />
-      <TestimonialsSection />
-      <UpcomingEvents />
+     <UpcomingEvents />
       <EpicDestinationsSection />
       <SocialMosaic />
       <CoachesSection />
