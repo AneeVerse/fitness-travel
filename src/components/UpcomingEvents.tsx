@@ -214,7 +214,7 @@ const UpcomingEvents = () => {
           <div 
             className="flex transition-transform duration-500 ease-in-out overflow-visible"
             style={{ 
-              transform: events.length > 4 ? `translateX(-${currentIndex * (100 / 4)}%)` : 'none',
+              transform: events.length > 4 ? `translateX(-${currentIndex * 25}%)` : 'none',
               width: events.length > 4 ? `${(events.length / 4) * 100}%` : '100%'
             }}
           >
@@ -227,8 +227,7 @@ const UpcomingEvents = () => {
               return (
                 <div
                   key={event.id}
-                  className="flex-shrink-0 w-full sm:w-1/2 lg:w-1/4 px-2 relative"
-                  style={{ width: events.length > 4 ? '25%' : `${100 / events.length}%` }}
+                  className="flex-shrink-0 w-[230px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[300px] px-2 relative"
                 >
                   {/* Spots Badge - Only on first card, positioned outside card container */}
                   {event.id === 'PHUKET' && (
@@ -249,7 +248,7 @@ const UpcomingEvents = () => {
                   )}
                   
                   <div 
-                    className="relative h-96 cursor-pointer group"
+                    className="relative h-[320px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[400px] cursor-pointer group"
                     onClick={() => handleCardFlip(event.id)}
                     onMouseEnter={() => setHoveredCard(event.id)}
                     onMouseLeave={() => setHoveredCard(null)}
