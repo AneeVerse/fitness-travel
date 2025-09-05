@@ -57,29 +57,19 @@ const highlights: Highlight[] = [
 
 const EpicDestinationsSection: React.FC = () => {
   return (
-    <section className="relative bg-[#244447] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
+    <section className="relative bg-[#ef4a25] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 md:gap-8 items-center mb-6 sm:mb-8 md:mb-10">
-          {/* Left: Title + Subtitle */}
-          <div className="space-y-2 sm:space-y-3 lg:col-span-8">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10">
+          {/* Centered Title + Subtitle */}
+          <div className="space-y-2 sm:space-y-3">
             <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight font-unbounded">
             COMPLETE EXPERIENCE
 
             </h2>
-            <p className="text-white/80 max-w-2xl text-sm sm:text-base">
+            <p className="text-white/80 max-w-2xl mx-auto text-sm sm:text-base">
               Real transformations, real people, real adventures. See how our tribe members transformed their lives
               through Tiger Terrain adventures.
             </p>
-          </div>
-
-          {/* Right: CTA Button */}
-          <div className="lg:col-span-4 flex justify-center lg:justify-end mt-2 lg:mt-0">
-            <button
-              className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#ef4a25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide text-xs sm:text-sm mobile-btn"
-              style={{ fontFamily: 'var(--font-teko)' }}
-            >
-              View More Destinations
-            </button>
           </div>
         </div>
 

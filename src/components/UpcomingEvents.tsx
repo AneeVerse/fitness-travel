@@ -403,11 +403,11 @@ const UpcomingEvents = () => {
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
-      <section id="upcoming-events" ref={sectionRef} className="relative py-12 md:py-16 bg-gray-100 z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
+      <section id="upcoming-events" ref={sectionRef} className="relative py-12 md:py-16 bg-black z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             UPCOMING JOURNEYS
           </h2>
         </div>
@@ -485,7 +485,7 @@ const UpcomingEvents = () => {
                       }}
                     >
                       {/* Front of Card */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl">
+                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-black">
                         {/* Video Background */}
                         <div className="relative w-full h-full">
                           <video
@@ -516,25 +516,25 @@ const UpcomingEvents = () => {
 
                       {/* Back of Card */}
                       <div 
-                        className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white"
+                        className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white  "
                         style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
                       >
                         <div className="p-6 h-full flex flex-col justify-between relative z-20">
                           {/* Header */}
                           <div>
                             <div className="flex items-center justify-between mb-4">
-                              <h3 className="text-xl font-bold text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+                                <h3 className="text-xl font-bold text-black uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
                                 {event.title}
                               </h3>
-                              <div className="bg-[#ef4a25] text-white px-3 py-1 rounded-full text-sm font-semibold">
+                              <div className="bg-[#ef4a25] text-black px-3 py-1 rounded-full text-sm font-semibold">
                                 {availableSlots} left
                               </div>
                             </div>
                             
-                            <p className="text-gray-600 text-sm mb-4">{event.description}</p>
+                            <p className="text-black text-sm mb-4">{event.description}</p>
                             
                             {/* Details */}
-                            <div className="space-y-2 text-sm text-gray-700">
+                            <div className="space-y-2 text-sm text-black">
                               <div className="flex items-center gap-2">
                                 <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                   <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
@@ -580,7 +580,7 @@ const UpcomingEvents = () => {
                               onTouchEnd={(e) => {
                                 e.stopPropagation();
                               }}
-                              className="w-full bg-[#ef4a25] text-white px-4 py-3 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer"
+                                className="w-full bg-[#ef4a25] text-black px-4 py-3 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-black text-white transition-colors inline-flex items-center justify-center cursor-pointer"
                               style={{ 
                                 fontFamily: 'var(--font-teko)', 
                                 pointerEvents: 'auto',

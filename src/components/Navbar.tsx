@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
-        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
+        <div className="bg-black/40 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
           <div className="flex items-center justify-between h-full">
             <div className="flex-shrink-0 md:mt-1 lg:mt-0 h-full flex items-center overflow-hidden">
               <Link href="/" className="flex items-center h-full">
@@ -55,7 +55,7 @@ const Navbar = () => {
                       setTimeout(() => setIsNavigating(false), 1000)
                     }
                   }}
-                  className={`text-gray-800 hover:text-[#ef4a25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center ${
+                  className={`text-white font-bold hover:text-[#ef4a25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center ${
                     isNavigating ? "pointer-events-none opacity-50" : ""
                   }`}
                   style={{ fontFamily: "var(--font-unbounded)" }}
@@ -90,7 +90,7 @@ const Navbar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-gray-700 hover:text-[#ef4a25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#ef4a25] transition-colors duration-200 z-50"
+                className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-white hover:text-[#ef4a25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#ef4a25] transition-colors duration-200 z-50"
               >
                 <span className="sr-only">Open main menu</span>
                 {!isMenuOpen ? (

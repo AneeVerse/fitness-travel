@@ -30,10 +30,11 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[320px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[520px] w-[230px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[380px] group carousel-item"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group carousel-item cursor-pointer"
       data-card="true"
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
+      onClick={() => onPlayClick(video)}
     >
       {/* Video Background */}
       <video
@@ -63,7 +64,7 @@ const VideoCard: React.FC<{
       
       {/* Loading Overlay */}
       {(!preloadedVideos.has(video.videoUrl) || loadingVideos.has(video.videoUrl)) && (
-        <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-black/100 flex items-center justify-center z-10">
           <div className="flex flex-col items-center space-y-2">
             <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             <span className="text-white text-xs font-medium">
@@ -76,16 +77,10 @@ const VideoCard: React.FC<{
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
       
-      {/* Play Button */}
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onPlayClick(video);
-        }}
-        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
-      >
+      {/* Play Button - Visual indicator only */}
+      <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white group-hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20 pointer-events-none">
         <Play className="w-5 h-5 ml-1" fill="white" />
-      </button>
+      </div>
 
       {/* Text Review Overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
@@ -114,8 +109,8 @@ const VideoCard: React.FC<{
           <div className="absolute bottom-0 right-0 w-8 h-4 bg-gradient-to-l from-black/80 to-transparent" />
         </div>
 
-        {/* Hover State - Full Transcript */}
-        <div className="absolute inset-0 bg-black/90 p-4 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-center">
+        {/* Hover State - Brief Preview */}
+        <div className="absolute inset-0 bg-black pt-2 pb-8 px-8 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-start">
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-3">
               {[...Array(video.rating)].map((_, i) => (
@@ -126,19 +121,13 @@ const VideoCard: React.FC<{
             </div>
             <h4 className="font-bold text-lg mb-2">{video.reviewerName}</h4>
             <p className="text-sm text-gray-300 mb-3">{video.title}</p>
-            <p className="text-sm leading-relaxed text-gray-200">
-              &quot;{video.transcript}&quot;
+            <p className="text-sm leading-relaxed text-gray-200 line-clamp-3 mb-4">
+              &quot;{video.transcript.length > 120 ? video.transcript.substring(0, 120) + '...' : video.transcript}&quot;
             </p>
-            <div className="mt-4">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onPlayClick(video);
-                }}
-                className="bg-[#ef4a25] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#d13d1f] transition-colors duration-200"
-              >
+            <div className="mt-2">
+              <div className="bg-[#ef4a25] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#d13d1f] transition-colors duration-200 inline-block">
                 Watch Full Video
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -162,65 +151,57 @@ interface VideoCard {
 const videos: VideoCard[] = [
   {
     id: 1,
-    title: "POWERHOUSE ATHLETE",
+    title: "UNSTOPPABLE SPIRIT",
     subtitle: "CLIENT SPOTLIGHT",
-    description: "Meet our powerhouse athlete - proof that strength knows no age! His determination and grit have been nothing short of inspiring.",
+    description: "Meet Sia, a master athlete who defied all odds. From fearing she couldn't walk steps or climb slopes, to proving nothing is impossible. Her journey is a powerful reminder that age and pain are no barriers when determination and the right guidance come together.",
     videoUrl: "/tESTIMONIALS _/1.mp4",
     timestamp: "0:15",
-    transcript: "Tiger Terrain completely transformed my fitness journey. The coaches pushed me beyond what I thought was possible. I've never felt stronger or more confident in my life. This isn't just a fitness program - it's a complete lifestyle transformation.",
-    reviewerName: "Sarah Chen",
+    transcript: "My experience was fantastic! I was afraid I couldn't walk steps or climb slopes, but I did it all. I learned that nothing is impossible. I gained strength and confidence. The nutrition education was amazing. I want to do this again whenever possible. This journey proves that age and pain are no barriers when you have determination and the right guidance.",
+    reviewerName: "Sia",
     rating: 5
   },
   {
     id: 2,
-    title: "CLIENT FEEDBACK",
-    subtitle: "TESTIMONIALS",
-    description: "We value your opinion! Clients feedback matters!",
+    title: "FITCATION TRANSFORMATION",
+    subtitle: "CLIENT TESTIMONIAL",
+    description: "An uplifting fitness vacation that redefined discipline, nutrition, and self-discovery. From unmatched energy to life-changing lessons, this experience proved that a fitcation is a must for anyone looking to unlock their true potential.",
     videoUrl: "/tESTIMONIALS _/2.mp4",
     timestamp: "0:12",
-    transcript: "The community here is incredible. Everyone supports each other, and the energy is contagious. I came for the fitness but stayed for the friendships. Tiger Terrain has given me so much more than just a workout routine.",
-    reviewerName: "Marcus Rodriguez",
+    transcript: "This has been a life-changing experience! The discipline, energy, and vibe are unmatched. Training with elite athletes and learning from expert coaches was incredible. The nutrition guidance was perfect - they were very particular about everything we ate. I recommend everyone should do this fitcation to discover their true potential. Minimum 2 weeks would be ideal, but even one week is transformative.",
+    reviewerName: "Member",
     rating: 5
   },
   {
     id: 3,
-    title: "PHUKET FITCATION",
-    subtitle: "CLIENT JOURNEY",
-    description: "Client Spotlight - An Unbelievable Journey at Phuket Fitcation. When it comes to coaching, working with elite athletes is one thing.",
+    title: "PHUKET FITCATION WELCOME",
+    subtitle: "COACH MESSAGE",
+    description: "Coach Jibby from Pirate Camp warmly welcomes the Maiden Team to their unique facility in Phuket, promising a memorable experience filled with training, fun, and community.",
     videoUrl: "/tESTIMONIALS _/3.mp4",
     timestamp: "0:20",
-    transcript: "Phuket was absolutely magical! Training on the beach at sunrise, the nutrition workshops, and the networking events - everything was perfectly organized. I lost 15 pounds and gained a whole new perspective on fitness and wellness.",
-    reviewerName: "Emma Thompson",
+    transcript: "Hi everyone, I'm Coach Jibby from Pirate Camp. I'm thrilled to welcome the Maiden Team to our unique facility here in Phuket. We're looking forward to training with you, having fun, and sharing this amazing experience together. See you soon!",
+    reviewerName: "Coach Jibby",
     rating: 5
   },
-  // {
-  //   id: 4,
-  //   title: "FITNESS GOALS",
-  //   subtitle: "TRANSFORMATION",
-  //   description: "Turning every getaway into a step closer to your fitness goals! Hearing how our fitcation changed your journey makes it all worth it.",
-  //   videoUrl: "/tESTIMONIALS _/4.mp4",
-  //   timestamp: "0:18"
-  // },
   {
     id: 5,
-    title: "PHUKET VIBES",
-    subtitle: "FITCATION 2023",
-    description: "Phuket Fitcation 2023 wasn't just a trip - it was a vibe! Hear it from those who lived it.",
+    title: "ENDURING FITCATION EXPERIENCE",
+    subtitle: "CLIENT TESTIMONIAL",
+    description: "Despite battling a backache injury, this member completed their Fitcation journey with grit and gratitude. From improved performance and discipline to unmatched energy and bonding, this experience proved transformative in every way.",
     videoUrl: "/tESTIMONIALS _/5.mp4",
     timestamp: "0:25",
-    transcript: "The energy in Phuket was electric! Every morning started with an intense beach bootcamp, followed by nutrition education that actually made sense. The evening networking was the perfect way to connect with like-minded fitness enthusiasts.",
-    reviewerName: "David Kim",
+    transcript: "Despite my backache injury, I completed the entire Fitcation thanks to Manoj Kot sir's motivation. The experience was awesome - it's a different world here! My performance improved significantly. I learned new things, met amazing people, and enjoyed great team bonding. The program structure is excellent and brings out the best in you. The combination of workouts and nutrition is perfectly balanced. I highly recommend this experience to everyone. It's a wholesome journey that everyone should try at least once.",
+    reviewerName: "Member",
     rating: 5
   },
   {
     id: 6,
-    title: "COACH JIBBY",
-    subtitle: "PHUKET ADVENTURE",
-    description: "Get ready to push limits and soak in the Phuket vibes with Coach Jibby at the helm!",
+    title: "BEST FITCATION EXPERIENCE",
+    subtitle: "CLIENT TESTIMONIAL",
+    description: "A life-changing fitness vacation in Phuket that blended discipline, clean nutrition, international community, and unforgettable memories. This member's journey shows how a week of focus can redefine both body and mind.",
     videoUrl: "/tESTIMONIALS _/6.mp4",
     timestamp: "0:22",
-    transcript: "Coach Jibby is a true inspiration! His knowledge of fitness and nutrition is incredible, but what really sets him apart is his ability to motivate and push you to your absolute best. This experience changed my entire approach to fitness.",
-    reviewerName: "Lisa Park",
+    transcript: "This was the best fitness vacation I've ever had! I came to Phuket focused on mental and physical fitness, and that's exactly what I achieved. The facilities were awesome and it was an amazing life experience. Working out with international participants was incredible - you learn different activities and gain new perspectives. The program gives you a holistic view of fitness. The simple mantra is: Eat good food, work hard, be happy. I recommend at least 2 weeks for maximum results, but even one week is transformative. This experience will always remain etched in my memories.",
+    reviewerName: "Member",
     rating: 5
   }
 ];
@@ -442,7 +423,7 @@ export default function ReviewVideo() {
     return () => window.removeEventListener('resize', computeSlideSize);
   }, []);
 
-  // Continuous auto-scroll animation (never pauses, seamless wrap)
+  // Continuous auto-scroll animation (pauses on hover, seamless wrap)
   useEffect(() => {
     const speedPxPerSec = 30; // slow, smooth
     const copyWidth = videos.length * slideSize;
@@ -452,8 +433,8 @@ export default function ReviewVideo() {
       const deltaMs = currentTime - last;
       lastTimeRef.current = currentTime;
 
-      // Update position when not dragging
-      if (!isPointerDownRef.current) {
+      // Update position when not dragging and not hovering
+      if (!isPointerDownRef.current && !hoveredVideoId) {
         if (isSnappingRef.current) {
           // Smoothly interpolate to target
           const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
@@ -496,7 +477,7 @@ export default function ReviewVideo() {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [slideSize, activeIndex]);
+  }, [slideSize, activeIndex, hoveredVideoId]);
 
   // Pointer (mouse/touch) unified handlers for smooth drag without pausing
   const onPointerDown = (e: React.PointerEvent) => {
@@ -603,7 +584,7 @@ export default function ReviewVideo() {
 
   return (
     <>
-      <section className="w-full bg-white py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
+      <section className="w-full bg-black py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
         <div className="w-full">
           {/* Slider Container */}
           <div 
@@ -683,7 +664,7 @@ export default function ReviewVideo() {
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
-                    <span className="text-sm text-gray-600 font-medium">Perfect Score</span>
+
                   </div>
                   
                   {/* Reviewer Info */}
@@ -702,21 +683,7 @@ export default function ReviewVideo() {
                       </p>
                     </div>
                   </div>
-                  
-                  {/* Video Details */}
-                  <div className="bg-white p-4 rounded-lg border border-gray-200">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Video Details</h4>
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <div className="flex justify-between">
-                        <span>Duration:</span>
-                        <span className="font-medium">{selectedVideo.timestamp}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Category:</span>
-                        <span className="font-medium">{selectedVideo.subtitle}</span>
-                      </div>
-                    </div>
-                  </div>
+                 
                   
                   {/* Call to Action */}
                   <div className="text-center">

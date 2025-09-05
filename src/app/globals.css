@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -15,8 +15,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
@@ -364,7 +364,7 @@ input[type="password"],
 input[type="number"],
 textarea,
 select {
-  background-color: white !important;
+  background-color: black !important;
   color: #111827 !important; /* text-gray-900 */
   -webkit-appearance: none;
   -moz-appearance: none;
