@@ -9,6 +9,8 @@ import ReviewsSection from '@/components/ReviewsSection';
 import CoachesSection from '@/components/CoachesSection';
 import FaqSection from '@/components/FaqSection';
 import Footer from '@/components/Footer';
+import VideoSection from '@/components/VideoSection';
+import VideoSlider from '@/components/VideoSlider';
 
 export default function Home() {
   return (
@@ -16,11 +18,13 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturesSection />
-     <UpcomingEvents />
+      <UpcomingEvents />
       <EpicDestinationsSection />
+      <ReviewsSection />
+      <VideoSlider />
       <SocialMosaic />
       <CoachesSection />
-      <ReviewsSection />
+    
       <FaqSection />
       {/* Additional sections can be added here */}
       <Footer />
