@@ -1,126 +1,186 @@
-import Image from 'next/image';
-import { Teko } from 'next/font/google';
+import type React from "react"
+import Image from "next/image"
+import { Teko } from "next/font/google"
 
 type Coach = {
-  id: string;
-  name: string;
-  role: string;
-  imageSrc: string;
-  socials?: { label: string; href: string }[];
-};
+  id: string
+  name: string
+  role: string
+  imageSrc: string
+  socials?: { label: string; href: string }[]
+}
 
 const coaches: Coach[] = [
   {
-    id: 'emily-carter',
-    name: 'MANOJ',
-    role: 'FOUNDER',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team01.png?updatedAt=1755520737963',
+    id: "team-member-1",
+    name: "MANOJ",
+    role: "FOUNDER",
+    imageSrc: "/images/coach/team1.webp", // Updated to use the provided team1 image
   },
   {
-    id: 'luca-moretti',
-    name: 'VIKRAM MANGHNANI',
-    role: 'CO-FOUNDER',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/team02.png?updatedAt=1755520773145',
+    id: "team-member-2",
+    name: "VIKRAM MANGHNANI",
+    role: "CO-FOUNDER",
+    imageSrc: "/images/coach/team2.webp", // Updated to use the provided team2 image
   },
+]
 
-  
-];
-
-const iconClasses = 'w-4 h-4 fill-current';
-const SocialIcon = ({ type }: { type: 'li' | 'ig' | 'fb' | 'email' }) => {
-  if (type === 'li') {
+const iconClasses = "w-4 h-4 fill-current"
+const SocialIcon = ({ type }: { type: "li" | "ig" | "fb" | "email" }) => {
+  if (type === "li") {
     // LinkedIn (brand-style square with "in")
     return (
       <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
         <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
       </svg>
-    );
+    )
   }
-  if (type === 'ig') {
+  if (type === "ig") {
     return (
       <svg viewBox="0 0 24 24" className={iconClasses}>
         <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.5A5.5 5.5 0 1112 18.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zM18 6.2a1 1 0 11-1-1 1 1 0 011 1z" />
       </svg>
-    );
+    )
   }
-  if (type === 'fb') {
-    return (
-      <svg viewBox="0 0 24 24" className={iconClasses}>
-        <path d="M22 12a10 10 0 10-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4H15c-1.2 0-1.6.8-1.6 1.6V12H17l-.5 3h-2.1v7A10 10 0 0022 12z" />
-      </svg>
-    );
-  }
-  if (type === 'email') {
+  if (type === "fb") {
     return (
       <svg viewBox="0 0 24 24" className={iconClasses}>
         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
       </svg>
-    );
+    )
   }
-  return null;
-};
+  if (type === "email") {
+    return (
+      <svg viewBox="0 0 24 24" className={iconClasses}>
+        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+      </svg>
+    )
+  }
+  return null
+}
 
-const teko = Teko({ subsets: ['latin'], weight: ['400','600','700'] });
+const teko = Teko({ subsets: ["latin"], weight: ["400", "600", "700"] })
 
 const CoachesSection: React.FC = () => {
   return (
-    <section id="coaches-section" className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-gray-100 mobile-coaches">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-7 lg:px-8">
-        {/* Heading */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 sm:gap-8 md:gap-10 mb-8 sm:mb-9 md:mb-10">
-          <div>
-            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
-              <span className="h-1.5 w-1.5 rounded-full bg-white" />
-            Meet Your Tribe Leaders
-            </span>
-            <h2 className={`mt-3 text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-[40px] xl:max-w-7xl font-extrabold tracking-tight text-gray-900 leading-[0.95] ${teko.className}`}>
-              Our Experienced Mentors
+         <section id="coaches-section" className="relative py-20 md:py-24 lg:py-28 xl:py-36 bg-black">
+      <div className="max-w-[1325px] mx-auto px-4 sm:px-6 lg:px-8">
+                 {/* Mobile & Tablet Layout */}
+         <div className="lg:hidden">
+           {/* Header Section */}
+           <div className="text-center mb-8 sm:mb-10 md:mb-12">
+             <h2
+               className={`text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6 ${teko.className}`}
+             >
+               Meet Your
+               <br />
+               Tribe Leaders
+             </h2>
+             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-md mx-auto leading-relaxed">
+               Our dedicated team of experienced mentors ready to guide your journey
+             </p>
+           </div>
 
-              Are Here To Support
-            </h2>
-          </div>
-        </div>
+           {/* Mobile & Tablet Cards - Stacked for better visibility */}
+           <div className="space-y-6 sm:space-y-8 md:space-y-10">
+             {coaches.map((coach, index) => (
+               <article
+                 key={coach.id}
+                 className="w-full max-w-xs mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden"
+               >
+                 <div className="relative h-96 sm:h-[420px] md:h-[480px]">
+                   <Image 
+                     src={coach.imageSrc || "/placeholder.svg"} 
+                     alt={coach.name} 
+                     fill 
+                     className="object-cover" 
+                   />
+                   <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4 sm:p-5 md:p-6">
+                     <h3
+                       className={`text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 ${teko.className}`}
+                       style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                     >
+                       {coach.name}
+                     </h3>
+                     <p 
+                       className="text-base sm:text-lg md:text-xl text-white/90 font-medium"
+                       style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}
+                     >
+                       {coach.role}
+                     </p>
+                   </div>
+                 </div>
+               </article>
+             ))}
+           </div>
+         </div>
 
-        {/* Cards - Centered for 2 coaches */}
-        <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6 max-w-3xl lg:max-w-4xl">
-            {coaches.map((c) => (
-              <article
-                key={c.id}
-                className="rounded-3xl bg-gray-200/70 border border-gray-200 shadow-sm overflow-hidden flex flex-col p-3 sm:p-3.5 md:p-4"
-              >
-                <div className="relative h-[350px] sm:h-[320px] md:h-[380px] lg:h-[420px] xl:h-[380px] rounded-2xl overflow-hidden">
-                  <Image src={c.imageSrc} alt={c.name} fill className="object-cover" />
+         {/* Desktop Layout */}
+         <div className="hidden lg:grid lg:grid-cols-2 gap-16 items-center">
+           {/* Left Content */}
+           <div className="space-y-6 text-left">
+             <div className="space-y-4">
+               <h2
+                 className={`text-5xl xl:text-6xl font-bold text-white leading-tight ${teko.className}`}
+               >
+                 Meet Your
+                 <br />
+                 Tribe Leaders
+               </h2>
+               <p className="text-lg xl:text-xl text-gray-300 max-w-md leading-relaxed">
+                 Our dedicated team of experienced mentors ready to guide your journey
+               </p>
+             </div>
+           </div>
 
-                  {/* Socials column */}
-                  <div className="absolute left-3 top-3 flex flex-col gap-2">
-                    {['li', 'ig', 'email'].map((type) => (
-                      <a
-                        key={type}
-                        href="#"
-                        className="w-7 h-7 sm:w-7.5 md:w-8 sm:h-7.5 md:h-8 rounded-full bg-[#ef4a25] text-white flex items-center justify-center hover:bg-black"
-                        aria-label={`Open ${type} profile`}
-                      >
-                        <SocialIcon type={type as 'li' | 'ig' | 'email'} />
-                      </a>
-                    ))}
-                  </div>
-                </div>
-                <div className="px-3 sm:px-3.5 md:px-4 py-3 sm:py-3.5 md:py-4">
-                  <h3 className={`text-lg sm:text-xl md:text-xl font-extrabold tracking-tight text-gray-900 uppercase ${teko.className}`}>
-                    {c.name}
+           {/* Right Content - Desktop overlapping cards */}
+           <div className="relative w-full max-w-2xl">
+               {/* First Card */}
+               <article className="relative w-72 h-92 bg-white rounded-2xl shadow-lg overflow-hidden -ml-4">
+                <Image
+                  src={coaches[0].imageSrc || "/placeholder.svg"}
+                  alt={coaches[0].name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
+                  <h3
+                    className={`text-xl font-bold text-white ${teko.className}`}
+                    style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                  >
+                    {coaches[0].name}
                   </h3>
-                  <p className="mt-1 text-xs sm:text-sm md:text-sm text-gray-600">{c.role}</p>
+                  <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>
+                    {coaches[0].role}
+                  </p>
                 </div>
               </article>
-            ))}
-          </div>
-        </div>
+
+                             {/* Second Card - Overlapping on desktop only */}
+               <article className="absolute top-0 right-0 w-72 h-92 bg-white rounded-2xl shadow-lg overflow-hidden ml-24">
+                <Image
+                  src={coaches[1].imageSrc || "/placeholder.svg"}
+                  alt={coaches[1].name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
+                  <h3
+                    className={`text-xl font-bold text-white ${teko.className}`}
+                    style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                  >
+                    {coaches[1].name}
+                  </h3>
+                  <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>
+                    {coaches[1].role}
+                  </p>
+                </div>
+                             </article>
+           </div>
+         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CoachesSection;
-
-
+export default CoachesSection
