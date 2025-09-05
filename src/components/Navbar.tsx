@@ -1,38 +1,36 @@
-"use client";
+"use client"
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import localFont from 'next/font/local';
-import PricingModal from './PricingModal';
-
-const tigerTerrainFont = localFont({
-  src: '../../public/font/Fira_Sans/FiraSans-Bold.ttf',
-  display: 'swap',
-});
+import { useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import PricingModal from "./PricingModal"
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
 
   const navItems = [
-    { name: 'EVENTS', href: '/itinerary', hasDropdown: false },
-    { name: 'ABOUT', href: '/about', hasDropdown: false },
-    { name: 'FAQ', href: '/faq', hasDropdown: false },
-    { name: 'CONTACT', href: '/contact', hasDropdown: false },
-  ];
+    { name: "EVENTS", href: "/itinerary", hasDropdown: false },
+    { name: "ABOUT", href: "/about", hasDropdown: false },
+    { name: "FAQ", href: "/faq", hasDropdown: false },
+    { name: "CONTACT", href: "/contact", hasDropdown: false },
+  ]
 
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
-        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto">
-          <div className="flex items-center justify-between">
-            {/* Logo + Brand */}
-            <div className="flex-shrink-0 md:mt-1 lg:mt-0">
-              <Link href="/" className="flex items-center gap-2 sm:gap-2.5 md:gap-3 lg:gap-3.5">
-                <Image src="/images/logo.png" alt="Tiger Terrain" width={40} height={40} className="h-8 w-8 sm:h-8.5 md:h-9 lg:h-10 sm:w-8.5 md:w-9 lg:w-10 object-contain" />
-                <span className={`${tigerTerrainFont.className} text-[18px] sm:text-[19px] md:text-[20px] lg:text-xl xl:text-2xl 2xl:text-[27px] leading-none text-[#0f1a17] mt-1`}>TIGER TERRAIN</span>
+        <div className="bg-white/55 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
+          <div className="flex items-center justify-between h-full">
+            <div className="flex-shrink-0 md:mt-1 lg:mt-0 h-full flex items-center overflow-hidden">
+              <Link href="/" className="flex items-center h-full">
+                <Image
+                  src="/images/new-logo.svg"
+                  alt="Logo"
+                  width={160}
+                  height={100}
+                  className="h-24 w-auto sm:h-28 md:h-32 lg:h-36 object-contain"
+                />
               </Link>
             </div>
 
@@ -43,19 +41,24 @@ const Navbar = () => {
                   key={item.name}
                   href={item.href}
                   onClick={() => {
-                    if (item.href !== '#' && !isNavigating) {
-                      setIsNavigating(true);
-                      setTimeout(() => setIsNavigating(false), 1000);
+                    if (item.href !== "#" && !isNavigating) {
+                      setIsNavigating(true)
+                      setTimeout(() => setIsNavigating(false), 1000)
                     }
                   }}
                   className={`text-gray-800 hover:text-[#ef4a25] transition-colors duration-200 text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] tracking-[0.08em] flex items-center ${
-                    isNavigating ? 'pointer-events-none opacity-50' : ''
+                    isNavigating ? "pointer-events-none opacity-50" : ""
                   }`}
-                  style={{ fontFamily: 'var(--font-unbounded)' }}
+                  style={{ fontFamily: "var(--font-unbounded)" }}
                 >
                   {item.name}
                   {item.hasDropdown && (
-                    <svg className="ml-1 w-2.5 h-2.5 md:w-3 md:h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="ml-1 w-2.5 h-2.5 md:w-3 md:h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   )}
@@ -68,7 +71,7 @@ const Navbar = () => {
               <button
                 onClick={() => setIsPricingModalOpen(true)}
                 className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-black hover:text-white transition-colors duration-200"
-                style={{ fontFamily: 'var(--font-unbounded)' }}
+                style={{ fontFamily: "var(--font-unbounded)" }}
               >
                 BOOK JOURNEY
               </button>
@@ -82,11 +85,21 @@ const Navbar = () => {
               >
                 <span className="sr-only">Open main menu</span>
                 {!isMenuOpen ? (
-                  <svg className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>
                 ) : (
-                  <svg className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg
+                    className="block h-5 w-5 sm:h-5.5 sm:w-5.5 md:h-6 md:w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 )}
@@ -97,39 +110,38 @@ const Navbar = () => {
       </nav>
 
       {/* Full Screen Mobile Menu */}
-      <div 
+      <div
         className={`md:hidden fixed inset-0 z-40 transition-all duration-500 ease-in-out ${
-          isMenuOpen 
-            ? 'opacity-100 visible' 
-            : 'opacity-0 invisible'
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
         {/* Backdrop */}
-        <div 
+        <div
           className={`absolute inset-0 bg-black transition-opacity duration-500 ${
-            isMenuOpen ? 'opacity-50' : 'opacity-0'
+            isMenuOpen ? "opacity-50" : "opacity-0"
           }`}
           onClick={() => setIsMenuOpen(false)}
         />
-        
+
         {/* Menu Content */}
-        <div 
+        <div
           className={`absolute top-0 left-0 right-0 bg-white/95 backdrop-blur-md transition-transform duration-500 ease-in-out ${
-            isMenuOpen ? 'translate-y-0' : '-translate-y-full'
+            isMenuOpen ? "translate-y-0" : "-translate-y-full"
           }`}
-          style={{ minHeight: '100vh' }}
+          style={{ minHeight: "100vh" }}
         >
           {/* Header with close button */}
           <div className="flex items-center justify-between p-3 sm:p-4 md:p-5 lg:p-6 border-b border-gray-200">
-            {/* <Link href="/" className="flex items-center gap-3" onClick={() => setIsMenuOpen(false)}>
-              <Image src="/images/website-logo.png" alt="Tiger Terrain" width={40} height={40} className="h-10 w-10 object-contain" />
-              <span className={`${tigerTerrainFont.className} text-xl leading-none text-[#0f1a17]`}>TIGER TERRAIN</span>
-            </Link> */}
             <button
               onClick={() => setIsMenuOpen(false)}
-                              className="p-1.5 sm:p-2 rounded-md text-gray-700 hover:text-[#ef4a25] hover:bg-gray-100 transition-colors duration-200"
+              className="p-1.5 sm:p-2 rounded-md text-gray-700 hover:text-[#ef4a25] hover:bg-gray-100 transition-colors duration-200"
             >
-              <svg className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -142,20 +154,25 @@ const Navbar = () => {
                 key={item.name}
                 href={item.href}
                 onClick={() => {
-                  setIsMenuOpen(false);
-                  if (item.href !== '#' && !isNavigating) {
-                    setIsNavigating(true);
-                    setTimeout(() => setIsNavigating(false), 1000);
+                  setIsMenuOpen(false)
+                  if (item.href !== "#" && !isNavigating) {
+                    setIsNavigating(true)
+                    setTimeout(() => setIsNavigating(false), 1000)
                   }
                 }}
-                                  className={`text-xs sm:text-sm md:text-base font-semibold text-gray-800 hover:text-[#ef4a25] transition-colors duration-300 flex items-center justify-between py-2 sm:py-2.5 md:py-3 border-b border-gray-100 ${
-                  isNavigating ? 'pointer-events-none opacity-50' : ''
+                className={`text-xs sm:text-sm md:text-base font-semibold text-gray-800 hover:text-[#ef4a25] transition-colors duration-300 flex items-center justify-between py-2 sm:py-2.5 md:py-3 border-b border-gray-100 ${
+                  isNavigating ? "pointer-events-none opacity-50" : ""
                 }`}
-                style={{ fontFamily: 'var(--font-unbounded)' }}
+                style={{ fontFamily: "var(--font-unbounded)" }}
               >
                 {item.name}
                 {item.hasDropdown && (
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-4.5 md:h-4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 )}
@@ -167,11 +184,11 @@ const Navbar = () => {
           <div className="absolute bottom-12 left-3 sm:left-4 md:left-5 lg:left-6 right-3 sm:right-4 md:right-5 lg:right-6">
             <button
               onClick={() => {
-                setIsPricingModalOpen(true);
-                setIsMenuOpen(false);
+                setIsPricingModalOpen(true)
+                setIsMenuOpen(false)
               }}
-                              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-black hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
-              style={{ fontFamily: 'var(--font-unbounded)' }}
+              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-black hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
+              style={{ fontFamily: "var(--font-unbounded)" }}
             >
               BOOK JOURNEY
             </button>
@@ -180,12 +197,9 @@ const Navbar = () => {
       </div>
 
       {/* Pricing Modal */}
-      <PricingModal 
-        isOpen={isPricingModalOpen} 
-        onClose={() => setIsPricingModalOpen(false)} 
-      />
+      <PricingModal isOpen={isPricingModalOpen} onClose={() => setIsPricingModalOpen(false)} />
     </>
-  );
-};
+  )
+}
 
-export default Navbar;
+export default Navbar
