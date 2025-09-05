@@ -301,7 +301,7 @@ export default function VideoSlider() {
       <div className="w-full">
 
         {/* Header with Navigation */}
-        <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1325px] mx-auto">
+        <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1390px] mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-black"
             style={{ fontFamily: 'var(--font-teko)' }}
           >
