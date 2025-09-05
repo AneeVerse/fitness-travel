@@ -404,7 +404,7 @@ const UpcomingEvents = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
       <section id="upcoming-events" ref={sectionRef} className="relative py-12 md:py-16 bg-gray-100 z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -423,7 +423,7 @@ const UpcomingEvents = () => {
           onPointerLeave={onPointerLeave}
         >
           <div 
-            className="flex transition-transform duration-500 ease-in-out overflow-visible"
+            className="flex transition-transform duration-500 ease-in-out overflow-visible justify-center items-center"
             style={{ 
               transform: isMobile 
                 ? `translateX(${renderTranslateX}px)` 
@@ -446,7 +446,7 @@ const UpcomingEvents = () => {
               return (
                 <div
                   key={isMobile ? `${event.__dup}-${event.id}` : event.id}
-                  className="flex-shrink-0 w-[230px] sm:w-[320px] md:w-[280px] lg:w-[340px] xl:w-[300px] px-2 relative"
+                  className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] px-2 relative"
                   data-card="true"
                 >
                   {/* Spots Badge - Only on first card, positioned outside card container */}
@@ -468,7 +468,7 @@ const UpcomingEvents = () => {
                   )}
                   
                   <div 
-                    className="relative h-[320px] sm:h-[300px] md:h-[400px] lg:h-[480px] xl:h-[400px] cursor-pointer group"
+                    className="relative h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] cursor-pointer group"
                     onClick={() => handleCardFlip(event.id)}
                     onMouseEnter={() => setHoveredCard(event.id)}
                     onMouseLeave={() => setHoveredCard(null)}
