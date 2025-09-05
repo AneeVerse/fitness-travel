@@ -24,12 +24,21 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-full">
             <div className="flex-shrink-0 md:mt-1 lg:mt-0 h-full flex items-center overflow-hidden">
               <Link href="/" className="flex items-center h-full">
+                {/* Mobile and Tablet Logo */}
+                <Image
+                  src="/images/left-logo.png"
+                  alt="Logo"
+                  width={100}
+                  height={100}
+                  className="h-28 w-28 sm:h-16 sm:w-16  lg:hidden object-contain"
+                />
+                {/* Desktop Logo */}
                 <Image
                   src="/images/new-logo.svg"
                   alt="Logo"
                   width={160}
                   height={100}
-                  className="h-24 w-auto sm:h-28 md:h-32 lg:h-36 object-contain"
+                  className="hidden lg:block h-36 xl:h-40 w-auto object-contain"
                 />
               </Link>
             </div>
