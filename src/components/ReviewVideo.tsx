@@ -30,11 +30,10 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group carousel-item cursor-pointer"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group carousel-item"
       data-card="true"
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
-      onClick={() => onPlayClick(video)}
     >
       {/* Video Background */}
       <video
@@ -77,10 +76,16 @@ const VideoCard: React.FC<{
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
       
-      {/* Play Button - Visual indicator only */}
-      <div className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white group-hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20 pointer-events-none">
+      {/* Play Button - Clickable */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onPlayClick(video);
+        }}
+        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
+      >
         <Play className="w-5 h-5 ml-1" fill="white" />
-      </div>
+      </button>
 
       {/* Text Review Overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
@@ -110,24 +115,30 @@ const VideoCard: React.FC<{
         </div>
 
         {/* Hover State - Brief Preview */}
-        <div className="absolute inset-0 bg-black pt-2 pb-8 px-8 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-start">
+        <div className="absolute inset-0 bg-black pt-2 pb-4 px-6 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-start">
           <div className="text-center">
-            <div className="flex items-center justify-center gap-1 mb-3">
+            <div className="flex items-center justify-center gap-1 mb-2">
               {[...Array(video.rating)].map((_, i) => (
-                <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                <svg key={i} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
               ))}
             </div>
-            <h4 className="font-bold text-lg mb-2">{video.reviewerName}</h4>
-            <p className="text-sm text-gray-300 mb-3">{video.title}</p>
-            <p className="text-sm leading-relaxed text-gray-200 line-clamp-3 mb-4">
-              &quot;{video.transcript.length > 120 ? video.transcript.substring(0, 120) + '...' : video.transcript}&quot;
+            <h4 className="font-bold text-base mb-1">{video.reviewerName}</h4>
+            <p className="text-xs text-gray-300 mb-2">{video.title}</p>
+            <p className="text-xs leading-relaxed text-gray-200 line-clamp-2 mb-3">
+              &quot;{video.transcript.length > 80 ? video.transcript.substring(0, 80) + '...' : video.transcript}&quot;
             </p>
-            <div className="mt-2">
-              <div className="bg-[#ef4a25] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#d13d1f] transition-colors duration-200 inline-block">
+            <div className="mt-1">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onPlayClick(video);
+                }}
+                className="bg-[#ef4a25] text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-[#d13d1f] transition-colors duration-200"
+              >
                 Watch Full Video
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -655,44 +666,51 @@ export default function ReviewVideo() {
               </div>
               
               {/* Review Details Sidebar */}
-              <div className="lg:col-span-1 bg-gray-50 p-6 overflow-y-auto max-h-[90vh]">
-                <div className="space-y-6">
-                  {/* Rating */}
-                  <div className="flex items-center gap-2">
-                    {[...Array(selectedVideo.rating)].map((_, i) => (
-                      <svg key={i} className="w-6 h-6 text-yellow-400 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-
-                  </div>
-                  
-                  {/* Reviewer Info */}
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-1">{selectedVideo.reviewerName}</h3>
-                    <p className="text-lg text-[#ef4a25] font-semibold">{selectedVideo.title}</p>
-                    <p className="text-sm text-gray-600">{selectedVideo.subtitle}</p>
-                  </div>
-                  
-                  {/* Full Transcript */}
-                  <div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-3">What They Said</h4>
-                    <div className="bg-white p-4 rounded-lg border border-gray-200">
-                      <p className="text-gray-700 leading-relaxed italic">
-                        &quot;{selectedVideo.transcript}&quot;
-                      </p>
-                    </div>
-                  </div>
+                             <div className="lg:col-span-1 bg-gray-50 p-4 overflow-y-auto max-h-[90vh] flex flex-col">
+                 <div className="space-y-4 flex-1">
+                   {/* Rating */}
+                   <div className="flex items-center gap-2">
+                     {[...Array(selectedVideo.rating)].map((_, i) => (
+                       <svg key={i} className="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                       </svg>
+                     ))}
+                   </div>
+                   
+                   {/* Reviewer Info */}
+                   <div>
+                     <h3 className="text-lg font-bold text-gray-900 mb-1">{selectedVideo.reviewerName}</h3>
+                     <p className="text-base text-[#ef4a25] font-semibold">{selectedVideo.title}</p>
+                     <p className="text-sm text-gray-600">{selectedVideo.subtitle}</p>
+                   </div>
+                   
+                   {/* Full Transcript */}
+                   <div>
+                     <h4 className="text-base font-semibold text-gray-900 mb-2">What They Said</h4>
+                     <div className="bg-white p-3 rounded-lg border border-gray-200">
+                       <p className="text-sm text-gray-700 leading-relaxed italic">
+                         &quot;{selectedVideo.transcript}&quot;
+                       </p>
+                     </div>
+                   </div>
+                 </div>
                  
-                  
-                  {/* Call to Action */}
-                  <div className="text-center">
-                    <button className="w-full bg-[#ef4a25] text-white py-3 px-6 rounded-full font-semibold hover:bg-[#d13d1f] transition-colors duration-200">
-                      Book Your Journey
-                    </button>
-                  </div>
-                </div>
-              </div>
+                 {/* Fixed Call to Action Button at Bottom */}
+                 <div className="mt-4 pt-4 border-t border-gray-200 flex-shrink-0">
+                   <button 
+                     onClick={() => {
+                       handleCloseModal();
+                       // Navigate to contact page
+                       setTimeout(() => {
+                         window.location.href = '/contact';
+                       }, 100);
+                     }}
+                     className="w-full bg-[#ef4a25] text-white py-3 px-6 rounded-full font-semibold hover:bg-[#d13d1f] transition-colors duration-200"
+                   >
+                     Book Your Journey
+                   </button>
+                 </div>
+               </div>
             </div>
           </div>
         </div>
