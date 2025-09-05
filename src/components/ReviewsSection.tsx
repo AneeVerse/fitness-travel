@@ -40,9 +40,9 @@ const ReviewsSection: React.FC = () => {
 
   return (
     <section id="reviews-section" className="relative py-12 sm:py-16 md:py-18 lg:py-20 bg-white mobile-section">
-      <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
+      <div className="w-full">
         {/* Voices of Transformation Header */}
-        <div className="text-center mb-8 sm:mb-9 md:mb-10">
+        <div className="text-center mb-8 sm:mb-9 md:mb-10 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1325px] mx-auto">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-black font-unbounded">
             Voices of Transformation
           </h2>
@@ -52,7 +52,7 @@ const ReviewsSection: React.FC = () => {
         </div>
 
         {/* Review Videos Section */}
-        <div className="mb-12 sm:mb-14 md:mb-16 xl:-mb-40">
+        <div className="-mb-32 sm:mb-14 md:mb-16 xl:-mb-40">
           <ReviewVideo />
         </div>
 
