@@ -25,39 +25,39 @@ const coaches: Coach[] = [
   },
 ]
 
-const iconClasses = "w-4 h-4 fill-current"
-const SocialIcon = ({ type }: { type: "li" | "ig" | "fb" | "email" }) => {
-  if (type === "li") {
-    // LinkedIn (brand-style square with "in")
-    return (
-      <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
-        <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
-      </svg>
-    )
-  }
-  if (type === "ig") {
-    return (
-      <svg viewBox="0 0 24 24" className={iconClasses}>
-        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.5A5.5 5.5 0 1112 18.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zM18 6.2a1 1 0 11-1-1 1 1 0 011 1z" />
-      </svg>
-    )
-  }
-  if (type === "fb") {
-    return (
-      <svg viewBox="0 0 24 24" className={iconClasses}>
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-      </svg>
-    )
-  }
-  if (type === "email") {
-    return (
-      <svg viewBox="0 0 24 24" className={iconClasses}>
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
-      </svg>
-    )
-  }
-  return null
-}
+// const iconClasses = "w-4 h-4 fill-current"
+// const SocialIcon = ({ type }: { type: "li" | "ig" | "fb" | "email" }) => {
+//   if (type === "li") {
+//     // LinkedIn (brand-style square with "in")
+//     return (
+//       <svg viewBox="0 0 24 24" className={iconClasses} aria-hidden="true">
+//         <path d="M22.225 0H1.771C.792 0 0 .774 0 1.729v20.543C0 23.225.792 24 1.771 24h20.451C23.2 24 24 23.225 24 22.271V1.729C24 .774 23.2 0 22.225 0zM7.06 20.452H3.56V9h3.5v11.452zM5.31 7.433a2.03 2.03 0 110-4.06 2.03 2.03 0 010 4.06zM20.452 20.452h-3.5v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667h-3.5V9h3.36v1.561h.047c.468-.9 1.62-1.852 3.332-1.852 3.589 0 4.249 2.371 4.249 5.455v6.288z" />
+//       </svg>
+//     )
+//   }
+//   if (type === "ig") {
+//     return (
+//       <svg viewBox="0 0 24 24" className={iconClasses}>
+//         <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2a3 3 0 013 3v10a3 3 0 01-3 3H7a3 3 0 01-3-3V7a3 3 0 013-3h10zm-5 3.5A5.5 5.5 0 1112 18.5 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zM18 6.2a1 1 0 11-1-1 1 1 0 011 1z" />
+//       </svg>
+//     )
+//   }
+//   if (type === "fb") {
+//     return (
+//       <svg viewBox="0 0 24 24" className={iconClasses}>
+//         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+//       </svg>
+//     )
+//   }
+//   if (type === "email") {
+//     return (
+//       <svg viewBox="0 0 24 24" className={iconClasses}>
+//         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+//       </svg>
+//     )
+//   }
+//   return null
+// }
 
 const teko = Teko({ subsets: ["latin"], weight: ["400", "600", "700"] })
 
@@ -83,7 +83,7 @@ const CoachesSection: React.FC = () => {
 
            {/* Mobile & Tablet Cards - Stacked for better visibility */}
            <div className="space-y-6 sm:space-y-8 md:space-y-10">
-             {coaches.map((coach, index) => (
+             {coaches.map((coach) => (
                <article
                  key={coach.id}
                  className="w-full max-w-xs mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden"

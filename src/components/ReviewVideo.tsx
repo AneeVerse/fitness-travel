@@ -78,8 +78,7 @@ const VideoCard: React.FC<{
       
       {/* Play Button - Clickable */}
       <button
-        onClick={(e) => {
-          e.stopPropagation();
+        onClick={() => {
           onPlayClick(video);
         }}
         className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
@@ -561,7 +560,7 @@ export default function ReviewVideo() {
       dragDeltaRef.current = deltaX;
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
+    const handleTouchEnd = () => {
       if (!isPointerDownRef.current) return;
       
       const currentTime = performance.now();

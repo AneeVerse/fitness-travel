@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 // Add CSS for 3D flip effect
 const flipStyles = `
@@ -99,7 +96,6 @@ interface UpcomingEventsProps {
 }
 
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURNEYS" }) => {
-  const router = useRouter();
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
@@ -374,7 +370,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
       dragDeltaRef.current = deltaX;
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
+    const handleTouchEnd = () => {
       if (!isPointerDownRef.current) return;
       
       const currentTime = performance.now();
@@ -581,8 +577,8 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
                               onTouchStart={(e) => {
                                 e.stopPropagation();
                               }}
-                              onTouchEnd={(e) => {
-                                e.stopPropagation();
+                              onTouchEnd={() => {
+                                // Touch end handled
                               }}
                                 className="w-full bg-[#ef4a25] text-black px-4 py-3 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-black text-white transition-colors inline-flex items-center justify-center cursor-pointer"
                               style={{ 

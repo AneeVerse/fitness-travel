@@ -128,7 +128,7 @@ const ItineraryFormSection = () => {
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3 font-unbounded">Booking Request Submitted!</h3>
                 <p className="text-white/90 text-base">
-                  Thank you for your interest! We'll contact you within 24 hours to confirm your booking details.
+                  Thank you for your interest! We&apos;ll contact you within 24 hours to confirm your booking details.
                 </p>
               </div>
             ) : (

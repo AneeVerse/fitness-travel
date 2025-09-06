@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface VideoCard {
   id: number;
@@ -110,13 +109,13 @@ export default function VideoSlider() {
   // Animation runs continuously; pauses only while dragging
 
   // Manual navigation helpers (adjust base position by one card)
-  const nextSlide = () => {
-    basePositionRef.current -= slideSize;
-  };
+  // const nextSlide = () => {
+  //   basePositionRef.current -= slideSize;
+  // };
 
-  const prevSlide = () => {
-    basePositionRef.current += slideSize;
-  };
+  // const prevSlide = () => {
+  //   basePositionRef.current += slideSize;
+  // };
 
   // Measure slide size responsively from actual DOM
   useEffect(() => {

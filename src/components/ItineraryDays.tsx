@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
 
 
 type DayItem = {
@@ -388,7 +387,7 @@ const ItineraryDays = () => {
       dragDeltaRef.current = deltaX;
     };
 
-    const handleTouchEnd = (e: TouchEvent) => {
+    const handleTouchEnd = () => {
       if (!isPointerDownRef.current) return;
       
       const currentTime = performance.now();
