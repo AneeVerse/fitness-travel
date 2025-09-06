@@ -3,12 +3,36 @@ import nodemailer from 'nodemailer';
 
 export async function POST(request: NextRequest) {
   try {
-    const { firstName, lastName, email, phone, pdfLink } = await request.json();
+    const body = await request.json();
+    const { 
+      firstName, 
+      lastName, 
+      email, 
+      phone, 
+      pdfLink, 
+      formType, 
+      name, 
+      subject, 
+      message,
+      fullName 
+    } = body;
+
+    // Handle different form types
+    let finalFirstName = firstName;
+    let finalLastName = lastName;
+    
+    // If we have a single name field (from itinerary form), split it
+    if (!firstName && (name || fullName)) {
+      const fullNameValue = name || fullName;
+      const nameParts = fullNameValue.trim().split(' ');
+      finalFirstName = nameParts[0] || fullNameValue;
+      finalLastName = nameParts.slice(1).join(' ') || '';
+    }
 
     // Validate required fields
-    if (!firstName || !lastName || !email || !phone) {
+    if (!finalFirstName || !email || !phone) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Name, email, and phone are required' },
         { status: 400 }
       );
     }
@@ -46,7 +70,7 @@ export async function POST(request: NextRequest) {
           </div>
           
           <div style="padding: 30px; background: #f9f9f9; border-radius: 0 0 15px 15px;">
-            <h2 style="color: #333; margin-bottom: 20px;">Hello ${firstName}!</h2>
+            <h2 style="color: #333; margin-bottom: 20px;">Hello ${finalFirstName}!</h2>
             
             <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
               Thank you for contacting Tiger Terrain about your Ibiza adventure! We're excited to help you plan the perfect fitness retreat.
@@ -88,7 +112,7 @@ export async function POST(request: NextRequest) {
     const companyMailOptions = {
       from: `"Tiger Terrain Website" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_RECEIVER,
-      subject: `New Booking Request from ${firstName} ${lastName}`,
+      subject: `New Booking Request from ${finalFirstName} ${finalLastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #ef4a25; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
@@ -121,7 +145,7 @@ export async function POST(request: NextRequest) {
     const ownerMailOptions = {
       from: `"Tiger Terrain Website" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
-      subject: `New Booking Request from ${firstName} ${lastName}`,
+      subject: `New Booking Request from ${finalFirstName} ${finalLastName}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #ef4a25; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">

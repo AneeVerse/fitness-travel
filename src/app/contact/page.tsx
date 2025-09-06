@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 
 const ContactPage = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -14,6 +16,7 @@ const ContactPage = () => {
     subject: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -23,10 +26,39 @@ const ContactPage = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: formData.subject,
+          message: formData.message,
+          formType: 'general-contact',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      setIsSubmitting(false);
+      
+      // Redirect to thank you page
+      router.push('/thank-you');
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setIsSubmitting(false);
+      alert('Failed to submit form. Please try again.');
+    }
   };
 
   return (
@@ -228,9 +260,17 @@ const ContactPage = () => {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full bg-[#ef4a25] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#d66d1f] transform hover:scale-[1.02] transition-all duration-200 font-unbounded text-sm tracking-wide"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#ef4a25] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#d66d1f] transform hover:scale-[1.02] transition-all duration-200 font-unbounded text-sm tracking-wide disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
                 >
-                  SEND MESSAGE
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                      SENDING...
+                    </div>
+                  ) : (
+                    'SEND MESSAGE'
+                  )}
                 </button>
               </form>
             </div>

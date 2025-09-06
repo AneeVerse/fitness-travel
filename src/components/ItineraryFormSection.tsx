@@ -2,7 +2,8 @@
 
 import type React from "react"
 import { useState } from "react"
-import { ChevronDown, Check, Calendar, Users, Home } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { ChevronDown, Calendar, Users, Home } from "lucide-react"
 
 interface FormData {
   name: string
@@ -14,6 +15,7 @@ interface FormData {
 }
 
 const ItineraryFormSection = () => {
+  const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -24,7 +26,6 @@ const ItineraryFormSection = () => {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
   const [isDateOpen, setIsDateOpen] = useState(false)
   const [isAccommodationOpen, setIsAccommodationOpen] = useState(false)
 
@@ -68,7 +69,11 @@ const ItineraryFormSection = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
+          firstName: formData.name.split(' ')[0] || formData.name,
+          lastName: formData.name.split(' ').slice(1).join(' ') || '',
+          email: formData.email,
+          phone: formData.phone,
+          pdfLink: '/path/to/itinerary.pdf', // You can update this with actual PDF path
           formType: "itinerary-booking",
           subject: `Itinerary Booking Request - ${formData.date}`,
           message: `Booking Details:
@@ -83,19 +88,9 @@ const ItineraryFormSection = () => {
       }
 
       setIsSubmitting(false)
-      setIsSubmitted(true)
-
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: "",
-          phone: "",
-          email: "",
-          date: "",
-          people: "",
-          accommodation: "",
-        })
-      }, 3000)
+      
+      // Redirect to thank you page
+      router.push('/thank-you')
     } catch (error) {
       console.error("Error submitting form:", error)
       setIsSubmitting(false)
@@ -121,18 +116,7 @@ const ItineraryFormSection = () => {
         {/* Form Container */}
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-600/30 p-6 sm:p-8 shadow-2xl">
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 font-unbounded">Booking Request Submitted!</h3>
-                <p className="text-white/90 text-base">
-                  Thank you for your interest! We&apos;ll contact you within 24 hours to confirm your booking details.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Name Field */}
                 <div className="space-y-2">
                   <label htmlFor="name" className="block text-sm font-medium text-white/90">
@@ -308,7 +292,6 @@ const ItineraryFormSection = () => {
                   By submitting this form, you agree to be contacted by our team to discuss your booking details.
                 </p>
               </form>
-            )}
           </div>
         </div>
       </div>
