@@ -96,10 +96,10 @@ const CoachesSection: React.FC = () => {
                      className="object-cover" 
                    />
                    <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4 sm:p-5 md:p-6">
-                     <h3
-                       className={`text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 ${teko.className}`}
-                       style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
-                     >
+                    <h3
+                      className={`text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 ${teko.className}`}
+                      style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
+                    >
                        {coach.name}
                      </h3>
                      <p 
@@ -145,7 +145,7 @@ const CoachesSection: React.FC = () => {
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
                   <h3
-                    className={`text-xl font-bold text-white ${teko.className}`}
+                    className={`text-lg font-bold text-white ${teko.className}`}
                     style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
                   >
                     {coaches[0].name}
@@ -166,7 +166,7 @@ const CoachesSection: React.FC = () => {
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
                   <h3
-                    className={`text-xl font-bold text-white ${teko.className}`}
+                    className={`text-lg font-bold text-white ${teko.className}`}
                     style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
                   >
                     {coaches[1].name}

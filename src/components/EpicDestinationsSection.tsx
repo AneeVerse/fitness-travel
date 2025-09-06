@@ -14,44 +14,30 @@ const highlights: Highlight[] = [
   {
     id: 1,
     image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
-    title: 'Luxury private villa',
+    title: 'Diverse Fitness Modalities',
     description:
-      'A week of workouts, recovery and adventures requires a luxurious home base. That\'s why the villas we stay in are nothing short of jaw-dropping, from their incredible views to their beautiful bedrooms, and every space in between.',
+      'From HIIT and strength training to yoga and martial arts, experience varied workouts designed for all levels',
   },
   {
     id: 2,
     image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-    title: 'Fun, challenging workouts',
+    title: 'Nutrition Mastery',
     description:
-      'All our workouts on our fitness retreats are designed to be challenging, but scalable, whatever fitness level you\'re at. Come ready to get stuck in and give it your all, and we guarantee you\'ll head home feeling fit and inspired.',
+      'Learn local, healthy cuisine and sustainable eating habits with expert nutritionists and local chefs',
   },
   {
     id: 3,
     image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
-    title: 'Like‑minded travellers',
+    title: 'Recovery & Wellness',
     description:
-      'We create trips for like‑minded travellers in their 30s+. With a love for fitness, adventure and travel, you\'ll join a group of new friends and shared memories.',
+      'Master recovery techniques including massage therapy, meditation, and traditional healing practices',
   },
   {
     id: 4,
     image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
-    title: 'Off the beaten path ',
+    title: 'Cultural Immersion',
     description:
-      'Expect boat days, cliff jumps, mountain trails and secret swim spots. We explore the best the location has to offer, ticking off bucket‑list moments along the way.',
-  },
-  {
-    id: 5,
-    image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
-    title: 'Stunning coastal boat days',
-    description:
-      'From sunrise skims to golden hour cruises, our boat days are guest favourites and the perfect way to see the coastline.',
-  },
-  {
-    id: 6,
-    image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-    title: 'Community that lifts you up',
-    description:
-      'Travel with people who share your mindset. You will arrive solo and leave with a group of new friends and shared memories.',
+      'Connect with local communities and traditions while exploring breathtaking natural landscapes',
   },
 ];
 
