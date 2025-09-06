@@ -13,42 +13,44 @@ const TripDetailsSection = () => {
   const content = {
     Inclusion: {
       leftBullets: [
-        'Luxury yacht day charter',
-        'Private accommodation',
+        'Accommodation (twin sharing basis)',
+        'All fitness training sessions',
         'Professional fitness coaching',
-        'All meals and refreshments',
-        'Airport transfers',
-        'Guided coastal hiking',
-        'Outdoor gym access'
+        'Breakfast (all packages)',
+        'Airport transfers & ground transportation',
+        'Gym access (Wanderlust, Unit 27)',
+        'Surfing lessons',
+        'Beach training sessions'
       ],
       rightBullets: [
-        'Pool and jacuzzi access',
         'Yoga and meditation sessions',
-        'Local dining experiences',
-        'Equipment and gear provided',
-        'Group activities and events',
-        'Photography sessions',
-        'Welcome and farewell dinners'
+        'Muay Thai training sessions',
+        'Mount Batur sunrise trek',
+        'Spa recovery sessions & ice bath',
+        'Pool recovery access',
+        'Nutrition guidance',
+        'Boat party ticket (Phuket)',
+        'FitKit equipment provided'
       ]
     },
     Exclusion: {
       leftBullets: [
-        'International flights',
+        'International airfare',
         'Travel insurance',
-        'Personal shopping',
-        'Spa treatments',
-        'Alcoholic beverages',
-        'Optional nightlife activities',
-        'Personal trainer sessions'
+        'Visa fees (if applicable)',
+        'Lunch (most packages)',
+        'Dinner (Ubud portion)',
+        'Personal expenses',
+        'Laundry services'
       ],
       rightBullets: [
-        'Medical expenses',
-        'Laundry services',
-        'Phone and internet charges',
+        'Optional activities not mentioned',
+        'Additional meals & beverages',
         'Tips and gratuities',
-        'Excursions not mentioned',
-        'Additional accommodation',
-        'Personal equipment'
+        'Personal shopping',
+        'Medical expenses',
+        'Room service charges',
+        'Phone and internet charges'
       ]
     }
   };
