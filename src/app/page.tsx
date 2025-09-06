@@ -5,6 +5,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import EpicDestinationsSection from '@/components/EpicDestinationsSection';
 import SocialMosaic from '@/components/SocialMosaic';
+import USPSection from '@/components/USPSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import CoachesSection from '@/components/CoachesSection';
 import FaqSection from '@/components/FaqSection';
@@ -24,6 +25,7 @@ export default function Home() {
       <ReviewsSection />
       <VideoSlider />
       <SocialMosaic />
+      <USPSection />
       <CoachesSection />
     
       <FaqSection />

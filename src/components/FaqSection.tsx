@@ -66,14 +66,16 @@ const FaqSection: React.FC = () => {
                     <button
                       onClick={() => setOpenId(isOpen ? '' : f.id)}
                       className={`group w-full flex items-center justify-between gap-3 sm:gap-3.5 md:gap-4 px-4 sm:px-4.5 md:px-5 py-3 sm:py-3.5 md:py-4 text-left uppercase text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 hover:shadow-lg ${
-                        isOpen ? 'bg-[#ef4a25] text-white shadow-lg rounded-t-xl' : 'bg-gray-900 text-white border border-gray-700 hover:border-orange-500 hover:bg-gray-800 rounded-xl'
+                        isOpen ? 'bg-gradient-to-r from-orange-900/30 to-red-900/30 shadow-lg border border-orange-500/30 rounded-t-xl' : 'bg-gray-900/50 text-white border border-gray-700/50 hover:bg-gray-800/50 hover:border-orange-500/30 rounded-xl hover:scale-102'
                       }`}
                       aria-expanded={isOpen}
                     >
-                      <span className="text-left leading-tight">{f.question}</span>
+                      <span className={`text-left leading-tight transition-all duration-300 ${
+                        isOpen ? 'text-white font-bold' : 'text-gray-300 group-hover:text-white group-hover:font-bold'
+                      }`}>{f.question}</span>
                       <svg
                         className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 flex-shrink-0 ${isOpen ? 'rotate-180' : 'rotate-0'} ${
-                          isOpen ? 'text-white' : 'text-orange-500 group-hover:text-orange-400'
+                          isOpen ? 'text-orange-500' : 'text-gray-500 group-hover:text-orange-400'
                         }`}
                         viewBox="0 0 24 24"
                         fill="none"

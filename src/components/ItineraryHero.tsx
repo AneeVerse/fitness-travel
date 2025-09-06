@@ -252,15 +252,7 @@ const ItineraryHero = () => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <button
-              onClick={() => setIsPricingModalOpen(true)}
-              className="inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 bg-white text-black rounded-[15px] font-semibold text-base sm:text-lg transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
-            >
-              Book Now
-            </button>
-           
-          </div>
+
         </div>
       </div>
       

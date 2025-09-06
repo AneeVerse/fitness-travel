@@ -1,133 +1,82 @@
 "use client";
 
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 const TripDetailsSection = () => {
-  const [activeTab, setActiveTab] = useState('Adventures');
+  const [activeTab, setActiveTab] = useState('Inclusion');
 
   const tabs = [
-    { id: 'Adventures', label: 'Adventures' },
-    { id: 'Accommodation', label: 'Accommodation' },
-    { id: 'Workouts', label: 'Workouts' },
-    { id: 'Food', label: 'Food' },
+    { id: 'Inclusion', label: 'Inclusion' },
+    { id: 'Exclusion', label: 'Exclusion' },
   ];
 
   const content = {
-    Adventures: {
-      title: 'Epic Adventures, Ibiza Style',
-      features: [
-        {
-          title: 'Luxury Yacht Day',
-          description: "We'll charter two private motor yachts and cruise along Ibiza's breathtaking south coast and over to Formentera. Expect crystal-clear swim stops, sun-soaked decks, and unreal coastal views."
-        },
-        {
-          title: 'Coastal Hike in the Northeast',
-          description: "Departing near Cala St. Vincent, we'll trek along the pine tree-lined coastline, winding along cliffs and coves, uncovering Ibiza's quieter, untouched side."
-        },
-        {
-          title: 'Authentic Local Dining',
-          description: "We'll head to a hidden gem in the north to sample traditional Ibizan cooking, fresh local ingredients, and mouth-watering Mediterranean flavours."
-        },
-        {
-          title: 'Optional Nightlife',
-          description: "For those keen, Ibiza's legendary scene awaits. Some guests may choose to head into town for world-class DJ sets. It's your trip, your way."
-        }
+    Inclusion: {
+      leftBullets: [
+        'Luxury yacht day charter',
+        'Private accommodation',
+        'Professional fitness coaching',
+        'All meals and refreshments',
+        'Airport transfers',
+        'Guided coastal hiking',
+        'Outdoor gym access'
       ],
-      image: '/images/itinerary/trip-detail/67caa4b2e6dc3ee2fb637f43_1salt escapes-ibz--2 2.jpg'
+      rightBullets: [
+        'Pool and jacuzzi access',
+        'Yoga and meditation sessions',
+        'Local dining experiences',
+        'Equipment and gear provided',
+        'Group activities and events',
+        'Photography sessions',
+        'Welcome and farewell dinners'
+      ]
     },
-    Accommodation: {
-      title: 'Luxury Countryside Living',
-      features: [
-        {
-          title: 'Spacious & Stylish',
-          description: '8 spacious bedrooms with minimalist, modern vibes.'
-        },
-        {
-          title: 'Private Gym & Yoga Space',
-          description: 'Lots of outdoor space, a custom built gym and large yoga dome for stretching and recovery.'
-        },
-        {
-          title: 'Pool, Jacuzzi & Outdoor Lounge',
-          description: 'The sun-drenched pool area is surrounded by luxury loungers, an open-air dining table, and a large BBQ area.'
-        },
-        {
-          title: 'Outdoor Cinema & Sonos Sound System',
-          description: 'Movie nights under the stars or your favorite playlists setting the vibe.'
-        }
+    Exclusion: {
+      leftBullets: [
+        'International flights',
+        'Travel insurance',
+        'Personal shopping',
+        'Spa treatments',
+        'Alcoholic beverages',
+        'Optional nightlife activities',
+        'Personal trainer sessions'
       ],
-      image: '/images/itinerary/trip-detail/67caa4ac34cc07b6457e13c1_saguaita_06.jpg'
-    },
-    Workouts: {
-      title: 'Train Hard, Island Style',
-      features: [
-        {
-          title: 'Outdoor Sweat Sessions',
-          description: 'Workout under the Balearic sun, with a mix of EMOMs, AMRAPs, and small-team workouts to keep things fresh.'
-        },
-        {
-          title: 'Strength & Conditioning kit',
-          description: 'Sandbags, barbells, kettlebells, and dumbbells.'
-        },
-        {
-          title: 'Squat Rack & Bench',
-          description: 'Custom built gym featuring a squat rack and bench.'
-        },
-        {
-          title: 'Boxing',
-          description: 'Boxing workouts using bags and pads.'
-        }
-      ],
-      image: '/images/itinerary/trip-detail/67caa2ec0caaf1415ff27c65__IBZ4671.jpg'
-    },
-    Food: {
-      title: 'Fresh & Flavourful',
-      features: [
-        {
-          title: 'Chef-Prepared Feasts',
-          description: 'Every meal is designed to fuel your workouts & adventures while celebrating the rich flavors of Spain.'
-        },
-        {
-          title: 'Traditional Paella Night',
-          description: 'A big, authentic paella feast cooked the traditional way.'
-        },
-        {
-          title: 'Garden-to-Table Dining',
-          description: 'Many of our fruits, vegetables, and herbs will be harvested straight from the villa&apos;s garden, bringing the freshest ingredients straight to your plate.'
-        },
-        {
-          title: 'Sunset Alfresco Meals',
-          description: 'Enjoy long, laid-back lunches and dinners by the pool, with bold and fresh Mediterranean flavors.'
-        }
-      ],
-      image: '/images/itinerary/trip-detail/67caa2ebf51676caac79a4b1__IBZ2168.jpg'
+      rightBullets: [
+        'Medical expenses',
+        'Laundry services',
+        'Phone and internet charges',
+        'Tips and gratuities',
+        'Excursions not mentioned',
+        'Additional accommodation',
+        'Personal equipment'
+      ]
     }
   };
 
   return (
-    <section id="trip-details" className="py-12 sm:py-16 md:py-20 bg-gray-50">
-      <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-gray-900 mb-6 sm:mb-8 font-unbounded">
-            What to Expect on this Escape
+    <section id="trip-details" className="py-10 sm:py-12 md:py-14 bg-black min-h-screen flex items-center">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12 w-full">
+        
+        {/* Centered Title */}
+        <div className="text-center mb-8 sm:mb-10">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight">
+            Epic Adventures, <br className="hidden sm:block" />
+            <span className="text-[#ef4a25]">Ibiza Style</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Sun-soaked workouts in the villa&apos;s grounds, Mediterranean feasts whipped up by our private chef and off the beaten path adventures along Ibiza&apos;s beautiful coastline. Unwind by the pool with new friends, relax with yoga in the villa&apos;s yoga dome, and sip ice cold drinks as the golden sun sets on our summer days in Ibiza.
-          </p>
+          <div className="w-24 h-1 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>
-
+       
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-8 sm:mb-12">
-          <div className="flex flex-wrap gap-2 bg-white rounded-full p-2 shadow-lg">
+        <div className="flex justify-center mb-8 sm:mb-10">
+          <div className="flex flex-wrap gap-2 bg-gray-900/50 backdrop-blur-sm rounded-xl p-2 border border-gray-800">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 border-0 outline-none focus:outline-none ${
+                className={`px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold transition-all duration-300 border-0 outline-none focus:outline-none transform hover:scale-105 ${
                   activeTab === tab.id
-                    ? 'bg-[#ef4a25] text-white shadow-md'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-[#ef4a25] text-white shadow-lg shadow-[#ef4a25]/25'
+                    : 'text-gray-300 hover:text-white hover:bg-gray-800/70'
                 }`}
               >
                 {tab.label}
@@ -136,36 +85,30 @@ const TripDetailsSection = () => {
           </div>
         </div>
 
-        {/* Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-start">
-          {/* Left Content */}
-          <div className="space-y-6 sm:space-y-8">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 font-unbounded">
-              {content[activeTab as keyof typeof content].title}
-            </h3>
-            
-            <div className="space-y-4 sm:space-y-6">
-              {content[activeTab as keyof typeof content].features.map((feature, index) => (
-                <div key={index} className="flex items-start gap-3 sm:gap-4">
-                  <div className="flex-shrink-0 w-2 h-2 bg-gray-900 rounded-full mt-2 sm:mt-3"></div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">{feature.title}</h4>
-                    <p className="text-gray-700 leading-relaxed text-sm sm:text-base">{feature.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        {/* Content - Two Columns of Bullet Points */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 max-w-5xl mx-auto">
+          {/* Left Bullet Points */}
+          <div className="space-y-4 sm:space-y-5 flex flex-col items-center lg:items-start">
+            {content[activeTab as keyof typeof content].leftBullets.map((bullet, index) => (
+              <div key={index} className="flex items-center gap-4 sm:gap-5 group w-full max-w-md">
+                <div className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4 bg-[#ef4a25] rounded-full transition-transform duration-200 group-hover:scale-125"></div>
+                <p className="text-gray-200 leading-relaxed text-base sm:text-lg lg:text-xl font-medium group-hover:text-white transition-colors duration-200">
+                  {bullet}
+                </p>
+              </div>
+            ))}
           </div>
 
-          {/* Right Image */}
-          <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden">
-            <Image
-              src={content[activeTab as keyof typeof content].image}
-              alt={`${activeTab} in Ibiza`}
-              fill
-              className="object-cover transition-opacity duration-300"
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
-            />
+          {/* Right Bullet Points */}
+          <div className="space-y-4 sm:space-y-5 flex flex-col items-center lg:items-start">
+            {content[activeTab as keyof typeof content].rightBullets.map((bullet, index) => (
+              <div key={index} className="flex items-center gap-4 sm:gap-5 group w-full max-w-md">
+                <div className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4 bg-[#ef4a25] rounded-full transition-transform duration-200 group-hover:scale-125"></div>
+                <p className="text-gray-200 leading-relaxed text-base sm:text-lg lg:text-xl font-medium group-hover:text-white transition-colors duration-200">
+                  {bullet}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

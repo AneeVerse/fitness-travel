@@ -94,7 +94,11 @@ const events: EventItem[] = [
   },
 ];
 
-const UpcomingEvents = () => {
+interface UpcomingEventsProps {
+  title?: string;
+}
+
+const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURNEYS" }) => {
   const router = useRouter();
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -408,7 +412,7 @@ const UpcomingEvents = () => {
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-            UPCOMING JOURNEYS
+            {title}
           </h2>
         </div>
 
