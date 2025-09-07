@@ -3,338 +3,92 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { TripData } from '@/lib/tripData';
 
-
 interface ItineraryDaysProps {
   tripData: TripData;
 }
 
 const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
   const itineraryDays = tripData.days;
-  const [isMobile, setIsMobile] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // Mobile auto-scroll state
-  const [slideSize, setSlideSize] = useState<number>(244);
-  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
-  const basePositionRef = useRef<number>(0);
-  const isPointerDownRef = useRef<boolean>(false);
-  const dragStartXRef = useRef<number>(0);
-  const dragDeltaRef = useRef<number>(0);
-  const isSnappingRef = useRef<boolean>(false);
-  const snapStartRef = useRef<number>(0);
-  const snapTargetRef = useRef<number>(0);
-  const snapStartTimeRef = useRef<number>(0);
-  const snapDurationMsRef = useRef<number>(300);
+  const translateX = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const totalWidth = useRef(0);
+  const scrollSpeed = 0.5; // Adjust speed as needed
 
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Measure slide size for mobile auto-scroll
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const computeSlideSize = () => {
-      const track = scrollContainerRef.current;
-      if (!track) return;
-      const cards = track.querySelectorAll('[data-card="true"]');
-      if (cards.length < 2) return;
-      const first = (cards[0] as HTMLElement).getBoundingClientRect();
-      const second = (cards[1] as HTMLElement).getBoundingClientRect();
-      const delta = Math.abs(second.left - first.left);
-      if (delta > 0) {
-        setSlideSize(delta);
+  // Calculate Total Width of Scrollable Content
+  const calculateWidth = useCallback(() => {
+    if (containerRef.current) {
+      const firstChild = containerRef.current.children[0] as HTMLElement;
+      if (firstChild) {
+        totalWidth.current = firstChild.offsetWidth * itineraryDays.length;
       }
-    };
-    
-    computeSlideSize();
-    window.addEventListener('resize', computeSlideSize);
-    return () => window.removeEventListener('resize', computeSlideSize);
-  }, [isMobile]);
+    }
+  }, [itineraryDays.length]);
 
-  // Mobile auto-scroll animation (continuous, seamless)
-  useEffect(() => {
-    if (!isMobile) return;
+  // Animation Loop
+  const animate = useCallback(() => {
+    if (!isPaused && !isDragging.current && containerRef.current) {
+      translateX.current -= scrollSpeed;
 
-    const speedPxPerSec = 30; // slow, smooth
-    const copyWidth = itineraryDays.length * slideSize;
-
-    const animate = (currentTime: number) => {
-      const last = lastTimeRef.current || currentTime;
-      const deltaMs = currentTime - last;
-      lastTimeRef.current = currentTime;
-
-      // Update position when not dragging
-      if (!isPointerDownRef.current) {
-        if (isSnappingRef.current) {
-          // Smoothly interpolate to target
-          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
-          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
-          const eased = easeOutCubic(t);
-          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
-          if (t >= 1) {
-            basePositionRef.current = snapTargetRef.current;
-            isSnappingRef.current = false;
-          }
-        } else {
-          // Continuous auto-scroll
-          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-          basePositionRef.current -= deltaPx;
-
-          // Seamless wrap within [-copyWidth, 0)
-          if (basePositionRef.current <= -copyWidth) {
-            basePositionRef.current += copyWidth;
-          } else if (basePositionRef.current >= 0) {
-            basePositionRef.current -= copyWidth;
-          }
-        }
+      if (Math.abs(translateX.current) >= totalWidth.current) {
+        translateX.current = 0; // Reset position to ensure smooth loop
       }
 
-      // Apply drag delta (if any) and render transform relative to middle copy
-      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
-      setRenderTranslateX(x);
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
 
     animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [isMobile, slideSize, itineraryDays.length]);
+  }, [isPaused]);
 
-  // Desktop infinite scroll functionality
-  const [desktopTranslateX, setDesktopTranslateX] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
-  const desktopAnimationRef = useRef<number | null>(null);
-  const desktopLastTimeRef = useRef<number>(0);
-  const desktopBasePositionRef = useRef<number>(0);
-  const dragStartXDesktop = useRef<number>(0);
-  const dragDeltaDesktop = useRef<number>(0);
+  // Handle Pointer Events (Mouse & Touch)
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    isDragging.current = true;
+    setIsPaused(true);
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    startX.current = clientX;
+    scrollLeft.current = translateX.current;
+  };
 
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging.current) return;
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    const walk = (clientX - startX.current) * 2; // Adjust sensitivity
+    translateX.current = scrollLeft.current + walk;
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  };
+
+  const handlePointerUp = () => {
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  // Start Animation & Recalculate on Resize
   useEffect(() => {
-    if (isMobile) return;
-
-    const speedPxPerSec = 30; // Smooth auto-scroll speed
-    const cardWidth = 350; // Approximate card width
-    const copyWidth = itineraryDays.length * cardWidth;
-
-    const animate = (currentTime: number) => {
-      const last = desktopLastTimeRef.current || currentTime;
-      const deltaMs = currentTime - last;
-      desktopLastTimeRef.current = currentTime;
-
-      // Only auto-scroll when not hovering or dragging
-      if (!isHovering && !isDragging) {
-        const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-        desktopBasePositionRef.current -= deltaPx;
-
-        // Seamless wrap for infinite scroll
-        if (desktopBasePositionRef.current <= -copyWidth) {
-          desktopBasePositionRef.current += copyWidth;
-        } else if (desktopBasePositionRef.current >= 0) {
-          desktopBasePositionRef.current -= copyWidth;
-        }
-      }
-
-      // Apply current position with any drag delta (positioned to show middle copy)
-      const finalPosition = -copyWidth + desktopBasePositionRef.current + dragDeltaDesktop.current;
-      setDesktopTranslateX(finalPosition);
-
-      desktopAnimationRef.current = requestAnimationFrame(animate);
-    };
-
-    desktopAnimationRef.current = requestAnimationFrame(animate);
+    calculateWidth();
+    window.addEventListener("resize", calculateWidth);
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (desktopAnimationRef.current) {
-        cancelAnimationFrame(desktopAnimationRef.current);
+      window.removeEventListener("resize", calculateWidth);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isMobile, isHovering, isDragging, itineraryDays.length]);
+  }, [animate, calculateWidth]);
 
-  // Desktop drag handlers
-  const handleDesktopPointerDown = (e: React.PointerEvent) => {
-    if (isMobile) return;
-    setIsDragging(true);
-    dragStartXDesktop.current = e.clientX;
-    dragDeltaDesktop.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-
-  const handleDesktopPointerMove = (e: React.PointerEvent) => {
-    if (isMobile || !isDragging) return;
-    dragDeltaDesktop.current = e.clientX - dragStartXDesktop.current;
-  };
-
-  const handleDesktopPointerUp = (e: React.PointerEvent) => {
-    if (isMobile || !isDragging) return;
-    setIsDragging(false);
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    
-    // Merge drag delta into base position
-    desktopBasePositionRef.current += dragDeltaDesktop.current;
-    dragDeltaDesktop.current = 0;
-  };
-
-  const handleDesktopMouseEnter = () => {
-    if (!isMobile) {
-      setIsHovering(true);
-    }
-  };
-
-  const handleDesktopMouseLeave = () => {
-    if (!isMobile) {
-      setIsHovering(false);
-      setIsDragging(false);
-      dragDeltaDesktop.current = 0;
-    }
-  };
-
-  // Desktop wheel scroll handler
-  const handleWheel = (e: React.WheelEvent) => {
-    if (isMobile) return;
-    
-    // Only handle horizontal scroll or when shift is pressed
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
-      e.preventDefault();
-      const delta = e.deltaX || e.deltaY;
-      desktopBasePositionRef.current -= delta * 0.5; // Reduce sensitivity
-      
-      // Handle seamless wrapping for infinite scroll
-      const cardWidth = 350;
-      const copyWidth = itineraryDays.length * cardWidth;
-      
-      if (desktopBasePositionRef.current <= -copyWidth) {
-        desktopBasePositionRef.current += copyWidth;
-      } else if (desktopBasePositionRef.current >= 0) {
-        desktopBasePositionRef.current -= copyWidth;
-      }
-    }
-    // Allow normal vertical scrolling when it's primarily vertical
-  };
-
-
-  // Mobile touch/pointer handlers
-  const startSnapToNearestCard = useCallback(() => {
-    if (!isMobile) return;
-    
-    // Merge drag delta into the base position and animate to the nearest card
-    basePositionRef.current += dragDeltaRef.current;
-    dragDeltaRef.current = 0;
-
-    const copyWidth = itineraryDays.length * slideSize;
-    // Normalize position into [-copyWidth, 0)
-    if (basePositionRef.current <= -copyWidth) {
-      const wraps = Math.ceil((-basePositionRef.current) / copyWidth);
-      basePositionRef.current += wraps * copyWidth;
-    } else if (basePositionRef.current >= 0) {
-      const wraps = Math.ceil(basePositionRef.current / copyWidth);
-      basePositionRef.current -= wraps * copyWidth;
-    }
-
-    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
-
-    isSnappingRef.current = true;
-    snapStartRef.current = basePositionRef.current;
-    snapTargetRef.current = snapped;
-    snapStartTimeRef.current = performance.now();
-  }, [isMobile, slideSize, itineraryDays.length]);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (!isMobile) return;
-    isPointerDownRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragDeltaRef.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    dragDeltaRef.current = e.clientX - dragStartXRef.current;
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    startSnapToNearestCard();
-  };
-
-  const onPointerLeave = () => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    startSnapToNearestCard();
-  };
-
-  // Touch event listeners for mobile
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleTouchStart = (_e: TouchEvent) => {
-      if (_e.touches.length === 1) {
-        isPointerDownRef.current = true;
-        dragStartXRef.current = _e.touches[0].clientX;
-        dragDeltaRef.current = 0;
-        lastTimeRef.current = performance.now();
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isPointerDownRef.current || e.touches.length !== 1) return;
-      
-      const currentX = e.touches[0].clientX;
-      const deltaX = currentX - dragStartXRef.current;
-      dragDeltaRef.current = deltaX;
-    };
-
-    const handleTouchEnd = () => {
-      if (!isPointerDownRef.current) return;
-      
-      const currentTime = performance.now();
-      const timeDelta = currentTime - lastTimeRef.current;
-      const velocity = dragDeltaRef.current / timeDelta;
-      
-      isPointerDownRef.current = false;
-      
-      // Lower threshold and higher momentum for better sensitivity
-      if (Math.abs(velocity) > 0.1) {
-        const momentumDistance = velocity * 500;
-        dragDeltaRef.current += momentumDistance;
-      }
-      
-      startSnapToNearestCard();
-    };
-
-    // Add event listeners with passive: false to allow preventDefault
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd, { passive: false });
-
-    return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [isMobile, startSnapToNearestCard]);
+  // Duplicate data for seamless looping
+  const duplicatedDays = [...itineraryDays, ...itineraryDays];
 
   return (
-    <section id="itinerary-days" ref={sectionRef} className="relative py-12 md:py-16 bg-black z-[10] overflow-visible ">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+    <section id="itinerary-days" className="relative py-12 md:py-16 bg-black z-[10] overflow-visible">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -345,35 +99,32 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
           </p>
         </div>
 
-        {/* Cards Container */}
-        <div 
-          ref={scrollContainerRef}
-          className="relative overflow-hidden pt-8 cursor-grab active:cursor-grabbing"
-          style={{ zIndex: 1 }}
-          onPointerDown={isMobile ? onPointerDown : handleDesktopPointerDown}
-          onPointerMove={isMobile ? onPointerMove : handleDesktopPointerMove}
-          onPointerUp={isMobile ? onPointerUp : handleDesktopPointerUp}
-          onPointerLeave={isMobile ? onPointerLeave : undefined}
-          onMouseEnter={handleDesktopMouseEnter}
-          onMouseLeave={handleDesktopMouseLeave}
-          onWheel={handleWheel}
+        {/* Scrolling Cards Container */}
+        <div
+          className="relative overflow-hidden pt-8"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handlePointerDown}
+          onTouchMove={handlePointerMove}
+          onTouchEnd={handlePointerUp}
+          onMouseDown={handlePointerDown}
+          onMouseMove={handlePointerMove}
+          onMouseUp={handlePointerUp}
         >
-          <div 
-            className="flex overflow-visible items-center"
-            style={{ 
-              transform: isMobile 
-                ? `translateX(${renderTranslateX}px)` 
-                : `translateX(${desktopTranslateX}px)`,
-              width: 'auto',
-              transition: isDragging ? 'none' : 'transform 0.1s ease-out'
-            }}
+          <div
+            ref={containerRef}
+            className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-4"
           >
-            {Array.from({ length: 3 }).flatMap((_, dupIdx) => itineraryDays.map((v) => ({ ...v, __dup: dupIdx }))).map((day) => {
+            {duplicatedDays.map((day, index) => {
+              const dayId = `${index}-${day.id}`;
+              
               return (
                 <div
-                  key={`${day.__dup}-${day.id}`}
-                  className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] px-2 relative"
+                  key={dayId}
+                  className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all select-none"
                   data-card="true"
+                  draggable={false}
+                  style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
                 >
                   <div className="relative h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] rounded-2xl overflow-hidden shadow-xl bg-black group">
                     {/* Video Background */}
@@ -383,60 +134,59 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                         loop
                         muted
                         playsInline
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                       >
                         <source src={day.videoSrc} type="video/mp4" />
                       </video>
                       
-                      {/* Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      {/* Enhanced Black Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
                       
                       {/* Content */}
                       <div className="absolute inset-4 z-10 flex flex-col justify-between text-white select-none">
                         {/* Top Section */}
-                        <div className="space-y-2">
-                          <p className="text-xs opacity-80 uppercase tracking-wide">{tripData.location.toUpperCase()} FITNESS RETREAT</p>
-                          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+                        <div className="space-y-2 select-none">
+                          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
                             {day.day}
                           </h3>
                         </div>
 
                         {/* Middle Section */}
-                        <div className="space-y-3">
-                          <h4 className="text-sm sm:text-base font-semibold leading-tight">
+                        <div className="space-y-3 select-none">
+                          <h4 className="text-sm sm:text-base font-semibold leading-tight select-none">
                             {day.title}
                           </h4>
-                          <p className="text-xs sm:text-sm opacity-90 leading-relaxed">{day.description}</p>
-                          <p className="text-xs opacity-80 leading-relaxed">{day.extraContent}</p>
+                          <p className="text-xs sm:text-sm opacity-90 leading-relaxed select-none">{day.description}</p>
+                          <p className="text-xs opacity-80 leading-relaxed select-none">{day.extraContent}</p>
                         </div>
 
                         {/* Bottom Section */}
-                        <div className="space-y-3">
+                        <div className="space-y-3 select-none">
                           {/* Details */}
-                          <div className="space-y-1.5 text-xs">
-                            <div className="flex items-center gap-2">
+                          <div className="space-y-1.5 text-xs select-none">
+                            <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                               </svg>
-                              <span className="opacity-90">Included in Package</span>
+                              <span className="opacity-90 select-none">Included in Package</span>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                               </svg>
-                              <span className="opacity-90">{tripData.location}</span>
+                              <span className="opacity-90 select-none">{tripData.location}</span>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                               </svg>
-                              <span className="opacity-90">Professional Guided</span>
+                              <span className="opacity-90 select-none">Professional Guided</span>
                             </div>
                           </div>
                           
                           {/* Time Badge */}
-                          <div className="flex justify-start mt-2">
-                            <div className="bg-[#ef4a25] text-white px-3 py-1.5 rounded-full text-sm font-semibold">
+                          <div className="flex justify-start mt-2 select-none">
+                            <div className="bg-[#ef4a25] text-white px-3 py-1.5 rounded-full text-sm font-semibold select-none">
                               {day.time}
                             </div>
                           </div>
@@ -449,11 +199,9 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
             })}
           </div>
         </div>
-
-        </div>
-      </section>
+      </div>
+    </section>
   );
 };
 
 export default ItineraryDays;
-

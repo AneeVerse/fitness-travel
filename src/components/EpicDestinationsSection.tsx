@@ -13,28 +13,28 @@ type Highlight = {
 const highlights: Highlight[] = [
   {
     id: 1,
-    image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg',
     title: 'Diverse Fitness Modalities',
     description:
       'From HIIT and strength training to yoga and martial arts, experience varied workouts designed for all levels',
   },
   {
     id: 2,
-    image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Nutrition Mastery.jpg',
     title: 'Nutrition Mastery',
     description:
       'Learn local, healthy cuisine and sustainable eating habits with expert nutritionists and local chefs',
   },
   {
     id: 3,
-    image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Recovery & Wellness.jpg',
     title: 'Recovery & Wellness',
     description:
       'Master recovery techniques including massage therapy, meditation, and traditional healing practices',
   },
   {
     id: 4,
-    image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+    image: '/images/COMPLETE EXPERIENCE/Cultural Immersion.jpg',
     title: 'Cultural Immersion',
     description:
       'Connect with local communities and traditions while exploring breathtaking natural landscapes',
@@ -175,7 +175,7 @@ const EpicDestinationsSection: React.FC = () => {
         {/* Desktop: Fixed 4-card grid layout, Mobile: Scrollable */}
         {isMobile ? (
           <div 
-            className="relative overflow-hidden"
+            className="relative overflow-hidden -mx-4 sm:-mx-6"
             onMouseEnter={() => isMobile && setIsPaused(true)}
             onTouchStart={handlePointerDown}
             onTouchMove={handlePointerMove}
@@ -187,15 +187,15 @@ const EpicDestinationsSection: React.FC = () => {
           >
             <div 
               ref={scrollContainerRef}
-              className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-4"
+              className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-4 px-4 sm:px-6"
             >
               {[...highlights, ...highlights, ...highlights].map((h, index) => (
-                <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[280px] flex-shrink-0" draggable={false}>
-                  <div className="relative w-full h-40 rounded-xl overflow-hidden">
+                <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[calc(100vw-2rem)] max-w-[320px] flex-shrink-0" draggable={false}>
+                  <div className="relative w-full h-48 sm:h-52 rounded-xl overflow-hidden">
                     <Image src={h.image} alt={h.title} fill className="object-cover" />
                   </div>
-                  <h3 className="text-white font-semibold text-sm mt-3">{h.title}</h3>
-                  <p className="text-white/75 text-xs mt-2 leading-relaxed">
+                  <h3 className="text-white font-semibold text-base sm:text-lg mt-3 sm:mt-4">{h.title}</h3>
+                  <p className="text-white/75 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
                     {h.description}
                   </p>
                 </div>

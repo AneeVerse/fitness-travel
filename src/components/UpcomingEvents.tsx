@@ -3,13 +3,25 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-// Add CSS for 3D flip effect
+// Add CSS for 3D flip effect and text truncation
 const flipStyles = `
   .backface-hidden {
     backface-visibility: hidden;
   }
   .transform-style-preserve-3d {
     transform-style: preserve-3d;
+  }
+  .text-ellipsis-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .text-ellipsis-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 `;
 
@@ -85,145 +97,65 @@ interface UpcomingEventsProps {
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS", currentSlug }) => {
   const router = useRouter();
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
-
-  // New mobile scroll logic
+  const containerRef = useRef<HTMLDivElement>(null);
   const translateX = useRef(0);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
-  const totalWidth = useRef(0);
 
-  // Mobile detection
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024); // lg breakpoint
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+  // Filter events based on currentSlug - NO DUPLICATION, NO AUTO-SCROLL
+  const filteredEvents = events.filter(event => !currentSlug || event.id.toLowerCase() !== currentSlug);
+
+  // Calculate boundaries for proper scroll limits
+  const calculateBoundaries = useCallback(() => {
+    if (containerRef.current) {
+      const container = containerRef.current.parentElement;
+      if (container) {
+        const containerWidth = container.offsetWidth;
+        const totalContentWidth = containerRef.current.scrollWidth;
+        const maxScroll = Math.max(0, totalContentWidth - containerWidth);
+        return { containerWidth, totalContentWidth, maxScroll };
+      }
+    }
+    return { containerWidth: 0, totalContentWidth: 0, maxScroll: 0 };
   }, []);
 
-  // Calculate Total Width of Scrollable Content
-  const calculateWidth = useCallback(() => {
-    if (scrollContainerRef.current && isMobile) {
-      const children = scrollContainerRef.current.children;
-      if (children.length > 0) {
-        // Calculate actual total width including all gaps and padding
-        let totalContentWidth = 0;
-        for (let i = 0; i < children.length; i++) {
-          const child = children[i] as HTMLElement;
-          totalContentWidth += child.offsetWidth;
-        }
-        totalWidth.current = totalContentWidth;
-      }
-    }
-  }, [isMobile]);
-
-  // No auto-animation for mobile - manual scroll only
-
-  // Handle Touch Events
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!isMobile) return;
+  // Handle Pointer Events (Mouse & Touch) - NO AUTO-SCROLL, BOUNDARY LIMITED
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
     isDragging.current = true;
-    startX.current = e.touches[0]?.clientX || 0;
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    startX.current = clientX;
     scrollLeft.current = translateX.current;
   };
 
-  // Handle Mouse Events
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!isMobile) return;
-    isDragging.current = true;
-    startX.current = e.clientX;
-    scrollLeft.current = translateX.current;
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging.current || !isMobile) return;
-    const x = e.touches[0]?.clientX || 0;
-    const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging.current) return;
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    const walk = (clientX - startX.current) * 1.2; // Adjust sensitivity
     let newTranslate = scrollLeft.current + walk;
     
-    // Set boundaries to prevent scrolling beyond the cards
-    if (scrollContainerRef.current && totalWidth.current > 0) {
-      const containerWidth = scrollContainerRef.current.parentElement?.offsetWidth || 0;
-      const maxScroll = Math.max(0, totalWidth.current - containerWidth);
-      
-      // Limit scroll to boundaries (no infinite scroll)
-      // Allow scrolling right (positive values) to go back to start
-      if (newTranslate > 0) {
-        newTranslate = 0; // Can't scroll past the beginning (right boundary)
-      } 
-      // Allow scrolling left (negative values) to see more cards
-      else if (newTranslate < -maxScroll) {
-        newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
-      }
+    // Calculate boundaries and enforce limits
+    const { maxScroll } = calculateBoundaries();
+    
+    // Enforce boundaries - no infinite scroll
+    if (newTranslate > 0) {
+      newTranslate = 0; // Can't scroll past the beginning (right boundary)
+    } else if (newTranslate < -maxScroll) {
+      newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
     }
     
     translateX.current = newTranslate;
-    
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging.current || !isMobile) return;
-    const x = e.clientX;
-    const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
-    let newTranslate = scrollLeft.current + walk;
-    
-    // Set boundaries to prevent scrolling beyond the cards
-    if (scrollContainerRef.current && totalWidth.current > 0) {
-      const containerWidth = scrollContainerRef.current.parentElement?.offsetWidth || 0;
-      const maxScroll = Math.max(0, totalWidth.current - containerWidth);
-      
-      // Limit scroll to boundaries (no infinite scroll)
-      // Allow scrolling right (positive values) to go back to start
-      if (newTranslate > 0) {
-        newTranslate = 0; // Can't scroll past the beginning (right boundary)
-      } 
-      // Allow scrolling left (negative values) to see more cards
-      else if (newTranslate < -maxScroll) {
-        newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
-      }
-    }
-    
-    translateX.current = newTranslate;
-    
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
   };
 
   const handlePointerUp = () => {
-    if (!isMobile) return;
     isDragging.current = false;
   };
-
-  // Calculate width on mobile for manual scrolling
-  useEffect(() => {
-    if (isMobile) {
-      // Delay width calculation to ensure DOM is rendered
-      const timer = setTimeout(() => {
-        calculateWidth();
-      }, 100);
-      
-      window.addEventListener("resize", calculateWidth);
-
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener("resize", calculateWidth);
-      };
-    }
-  }, [calculateWidth, isMobile]);
 
   // Countdown animation effect
   useEffect(() => {
@@ -264,275 +196,209 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasAnimated]);
 
-
-  // Desktop auto-scroll functionality (original)
-  useEffect(() => {
-    if (isMobile || events.length < 5) return; // Changed from <= 3 to < 5
-
-    const startAutoScroll = () => {
-      autoScrollRef.current = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % events.length);
-      }, 3000);
-    };
-
-    const stopAutoScroll = () => {
-      if (autoScrollRef.current) {
-        clearInterval(autoScrollRef.current);
-        autoScrollRef.current = null;
-      }
-    };
-
-    startAutoScroll();
-
-    // Pause auto-scroll on hover
-    const container = scrollContainerRef.current;
-    if (container) {
-      container.addEventListener('mouseenter', stopAutoScroll);
-      container.addEventListener('mouseleave', startAutoScroll);
-    }
-
-    return () => {
-      stopAutoScroll();
-      if (container) {
-        container.removeEventListener('mouseenter', stopAutoScroll);
-        container.removeEventListener('mouseleave', startAutoScroll);
-      }
-    };
-  }, [isMobile]);
-
-  // Handle card click - navigate to itinerary page
+  // Handle card click - NO NAVIGATION on card click (only button should navigate)
   const handleCardClick = (eventId: string) => {
-    router.push(`/itinerary/${eventId.toLowerCase()}`);
+    // Do nothing - only button should navigate
   };
 
   // Handle hover flip (temporary)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
       <section id="upcoming-events" ref={sectionRef} className="relative py-14 md:py-16 bg-black z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
         <div className="max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 pt-12">
-        {/* Section Title */}
-        <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-            {title}
-          </h2>
-        </div>
+          {/* Section Title */}
+          <div className="text-center mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+              {title}
+            </h2>
+          </div>
 
-        {/* Cards Container */}
-        <div 
-          className="relative overflow-hidden pt-8 pb-8"
-          style={{ zIndex: 1 }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handlePointerUp}
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handlePointerUp}
-          onMouseLeave={handlePointerUp}
-        >
-          <div 
-            ref={scrollContainerRef}
-            className={`flex overflow-visible ${isMobile ? 'justify-start w-max will-change-transform cursor-grab active:cursor-grabbing' : 'justify-center transition-transform duration-500 ease-in-out'} items-center`}
-            style={{ 
-              transform: !isMobile && events.length >= 5 
-                ? `translateX(-${currentIndex * 33.33}%)` 
-                : isMobile 
-                ? `translateX(${translateX.current}px)`
-                : 'none',
-              width: !isMobile && events.length >= 5 
-                ? `${(events.length / 3) * 100}%` 
-                : isMobile ? 'auto' : '100%'
-            }}
+          {/* Scrolling Cards Container - NO AUTO-SCROLL */}
+          <div
+            className="relative overflow-hidden pt-8 pb-8"
+            onTouchStart={handlePointerDown}
+            onTouchMove={handlePointerMove}
+            onTouchEnd={handlePointerUp}
+            onMouseDown={handlePointerDown}
+            onMouseMove={handlePointerMove}
+            onMouseUp={handlePointerUp}
           >
-            {events.filter(event => !currentSlug || event.id.toLowerCase() !== currentSlug).map((event) => {
-              const isFlipped = flippedCards.has(event.id);
-              const isHovered = hoveredCard === event.id;
-              const shouldFlip = isFlipped || isHovered;
-              const availableSlots = event.totalSlots - event.bookedSlots;
-              
-              return (
-                <div
-                  key={event.id}
-                  className={`flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[380px] relative ${
-                    isMobile ? 'px-2' : 'px-6 lg:px-8 xl:px-10'
-                  }`}
-                  data-card="true"
-                  draggable={false}
-                >
-                  {/* Spots Badge - Only on first card, positioned outside card container */}
-                  {event.id === 'PHUKET' && (
-                    <div className="absolute -top-5 left-12 z-[9999]">
-                      <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2">
-                        <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
-                          <div 
-                            className="h-full bg-white rounded-sm transition-all duration-300"
-                            style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
-                          />
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <span className="text-xs font-bold text-black">{displayedSlots}</span>
-                          </div>
-                        </div>
-                        <span className="text-xs font-semibold">Spots left!</span>
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div 
-                    className="relative h-[380px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] cursor-pointer group"
-                    onClick={() => handleCardClick(event.id)}
-                    onMouseEnter={() => setHoveredCard(event.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{ perspective: '1000px', zIndex: 1 }}
+            <div
+              ref={containerRef}
+              className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-6 mx-auto justify-center"
+            >
+              {filteredEvents.map((event, index) => {
+                const eventId = `${index}-${event.id}`;
+                const isFlipped = flippedCards.has(event.id);
+                const isHovered = hoveredCard === event.id;
+                const shouldFlip = isFlipped || isHovered;
+                const availableSlots = event.totalSlots - event.bookedSlots;
+                
+                return (
+                  <div
+                    key={eventId}
+                    className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[380px] mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all relative"
+                    data-card="true"
+                    draggable={false}
                   >
-                    {/* Card Container */}
+                    {/* Spots Badge - Only on first card */}
+                    {event.id === 'PHUKET' && (
+                      <div className="absolute -top-5 left-4 z-[9999]">
+                        <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2 select-none">
+                          <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
+                            <div 
+                              className="h-full bg-white rounded-sm transition-all duration-300"
+                              style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
+                            />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-xs font-bold text-black select-none">{displayedSlots}</span>
+                            </div>
+                          </div>
+                          <span className="text-xs font-semibold select-none">Spots left!</span>
+                        </div>
+                      </div>
+                    )}
+                    
                     <div 
-                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-                        shouldFlip ? 'rotate-y-180' : ''
-                      }`}
-                      style={{ 
-                        transformStyle: 'preserve-3d',
-                        transform: shouldFlip ? 'rotateY(180deg)' : 'rotateY(0deg)'
-                      }}
+                      className="relative h-[380px] sm:h-[420px] md:h-[450px] lg:h-[520px] xl:h-[450px] group shadow-lg"
+                      onMouseEnter={() => setHoveredCard(event.id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                      style={{ perspective: '1000px', zIndex: 1 }}
                     >
-                      {/* Front of Card */}
-                      <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-black">
-                        {/* Video Background */}
-                        <div className="relative w-full h-full">
-                          <video
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                            className="w-full h-full object-cover"
-                          >
-                            <source src={event.videoSrc} type="video/mp4" />
-                          </video>
-                          
-                          {/* Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                          
-                          {/* Content */}
-                          <div className="absolute bottom-4 left-4 right-4 z-10">
-                            <div className="text-white space-y-2">
-                              <p className="text-xs opacity-80">TIGER TERRAIN</p>
-                              <h3 className="text-lg sm:text-xl font-bold uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-                                {event.title}
-                              </h3>
-                              <p className="text-sm opacity-90">{event.description.substring(0, 80)}...</p>
+                      {/* Card Container */}
+                      <div 
+                        className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
+                          shouldFlip ? 'rotate-y-180' : ''
+                        }`}
+                        style={{ 
+                          transformStyle: 'preserve-3d',
+                          transform: shouldFlip ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                        }}
+                      >
+                        {/* Front of Card */}
+                        <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-black select-none">
+                          {/* Video Background */}
+                          <div className="relative w-full h-full">
+                            <video
+                              autoPlay
+                              loop
+                              muted
+                              playsInline
+                              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                            >
+                              <source src={event.videoSrc} type="video/mp4" />
+                            </video>
+                            
+                            {/* Enhanced Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                            
+                            {/* Content */}
+                            <div className="absolute bottom-4 left-4 right-4 z-10">
+                              <div className="text-white space-y-2 select-none">
+                                <p className="text-xs opacity-80 select-none">TIGER TERRAIN</p>
+                                <h3 className="text-lg sm:text-xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
+                                  {event.title}
+                                </h3>
+                                {/* Mobile: Truncated description, Desktop: Original */}
+                                <p className="text-sm opacity-90 select-none">
+                                  <span className="block sm:hidden text-ellipsis-2">{event.description}</span>
+                                  <span className="hidden sm:block">{event.description.substring(0, 80)}...</span>
+                                </p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Back of Card */}
-                      <div 
-                        className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white  "
-                        style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
-                      >
-                        <div className="p-6 h-full flex flex-col justify-between relative z-20">
-                          {/* Header */}
-                          <div>
-                            <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-xl font-bold text-black uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
-                                {event.title}
-                              </h3>
-                              <div className="bg-[#ef4a25] text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                {availableSlots} left
+                        {/* Back of Card */}
+                        <div 
+                          className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white select-none"
+                          style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
+                        >
+                          <div className="p-4 sm:p-6 h-full flex flex-col justify-between relative z-20">
+                            {/* Header */}
+                            <div>
+                              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                                <h3 className="text-lg sm:text-xl font-bold text-black uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
+                                  {event.title}
+                                </h3>
+                                <div className="bg-[#ef4a25] text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold select-none">
+                                  {availableSlots} left
+                                </div>
+                              </div>
+                              
+                              {/* Mobile: Limited description with ellipsis, Desktop: Full description */}
+                              <div className="text-black text-xs sm:text-sm mb-3 sm:mb-4 select-none">
+                                <p className="block sm:hidden text-ellipsis-3">{event.description}</p>
+                                <p className="hidden sm:block">{event.description}</p>
+                              </div>
+                              
+                              {/* Details */}
+                              <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-black select-none">
+                                <div className="flex items-center gap-2 select-none">
+                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
+                                    <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
+                                  </svg>
+                                  <span className="select-none">{event.date}</span>
+                                </div>
+                                <div className="flex items-center gap-2 select-none">
+                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
+                                  </svg>
+                                  <span className="select-none">{event.location}</span>
+                                </div>
+                                <div className="flex items-center gap-2 select-none">
+                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                  </svg>
+                                  <span className="select-none">{event.access}</span>
+                                </div>
                               </div>
                             </div>
                             
-                            <p className="text-black text-sm mb-4">{event.description}</p>
-                            
-                            {/* Details */}
-                            <div className="space-y-2 text-sm text-black">
-                              <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
-                                  <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
-                                </svg>
-                                <span>{event.date}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                                </svg>
-                                <span>{event.location}</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                </svg>
-                                <span>{event.access}</span>
-                              </div>
+                            {/* Button - Better spacing on mobile */}
+                            <div className="mt-4 sm:mt-6 relative" style={{ zIndex: 9999 }}>
+                              <button
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  console.log('Button clicked, navigating to itinerary for', event.id);
+                                  
+                                  // Navigate to specific itinerary based on event ID
+                                  const slug = event.id.toLowerCase();
+                                  window.location.href = `/itinerary/${slug}`;
+                                }}
+                                onMouseDown={(e) => e.stopPropagation()}
+                                onMouseUp={(e) => e.stopPropagation()}
+                                onTouchStart={(e) => e.stopPropagation()}
+                                onTouchEnd={() => {}}
+                                className="w-full bg-[#ef4a25] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer select-none"
+                                style={{ 
+                                  fontFamily: 'var(--font-teko)', 
+                                  pointerEvents: 'auto',
+                                  position: 'relative',
+                                  zIndex: 9999,
+                                  transform: 'translateZ(0)',
+                                  backfaceVisibility: 'hidden'
+                                }}
+                              >
+                                <span className="select-none" style={{ position: 'relative', zIndex: 9999 }}>
+                                  See the itinerary
+                                </span>
+                              </button>
                             </div>
-                          </div>
-                          
-                          {/* Button */}
-                          <div className="mt-6 relative" style={{ zIndex: 9999 }}>
-                            <button
-                              onClick={(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                console.log('Button clicked, navigating to itinerary for', event.id);
-                                
-                                // Navigate to specific itinerary based on event ID
-                                const slug = event.id.toLowerCase();
-                                window.location.href = `/itinerary/${slug}`;
-                              }}
-                              onMouseDown={(e) => {
-                                e.stopPropagation();
-                              }}
-                              onMouseUp={(e) => {
-                                e.stopPropagation();
-                              }}
-                              onTouchStart={(e) => {
-                                e.stopPropagation();
-                              }}
-                              onTouchEnd={() => {
-                                // Touch end handled
-                              }}
-                                className="w-full bg-[#ef4a25] text-black px-4 py-3 rounded-full font-semibold text-sm uppercase tracking-wide hover:bg-black text-white transition-colors inline-flex items-center justify-center cursor-pointer"
-                              style={{ 
-                                fontFamily: 'var(--font-teko)', 
-                                pointerEvents: 'auto',
-                                position: 'relative',
-                                zIndex: 9999,
-                                transform: 'translateZ(0)',
-                                backfaceVisibility: 'hidden'
-                              }}
-                            >
-                              <span style={{ position: 'relative', zIndex: 9999 }}>
-                                See the itinerary
-                              </span>
-                            </button>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-
-        {/* Navigation Dots (if 5 or more events and not mobile) */}
-        {events.length >= 5 && !isMobile && (
-          <div className="flex justify-center mt-8 space-x-2">
-            {Array.from({ length: Math.ceil(events.length / 4) }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-colors ${
-                  Math.floor(currentIndex / 4) === index ? 'bg-[#ef4a25]' : 'bg-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-        )}
         </div>
       </section>
     </>
@@ -540,5 +406,3 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
 };
 
 export default UpcomingEvents;
-
-
