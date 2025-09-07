@@ -20,13 +20,13 @@ const Navbar = () => {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
-        <div className="bg-black/40 backdrop-blur-md rounded-[15px] shadow-md border border-black px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
+        <div className="bg-black/40 backdrop-blur-md rounded-[15px] shadow-md px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
           <div className="flex items-center justify-between h-full">
             <div className="flex-shrink-0 md:mt-1 lg:mt-0 h-full flex items-center overflow-hidden">
               <Link href="/" className="flex items-center h-full">
                 {/* Mobile and Tablet Logo */}
                 <Image
-                  src="/images/left-logo.png"
+                  src="/images/mobile-logo.png"
                   alt="Logo"
                   width={100}
                   height={100}
@@ -79,7 +79,7 @@ const Navbar = () => {
             <div className="hidden md:block md:mt-1 lg:mt-0">
               <button
                 onClick={() => setIsPricingModalOpen(true)}
-                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-black hover:text-white transition-colors duration-200"
+                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-white hover:text-[#ef4a25] transition-colors duration-200"
                 style={{ fontFamily: "var(--font-unbounded)" }}
               >
                 BOOK JOURNEY
@@ -196,7 +196,7 @@ const Navbar = () => {
                 setIsPricingModalOpen(true)
                 setIsMenuOpen(false)
               }}
-              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-black hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
+              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-white hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
               style={{ fontFamily: "var(--font-unbounded)" }}
             >
               BOOK JOURNEY

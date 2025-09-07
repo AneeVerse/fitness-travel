@@ -101,24 +101,19 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Mobile auto-scroll state (similar to ReviewVideo)
-  const [slideSize, setSlideSize] = useState<number>(244);
-  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  // New mobile scroll logic
   const animationRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
-  const basePositionRef = useRef<number>(0);
-  const isPointerDownRef = useRef<boolean>(false);
-  const dragStartXRef = useRef<number>(0);
-  const dragDeltaRef = useRef<number>(0);
-  const isSnappingRef = useRef<boolean>(false);
-  const snapStartRef = useRef<number>(0);
-  const snapTargetRef = useRef<number>(0);
-  const snapStartTimeRef = useRef<number>(0);
-  const snapDurationMsRef = useRef<number>(300);
+  const translateX = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const totalWidth = useRef(0);
+  const scrollSpeed = 0.5;
 
   // Mobile detection
   useEffect(() => {
@@ -131,27 +126,93 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Measure slide size for mobile auto-scroll
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const computeSlideSize = () => {
-      const track = scrollContainerRef.current;
-      if (!track) return;
-      const cards = track.querySelectorAll('[data-card="true"]');
-      if (cards.length < 2) return;
-      const first = (cards[0] as HTMLElement).getBoundingClientRect();
-      const second = (cards[1] as HTMLElement).getBoundingClientRect();
-      const delta = Math.abs(second.left - first.left);
-      if (delta > 0) {
-        setSlideSize(delta);
+  // Calculate Total Width of Scrollable Content
+  const calculateWidth = useCallback(() => {
+    if (scrollContainerRef.current && isMobile) {
+      const firstChild = scrollContainerRef.current.children[0];
+      if (firstChild) {
+        const cardWidth = firstChild.offsetWidth;
+        totalWidth.current = cardWidth * events.length; // Width of one set of cards
       }
-    };
-    
-    computeSlideSize();
-    window.addEventListener('resize', computeSlideSize);
-    return () => window.removeEventListener('resize', computeSlideSize);
+    }
   }, [isMobile]);
+
+  // Animation Loop for mobile
+  const animate = useCallback(() => {
+    if (!isPaused && !isDragging.current && scrollContainerRef.current && isMobile && totalWidth.current > 0) {
+      translateX.current -= scrollSpeed;
+
+      // Reset when we've scrolled through one complete set
+      // With triple duplication, reset at -totalWidth to maintain seamless loop
+      if (translateX.current <= -totalWidth.current) {
+        translateX.current = 0;
+      }
+
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isPaused, isMobile]);
+
+  // Handle Pointer Events (Mouse & Touch)
+  const handlePointerDown = (e: any) => {
+    if (!isMobile) return;
+    isDragging.current = true;
+    setIsPaused(true);
+    startX.current = e.clientX || e.touches?.[0]?.clientX || 0;
+    scrollLeft.current = translateX.current;
+  };
+
+  const handlePointerMove = (e: any) => {
+    if (!isDragging.current || !isMobile) return;
+    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const walk = (x - startX.current) * 1; // Adjust sensitivity
+    let newTranslate = scrollLeft.current + walk;
+    
+    // Handle infinite scroll boundaries during drag
+    if (totalWidth.current > 0) {
+      // Wrap around for infinite scroll
+      while (newTranslate <= -totalWidth.current) {
+        newTranslate += totalWidth.current;
+      }
+      while (newTranslate > 0) {
+        newTranslate -= totalWidth.current;
+      }
+    }
+    
+    translateX.current = newTranslate;
+    
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!isMobile) return;
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  // Start Animation & Recalculate on Resize
+  useEffect(() => {
+    if (isMobile) {
+      // Delay width calculation to ensure DOM is rendered
+      const timer = setTimeout(() => {
+        calculateWidth();
+      }, 100);
+      
+      window.addEventListener("resize", calculateWidth);
+      animationRef.current = requestAnimationFrame(animate);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", calculateWidth);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
+    }
+  }, [animate, calculateWidth, isMobile]);
 
   // Countdown animation effect
   useEffect(() => {
@@ -192,56 +253,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasAnimated]);
 
-  // Mobile auto-scroll animation (continuous, seamless)
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const speedPxPerSec = 30; // slow, smooth
-    const copyWidth = events.length * slideSize;
-
-    const animate = (currentTime: number) => {
-      const last = lastTimeRef.current || currentTime;
-      const deltaMs = currentTime - last;
-      lastTimeRef.current = currentTime;
-
-      // Update position when not dragging
-      if (!isPointerDownRef.current) {
-        if (isSnappingRef.current) {
-          // Smoothly interpolate to target
-          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
-          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
-          const eased = easeOutCubic(t);
-          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
-          if (t >= 1) {
-            basePositionRef.current = snapTargetRef.current;
-            isSnappingRef.current = false;
-          }
-        } else {
-          // Continuous auto-scroll
-          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-          basePositionRef.current -= deltaPx;
-
-          // Seamless wrap within [-copyWidth, 0)
-          if (basePositionRef.current <= -copyWidth) {
-            basePositionRef.current += copyWidth;
-          } else if (basePositionRef.current >= 0) {
-            basePositionRef.current -= copyWidth;
-          }
-        }
-      }
-
-      // Apply drag delta (if any) and render transform relative to middle copy
-      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
-      setRenderTranslateX(x);
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [isMobile, slideSize]);
 
   // Desktop auto-scroll functionality (original)
   useEffect(() => {
@@ -294,116 +305,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
   // Handle hover flip (temporary)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
-  // Mobile touch/pointer handlers
-  const startSnapToNearestCard = useCallback(() => {
-    if (!isMobile) return;
-    
-    // Merge drag delta into the base position and animate to the nearest card
-    basePositionRef.current += dragDeltaRef.current;
-    dragDeltaRef.current = 0;
-
-    const copyWidth = events.length * slideSize;
-    // Normalize position into [-copyWidth, 0)
-    if (basePositionRef.current <= -copyWidth) {
-      const wraps = Math.ceil((-basePositionRef.current) / copyWidth);
-      basePositionRef.current += wraps * copyWidth;
-    } else if (basePositionRef.current >= 0) {
-      const wraps = Math.ceil(basePositionRef.current / copyWidth);
-      basePositionRef.current -= wraps * copyWidth;
-    }
-
-    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
-
-    isSnappingRef.current = true;
-    snapStartRef.current = basePositionRef.current;
-    snapTargetRef.current = snapped;
-    snapStartTimeRef.current = performance.now();
-  }, [isMobile, slideSize]);
-
-  const onPointerDown = (e: React.PointerEvent) => {
-    if (!isMobile) return;
-    isPointerDownRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragDeltaRef.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    dragDeltaRef.current = e.clientX - dragStartXRef.current;
-  };
-
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    startSnapToNearestCard();
-  };
-
-  const onPointerLeave = () => {
-    if (!isMobile || !isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    startSnapToNearestCard();
-  };
-
-  // Touch event listeners for mobile
-  useEffect(() => {
-    if (!isMobile) return;
-    
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleTouchStart = (_e: TouchEvent) => {
-      if (_e.touches.length === 1) {
-        isPointerDownRef.current = true;
-        dragStartXRef.current = _e.touches[0].clientX;
-        dragDeltaRef.current = 0;
-        lastTimeRef.current = performance.now();
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isPointerDownRef.current || e.touches.length !== 1) return;
-      
-      const currentX = e.touches[0].clientX;
-      const deltaX = currentX - dragStartXRef.current;
-      dragDeltaRef.current = deltaX;
-    };
-
-    const handleTouchEnd = () => {
-      if (!isPointerDownRef.current) return;
-      
-      const currentTime = performance.now();
-      const timeDelta = currentTime - lastTimeRef.current;
-      const velocity = dragDeltaRef.current / timeDelta;
-      
-      isPointerDownRef.current = false;
-      
-      // Lower threshold and higher momentum for better sensitivity
-      if (Math.abs(velocity) > 0.1) {
-        const momentumDistance = velocity * 500;
-        dragDeltaRef.current += momentumDistance;
-      }
-      
-      startSnapToNearestCard();
-    };
-
-    // Add event listeners with passive: false to allow preventDefault
-    container.addEventListener('touchstart', handleTouchStart, { passive: false });
-    container.addEventListener('touchmove', handleTouchMove, { passive: false });
-    container.addEventListener('touchend', handleTouchEnd, { passive: false });
-
-    return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-      container.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [isMobile, startSnapToNearestCard]);
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
-      <section id="upcoming-events" ref={sectionRef} className="relative py-12 md:py-16 bg-black z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
+      <section id="upcoming-events" ref={sectionRef} className="relative py-14 md:py-16 bg-black z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
@@ -414,30 +320,30 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
 
         {/* Cards Container */}
         <div 
-          ref={scrollContainerRef}
-          className="relative overflow-hidden pt-8"
+          className="relative overflow-hidden pt-8 pb-8"
           style={{ zIndex: 1 }}
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerLeave}
+          onMouseEnter={() => isMobile && setIsPaused(true)}
+          onTouchStart={handlePointerDown}
+          onTouchMove={handlePointerMove}
+          onTouchEnd={handlePointerUp}
+          onMouseDown={handlePointerDown}
+          onMouseMove={handlePointerMove}
+          onMouseUp={handlePointerUp}
+          onMouseLeave={handlePointerUp}
         >
           <div 
-            className="flex transition-transform duration-500 ease-in-out overflow-visible justify-center items-center"
+            ref={scrollContainerRef}
+            className={`flex overflow-visible justify-center items-center ${isMobile ? 'w-max will-change-transform cursor-grab active:cursor-grabbing' : 'transition-transform duration-500 ease-in-out'}`}
             style={{ 
-              transform: isMobile 
-                ? `translateX(${renderTranslateX}px)` 
-                : events.length > 4 
-                  ? `translateX(-${currentIndex * 25}%)` 
-                  : 'none',
-              width: isMobile 
-                ? 'auto' 
-                : events.length > 4 
-                  ? `${(events.length / 4) * 100}%` 
-                  : '100%'
+              transform: !isMobile && events.length > 4 
+                ? `translateX(-${currentIndex * 25}%)` 
+                : 'none',
+              width: !isMobile && events.length > 4 
+                ? `${(events.length / 4) * 100}%` 
+                : isMobile ? 'auto' : '100%'
             }}
           >
-            {(isMobile ? Array.from({ length: 3 }).flatMap((_, dupIdx) => events.map((v) => ({ ...v, __dup: dupIdx }))) : events).map((event) => {
+            {(isMobile ? [...events, ...events, ...events] : events).map((event, index) => {
               const isFlipped = flippedCards.has(event.id);
               const isHovered = hoveredCard === event.id;
               const shouldFlip = isFlipped || isHovered;
@@ -445,9 +351,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
               
               return (
                 <div
-                  key={isMobile ? `${event.__dup}-${event.id}` : event.id}
+                  key={isMobile ? `${index}-${event.id}` : event.id}
                   className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] px-2 relative"
                   data-card="true"
+                  draggable={false}
                 >
                   {/* Spots Badge - Only on first card, positioned outside card container */}
                   {event.id === 'PHUKET' && (
