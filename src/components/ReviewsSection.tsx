@@ -52,7 +52,7 @@ const ReviewsSection: React.FC = () => {
         </div>
 
         {/* Review Videos Section */}
-        <div className="-mb-32 sm:mb-14 md:mb-16 ">
+        <div className="mb-10 sm:mb-14 md:mb-16 ">
           <ReviewVideo />
         </div>
 

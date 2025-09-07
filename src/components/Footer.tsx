@@ -37,8 +37,8 @@ export default function Footer() {
                   <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     About
                   </Link>
-                  <Link href="/itinerary" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
-                    Events
+                  <Link href="/#social-mosaic" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                    Gallery
                   </Link>
                 </div>
                 
@@ -50,20 +50,20 @@ export default function Footer() {
                   <Link href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     FAQ
                   </Link>
-                  <Link href="#upcoming-events" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
-                    Past Events
+                  <Link href="/#upcoming-events" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                    Upcoming Events
                   </Link>
                 </div>
                 
                 {/* Column 3 */}
                 <div className="space-y-3">
-                  <Link href="#social-mosaic" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
-                    Gallery
+                  <Link href="/#epic-destinations-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                    Experiences
                   </Link>
-                  <Link href="#reviews-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
-                    Feedback
+                  <Link href="/#reviews-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                    Testimonials
                   </Link>
-                  <Link href="#coaches-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  <Link href="/#coaches-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     Team
                   </Link>
                 </div>

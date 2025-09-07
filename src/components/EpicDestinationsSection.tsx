@@ -156,7 +156,7 @@ const EpicDestinationsSection: React.FC = () => {
   }, [animate, calculateWidth, isMobile]);
 
   return (
-    <section className="relative bg-[#ef4a25] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
+    <section id="epic-destinations-section" className="relative bg-[#ef4a25] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-6 sm:mb-8 md:mb-10">
           {/* Centered Title + Subtitle */}

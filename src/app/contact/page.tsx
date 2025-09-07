@@ -103,7 +103,7 @@ const ContactPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             
             {/* Left Column - Contact Info */}
-            <div className="space-y-8">
+            <div className="space-y-8 order-2 lg:order-1">
               {/* Header */}
               <div className="mb-8">
                                  <span className="inline-block px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase mb-4 hover:bg-black hover:text-white transition-colors duration-200">
@@ -184,7 +184,7 @@ const ContactPage = () => {
             </div>
 
             {/* Right Column - Contact Form */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 lg:p-10">
+            <div className="bg-white rounded-2xl shadow-lg p-8 lg:p-10 order-1 lg:order-2">
               <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 font-unbounded mb-8">
                 SEND US A MESSAGE
               </h3>
