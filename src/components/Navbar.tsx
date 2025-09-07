@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
+      <nav className="fixed top-0 left-0 right-0 z-[9999] px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 py-1 sm:py-1.5 md:py-2 lg:py-2.5 bg-transparent">
         <div className="bg-black/40 backdrop-blur-md rounded-[15px] shadow-md px-3 sm:px-4 md:px-6 lg:px-6 xl:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 max-w-[1325px] mx-auto h-14 sm:h-16 md:h-18 lg:h-20">
           <div className="flex items-center justify-between h-full">
             <div className="flex-shrink-0 md:mt-1 lg:mt-0 h-full flex items-center overflow-hidden">
@@ -120,7 +120,7 @@ const Navbar = () => {
 
       {/* Full Screen Mobile Menu */}
       <div
-        className={`md:hidden fixed inset-0 z-40 transition-all duration-500 ease-in-out ${
+        className={`md:hidden fixed inset-0 z-[9998] transition-all duration-500 ease-in-out ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >

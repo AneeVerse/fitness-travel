@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const CTALogo = () => {
   return (
-    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
+    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
       <Image
         src="/images/new-logo.svg"
         alt="Tiger Terrain"
