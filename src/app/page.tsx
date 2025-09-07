@@ -21,8 +21,9 @@ export default function Home() {
       <UpcomingEvents />
       <EpicDestinationsSection />
       <ReviewsSection />
-      <VideoSlider />
       <SocialMosaic />
+      <VideoSlider />
+  
       <USPSection />
       <CoachesSection />
     

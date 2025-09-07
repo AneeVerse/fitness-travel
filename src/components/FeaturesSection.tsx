@@ -88,7 +88,7 @@ const FeaturesSection = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">
             
             {/* Left Column - Text Content */}
-            <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-2 lg:order-1">
+            <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-1 lg:order-1">
               <div className="max-w-xl sm:max-w-2xl">
                 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
                   Need a fitness retreat or adventure travel experience?
@@ -104,8 +104,8 @@ const FeaturesSection = () => {
                   </p>
                 </div>
 
-                {/* CTA Buttons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
+                {/* CTA Buttons - Desktop only, hidden on mobile */}
+                <div className="hidden lg:flex flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
                   <button
                     onClick={() => setIsPricingModalOpen(true)}
                     className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg"
@@ -128,7 +128,7 @@ const FeaturesSection = () => {
             </div>
 
             {/* Right Column - Video Card */}
-            <div className="flex justify-center lg:justify-end lg:col-span-5 order-1 lg:order-2">
+            <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
               <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-sm xl:max-w-md">
                 {/* Video Card Container */}
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-white">
@@ -205,6 +205,30 @@ const FeaturesSection = () => {
                 </div>
               </div>
             </div>
+
+            {/* CTA Buttons - Mobile only, appears after video */}
+            <div className="lg:hidden lg:col-span-12 order-3 flex justify-center">
+              <div className="flex flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
+                <button
+                  onClick={() => setIsPricingModalOpen(true)}
+                  className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg"
+                >
+                  Book Adventure
+                </button>
+                <button
+                  onClick={() => {
+                    const upcomingEventsSection = document.querySelector('#upcoming-events');
+                    if (upcomingEventsSection) {
+                      upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                  className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                >
+                  View Destinations
+                </button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>

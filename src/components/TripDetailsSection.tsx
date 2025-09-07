@@ -64,8 +64,7 @@ const TripDetailsSection = () => {
         {/* Centered Title */}
         <div className="text-center mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight">
-            Phuket Fitcation, <br className="hidden sm:block" />
-            <span className="text-[#ef4a25]">Package Details</span>
+            Phuket Fitcation, <span className="text-[#ef4a25]">Package Details</span>
           </h2>
           <div className="w-24 h-1 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>

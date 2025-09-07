@@ -80,7 +80,7 @@ interface UpcomingEventsProps {
   title?: string;
 }
 
-const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURNEYS" }) => {
+const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS" }) => {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
@@ -114,30 +114,20 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
   // Calculate Total Width of Scrollable Content
   const calculateWidth = useCallback(() => {
     if (scrollContainerRef.current && isMobile) {
-      const firstChild = scrollContainerRef.current.children[0] as HTMLElement;
-      if (firstChild) {
-        const cardWidth = firstChild.offsetWidth;
-        totalWidth.current = cardWidth * events.length; // Width of one set of cards
+      const children = scrollContainerRef.current.children;
+      if (children.length > 0) {
+        // Calculate actual total width including all gaps and padding
+        let totalContentWidth = 0;
+        for (let i = 0; i < children.length; i++) {
+          const child = children[i] as HTMLElement;
+          totalContentWidth += child.offsetWidth;
+        }
+        totalWidth.current = totalContentWidth;
       }
     }
   }, [isMobile]);
 
-  // Animation Loop for mobile
-  const animate = useCallback(() => {
-    if (!isPaused && !isDragging.current && scrollContainerRef.current && isMobile && totalWidth.current > 0) {
-      translateX.current -= scrollSpeed;
-
-      // Reset when we've scrolled through one complete set
-      // With triple duplication, reset at -totalWidth to maintain seamless loop
-      if (translateX.current <= -totalWidth.current) {
-        translateX.current = 0;
-      }
-
-      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
-    }
-
-    animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused, isMobile]);
+  // No auto-animation for mobile - manual scroll only
 
   // Handle Pointer Events (Mouse & Touch)
   const handlePointerDown = (e: any) => {
@@ -151,17 +141,22 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
   const handlePointerMove = (e: any) => {
     if (!isDragging.current || !isMobile) return;
     const x = e.clientX || e.touches?.[0]?.clientX || 0;
-    const walk = (x - startX.current) * 1; // Adjust sensitivity
+    const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
     let newTranslate = scrollLeft.current + walk;
     
-    // Handle infinite scroll boundaries during drag
-    if (totalWidth.current > 0) {
-      // Wrap around for infinite scroll
-      while (newTranslate <= -totalWidth.current) {
-        newTranslate += totalWidth.current;
-      }
-      while (newTranslate > 0) {
-        newTranslate -= totalWidth.current;
+    // Set boundaries to prevent scrolling beyond the cards
+    if (scrollContainerRef.current && totalWidth.current > 0) {
+      const containerWidth = scrollContainerRef.current.parentElement?.offsetWidth || 0;
+      const maxScroll = Math.max(0, totalWidth.current - containerWidth);
+      
+      // Limit scroll to boundaries (no infinite scroll)
+      // Allow scrolling right (positive values) to go back to start
+      if (newTranslate > 0) {
+        newTranslate = 0; // Can't scroll past the beginning (right boundary)
+      } 
+      // Allow scrolling left (negative values) to see more cards
+      else if (newTranslate < -maxScroll) {
+        newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
       }
     }
     
@@ -178,7 +173,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
     setIsPaused(false);
   };
 
-  // Start Animation & Recalculate on Resize
+  // Calculate width on mobile for manual scrolling
   useEffect(() => {
     if (isMobile) {
       // Delay width calculation to ensure DOM is rendered
@@ -187,17 +182,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
       }, 100);
       
       window.addEventListener("resize", calculateWidth);
-      animationRef.current = requestAnimationFrame(animate);
 
       return () => {
         clearTimeout(timer);
         window.removeEventListener("resize", calculateWidth);
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-        }
       };
     }
-  }, [animate, calculateWidth, isMobile]);
+  }, [calculateWidth, isMobile]);
 
   // Countdown animation effect
   useEffect(() => {
@@ -295,7 +286,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
     <>
       <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
       <section id="upcoming-events" ref={sectionRef} className="relative py-14 md:py-16 bg-black z-[10] overflow-visible mt-16 sm:mt-20 md:mt-24 lg:mt-28 xl:mt-32">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+        <div className="max-w-[2000px] mx-auto px-4 sm:px-6 lg:px-12 xl:px-16 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
@@ -307,7 +298,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
         <div 
           className="relative overflow-hidden pt-8 pb-8"
           style={{ zIndex: 1 }}
-          onMouseEnter={() => isMobile && setIsPaused(true)}
           onTouchStart={handlePointerDown}
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerUp}
@@ -318,17 +308,19 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
         >
           <div 
             ref={scrollContainerRef}
-            className={`flex overflow-visible justify-center items-center ${isMobile ? 'w-max will-change-transform cursor-grab active:cursor-grabbing' : 'transition-transform duration-500 ease-in-out'}`}
+            className={`flex overflow-visible ${isMobile ? 'justify-start w-max will-change-transform cursor-grab active:cursor-grabbing' : 'justify-center transition-transform duration-500 ease-in-out'} items-center`}
             style={{ 
               transform: !isMobile && events.length >= 5 
                 ? `translateX(-${currentIndex * 33.33}%)` 
+                : isMobile 
+                ? `translateX(${translateX.current}px)`
                 : 'none',
               width: !isMobile && events.length >= 5 
                 ? `${(events.length / 3) * 100}%` 
                 : isMobile ? 'auto' : '100%'
             }}
           >
-            {(isMobile ? [...events, ...events, ...events] : events).map((event, index) => {
+            {events.map((event, index) => {
               const isFlipped = flippedCards.has(event.id);
               const isHovered = hoveredCard === event.id;
               const shouldFlip = isFlipped || isHovered;
@@ -336,14 +328,16 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
               
               return (
                 <div
-                  key={isMobile ? `${index}-${event.id}` : event.id}
-                  className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] px-2 relative"
+                  key={event.id}
+                  className={`flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[380px] relative ${
+                    isMobile ? 'px-2' : 'px-6 lg:px-8 xl:px-10'
+                  }`}
                   data-card="true"
                   draggable={false}
                 >
                   {/* Spots Badge - Only on first card, positioned outside card container */}
                   {event.id === 'PHUKET' && (
-                    <div className="absolute -top-5 left-6 z-[9999]">
+                    <div className="absolute -top-5 left-12 z-[9999]">
                       <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2">
                         <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
                           <div 
@@ -360,7 +354,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
                   )}
                   
                   <div 
-                    className="relative h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] cursor-pointer group"
+                    className="relative h-[380px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] cursor-pointer group"
                     onClick={() => handleCardFlip(event.id)}
                     onMouseEnter={() => setHoveredCard(event.id)}
                     onMouseLeave={() => setHoveredCard(null)}
@@ -418,7 +412,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
                                 <h3 className="text-xl font-bold text-black uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
                                 {event.title}
                               </h3>
-                              <div className="bg-[#ef4a25] text-black px-3 py-1 rounded-full text-sm font-semibold">
+                              <div className="bg-[#ef4a25] text-white px-3 py-1 rounded-full text-sm font-semibold">
                                 {availableSlots} left
                               </div>
                             </div>

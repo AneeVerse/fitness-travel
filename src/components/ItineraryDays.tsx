@@ -295,19 +295,23 @@ const ItineraryDays = () => {
   const handleWheel = (e: React.WheelEvent) => {
     if (isMobile) return;
     
-    e.preventDefault();
-    const delta = e.deltaX || e.deltaY;
-    desktopBasePositionRef.current -= delta;
-    
-    // Handle seamless wrapping for infinite scroll
-    const cardWidth = 350;
-    const copyWidth = itineraryDays.length * cardWidth;
-    
-    if (desktopBasePositionRef.current <= -copyWidth) {
-      desktopBasePositionRef.current += copyWidth;
-    } else if (desktopBasePositionRef.current >= 0) {
-      desktopBasePositionRef.current -= copyWidth;
+    // Only handle horizontal scroll or when shift is pressed
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey) {
+      e.preventDefault();
+      const delta = e.deltaX || e.deltaY;
+      desktopBasePositionRef.current -= delta * 0.5; // Reduce sensitivity
+      
+      // Handle seamless wrapping for infinite scroll
+      const cardWidth = 350;
+      const copyWidth = itineraryDays.length * cardWidth;
+      
+      if (desktopBasePositionRef.current <= -copyWidth) {
+        desktopBasePositionRef.current += copyWidth;
+      } else if (desktopBasePositionRef.current >= 0) {
+        desktopBasePositionRef.current -= copyWidth;
+      }
     }
+    // Allow normal vertical scrolling when it's primarily vertical
   };
 
 

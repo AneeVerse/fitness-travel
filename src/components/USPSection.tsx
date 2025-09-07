@@ -157,7 +157,7 @@ const USPSection = () => {
           <div className="hidden lg:block relative">
             <div className="sticky top-8">
               <div className="relative overflow-hidden rounded-2xl shadow-xl bg-gradient-to-br from-gray-800 to-gray-900">
-                <div className="aspect-[4/4] relative">
+                <div className="w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-140 relative">
                   <Image
                     src={uspItems[activeIndex].image}
                     alt={uspItems[activeIndex].title}
