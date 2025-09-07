@@ -46,13 +46,13 @@ const ReviewsSection: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white font-unbounded">
             Voices of Transformation
           </h2>
-          <p className="mt-3 text-base sm:text-lg md:text-xl text-white">
+          <p className="mt-3 text-base sm:text-lg md:text-xl text-white xl:mb-10">
             Hear from souls who discovered their force and change through Tiger Terrain journeys.
           </p>
         </div>
 
         {/* Review Videos Section */}
-        <div className="-mb-32 sm:mb-14 md:mb-16 xl:-mb-40">
+        <div className="-mb-32 sm:mb-14 md:mb-16 xl:-mb-60">
           <ReviewVideo />
         </div>
 

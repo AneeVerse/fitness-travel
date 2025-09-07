@@ -687,7 +687,7 @@ export default function ReviewVideo() {
 
   return (
     <>
-      <section className="w-full bg-black py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
+      <section className="w-full bg-black py-8 sm:py-10 md:py-16 lg:py-20 xl:py-10 xl:pt-20 overflow-hidden md:-mt-25 md:-mb-16 -mt-8 -mb-10">
         <div className="w-full">
           {/* Slider Container */}
           <div 
@@ -696,10 +696,6 @@ export default function ReviewVideo() {
             onTouchStart={isMobile ? handlePointerDown : undefined}
             onTouchMove={isMobile ? handlePointerMove : undefined}
             onTouchEnd={isMobile ? handlePointerUp : undefined}
-            onMouseDown={isMobile ? handlePointerDown : undefined}
-            onMouseMove={isMobile ? handlePointerMove : undefined}
-            onMouseUp={isMobile ? handlePointerUp : undefined}
-            onMouseLeave={isMobile ? handlePointerUp : undefined}
             onPointerDown={!isMobile ? onPointerDown : undefined}
             onPointerMove={!isMobile ? onPointerMove : undefined}
             onPointerUp={!isMobile ? onPointerUp : undefined}

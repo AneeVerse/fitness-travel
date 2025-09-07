@@ -386,7 +386,7 @@ export default function VideoSlider() {
 
 
   return (
-    <section id="tiger-terrain-highlights" className="w-full bg-black mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
+    <section id="tiger-terrain-highlights" className="w-full bg-black mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20 xl:mt-">
       <div className="w-full">
 
         {/* Header - Centered */}
@@ -405,10 +405,6 @@ export default function VideoSlider() {
           onTouchStart={isMobile ? handlePointerDown : undefined}
           onTouchMove={isMobile ? handlePointerMove : undefined}
           onTouchEnd={isMobile ? handlePointerUp : undefined}
-          onMouseDown={isMobile ? handlePointerDown : undefined}
-          onMouseMove={isMobile ? handlePointerMove : undefined}
-          onMouseUp={isMobile ? handlePointerUp : undefined}
-          onMouseLeave={isMobile ? handlePointerUp : undefined}
           onPointerDown={!isMobile ? onPointerDown : undefined}
           onPointerMove={!isMobile ? onPointerMove : undefined}
           onPointerUp={!isMobile ? onPointerUp : undefined}
