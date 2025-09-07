@@ -66,9 +66,11 @@ export default function VideoSlider() {
   const translateX = useRef(0);
   const isDragging = useRef(false);
   const startX = useRef(0);
+  const startY = useRef(0);
   const scrollLeft = useRef(0);
   const totalWidth = useRef(0);
   const scrollSpeed = 0.5;
+  const isHorizontalDrag = useRef(false);
 
   // Desktop animation state (for non-mobile)
   const [slideSize, setSlideSize] = useState<number>(244);
@@ -127,26 +129,86 @@ export default function VideoSlider() {
     animationRef.current = requestAnimationFrame(animate);
   }, [isPaused, isMobile]);
 
-  // Handle Pointer Events (Mouse & Touch)
-  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+  // Handle Touch Events (Mobile)
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    if (!isMobile) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+    
+    startX.current = touch.clientX;
+    startY.current = touch.clientY;
+    scrollLeft.current = translateX.current;
+    isDragging.current = false; // Don't immediately set to true
+    isHorizontalDrag.current = false;
+  }, [isMobile]);
+
+  const handleTouchMove = useCallback((e: TouchEvent) => {
+    if (!isMobile) return;
+    const touch = e.touches[0];
+    if (!touch) return;
+
+    const currentX = touch.clientX;
+    const currentY = touch.clientY;
+    const deltaX = Math.abs(currentX - startX.current);
+    const deltaY = Math.abs(currentY - startY.current);
+
+    if (!isDragging.current) {
+      // Only engage drag mode when horizontal movement is clearly dominant
+      if (deltaX > 20 && deltaX > deltaY * 1.5) {
+        isHorizontalDrag.current = true;
+        isDragging.current = true;
+        setIsPaused(true);
+      } else if (deltaY > 20 && deltaY > deltaX * 1.5) {
+        // User is scrolling vertically → let browser handle it
+        isHorizontalDrag.current = false;
+        return;
+      }
+    }
+
+    // Only block default when we are sure it's horizontal drag
+    if (isDragging.current && isHorizontalDrag.current) {
+      e.preventDefault();
+
+      const walk = (currentX - startX.current);
+      let newTranslate = scrollLeft.current + walk;
+
+      if (totalWidth.current > 0) {
+        while (newTranslate <= -totalWidth.current) newTranslate += totalWidth.current;
+        while (newTranslate > 0) newTranslate -= totalWidth.current;
+      }
+
+      translateX.current = newTranslate;
+
+      if (sliderRef.current) {
+        sliderRef.current.style.transform = `translateX(${translateX.current}px)`;
+      }
+    }
+  }, [isMobile]);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isMobile) return;
+    isDragging.current = false;
+    isHorizontalDrag.current = false;
+    setIsPaused(false);
+  }, [isMobile]);
+
+  // Handle Mouse Events (for desktop testing)
+  const handleMouseDown = (e: React.MouseEvent) => {
     if (!isMobile) return;
     isDragging.current = true;
     setIsPaused(true);
-    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
-    startX.current = clientX || 0;
+    startX.current = e.clientX;
     scrollLeft.current = translateX.current;
+    isHorizontalDrag.current = true;
   };
 
-  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging.current || !isMobile) return;
-    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
-    const x = clientX || 0;
-    const walk = (x - startX.current) * 1; // Adjust sensitivity
+    const x = e.clientX;
+    const walk = (x - startX.current) * 1;
     let newTranslate = scrollLeft.current + walk;
     
-    // Handle infinite scroll boundaries during drag
     if (totalWidth.current > 0) {
-      // Wrap around for infinite scroll
       while (newTranslate <= -totalWidth.current) {
         newTranslate += totalWidth.current;
       }
@@ -162,9 +224,10 @@ export default function VideoSlider() {
     }
   };
 
-  const handlePointerUp = () => {
+  const handleMouseUp = () => {
     if (!isMobile) return;
     isDragging.current = false;
+    isHorizontalDrag.current = false;
     setIsPaused(false);
   };
 
@@ -188,6 +251,24 @@ export default function VideoSlider() {
       };
     }
   }, [animate, calculateWidth, isMobile]);
+
+  // Mobile touch event listeners
+  useEffect(() => {
+    if (isMobile && sliderRef.current) {
+      const container = sliderRef.current.parentElement;
+      if (!container) return;
+
+      container.addEventListener('touchstart', handleTouchStart, { passive: true });
+      container.addEventListener('touchmove', handleTouchMove, { passive: false });
+      container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+      return () => {
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchmove', handleTouchMove);
+        container.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [isMobile, handleTouchStart, handleTouchMove, handleTouchEnd]);
 
   // Desktop: Measure slide size responsively from actual DOM
   useEffect(() => {
@@ -404,9 +485,6 @@ export default function VideoSlider() {
         <div
           className="relative mt-4 sm:mt-6 carousel-container overflow-hidden"
           onMouseEnter={() => isMobile && setIsPaused(true)}
-          onTouchStart={isMobile ? handlePointerDown : undefined}
-          onTouchMove={isMobile ? handlePointerMove : undefined}
-          onTouchEnd={isMobile ? handlePointerUp : undefined}
           onPointerDown={!isMobile ? onPointerDown : undefined}
           onPointerMove={!isMobile ? onPointerMove : undefined}
           onPointerUp={!isMobile ? onPointerUp : undefined}
