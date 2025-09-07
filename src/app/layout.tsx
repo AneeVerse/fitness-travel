@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Unbounded, Teko } from "next/font/google";
 import Script from "next/script";
+import Image from "next/image";
 import "./globals.css";
 
 const inter = Inter({
@@ -72,9 +73,9 @@ export default function RootLayout({
           `}
         </Script>
         <noscript>
-          <img 
-            height="1" 
-            width="1" 
+          <Image 
+            height={1} 
+            width={1} 
             style={{display:'none'}}
             src="https://www.facebook.com/tr?id=745384248302105&ev=PageView&noscript=1"
             alt=""

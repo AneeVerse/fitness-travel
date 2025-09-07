@@ -18,7 +18,7 @@ const coaches: Coach[] = [
     imageSrc: "/images/coach/team1.webp",
     socials: [
       { label: "LinkedIn", href: "#" },
-      { label: "Instagram", href: "#" },
+      { label: "Instagram", href: "https://www.instagram.com/coachmanojk/" },
       { label: "Email", href: "#" },
     ]
   },
@@ -29,7 +29,7 @@ const coaches: Coach[] = [
     imageSrc: "/images/coach/team2.webp",
     socials: [
       { label: "LinkedIn", href: "#" },
-      { label: "Instagram", href: "#" },
+      { label: "Instagram", href: "https://www.instagram.com/vmcrocks/" },
       { label: "Email", href: "#" },
     ]
   },

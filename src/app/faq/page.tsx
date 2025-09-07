@@ -53,7 +53,7 @@ const FaqPage = () => {
             <div>
               <p className="text-sm uppercase tracking-wide text-[#ef4a25] font-bold">Need more help?</p>
               <h3 className="text-xl sm:text-2xl font-bold text-white font-unbounded mt-1">Still have questions?</h3>
-              <p className="text-gray-300 mt-1">Reach out and we'll get back within 24 hours.</p>
+              <p className="text-gray-300 mt-1">Reach out and we&apos;ll get back within 24 hours.</p>
             </div>
             <Link
               href="/contact"

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
 
 // Add CSS for 3D flip effect and text truncation
 const flipStyles = `
@@ -95,8 +94,7 @@ interface UpcomingEventsProps {
 }
 
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS", currentSlug }) => {
-  const router = useRouter();
-  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [flippedCards] = useState<Set<string>>(new Set());
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -197,9 +195,9 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   }, [hasAnimated]);
 
   // Handle card click - NO NAVIGATION on card click (only button should navigate)
-  const handleCardClick = (eventId: string) => {
-    // Do nothing - only button should navigate
-  };
+  // const handleCardClick = (eventId: string) => {
+  //   // Do nothing - only button should navigate
+  // };
 
   // Handle hover flip (temporary)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);

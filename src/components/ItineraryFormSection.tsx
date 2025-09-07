@@ -19,7 +19,7 @@ interface ItineraryFormSectionProps {
   tripData: TripData;
 }
 
-const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _ }) => {
+const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     name: "",
