@@ -135,7 +135,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
                     placeholder="Enter your full name"
                   />
                 </div>
@@ -153,7 +153,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                       required
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
                       placeholder="Your phone number"
                     />
                   </div>
@@ -168,7 +168,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -180,7 +180,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                     <button
                       type="button"
                       onClick={() => setIsDateOpen(!isDateOpen)}
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70 flex items-center justify-between"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70 flex items-center justify-between"
                     >
                       <div className="flex items-center gap-3">
                         <Calendar className="w-5 h-5 text-[#ef4a25]" />
@@ -230,7 +230,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                         max="20"
                         value={formData.people}
                         onChange={handleInputChange}
-                        className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                        className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
                         placeholder="1"
                       />
                     </div>
@@ -242,7 +242,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _
                       <button
                         type="button"
                         onClick={() => setIsAccommodationOpen(!isAccommodationOpen)}
-                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70 flex items-center justify-between"
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70 flex items-center justify-between"
                       >
                         <div className="flex items-center gap-3">
                           <Home className="w-5 h-5 text-[#ef4a25]" />

@@ -13,7 +13,7 @@ export default function ItineraryPage() {
       {/* Hero Section */}
       <section className="pt-24 pb-8 px-4 sm:px-8 md:px-12 lg:px-16 xl:-mb-35">
         <div className="max-w-[1325px] mx-auto">
-          <div className="relative min-h-[45vh] w-full overflow-hidden rounded-3xl">
+          <div className="relative min-h-[20vh] sm:min-h-[40vh] md:min-h-[45vh] w-full overflow-hidden rounded-3xl">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image

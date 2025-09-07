@@ -69,7 +69,7 @@ const ContactPage = () => {
              {/* Hero Section */}
        <section className="pt-24 pb-8 px-4 sm:px-8 md:px-12 lg:px-16">
          <div className="max-w-[1325px] mx-auto">
-           <div className="relative min-h-[45vh] w-full overflow-hidden rounded-3xl -mb-14">
+           <div className="relative min-h-[20vh] sm:min-h-[40vh] md:min-h-[45vh] w-full overflow-hidden rounded-3xl -mb-14">
              {/* Background Image */}
              <div className="absolute inset-0 z-0">
                <Image
@@ -184,88 +184,105 @@ const ContactPage = () => {
             </div>
 
             {/* Right Column - Contact Form */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 lg:p-10 order-1 lg:order-2">
-              <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 font-unbounded mb-8">
-                SEND US A MESSAGE
-              </h3>
+            <div className="order-1 lg:order-2">
+              <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-600/30 p-6 sm:p-8 lg:p-10 shadow-2xl">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white font-unbounded mb-8">
+                  SEND US A MESSAGE
+                </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                                 {/* Full Name */}
-                 <div>
-                   <input
-                     type="text"
-                     name="fullName"
-                     placeholder="Full Name"
-                     value={formData.fullName}
-                     onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
-                     required
-                   />
-                 </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Full Name */}
+                  <div>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      placeholder="Full Name"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      required
+                    />
+                  </div>
 
-                 {/* Email and Phone Row */}
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
-                    required
-                  />
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
-                  />
-                 </div>
-
-                 {/* Subject */}
-                 <div>
-                   <input
-                     type="text"
-                     name="subject"
-                     placeholder="Subject / Topic"
-                     value={formData.subject}
-                     onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all bg-white text-gray-900 placeholder-gray-500"
-                     required
-                   />
-                 </div>
-
-                 {/* Message */}
-                 <div>
-                   <textarea
-                     name="message"
-                     placeholder="Message"
-                     rows={6}
-                     value={formData.message}
-                     onChange={handleInputChange}
-                     className="w-full px-4 py-4 border border-gray-400 rounded-lg focus:ring-2 focus:ring-[#ef4a25] focus:border-transparent outline-none transition-all resize-vertical bg-white text-gray-900 placeholder-gray-500"
-                     required
-                   />
-                 </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#ef4a25] text-white font-bold py-4 px-8 rounded-lg hover:bg-[#d66d1f] transform hover:scale-[1.02] transition-all duration-200 font-unbounded text-sm tracking-wide disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  {isSubmitting ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      SENDING...
+                  {/* Email and Phone Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Email Address"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                        required
+                      />
                     </div>
-                  ) : (
-                    'SEND MESSAGE'
-                  )}
-                </button>
-              </form>
+                    <div>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Phone Number"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Subject */}
+                  <div>
+                    <input
+                      type="text"
+                      id="subject"
+                      name="subject"
+                      placeholder="Subject / Topic"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      required
+                    />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <textarea
+                      id="message"
+                      name="message"
+                      placeholder="Message"
+                      rows={6}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70 resize-vertical"
+                      required
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-4">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-[#ef4a25] to-[#d63e20] hover:from-[#d63e20] hover:to-[#c23619] text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#ef4a25]/50 text-base font-unbounded disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          SENDING...
+                        </div>
+                      ) : (
+                        'SEND MESSAGE'
+                      )}
+                    </button>
+                  </div>
+
+                  <p className="text-white/60 text-sm text-center mt-4">
+                    We'll get back to you within 24 hours.
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
         </div>

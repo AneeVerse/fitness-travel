@@ -15,7 +15,7 @@ const FaqPage = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-8 px-4 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-[1325px] mx-auto">
-          <div className="relative min-h-[45vh] w-full overflow-hidden rounded-3xl">
+          <div className="relative min-h-[20vh] sm:min-h-[40vh] md:min-h-[45vh] w-full overflow-hidden rounded-3xl">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
@@ -49,11 +49,11 @@ const FaqPage = () => {
           <FaqSection />
 
           {/* Still have questions CTA */}
-          <div className="mt-6 md:mt-10 mb-16 flex flex-col sm:flex-row items-center justify-between gap-4 bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm">
+          <div className="mt-6 md:mt-10 mb-16 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-900 rounded-2xl p-6 sm:p-8 border border-gray-800 shadow-sm">
             <div>
               <p className="text-sm uppercase tracking-wide text-[#ef4a25] font-bold">Need more help?</p>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-unbounded mt-1">Still have questions?</h3>
-              <p className="text-gray-600 mt-1">Reach out and we’ll get back within 24 hours.</p>
+              <h3 className="text-xl sm:text-2xl font-bold text-white font-unbounded mt-1">Still have questions?</h3>
+              <p className="text-gray-300 mt-1">Reach out and we'll get back within 24 hours.</p>
             </div>
             <Link
               href="/contact"

@@ -17,11 +17,11 @@ const AboutPage = () => {
       {/* Hero Section */}
       <section className="pt-24 pb-8 px-4 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-[1325px] mx-auto">
-          <div className="relative min-h-[45vh] w-full overflow-hidden rounded-3xl">
+          <div className="relative min-h-[20vh] sm:min-h-[20vh] md:min-h-[45vh] w-full overflow-hidden rounded-3xl">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/Bg2.webp"
+                src="/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg"
                 alt="About Tiger Terrain"
                 fill
                 className="object-cover"
@@ -165,7 +165,7 @@ const AboutPage = () => {
             <div className="lg:col-span-1">
               <div className="rounded-2xl overflow-hidden shadow-sm">
                 <div className="relative h-[500px] w-full">
-                  <Image src="/images/social/piratecamp_phuket-20250814-0002.jpg" alt="Runners on beach path" fill className="object-cover" />
+                  <Image src="/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg" alt="Runners on beach path" fill className="object-cover" />
                 </div>
               </div>
             </div>
@@ -445,10 +445,10 @@ const AboutPage = () => {
       {/* CTA - Moved here and aligned with Video Width */}
       <section className="w-full px-0 py-16 bg-black">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-          <div className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
+          <div className="flex flex-col sm:flex-row items-center justify-between bg-gray-900 rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-800">
             <div>
               <p className="text-sm uppercase tracking-wide text-[#ef4a25] font-bold">Join the journey</p>
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-unbounded mt-1">Ready to write your story?</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-white font-unbounded mt-1">Ready to write your story?</h3>
             </div>
             <Link href="/contact" className="mt-4 sm:mt-0 inline-flex items-center justify-center px-6 py-3 rounded-lg bg-[#ef4a25] text-white font-bold tracking-wide hover:bg-[#d13d1f] transform hover:scale-[1.02] transition-all duration-200">Contact Us</Link>
           </div>
