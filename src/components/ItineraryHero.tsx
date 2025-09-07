@@ -222,33 +222,32 @@ const ItineraryHero = () => {
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
-            PHUKET
+            PHUKET FITCATION
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
-            Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. The local vibe is energetic and supportive, making it easy for visitors to immerse themselves in a dynamic fitness culture.
+            Get fit at Fitcation! Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. Experience all-inclusive training, nutrition guidance, and unforgettable adventures in Thailand's most dynamic fitness culture.
           </p>
 
           {/* Event Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Dates</h3>
-              <p className="text-white/90 text-xs sm:text-sm">14th sept - 21st sept</p>
+              <p className="text-white/90 text-xs sm:text-sm">17 Aug - 25 Aug 2024</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
-              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Rooms</h3>
-              <p className="text-white/90 text-xs sm:text-sm">Single, double and triple</p>
+              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Stay</h3>
+              <p className="text-white/90 text-xs sm:text-sm">Marina House - Standard Room<br/>Pool Access Room</p>
             </div>
             
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
-              <button
-                onClick={() => setIsPricingModalOpen(true)}
-                className="w-full h-full inline-flex items-center justify-center px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold text-sm transform hover:scale-105 transition-all duration-200 backdrop-blur-md"
-              >
-                See Pricing
-              </button>
-            </div>
+            <button
+              onClick={() => setIsPricingModalOpen(true)}
+              className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1 hover:bg-white/20 transform hover:scale-105 transition-all duration-200 w-full text-left group"
+            >
+              <h3 className="text-white font-semibold text-base sm:text-lg mb-2 group-hover:text-white/90 transition-colors">Pricing</h3>
+              <p className="text-white/90 text-xs sm:text-sm group-hover:text-white transition-colors">See Pricing</p>
+            </button>
           </div>
 
           {/* CTA Buttons */}

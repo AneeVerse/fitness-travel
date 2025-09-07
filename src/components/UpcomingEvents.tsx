@@ -241,7 +241,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
 
   // Desktop auto-scroll functionality (original)
   useEffect(() => {
-    if (isMobile || events.length <= 3) return;
+    if (isMobile || events.length < 5) return; // Changed from <= 3 to < 5
 
     const startAutoScroll = () => {
       autoScrollRef.current = setInterval(() => {
@@ -320,10 +320,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
             ref={scrollContainerRef}
             className={`flex overflow-visible justify-center items-center ${isMobile ? 'w-max will-change-transform cursor-grab active:cursor-grabbing' : 'transition-transform duration-500 ease-in-out'}`}
             style={{ 
-              transform: !isMobile && events.length > 3 
+              transform: !isMobile && events.length >= 5 
                 ? `translateX(-${currentIndex * 33.33}%)` 
                 : 'none',
-              width: !isMobile && events.length > 3 
+              width: !isMobile && events.length >= 5 
                 ? `${(events.length / 3) * 100}%` 
                 : isMobile ? 'auto' : '100%'
             }}
@@ -497,8 +497,8 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
           </div>
         </div>
 
-        {/* Navigation Dots (if more than 4 events and not mobile) */}
-        {events.length > 4 && !isMobile && (
+        {/* Navigation Dots (if 5 or more events and not mobile) */}
+        {events.length >= 5 && !isMobile && (
           <div className="flex justify-center mt-8 space-x-2">
             {Array.from({ length: Math.ceil(events.length / 4) }).map((_, index) => (
               <button

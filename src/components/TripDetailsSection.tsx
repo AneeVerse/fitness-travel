@@ -13,44 +13,46 @@ const TripDetailsSection = () => {
   const content = {
     Inclusion: {
       leftBullets: [
-        'Accommodation (twin sharing basis)',
-        'All fitness training sessions',
+        'Accommodation as specified (twin sharing basis)',
+        'All inclusive training sessions',
+        'All transfers (Phuket)',
+        'Nutrition guidance and meals (2 meals per day)',
+        'Stay in standard room on twin sharing basis',
         'Professional fitness coaching',
-        'Breakfast (all packages)',
-        'Airport transfers & ground transportation',
-        'Gym access (Wanderlust, Unit 27)',
-        'Surfing lessons',
-        'Beach training sessions'
+        'Access to fitness facilities and equipment',
+        'All training and transport (inside Phuket)'
       ],
       rightBullets: [
-        'Yoga and meditation sessions',
-        'Muay Thai training sessions',
-        'Mount Batur sunrise trek',
-        'Spa recovery sessions & ice bath',
-        'Pool recovery access',
-        'Nutrition guidance',
-        'Boat party ticket (Phuket)',
-        'FitKit equipment provided'
+        'Boat party ticket',
+        'FitKit equipment provided',
+        'Fitness activities and workouts as outlined',
+        'Transportation for scheduled activities',
+        'Meals as indicated in the itinerary',
+        'Ice-bath recovery sessions',
+        'Muay Thai training at authentic gyms',
+        'Beach training at Nai Harn Phuket'
       ]
     },
     Exclusion: {
       leftBullets: [
-        'International airfare',
-        'Travel insurance',
-        'Visa fees (if applicable)',
-        'Lunch (most packages)',
-        'Dinner (Ubud portion)',
-        'Personal expenses',
-        'Laundry services'
+        'Airfare Visa if any or transportation to/from destination',
+        'Personal expenses (laundry, telephone calls, room service)',
+        'Additional meals, snacks, or beverages not included',
+        'Optional activities or excursions not mentioned',
+        'Travel insurance or any other insurance coverage',
+        'Any expenses due to unforeseen circumstances',
+        'Natural disasters, flight delays, medical emergencies',
+        'Tips and gratuities'
       ],
       rightBullets: [
-        'Optional activities not mentioned',
-        'Additional meals & beverages',
-        'Tips and gratuities',
-        'Personal shopping',
-        'Medical expenses',
-        'Room service charges',
-        'Phone and internet charges'
+        'International airfare',
+        'Visa fees (if applicable)',
+        'Personal shopping and souvenirs',
+        'Alcoholic beverages (unless specified)',
+        'Medical expenses and treatments',
+        'Additional fitness equipment or gear',
+        'Spa treatments (unless specified)',
+        'Transportation outside scheduled activities'
       ]
     }
   };
@@ -62,8 +64,8 @@ const TripDetailsSection = () => {
         {/* Centered Title */}
         <div className="text-center mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight">
-            Epic Adventures, <br className="hidden sm:block" />
-            <span className="text-[#ef4a25]">Ibiza Style</span>
+            Phuket Fitcation, <br className="hidden sm:block" />
+            <span className="text-[#ef4a25]">Package Details</span>
           </h2>
           <div className="w-24 h-1 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>
