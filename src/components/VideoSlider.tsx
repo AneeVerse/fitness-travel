@@ -128,17 +128,19 @@ export default function VideoSlider() {
   }, [isPaused, isMobile]);
 
   // Handle Pointer Events (Mouse & Touch)
-  const handlePointerDown = (e: any) => {
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isMobile) return;
     isDragging.current = true;
     setIsPaused(true);
-    startX.current = e.clientX || e.touches?.[0]?.clientX || 0;
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    startX.current = clientX || 0;
     scrollLeft.current = translateX.current;
   };
 
-  const handlePointerMove = (e: any) => {
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging.current || !isMobile) return;
-    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    const x = clientX || 0;
     const walk = (x - startX.current) * 1; // Adjust sensitivity
     let newTranslate = scrollLeft.current + walk;
     
@@ -416,7 +418,7 @@ export default function VideoSlider() {
             style={!isMobile ? { transform: `translateX(${renderTranslateX}px)` } : undefined}
           >
             {(isMobile ? [...videos, ...videos, ...videos] : Array.from({ length: 3 }).flatMap((_, dupIdx) => videos.map((v) => ({ ...v, __dup: dupIdx })))).map((video, index) => {
-              const videoId = isMobile ? `${index}-${video.id}` : `${(video as any).__dup}-${video.id}-${index}`;
+              const videoId = isMobile ? `${index}-${video.id}` : `${(video as VideoCard & { __dup: number }).__dup}-${video.id}-${index}`;
               const isHovered = hoveredVideoId === videoId;
               
               return (

@@ -111,7 +111,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [isMobile, slideSize]);
+  }, [isMobile, slideSize, itineraryDays.length]);
 
   // Desktop infinite scroll functionality
   const [desktopTranslateX, setDesktopTranslateX] = useState(0);
@@ -162,7 +162,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
         cancelAnimationFrame(desktopAnimationRef.current);
       }
     };
-  }, [isMobile, isHovering, isDragging]);
+  }, [isMobile, isHovering, isDragging, itineraryDays.length]);
 
   // Desktop drag handlers
   const handleDesktopPointerDown = (e: React.PointerEvent) => {
@@ -250,7 +250,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     snapStartRef.current = basePositionRef.current;
     snapTargetRef.current = snapped;
     snapStartTimeRef.current = performance.now();
-  }, [isMobile, slideSize]);
+  }, [isMobile, slideSize, itineraryDays.length]);
 
   const onPointerDown = (e: React.PointerEvent) => {
     if (!isMobile) return;

@@ -28,7 +28,7 @@ export default function Footer() {
             
             {/* Right Column - Navigation Links */}
             <div className="space-y-6">
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
                 {/* Column 1 */}
                 <div className="space-y-3">
                   <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
@@ -56,7 +56,7 @@ export default function Footer() {
                 </div>
                 
                 {/* Column 3 */}
-                <div className="space-y-3 col-span-2 sm:col-span-1">
+                <div className="space-y-3">
                   <Link href="#social-mosaic" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     Gallery
                   </Link>

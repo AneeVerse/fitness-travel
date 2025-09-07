@@ -12,13 +12,14 @@ import CTASection from '@/components/CTASection';
 import { getTripData } from '@/lib/tripData';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-export default function ItineraryPage({ params }: PageProps) {
-  const tripData = getTripData(params.slug);
+export default async function ItineraryPage({ params }: PageProps) {
+  const { slug } = await params;
+  const tripData = getTripData(slug);
 
   if (!tripData) {
     notFound();
@@ -32,7 +33,7 @@ export default function ItineraryPage({ params }: PageProps) {
       <ItineraryDays tripData={tripData} />
       <TripDetailsSection tripData={tripData} />
       <ItineraryFormSection tripData={tripData} />
-      <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={params.slug} />
+      <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
       <FaqSection />
       <CTASection />
       <Footer />

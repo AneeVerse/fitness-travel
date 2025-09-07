@@ -136,12 +136,10 @@ const Hero = () => {
     
     // Fallback timeout to show video even if events don't fire
     const fallbackTimer = setTimeout(() => {
-      if (!videoLoaded && !videoError) {
-        setVideoLoaded(true);
-        video.play().catch(() => {
-          // Ignore autoplay errors
-        });
-      }
+      setVideoLoaded(true);
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
     }, 2000);
 
     // Ensure video plays after loading

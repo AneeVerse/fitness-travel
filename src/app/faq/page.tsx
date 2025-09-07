@@ -9,7 +9,7 @@ import FaqSection from '@/components/FaqSection';
 
 const FaqPage = () => {
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen bg-black">
       <Navbar />
 
       {/* Hero Section */}
@@ -32,14 +32,6 @@ const FaqPage = () => {
             {/* Content */}
             <div className="relative z-10 h-full flex items-center px-4 sm:px-8 md:px-12 lg:px-16 py-16">
               <div className="max-w-4xl">
-                {/* Breadcrumb */}
-                <nav className="mb-6">
-                  <div className="breadcrumb-container flex items-center space-x-2 text-white/80 text-sm">
-                    <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                    <span className="breadcrumb-separator">-</span>
-                    <span className="text-white breadcrumb-current">FAQ</span>
-                  </div>
-                </nav>
 
                 {/* Title */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-unbounded">
@@ -52,7 +44,7 @@ const FaqPage = () => {
       </section>
 
       {/* FAQ Content */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-16 bg-gray-50">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 bg-black">
         <div className="max-w-[1325px] mx-auto">
           <FaqSection />
 
@@ -74,7 +66,7 @@ const FaqPage = () => {
       </section>
 
       <Footer />
-    </>
+    </div>
   );
 };
 

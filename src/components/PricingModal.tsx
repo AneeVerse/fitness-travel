@@ -7,10 +7,19 @@ import { TripData } from '@/lib/tripData';
 interface PricingModalProps {
   isOpen: boolean;
   onClose: () => void;
-  tripData: TripData;
+  tripData?: TripData;
 }
 
 const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }) => {
+  // Default trip data for when not provided
+  const defaultTripData = {
+    location: 'Ibiza',
+    overview: {
+      images: ['/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg']
+    }
+  };
+  
+  const currentTripData = tripData || defaultTripData;
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -100,14 +109,14 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
             <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 lg:block hidden">
               <div className="absolute inset-0 bg-black/20" />
               <Image
-                src={tripData.overview.images[0]}
-                alt={`${tripData.location} view`}
+                src={currentTripData.overview.images[0]}
+                alt={`${currentTripData.location} view`}
                 fill
                 className="object-cover"
                 sizes="50vw"
               />
               <div className="absolute inset-0 flex flex-col  p-8 text-white mt-120">
-                <h3 className="text-2xl font-bold mb-2 font-unbounded">Your {tripData.location} Adventure Awaits</h3>
+                <h3 className="text-2xl font-bold mb-2 font-unbounded">Your {currentTripData.location} Adventure Awaits</h3>
                 <p className="text-white/90">Get personalized pricing and start planning your escape to paradise.</p>
               </div>
             </div>

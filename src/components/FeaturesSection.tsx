@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PricingModal from './PricingModal';
@@ -135,10 +136,11 @@ const FeaturesSection = () => {
                   {!isVideoPlaying ? (
                     <div className="relative aspect-[4/5] overflow-hidden">
                       {/* Video Thumbnail Image */}
-                      <img 
+                      <Image 
                         src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
                         alt="Fitness retreat thumbnail"
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
                       />
                       
                       {/* Overlay */}

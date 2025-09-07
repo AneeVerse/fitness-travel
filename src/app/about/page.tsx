@@ -7,10 +7,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VideoSection from '@/components/VideoSection';
 import CoachesSection from '@/components/CoachesSection';
+import CTASection from '@/components/CTASection';
 
 const AboutPage = () => {
   return (
-    <>
+    <div className="w-full overflow-x-hidden min-h-screen bg-black">
       <Navbar />
 
       {/* Hero Section */}
@@ -33,14 +34,6 @@ const AboutPage = () => {
             {/* Content */}
             <div className="relative z-10 h-full flex items-center px-8 sm:px-12 md:px-16 lg:px-20 py-16">
               <div className="max-w-4xl">
-                {/* Breadcrumb */}
-                <nav className="mb-6">
-                  <div className="breadcrumb-container flex items-center space-x-2 text-white/80 text-sm">
-                    <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                    <span className="breadcrumb-separator">-</span>
-                    <span className="text-white breadcrumb-current">About</span>
-                  </div>
-                </nav>
 
                 {/* Title */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-unbounded">
@@ -53,7 +46,7 @@ const AboutPage = () => {
       </section>
 
       {/* Our Story Section */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-16 bg-gray-50 pb-16">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 bg-black pb-16">
         <div className="max-w-[1300px] mx-auto">
           {/* Intro */}
           <div className="py-10">
@@ -62,7 +55,7 @@ const AboutPage = () => {
                 <span className="inline-block px-4 py-2 rounded-full bg-[#ef4a25] text-white text-sm tracking-wider uppercase mb-4">
                   — Our Story —
                 </span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 font-unbounded leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-unbounded leading-tight">
                   From the first step to the finish line
                 </h2>
               </div>
@@ -80,7 +73,7 @@ const AboutPage = () => {
             {/* Left Column - 2016 card + 2018 card + bottom image (no gap) */}
             <div className="flex flex-col gap-0 lg:col-span-4">
               {/* Card 1 - 2016 */}
-              <div className="bg-white rounded-2xl p-6 flex flex-col relative mb-6">
+              <div className="bg-gray-900 rounded-2xl p-6 flex flex-col relative mb-6">
                 <div className="absolute top-4 left-4">
                   <div className="w-10 h-10 bg-[#ef4a25] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -88,12 +81,12 @@ const AboutPage = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-5xl font-unbounded font-bold text-gray-900 mb-3 mt-8">2016</div>
-                <p className="text-gray-600 text-sm leading-relaxed">Club founded with 12 members. Tiger Terrain began with passionate runners who believed travel could transform lives.</p>
+                <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2016</div>
+                <p className="text-gray-300 text-sm leading-relaxed">Club founded with 12 members. Tiger Terrain began with passionate runners who believed travel could transform lives.</p>
               </div>
 
               {/* Card 2 - 2018 */}
-              <div className="bg-white rounded-2xl p-6 flex flex-col relative mb-6">
+              <div className="bg-gray-900 rounded-2xl p-6 flex flex-col relative mb-6">
                 <div className="absolute top-4 left-4">
                   <div className="w-10 h-10 bg-[#ef4a25] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -101,8 +94,8 @@ const AboutPage = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-5xl font-unbounded font-bold text-gray-900 mb-9 mt-8">2018</div>
-                <p className="text-gray-600 text-sm leading-relaxed">Hosted our first community 10K. Expanded into multi-day experiences blending fitness and culture.</p>
+                <div className="text-5xl font-unbounded font-bold text-white mb-9 mt-8">2018</div>
+                <p className="text-gray-300 text-sm leading-relaxed">Hosted our first community 10K. Expanded into multi-day experiences blending fitness and culture.</p>
               </div>
 
               {/* Bottom Left Image - no gap */}
@@ -130,7 +123,7 @@ const AboutPage = () => {
               </div>
 
               {/* Card 3 - 2020 */}
-              <div className="bg-white rounded-2xl p-6 flex flex-col relative mb-6">
+              <div className="bg-gray-900 rounded-2xl p-6 flex flex-col relative mb-6">
                 <div className="absolute top-4 left-4">
                   <div className="w-10 h-10 bg-[#ef4a25] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -138,12 +131,12 @@ const AboutPage = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-5xl font-unbounded font-bold text-gray-900 mb-3 mt-8">2020</div>
-                <p className="text-gray-600 text-sm leading-relaxed">Expanded into virtual runs and training programs. Adapted to serve our global community remotely.</p>
+                <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2020</div>
+                <p className="text-gray-300 text-sm leading-relaxed">Expanded into virtual runs and training programs. Adapted to serve our global community remotely.</p>
               </div>
 
               {/* Card 4 - 2024 */}
-              <div className="bg-white rounded-2xl p-6 flex flex-col relative">
+              <div className="bg-gray-900 rounded-2xl p-6 flex flex-col relative">
                 <div className="absolute top-4 left-4">
                   <div className="w-10 h-10 bg-[#ef4a25] rounded-full flex items-center justify-center">
                     <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -151,8 +144,8 @@ const AboutPage = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-5xl font-unbounded font-bold text-gray-900 mb-3 mt-8">2024</div>
-                <p className="text-gray-600 text-sm leading-relaxed">Over 3,000 active members across the region. A global community where challenge meets purpose.</p>
+                <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2024</div>
+                <p className="text-gray-300 text-sm leading-relaxed">Over 3,000 active members across the region. A global community where challenge meets purpose.</p>
               </div>
             </div>
           </div>
@@ -179,11 +172,11 @@ const AboutPage = () => {
 
             {/* Right Sidebar - Main Text Content */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl p-8 shadow-sm h-[500px] flex flex-col justify-center">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight">
+              <div className="bg-gray-900 rounded-2xl p-8 shadow-sm h-[500px] flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-white mb-6 leading-tight">
                   STRONGER WITH EVERY STRIDE
                 </h2>
-                <p className="text-gray-600 leading-relaxed mb-8">
+                <p className="text-gray-300 leading-relaxed mb-8">
                   Tiger Terrain is more than just a fitness club—it&apos;s a thriving, inclusive community where athletes of all levels come together to train, race, and grow. Founded in 2016, we&apos;ve helped over 3,000 members across the region reach their goals—whether it&apos;s a couch-to-5K transformation or a marathon dream.
                 </p>
                 
@@ -194,7 +187,7 @@ const AboutPage = () => {
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium">Weekly Community Runs</span>
+                    <span className="text-white font-medium">Weekly Community Runs</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-[#ef4a25] rounded-full flex items-center justify-center">
@@ -202,7 +195,7 @@ const AboutPage = () => {
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium">Personalized Training Support</span>
+                    <span className="text-white font-medium">Personalized Training Support</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="w-6 h-6 bg-[#ef4a25] rounded-full flex items-center justify-center">
@@ -210,7 +203,7 @@ const AboutPage = () => {
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                       </svg>
                     </div>
-                    <span className="text-gray-700 font-medium">Open to All Ages & Skill Levels</span>
+                    <span className="text-white font-medium">Open to All Ages & Skill Levels</span>
                   </div>
                 </div>
               </div>
@@ -222,21 +215,21 @@ const AboutPage = () => {
       </section>
 
       {/* Video Section - Full Width */}
-      <section className="w-full px-0 py-16 bg-gray-50">
+      <section className="w-full px-0 py-16 bg-black">
         <div className="w-full">
           <VideoSection />
         </div>
       </section>
 
       {/* Coaches Section - Aligned with Video Width */}
-      <section className="w-full px-0 py-16 bg-white">
+      <section className="w-full px-0 py-16 bg-black">
         <div className="w-full">
           <CoachesSection />
         </div>
       </section>
 
       {/* Why Tiger Terrain Section */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gray-50">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-black">
         <div className="max-w-[1325px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             
@@ -249,8 +242,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">ADVENTURES FOR EVERY FITNESS LEVEL</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">Whether you&apos;re a beginner or an elite athlete, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">ADVENTURES FOR EVERY FITNESS LEVEL</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">Whether you&apos;re a beginner or an elite athlete, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger.</p>
                 </div>
               </div>
 
@@ -261,8 +254,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">EXPERT GUIDES & REAL SUPPORT</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">Our certified coaches and local guides bring years of experience and are dedicated to helping you train smarter, stay injury-free, and achieve your goals.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">EXPERT GUIDES & REAL SUPPORT</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">Our certified coaches and local guides bring years of experience and are dedicated to helping you train smarter, stay injury-free, and achieve your goals.</p>
                 </div>
               </div>
 
@@ -273,8 +266,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">SUPPORTIVE COMMUNITY</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">Join a tribe of adventurers who celebrate your milestones, push you through challenges, and keep the adventure spirit alive in every journey.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">SUPPORTIVE COMMUNITY</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">Join a tribe of adventurers who celebrate your milestones, push you through challenges, and keep the adventure spirit alive in every journey.</p>
                 </div>
               </div>
             </div>
@@ -309,8 +302,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">TRACK YOUR PROGRESS LIKE A PRO</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">With digital tools, weekly insights, and fitness tracking integration, you&apos;ll always know how far you&apos;ve come and where you&apos;re heading next.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">TRACK YOUR PROGRESS LIKE A PRO</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">With digital tools, weekly insights, and fitness tracking integration, you&apos;ll always know how far you&apos;ve come and where you&apos;re heading next.</p>
                 </div>
               </div>
 
@@ -321,8 +314,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">EVENTS & CHALLENGES THAT INSPIRE</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">From local meetups to epic destination races, monthly challenges, and adventure expeditions, there&apos;s always something exciting to train for.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">EVENTS & CHALLENGES THAT INSPIRE</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">From local meetups to epic destination races, monthly challenges, and adventure expeditions, there&apos;s always something exciting to train for.</p>
                 </div>
               </div>
 
@@ -333,8 +326,8 @@ const AboutPage = () => {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2 font-unbounded">FLEXIBLE & ACCESSIBLE ANYWHERE</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">Train wherever you are, whenever you can. Our mobile-friendly programs and virtual support make adventure fitness fit into your real life.</p>
+                  <h3 className="text-lg font-bold text-white mb-2 font-unbounded">FLEXIBLE & ACCESSIBLE ANYWHERE</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">Train wherever you are, whenever you can. Our mobile-friendly programs and virtual support make adventure fitness fit into your real life.</p>
                 </div>
               </div>
             </div>
@@ -343,7 +336,7 @@ const AboutPage = () => {
       </section>
 
       {/* Community Stats & Mission Section */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-white">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-black">
         <div className="max-w-[1325px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             
@@ -353,54 +346,54 @@ const AboutPage = () => {
                 TIGER TERRAIN IN NUMBERS
               </span>
               
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 font-unbounded leading-tight">
+              <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6 font-unbounded leading-tight">
                 THE GROWING FOOTPRINTS OF OUR COMMUNITY
               </h2>
               
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-300 text-lg leading-relaxed mb-8">
                 Numbers tell a story of persistence, performance, and progress. Every statistic represents real people who&apos;ve pushed their limits, discovered new destinations, and transformed their lives through adventure fitness.
               </p>
               
               {/* Statistics Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 lg:gap-30 lg:mr-50  ">
                 <div className="text-center ">
-                  <div className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 font-unbounded">50+</div>
-                  <div className="text-sm font-bold text-gray-700 uppercase tracking-wide">ADVENTURE DESTINATIONS</div>
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">50+</div>
+                  <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">ADVENTURE DESTINATIONS</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 font-unbounded">95%</div>
-                  <div className="text-sm font-bold text-gray-700 uppercase tracking-wide">MEMBER SATISFACTION</div>
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">95%</div>
+                  <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">MEMBER SATISFACTION</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-gray-900 mb-2 font-unbounded">3000+</div>
-                  <div className="text-sm font-bold text-gray-700 uppercase tracking-wide">LIVES TRANSFORMED</div>
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">3000+</div>
+                  <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">LIVES TRANSFORMED</div>
                 </div>
               </div>
             </div>
 
             {/* Right Column - Mission, Vision, Goal */}
-            <div className="bg-gray-50 rounded-2xl p-8 lg:p-10">
+            <div className="bg-gray-900 rounded-2xl p-8 lg:p-10">
               <div className="space-y-8">
                 {/* Our Mission */}
-                <div className="border-b border-gray-200 pb-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 font-unbounded">OUR MISSION</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                <div className="border-b border-gray-600 pb-8">
+                  <h3 className="text-xl font-bold text-white mb-4 font-unbounded">OUR MISSION</h3>
+                  <p className="text-gray-300 leading-relaxed">
                     To create transformative adventure experiences that combine fitness with travel, empowering individuals to push their physical and mental boundaries while exploring the world&apos;s most beautiful destinations.
                   </p>
                 </div>
 
                 {/* Our Vision */}
-                <div className="border-b border-gray-200 pb-8">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 font-unbounded">OUR VISION</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                <div className="border-b border-gray-600 pb-8">
+                  <h3 className="text-xl font-bold text-white mb-4 font-unbounded">OUR VISION</h3>
+                  <p className="text-gray-300 leading-relaxed">
                     To be the leading global community where adventure meets fitness, inspiring millions to discover their potential through challenging experiences in breathtaking locations around the world.
                   </p>
                 </div>
 
                 {/* Our Goal */}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4 font-unbounded">OUR GOAL</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h3 className="text-xl font-bold text-white mb-4 font-unbounded">OUR GOAL</h3>
+                  <p className="text-gray-300 leading-relaxed">
                     To help every member achieve their personal best while building lasting friendships, creating unforgettable memories, and developing a lifelong love for adventure and fitness.
                   </p>
                 </div>
@@ -411,7 +404,7 @@ const AboutPage = () => {
       </section>
 
       {/* Join the Club CTA Banner */}
-      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-gray-50">
+      <section className="px-4 sm:px-8 md:px-12 lg:px-16 py-16 bg-black">
         <div className="max-w-[1325px] mx-auto">
           <div className="relative rounded-3xl overflow-hidden">
             {/* Background Image */}
@@ -450,7 +443,7 @@ const AboutPage = () => {
       </section>
 
       {/* CTA - Moved here and aligned with Video Width */}
-      <section className="w-full px-0 py-16 bg-gray-50">
+      <section className="w-full px-0 py-16 bg-black">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
           <div className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
             <div>
@@ -461,9 +454,9 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
-
+<CTASection />
       <Footer />
-    </>
+    </div>
   );
 };
 

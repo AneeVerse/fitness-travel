@@ -69,7 +69,7 @@ const EpicDestinationsSection: React.FC = () => {
   // Calculate Total Width of Scrollable Content
   const calculateWidth = useCallback(() => {
     if (scrollContainerRef.current && isMobile) {
-      const firstChild = scrollContainerRef.current.children[0];
+      const firstChild = scrollContainerRef.current.children[0] as HTMLElement;
       if (firstChild) {
         const cardWidth = firstChild.offsetWidth;
         totalWidth.current = cardWidth * highlights.length; // Width of one set of cards
@@ -94,17 +94,19 @@ const EpicDestinationsSection: React.FC = () => {
   }, [isPaused, isMobile]);
 
   // Handle Pointer Events (Mouse & Touch)
-  const handlePointerDown = (e: any) => {
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isMobile) return;
     isDragging.current = true;
     setIsPaused(true);
-    startX.current = e.clientX || e.touches?.[0]?.clientX || 0;
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    startX.current = clientX || 0;
     scrollLeft.current = translateX.current;
   };
 
-  const handlePointerMove = (e: any) => {
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging.current || !isMobile) return;
-    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    const x = clientX || 0;
     const walk = (x - startX.current) * 1; // Adjust sensitivity
     let newTranslate = scrollLeft.current + walk;
     

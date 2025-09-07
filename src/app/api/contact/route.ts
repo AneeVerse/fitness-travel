@@ -10,10 +10,7 @@ export async function POST(request: NextRequest) {
       email, 
       phone, 
       pdfLink, 
-      formType, 
       name, 
-      subject, 
-      message,
       fullName 
     } = body;
 

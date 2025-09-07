@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 // Add CSS for 3D flip effect
 const flipStyles = `
@@ -82,24 +83,22 @@ interface UpcomingEventsProps {
 }
 
 const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS", currentSlug }) => {
+  const router = useRouter();
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const autoScrollRef = useRef<NodeJS.Timeout | null>(null);
 
   // New mobile scroll logic
-  const animationRef = useRef<number | null>(null);
   const translateX = useRef(0);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const totalWidth = useRef(0);
-  const scrollSpeed = 0.5;
 
   // Mobile detection
   useEffect(() => {
@@ -130,18 +129,54 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
 
   // No auto-animation for mobile - manual scroll only
 
-  // Handle Pointer Events (Mouse & Touch)
-  const handlePointerDown = (e: React.PointerEvent | TouchEvent) => {
+  // Handle Touch Events
+  const handleTouchStart = (e: React.TouchEvent) => {
     if (!isMobile) return;
     isDragging.current = true;
-    setIsPaused(true);
-    startX.current = (e as React.PointerEvent).clientX || (e as TouchEvent).touches?.[0]?.clientX || 0;
+    startX.current = e.touches[0]?.clientX || 0;
     scrollLeft.current = translateX.current;
   };
 
-  const handlePointerMove = (e: React.PointerEvent | TouchEvent) => {
+  // Handle Mouse Events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!isMobile) return;
+    isDragging.current = true;
+    startX.current = e.clientX;
+    scrollLeft.current = translateX.current;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
     if (!isDragging.current || !isMobile) return;
-    const x = (e as React.PointerEvent).clientX || (e as TouchEvent).touches?.[0]?.clientX || 0;
+    const x = e.touches[0]?.clientX || 0;
+    const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
+    let newTranslate = scrollLeft.current + walk;
+    
+    // Set boundaries to prevent scrolling beyond the cards
+    if (scrollContainerRef.current && totalWidth.current > 0) {
+      const containerWidth = scrollContainerRef.current.parentElement?.offsetWidth || 0;
+      const maxScroll = Math.max(0, totalWidth.current - containerWidth);
+      
+      // Limit scroll to boundaries (no infinite scroll)
+      // Allow scrolling right (positive values) to go back to start
+      if (newTranslate > 0) {
+        newTranslate = 0; // Can't scroll past the beginning (right boundary)
+      } 
+      // Allow scrolling left (negative values) to see more cards
+      else if (newTranslate < -maxScroll) {
+        newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
+      }
+    }
+    
+    translateX.current = newTranslate;
+    
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging.current || !isMobile) return;
+    const x = e.clientX;
     const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
     let newTranslate = scrollLeft.current + walk;
     
@@ -171,7 +206,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const handlePointerUp = () => {
     if (!isMobile) return;
     isDragging.current = false;
-    setIsPaused(false);
   };
 
   // Calculate width on mobile for manual scrolling
@@ -266,17 +300,9 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
     };
   }, [isMobile]);
 
-  // Handle card flip on click (permanent flip)
-  const handleCardFlip = (eventId: string) => {
-    setFlippedCards(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(eventId)) {
-        newSet.delete(eventId);
-      } else {
-        newSet.add(eventId);
-      }
-      return newSet;
-    });
+  // Handle card click - navigate to itinerary page
+  const handleCardClick = (eventId: string) => {
+    router.push(`/itinerary/${eventId.toLowerCase()}`);
   };
 
   // Handle hover flip (temporary)
@@ -299,11 +325,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
         <div 
           className="relative overflow-hidden pt-8 pb-8"
           style={{ zIndex: 1 }}
-          onTouchStart={handlePointerDown}
-          onTouchMove={handlePointerMove}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handlePointerUp}
-          onMouseDown={handlePointerDown}
-          onMouseMove={handlePointerMove}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
           onMouseUp={handlePointerUp}
           onMouseLeave={handlePointerUp}
         >
@@ -321,7 +347,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                 : isMobile ? 'auto' : '100%'
             }}
           >
-            {events.filter(event => event.id.toLowerCase() !== currentSlug).map((event, index) => {
+            {events.filter(event => !currentSlug || event.id.toLowerCase() !== currentSlug).map((event) => {
               const isFlipped = flippedCards.has(event.id);
               const isHovered = hoveredCard === event.id;
               const shouldFlip = isFlipped || isHovered;
@@ -356,7 +382,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                   
                   <div 
                     className="relative h-[380px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] cursor-pointer group"
-                    onClick={() => handleCardFlip(event.id)}
+                    onClick={() => handleCardClick(event.id)}
                     onMouseEnter={() => setHoveredCard(event.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                     style={{ perspective: '1000px', zIndex: 1 }}
