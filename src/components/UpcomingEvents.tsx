@@ -74,21 +74,6 @@ const events: EventItem[] = [
     totalSlots: 30,
     bookedSlots: 15,
   },
-  {
-    id: 'VIETNAM',
-    title: 'VIETNAM',
-    description:
-      'Explore the rich culture and stunning landscapes of Vietnam while achieving your fitness goals. A unique blend of adventure and wellness.',
-    date: '5th oct - 12th oct',
-    access: 'Member Only',
-    time: 'Start 06:00 AM – Finish',
-    location: 'Vietnam',
-    priceLabel: '$45',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
-    videoSrc: '/video/vids/vid (4).mp4',
-    totalSlots: 25,
-    bookedSlots: 12,
-  },
 ];
 
 interface UpcomingEventsProps {
@@ -129,7 +114,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
   // Calculate Total Width of Scrollable Content
   const calculateWidth = useCallback(() => {
     if (scrollContainerRef.current && isMobile) {
-      const firstChild = scrollContainerRef.current.children[0];
+      const firstChild = scrollContainerRef.current.children[0] as HTMLElement;
       if (firstChild) {
         const cardWidth = firstChild.offsetWidth;
         totalWidth.current = cardWidth * events.length; // Width of one set of cards
@@ -256,7 +241,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
 
   // Desktop auto-scroll functionality (original)
   useEffect(() => {
-    if (isMobile || events.length <= 4) return;
+    if (isMobile || events.length <= 3) return;
 
     const startAutoScroll = () => {
       autoScrollRef.current = setInterval(() => {
@@ -335,11 +320,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING JOURN
             ref={scrollContainerRef}
             className={`flex overflow-visible justify-center items-center ${isMobile ? 'w-max will-change-transform cursor-grab active:cursor-grabbing' : 'transition-transform duration-500 ease-in-out'}`}
             style={{ 
-              transform: !isMobile && events.length > 4 
-                ? `translateX(-${currentIndex * 25}%)` 
+              transform: !isMobile && events.length > 3 
+                ? `translateX(-${currentIndex * 33.33}%)` 
                 : 'none',
-              width: !isMobile && events.length > 4 
-                ? `${(events.length / 4) * 100}%` 
+              width: !isMobile && events.length > 3 
+                ? `${(events.length / 3) * 100}%` 
                 : isMobile ? 'auto' : '100%'
             }}
           >

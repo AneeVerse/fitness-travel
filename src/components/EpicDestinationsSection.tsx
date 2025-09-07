@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
 type Highlight = {
@@ -42,6 +42,117 @@ const highlights: Highlight[] = [
 ];
 
 const EpicDestinationsSection: React.FC = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Mobile scroll logic
+  const animationRef = useRef<number | null>(null);
+  const translateX = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const totalWidth = useRef(0);
+  const scrollSpeed = 0.5;
+
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Calculate Total Width of Scrollable Content
+  const calculateWidth = useCallback(() => {
+    if (scrollContainerRef.current && isMobile) {
+      const firstChild = scrollContainerRef.current.children[0];
+      if (firstChild) {
+        const cardWidth = firstChild.offsetWidth;
+        totalWidth.current = cardWidth * highlights.length; // Width of one set of cards
+      }
+    }
+  }, [isMobile]);
+
+  // Animation Loop for mobile
+  const animate = useCallback(() => {
+    if (!isPaused && !isDragging.current && scrollContainerRef.current && isMobile && totalWidth.current > 0) {
+      translateX.current -= scrollSpeed;
+
+      // Reset when we've scrolled through one complete set
+      if (translateX.current <= -totalWidth.current) {
+        translateX.current = 0;
+      }
+
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isPaused, isMobile]);
+
+  // Handle Pointer Events (Mouse & Touch)
+  const handlePointerDown = (e: any) => {
+    if (!isMobile) return;
+    isDragging.current = true;
+    setIsPaused(true);
+    startX.current = e.clientX || e.touches?.[0]?.clientX || 0;
+    scrollLeft.current = translateX.current;
+  };
+
+  const handlePointerMove = (e: any) => {
+    if (!isDragging.current || !isMobile) return;
+    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const walk = (x - startX.current) * 1; // Adjust sensitivity
+    let newTranslate = scrollLeft.current + walk;
+    
+    // Handle infinite scroll boundaries during drag
+    if (totalWidth.current > 0) {
+      // Wrap around for infinite scroll
+      while (newTranslate <= -totalWidth.current) {
+        newTranslate += totalWidth.current;
+      }
+      while (newTranslate > 0) {
+        newTranslate -= totalWidth.current;
+      }
+    }
+    
+    translateX.current = newTranslate;
+    
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  };
+
+  const handlePointerUp = () => {
+    if (!isMobile) return;
+    isDragging.current = false;
+    setIsPaused(false);
+  };
+
+  // Start Animation & Recalculate on Resize
+  useEffect(() => {
+    if (isMobile) {
+      // Delay width calculation to ensure DOM is rendered
+      const timer = setTimeout(() => {
+        calculateWidth();
+      }, 100);
+      
+      window.addEventListener("resize", calculateWidth);
+      animationRef.current = requestAnimationFrame(animate);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", calculateWidth);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
+    }
+  }, [animate, calculateWidth, isMobile]);
+
   return (
     <section className="relative bg-[#ef4a25] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
       <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,20 +170,51 @@ const EpicDestinationsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Fixed 4-card grid layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
-          {highlights.slice(0, 4).map((h) => (
-            <div key={h.id} className="flex flex-col h-full">
-              <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
-                <Image src={h.image} alt={h.title} fill className="object-cover" />
-              </div>
-              <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
-              <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
-                {h.description}
-              </p>
+        {/* Desktop: Fixed 4-card grid layout, Mobile: Scrollable */}
+        {isMobile ? (
+          <div 
+            className="relative overflow-hidden"
+            onMouseEnter={() => isMobile && setIsPaused(true)}
+            onTouchStart={handlePointerDown}
+            onTouchMove={handlePointerMove}
+            onTouchEnd={handlePointerUp}
+            onMouseDown={handlePointerDown}
+            onMouseMove={handlePointerMove}
+            onMouseUp={handlePointerUp}
+            onMouseLeave={handlePointerUp}
+          >
+            <div 
+              ref={scrollContainerRef}
+              className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-4"
+            >
+              {[...highlights, ...highlights, ...highlights].map((h, index) => (
+                <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[280px] flex-shrink-0" draggable={false}>
+                  <div className="relative w-full h-40 rounded-xl overflow-hidden">
+                    <Image src={h.image} alt={h.title} fill className="object-cover" />
+                  </div>
+                  <h3 className="text-white font-semibold text-sm mt-3">{h.title}</h3>
+                  <p className="text-white/75 text-xs mt-2 leading-relaxed">
+                    {h.description}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+            {highlights.slice(0, 4).map((h) => (
+              <div key={h.id} className="flex flex-col h-full">
+                <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
+                  <Image src={h.image} alt={h.title} fill className="object-cover" />
+                </div>
+                <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
+                <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
+                  {h.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
