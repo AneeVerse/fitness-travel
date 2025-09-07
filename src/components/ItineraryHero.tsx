@@ -4,13 +4,18 @@ import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PricingModal from './PricingModal';
+import { TripData } from '@/lib/tripData';
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const ItineraryHero = () => {
+interface ItineraryHeroProps {
+  tripData: TripData;
+}
+
+const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -190,11 +195,11 @@ const ItineraryHero = () => {
           }}
         >
           <source 
-            src="/video/BG2.mp4" 
+            src={tripData.heroVideo} 
             type="video/mp4" 
           />
           <source 
-            src="/video/BG2.mp4" 
+            src={tripData.heroVideo} 
             type="video/mp4" 
           />
           <source 
@@ -222,23 +227,23 @@ const ItineraryHero = () => {
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-40">
         <div className="max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
-            PHUKET FITCATION
+            {tripData.title}
           </h1>
 
           <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
-            Get fit at Fitcation! Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. Experience all-inclusive training, nutrition guidance, and unforgettable adventures in Thailand's most dynamic fitness culture.
+            {tripData.description}
           </p>
 
           {/* Event Details */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Dates</h3>
-              <p className="text-white/90 text-xs sm:text-sm">17 Aug - 25 Aug 2024</p>
+              <p className="text-white/90 text-xs sm:text-sm">{tripData.dates}</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Stay</h3>
-              <p className="text-white/90 text-xs sm:text-sm">Marina House - Standard Room<br/>Pool Access Room</p>
+              <p className="text-white/90 text-xs sm:text-sm" style={{ whiteSpace: 'pre-line' }}>{tripData.stay}</p>
             </div>
             
             <button
@@ -271,7 +276,8 @@ const ItineraryHero = () => {
       {/* Pricing Modal - Moved outside section for proper z-index */}
       <PricingModal 
         isOpen={isPricingModalOpen} 
-        onClose={() => setIsPricingModalOpen(false)} 
+        onClose={() => setIsPricingModalOpen(false)}
+        tripData={tripData}
       />
     </>
   );

@@ -1,104 +1,15 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { TripData } from '@/lib/tripData';
 
 
-type DayItem = {
-  id: string;
-  day: string;
-  title: string;
-  description: string;
-  extraContent: string;
-  time: string;
-  image: string;
-  videoSrc: string;
-  __dup?: number;
-};
+interface ItineraryDaysProps {
+  tripData: TripData;
+}
 
-const itineraryDays: DayItem[] = [
-  {
-    id: 'DAY1',
-    day: 'Day 1',
-    title: 'Arrive and Welcome to Phuket',
-    description: 'Check In, Intros & Briefing on the week ahead',
-    extraContent: 'Leave for Phuket Town for Tour',
-    time: 'All Day',
-    image: '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
-    videoSrc: '/video/vids/vid (1).mp4',
-  },
-  {
-    id: 'DAY2',
-    day: 'Day 2',
-    title: 'HIIT Workout & Hot Yoga',
-    description: '9.30 - Head to Pirates camp for HIIT Workout',
-    extraContent: '10.30 - Breakfast followed by free exploration, 4.30PM - Hot Yoga session',
-    time: '9:30 AM - 6:00 PM',
-    image: '/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg',
-    videoSrc: '/video/vids/vid (2).mp4',
-  },
-  {
-    id: 'DAY3',
-    day: 'Day 3',
-    title: 'BodyFit & Outdoor Training',
-    description: '8.00 - BodyFit Workout',
-    extraContent: '9.30 - Breakfast followed by free exploration, 4.30PM - Outdoor Session',
-    time: '8:00 AM - 6:00 PM',
-    image: '/images/itinerary/overview/67caa708e544afc27b621096_DJI_20240906165547_0062_D.jpg',
-    videoSrc: '/video/vids/vid (3).mp4',
-  },
-  {
-    id: 'DAY4',
-    day: 'Day 4',
-    title: 'Beach Training & Muay Thai',
-    description: '7.15 - Beach Training',
-    extraContent: '10.00 - Breakfast followed by free exploration, 5.00 PM - Muay Thai Session',
-    time: '7:15 AM - 7:00 PM',
-    image: '/images/itinerary/trip-detail/67caa2ebf51676caac79a4b1__IBZ2168.jpg',
-    videoSrc: '/video/vids/vid (4).mp4',
-  },
-  {
-    id: 'DAY5',
-    day: 'Day 5',
-    title: 'Big Buddha Run & Recovery',
-    description: '7.15 - Big Buddha Run',
-    extraContent: '10.00 - Breakfast followed by free exploration, 4.00 PM - Pool Recovery Session',
-    time: '7:15 AM - 6:00 PM',
-    image: '/images/itinerary/trip-detail/67caa2ec0caaf1415ff27c65__IBZ4671.jpg',
-    videoSrc: '/video/vids/vid (5).mp4',
-  },
-  {
-    id: 'DAY6',
-    day: 'Day 6',
-    title: 'Partner Chipper & Spa',
-    description: '9.30 - Breakfast',
-    extraContent: '11.00 - Partner Chipper, 4.00 PM - OnSen Spa',
-    time: '9:30 AM - 7:00 PM',
-    image: '/images/itinerary/trip-detail/67caa4ac34cc07b6457e13c1_saguaita_06.jpg',
-    videoSrc: '/video/vids/vid (6).mp4',
-  },
-  {
-    id: 'DAY7',
-    day: 'Day 7',
-    title: 'Free Day & Boat Party',
-    description: '10.00 - Breakfast followed by free exploration',
-    extraContent: '11.00 - 7PM - Boat Party (optional)',
-    time: '10:00 AM - 11:00 PM',
-    image: '/images/itinerary/trip-detail/67caa4b2e6dc3ee2fb637f43_1salt escapes-ibz--2 2.jpg',
-    videoSrc: '/video/vids/vid (7).mp4',
-  },
-  {
-    id: 'DAY8',
-    day: 'Day 8',
-    title: 'Departure',
-    description: '8.00 AM Transfer back to Airport',
-    extraContent: 'Check out and farewell to your new fitness family',
-    time: '8:00 AM - 12:00 PM',
-    image: '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
-    videoSrc: '/video/vids/vid (8).mp4',
-  }
-];
-
-const ItineraryDays = () => {
+const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
+  const itineraryDays = tripData.days;
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -430,7 +341,7 @@ const ItineraryDays = () => {
             ITINERARY DAYS
           </h2>
           <p className="text-white/80 text-lg mt-4 max-w-2xl mx-auto">
-            Your 8-day fitness journey in Phuket - explore each day&apos;s activities and adventures
+            Your {itineraryDays.length}-day fitness journey in {tripData.location} - explore each day&apos;s activities and adventures
           </p>
         </div>
 
@@ -484,7 +395,7 @@ const ItineraryDays = () => {
                       <div className="absolute inset-4 z-10 flex flex-col justify-between text-white select-none">
                         {/* Top Section */}
                         <div className="space-y-2">
-                          <p className="text-xs opacity-80 uppercase tracking-wide">PHUKET FITNESS RETREAT</p>
+                          <p className="text-xs opacity-80 uppercase tracking-wide">{tripData.location.toUpperCase()} FITNESS RETREAT</p>
                           <h3 className="text-lg sm:text-xl lg:text-2xl font-bold uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
                             {day.day}
                           </h3>
@@ -513,7 +424,7 @@ const ItineraryDays = () => {
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                               </svg>
-                              <span className="opacity-90">Phuket, Thailand</span>
+                              <span className="opacity-90">{tripData.location}</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">

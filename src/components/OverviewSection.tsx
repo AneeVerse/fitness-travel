@@ -2,76 +2,90 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { TripData } from '@/lib/tripData';
 
-const OverviewSection = () => {
+interface OverviewSectionProps {
+  tripData: TripData;
+}
+
+const OverviewSection: React.FC<OverviewSectionProps> = ({ tripData }) => {
   return (
-    <section id="overview" className="py-6 sm:py-8 md:py-10 bg-black -mt-16 sm:-mt-20 md:-mt-24 lg:-mt-28 xl:mt-25">
-      <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="overview" className="py-8 sm:py-12 md:py-16 lg:py-20 bg-black">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 font-unbounded">
-            FIND OUT WHAT YOU <br /> ARE MADE UP OF
+        <div className="text-center mb-8 sm:mb-12 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-unbounded leading-tight">
+            {tripData.overview.mainTitle.split(' ARE MADE UP OF').length > 1 ? (
+              <>
+                {tripData.overview.mainTitle.split(' ARE MADE UP OF')[0]} <br /> ARE MADE UP OF
+              </>
+            ) : (
+              tripData.overview.mainTitle
+            )}
           </h2>
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center">
           {/* Left Content */}
-          <div className="space-y-3 sm:space-y-4 pb-10">
-            <p className="text-base sm:text-lg text-white leading-relaxed">
-              Tiger Terrain is about embarking on a journey of self-discovery. It&apos;s not about taking a holiday or chasing a fleeting transformation.
-            </p>
-            
-            <p className="text-base sm:text-lg text-white leading-relaxed">
-              Instead, it&apos;s about regaining your sense of direction and embracing a sustainable lifestyle change. It&apos;s about breaking bad habits and adopting new ones, improving your fitness and mental well-being.
-            </p>
-            
-            <p className="text-base sm:text-lg text-white leading-relaxed">
-              Helping you meet a stronger, more authentic version of yourself.
-            </p>
-            
-            <h3 className="text-2xl sm:text-3xl font-bold text-white mt-6 sm:mt-8 font-unbounded">
-              Who is it for?
-            </h3>
-            
-                <p className="text-base sm:text-lg text-white leading-relaxed">
-              Tiger Terrain isn&apos;t reserved only for elite athletes, nor is it exclusive to any gender. It&apos;s designed for anyone and everyone eager to begin the pursuit of a better life - and do so while exploring new places.
-            </p>
+          <div className="order-2 lg:order-1 space-y-4 sm:space-y-5 md:space-y-6">
+            {tripData.overview.description.map((paragraph, index) => {
+              if (index === 2 && tripData.overview.subtitle) {
+                return (
+                  <React.Fragment key={index}>
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+                      {paragraph}
+                    </p>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mt-6 sm:mt-8 md:mt-10 font-unbounded">
+                      {tripData.overview.subtitle}
+                    </h3>
+                  </React.Fragment>
+                );
+              }
+              return (
+                <p key={index} className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+                  {paragraph}
+                </p>
+              );
+            })}
           </div>
 
           {/* Right Images Grid */}
-          <div className="space-y-3 sm:space-y-4 -mt-8 sm:-mt-12 md:-mt-16 lg:-mt-38">
-            {/* Top Large Image */}
-            <div className="relative h-48 sm:h-56 md:h-64 lg:h-86 rounded-2xl sm:rounded-3xl overflow-hidden">
-              <Image
-                src="/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg"
-                alt="Ibiza coastal view"
-                fill
-                className="object-cover"
-                sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
-              />
-            </div>
-
-            {/* Bottom Two Images */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              <div className="relative h-32 sm:h-36 md:h-40 lg:h-44 rounded-2xl sm:rounded-3xl overflow-hidden">
+          <div className="order-1 lg:order-2 w-full">
+            <div className="space-y-3 sm:space-y-4 md:space-y-5">
+              {/* Top Large Image */}
+              <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg"
-                  alt="Villa exterior view"
+                  src={tripData.overview.images[0]}
+                  alt={`${tripData.location} view`}
                   fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 25vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                  sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 45vw"
+                  priority
                 />
               </div>
-              
-              <div className="relative h-32 sm:h-36 md:h-40 lg:h-44 rounded-2xl sm:rounded-3xl overflow-hidden">
-                <Image
-                  src="/images/itinerary/overview/67caa708e544afc27b621096_DJI_20240906165547_0062_D.jpg"
-                  alt="Ibiza landscape"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 25vw"
-                />
+
+              {/* Bottom Two Images */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+                <div className="relative w-full h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src={tripData.overview.images[1]}
+                    alt={`${tripData.location} view`}
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 22vw"
+                  />
+                </div>
+                
+                <div className="relative w-full h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src={tripData.overview.images[2]}
+                    alt={`${tripData.location} view`}
+                    fill
+                    className="object-cover transition-transform duration-700 hover:scale-105"
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 50vw, (max-width: 1024px) 25vw, 22vw"
+                  />
+                </div>
               </div>
             </div>
           </div>

@@ -2,13 +2,15 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { TripData } from '@/lib/tripData';
 
 interface PricingModalProps {
   isOpen: boolean;
   onClose: () => void;
+  tripData: TripData;
 }
 
-const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
+const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -98,14 +100,14 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose }) => {
             <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 lg:block hidden">
               <div className="absolute inset-0 bg-black/20" />
               <Image
-                src="/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg"
-                alt="Ibiza coastal view"
+                src={tripData.overview.images[0]}
+                alt={`${tripData.location} view`}
                 fill
                 className="object-cover"
                 sizes="50vw"
               />
               <div className="absolute inset-0 flex flex-col  p-8 text-white mt-120">
-                <h3 className="text-2xl font-bold mb-2 font-unbounded">Your Ibiza Adventure Awaits</h3>
+                <h3 className="text-2xl font-bold mb-2 font-unbounded">Your {tripData.location} Adventure Awaits</h3>
                 <p className="text-white/90">Get personalized pricing and start planning your escape to paradise.</p>
               </div>
             </div>

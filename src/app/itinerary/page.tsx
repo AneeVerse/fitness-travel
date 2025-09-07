@@ -1,30 +1,5 @@
-import Navbar from '@/components/Navbar';
-import ItineraryHero from '@/components/ItineraryHero';
-
-import OverviewSection from '@/components/OverviewSection';
-import ItineraryDays from '@/components/ItineraryDays';
-import TripDetailsSection from '@/components/TripDetailsSection';
-import ItineraryFormSection from '@/components/ItineraryFormSection';
-import UpcomingEvents from '@/components/UpcomingEvents';
-
-import Footer from '@/components/Footer';
-import FaqSection from '@/components/FaqSection';
-import CTASection from '@/components/CTASection';
+import { redirect } from 'next/navigation';
 
 export default function ItineraryPage() {
-  return (
-    <div className="w-full overflow-x-hidden min-h-screen bg-black">
-      <Navbar />
-      <ItineraryHero />
-     <OverviewSection />
-      <ItineraryDays />
-      <TripDetailsSection />
-      <ItineraryFormSection />
-      <UpcomingEvents title="EXPLORE MORE JOURNEYS" />
-  
-      <FaqSection />
-      <CTASection />
-      <Footer />
-    </div>
-  );
+  redirect('/itinerary/phuket');
 }

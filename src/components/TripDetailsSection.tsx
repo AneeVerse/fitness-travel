@@ -1,8 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
+import { TripData } from '@/lib/tripData';
 
-const TripDetailsSection = () => {
+interface TripDetailsSectionProps {
+  tripData: TripData;
+}
+
+const TripDetailsSection: React.FC<TripDetailsSectionProps> = ({ tripData }) => {
   const [activeTab, setActiveTab] = useState('Inclusion');
 
   const tabs = [
@@ -10,52 +15,63 @@ const TripDetailsSection = () => {
     { id: 'Exclusion', label: 'Exclusion' },
   ];
 
-  const content = {
-    Inclusion: {
-      leftBullets: [
-        'Accommodation as specified (twin sharing basis)',
-        'All inclusive training sessions',
-        'All transfers (Phuket)',
-        'Nutrition guidance and meals (2 meals per day)',
-        'Stay in standard room on twin sharing basis',
-        'Professional fitness coaching',
-        'Access to fitness facilities and equipment',
-        'All training and transport (inside Phuket)'
-      ],
-      rightBullets: [
-        'Boat party ticket',
-        'FitKit equipment provided',
-        'Fitness activities and workouts as outlined',
-        'Transportation for scheduled activities',
-        'Meals as indicated in the itinerary',
-        'Ice-bath recovery sessions',
-        'Muay Thai training at authentic gyms',
-        'Beach training at Nai Harn Phuket'
-      ]
-    },
-    Exclusion: {
-      leftBullets: [
-        'Airfare Visa if any or transportation to/from destination',
-        'Personal expenses (laundry, telephone calls, room service)',
-        'Additional meals, snacks, or beverages not included',
-        'Optional activities or excursions not mentioned',
-        'Travel insurance or any other insurance coverage',
-        'Any expenses due to unforeseen circumstances',
-        'Natural disasters, flight delays, medical emergencies',
-        'Tips and gratuities'
-      ],
-      rightBullets: [
-        'International airfare',
-        'Visa fees (if applicable)',
-        'Personal shopping and souvenirs',
-        'Alcoholic beverages (unless specified)',
-        'Medical expenses and treatments',
-        'Additional fitness equipment or gear',
-        'Spa treatments (unless specified)',
-        'Transportation outside scheduled activities'
-      ]
+  // Generate dynamic content based on trip data
+  const generateContent = () => {
+    if (tripData.pricing.tourA) {
+      return {
+        Inclusion: {
+          leftBullets: tripData.pricing.tourA.includes.slice(0, Math.ceil(tripData.pricing.tourA.includes.length / 2)),
+          rightBullets: tripData.pricing.tourA.includes.slice(Math.ceil(tripData.pricing.tourA.includes.length / 2))
+        },
+        Exclusion: {
+          leftBullets: tripData.pricing.tourA.excludes.slice(0, Math.ceil(tripData.pricing.tourA.excludes.length / 2)),
+          rightBullets: tripData.pricing.tourA.excludes.slice(Math.ceil(tripData.pricing.tourA.excludes.length / 2))
+        }
+      };
     }
+    
+    // Fallback for trips without detailed pricing data
+    return {
+      Inclusion: {
+        leftBullets: [
+          'Accommodation as specified',
+          'All inclusive training sessions',
+          `All transfers (${tripData.location})`,
+          'Nutrition guidance and meals',
+          'Professional fitness coaching',
+          'Access to fitness facilities'
+        ],
+        rightBullets: [
+          'Equipment provided',
+          'Fitness activities and workouts',
+          'Transportation for scheduled activities',
+          'Meals as indicated in the itinerary',
+          'Recovery sessions',
+          'Cultural experiences'
+        ]
+      },
+      Exclusion: {
+        leftBullets: [
+          'Airfare to/from destination',
+          'Personal expenses',
+          'Additional meals not included',
+          'Optional activities not mentioned',
+          'Travel insurance',
+          'Unforeseen circumstances'
+        ],
+        rightBullets: [
+          'International airfare',
+          'Visa fees (if applicable)',
+          'Personal shopping',
+          'Medical expenses',
+          'Additional accommodation',
+          'Premium services'
+        ]
+      }
+    };
   };
+
+  const content = generateContent();
 
   return (
     <section id="trip-details" className="py-10 sm:py-12 md:py-14 bg-black min-h-screen flex items-center">
@@ -64,7 +80,7 @@ const TripDetailsSection = () => {
         {/* Centered Title */}
         <div className="text-center mb-8 sm:mb-10">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight">
-            Phuket Fitcation, <span className="text-[#ef4a25]">Package Details</span>
+            {tripData.title}, <span className="text-[#ef4a25]">Package Details</span>
           </h2>
           <div className="w-24 h-1 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>

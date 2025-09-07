@@ -4,6 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { ChevronDown, Calendar, Users, Home } from "lucide-react"
+import { TripData } from '@/lib/tripData'
 
 interface FormData {
   name: string
@@ -14,7 +15,11 @@ interface FormData {
   accommodation: string
 }
 
-const ItineraryFormSection = () => {
+interface ItineraryFormSectionProps {
+  tripData: TripData;
+}
+
+const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData: _ }) => {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     name: "",

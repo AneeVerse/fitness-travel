@@ -60,27 +60,28 @@ const events: EventItem[] = [
     bookedSlots: 8,
   },
   {
-    id: 'THAILAND',
-    title: 'THAILAND',
+    id: 'GOA',
+    title: 'GOA',
     description:
-      'Discover the vibrant fitness culture of Thailand. From beach bootcamps to mountain adventures, experience fitness like never before.',
-    date: '28th sept - 5th oct',
+      'Unleash your inner wellness with beach training, yoga, and pool recovery. Experience the perfect blend of fitness and coastal vibes in India\'s most vibrant destination.',
+    date: 'Feb 3 – 6, 2022',
     access: 'Member Only',
-    time: 'Start 05:30 AM – Finish',
-    location: 'Thailand',
-    priceLabel: '$55',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    time: 'Start 06:00 AM – Finish',
+    location: 'Goa',
+    priceLabel: 'INR 10.5K',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755519446260',
     videoSrc: '/video/vids/vid (3).mp4',
-    totalSlots: 30,
-    bookedSlots: 15,
+    totalSlots: 15,
+    bookedSlots: 5,
   },
 ];
 
 interface UpcomingEventsProps {
   title?: string;
+  currentSlug?: string;
 }
 
-const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS" }) => {
+const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS", currentSlug }) => {
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [currentIndex, setCurrentIndex] = useState(0);
   const [displayedSlots, setDisplayedSlots] = useState(25);
@@ -130,17 +131,17 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   // No auto-animation for mobile - manual scroll only
 
   // Handle Pointer Events (Mouse & Touch)
-  const handlePointerDown = (e: any) => {
+  const handlePointerDown = (e: React.PointerEvent | TouchEvent) => {
     if (!isMobile) return;
     isDragging.current = true;
     setIsPaused(true);
-    startX.current = e.clientX || e.touches?.[0]?.clientX || 0;
+    startX.current = (e as React.PointerEvent).clientX || (e as TouchEvent).touches?.[0]?.clientX || 0;
     scrollLeft.current = translateX.current;
   };
 
-  const handlePointerMove = (e: any) => {
+  const handlePointerMove = (e: React.PointerEvent | TouchEvent) => {
     if (!isDragging.current || !isMobile) return;
-    const x = e.clientX || e.touches?.[0]?.clientX || 0;
+    const x = (e as React.PointerEvent).clientX || (e as TouchEvent).touches?.[0]?.clientX || 0;
     const walk = (x - startX.current) * 1.2; // Slightly increased sensitivity
     let newTranslate = scrollLeft.current + walk;
     
@@ -320,7 +321,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                 : isMobile ? 'auto' : '100%'
             }}
           >
-            {events.map((event, index) => {
+            {events.filter(event => event.id.toLowerCase() !== currentSlug).map((event, index) => {
               const isFlipped = flippedCards.has(event.id);
               const isHovered = hoveredCard === event.id;
               const shouldFlip = isFlipped || isHovered;
@@ -449,10 +450,11 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                console.log('Button clicked, navigating to itinerary');
+                                console.log('Button clicked, navigating to itinerary for', event.id);
                                 
-                                // Use window.location for more reliable navigation
-                                window.location.href = '/itinerary';
+                                // Navigate to specific itinerary based on event ID
+                                const slug = event.id.toLowerCase();
+                                window.location.href = `/itinerary/${slug}`;
                               }}
                               onMouseDown={(e) => {
                                 e.stopPropagation();
