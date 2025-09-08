@@ -316,21 +316,6 @@ const VideoCard: React.FC<{
             {video.description}
           </p>
         </div>
-
-        {/* Tags on hover - similar to CreativeSection */}
-        <div className="absolute bottom-5 left-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-          <div className="flex items-center gap-2">
-            <span className="text-white min-w-fit px-[10px] rounded-full py-[3px] border text-xs font-medium">
-              {video.timestamp}
-            </span>
-            <span className="text-white min-w-fit px-[10px] rounded-full py-[3px] border text-xs font-medium">
-              HD Video
-            </span>
-            <span className="text-white min-w-fit px-[10px] rounded-full py-[3px] border text-xs font-medium">
-              Fitness
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );

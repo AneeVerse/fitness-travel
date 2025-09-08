@@ -22,6 +22,12 @@ const flipStyles = `
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .text-ellipsis-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 `;
 
 type EventItem = {
@@ -45,7 +51,7 @@ const events: EventItem[] = [
     id: 'PHUKET',
     title: 'PHUKET',
     description:
-      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. making it easy for visitors to immerse themselves in a dynamic fitness culture.',
+      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
     date: '14th sept - 21st sept',
     access: 'Member Only',
     time: 'Start 05:00 AM – Finish',
@@ -229,7 +235,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
               className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-6 mx-auto justify-center"
             >
               {filteredEvents.map((event, index) => {
-                const eventId = `${index}-${event.id}`;
+                const eventId = `${event.id}-${index}`;
                 const isFlipped = flippedCards.has(event.id);
                 const isHovered = hoveredCard === event.id;
                 const shouldFlip = isFlipped || isHovered;
@@ -300,11 +306,9 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                 <h3 className="text-lg sm:text-xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
                                   {event.title}
                                 </h3>
-                                {/* Mobile: Truncated description, Desktop: Original */}
-                                <p className="text-sm opacity-90 select-none">
-                                  <span className="block sm:hidden text-ellipsis-2">{event.description}</span>
-                                  <span className="hidden sm:block">{event.description.substring(0, 80)}...</span>
-                                </p>
+                                {/* Mobile: Truncated description, Desktop: Full description */}
+                                <p className="text-sm opacity-90 select-none block sm:hidden"><span className="text-ellipsis-6">{event.description}</span></p>
+                                <p className="text-sm opacity-90 select-none hidden sm:block">{event.description}</p>
                               </div>
                             </div>
                           </div>
@@ -329,7 +333,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                               
                               {/* Mobile: Limited description with ellipsis, Desktop: Full description */}
                               <div className="text-black text-xs sm:text-sm mb-3 sm:mb-4 select-none">
-                                <p className="block sm:hidden text-ellipsis-3">{event.description}</p>
+                                <p className="block sm:hidden"><span className="text-ellipsis-6">{event.description}</span></p>
                                 <p className="hidden sm:block">{event.description}</p>
                               </div>
                               

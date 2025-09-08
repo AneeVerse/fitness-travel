@@ -190,7 +190,7 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="absolute bottom-12 left-3 sm:left-4 md:left-5 lg:left-6 right-3 sm:right-4 md:right-5 lg:right-6">
+          <div className="mt-6 px-3 sm:px-4 md:px-5 lg:px-6">
             <button
               onClick={() => {
                 setIsPricingModalOpen(true)

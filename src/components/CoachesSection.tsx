@@ -17,9 +17,9 @@ const coaches: Coach[] = [
     role: "FOUNDER",
     imageSrc: "/images/coach/team1.webp",
     socials: [
-      { label: "LinkedIn", href: "#" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/coachmanojk/" },
       { label: "Instagram", href: "https://www.instagram.com/coachmanojk/" },
-      { label: "Email", href: "#" },
+      { label: "Email", href: "mailto:team.tigerterrain@gmail.com" },
     ]
   },
   {
@@ -28,9 +28,9 @@ const coaches: Coach[] = [
     role: "CO-FOUNDER",
     imageSrc: "/images/coach/team2.webp",
     socials: [
-      { label: "LinkedIn", href: "#" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/vmcww/" },
       { label: "Instagram", href: "https://www.instagram.com/vmcrocks/" },
-      { label: "Email", href: "#" },
+      { label: "Email", href: "mailto:team.tigerterrain@gmail.com" },
     ]
   },
 ]

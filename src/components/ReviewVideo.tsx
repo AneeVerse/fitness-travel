@@ -502,12 +502,10 @@ const VideoCard: React.FC<{
       
       {/* Play Button - Clickable */}
       <button
-        onClick={() => {
-          onPlayClick(video);
-        }}
-        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
+        onClick={() => onPlayClick(video)}
+        className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
       >
-        <Play className="w-5 h-5 ml-1" fill="white" />
+        <Play className="w-8 h-8" fill="white" />
       </button>
 
       {/* Text Review Overlay */}
@@ -552,13 +550,13 @@ const VideoCard: React.FC<{
             <p className="text-xs leading-relaxed text-gray-200 line-clamp-2 mb-3 select-none">
               &quot;{video.transcript.length > 80 ? video.transcript.substring(0, 80) + '...' : video.transcript}&quot;
             </p>
-            <div className="mt-1">
+            <div className="mt-1 flex justify-center">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   onPlayClick(video);
                 }}
-                className="bg-[#ef4a25] text-white px-4 py-1.5 rounded-full text-xs font-semibold hover:bg-[#d13d1f] transition-colors duration-200 select-none"
+                className="bg-[#ef4a25] text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-[#d13d1f] transition-colors duration-200 select-none"
               >
                 Watch Full Video
               </button>
