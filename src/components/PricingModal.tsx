@@ -60,7 +60,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
 
       // Download the local PDF file
       const link = document.createElement('a');
-      link.href = '/pdf/TT Brochure.pdf';
+      link.href = '/pdf/TT Brochure .pdf';
       link.download = 'TT Brochure.pdf';
       link.click();
 
