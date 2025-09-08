@@ -105,6 +105,20 @@ export async function POST(request: NextRequest) {
       `,
     };
 
+    // Function to get IST date
+    const getISTDate = () => {
+      const now = new Date();
+      const utcTime = now.getTime();
+      const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC + 5:30
+      const istTime = new Date(utcTime + istOffset);
+      const day = String(istTime.getUTCDate()).padStart(2, '0');
+      const month = String(istTime.getUTCMonth() + 1).padStart(2, '0');
+      const year = istTime.getUTCFullYear();
+      return `${day}/${month}/${year}`;
+    };
+
+    const indianDate = getISTDate();
+
     // 2. Send notification email to company (EMAIL_RECEIVER)
     const companyMailOptions = {
       from: `"Tiger Terrain Website" <${process.env.EMAIL_USER}>`,
@@ -119,15 +133,14 @@ export async function POST(request: NextRequest) {
           <div style="padding: 20px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
             <h2 style="color: #333;">Contact Details:</h2>
             <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
-              <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+              <p><strong>Name:</strong> ${finalFirstName} ${finalLastName}</p>
               <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-              <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</p>
-              <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-              <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
+              <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
+              <p><strong>Date:</strong> ${indianDate}</p>
             </div>
             
             <div style="background: #ef4a25; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-              <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${firstName}</a>
+              <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${finalFirstName}</a>
             </div>
             
             <p style="color: #666; font-size: 14px; margin-top: 20px; text-align: center;">
@@ -152,15 +165,14 @@ export async function POST(request: NextRequest) {
           <div style="padding: 20px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
             <h2 style="color: #333;">Contact Details:</h2>
             <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
-              <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+              <p><strong>Name:</strong> ${finalFirstName} ${finalLastName}</p>
               <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
               <p><strong>Phone:</strong> <a href="tel:${phone}">${phone}</a></p>
-              <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-              <p><strong>Time:</strong> ${new Date().toLocaleTimeString()}</p>
+              <p><strong>Date:</strong> ${indianDate}</p>
             </div>
             
             <div style="background: #ef4a25; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-              <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${firstName}</a>
+              <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold;">Reply to ${finalFirstName}</a>
             </div>
             
             <p style="color: #666; font-size: 14px; margin-top: 20px; text-align: center;">
