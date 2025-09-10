@@ -127,7 +127,6 @@ const ContactPage = () => {
                    </div>
                   <div className="space-y-2 text-white/80">
                     <p>team.tigerterrain@gmail.com</p>
-                    <p>info.tigerterrain@gmail.com</p>
                   </div>
                 </div>
 
@@ -142,8 +141,7 @@ const ContactPage = () => {
                      <h3 className="text-xl font-bold text-white font-unbounded">PHONE</h3>
                    </div>
                   <div className="space-y-2 text-white/80">
-                    <p>+91 98209 42632</p>
-                    <p>+91 98765 43210</p>
+                    <p>+91 70210 15803</p>
                   </div>
                 </div>
 
