@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { TripData } from '@/lib/tripData';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import CountryCodeDropdown from './CountryCodeDropdown';
 
 interface PricingModalProps {
   isOpen: boolean;
@@ -21,8 +24,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
   
   const currentTripData = tripData || defaultTripData;
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
     phone: ''
   });
@@ -49,7 +51,9 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          ...formData,
+          name: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
           pdfLink: 'https://drive.google.com/file/d/1JJUEMumBSM0QnfywoQzuoFXqOU46SBNs/view?usp=sharing'
         }),
       });
@@ -71,7 +75,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
       setTimeout(() => {
         onClose();
         setIsSubmitted(false);
-        setFormData({ firstName: '', lastName: '', email: '', phone: '' });
+        setFormData({ fullName: '', email: '', phone: '' });
       }, 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -130,42 +134,25 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                       Book Your Adventure
                     </h2>
                     <p className="text-gray-600">
-                      Fill out the form below and we&apos;ll send you detailed pricing information, a complete itinerary PDF via email, and contact you within 24 hours.
+                      Fill out the form below and we&apos;ll send you detailed pricing information and a complete itinerary PDF via email. Our team will get back to you soon.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                          First Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="firstName"
-                          name="firstName"
-                          required
-                          value={formData.firstName}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="First name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                          Last Name *
-                        </label>
-                        <input
-                          type="text"
-                          id="lastName"
-                          name="lastName"
-                          required
-                          value={formData.lastName}
-                          onChange={handleInputChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
-                          placeholder="Last name"
-                        />
-                      </div>
+                    <div>
+                      <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        required
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
+                        placeholder="Enter your full name"
+                      />
                     </div>
 
                     <div>
@@ -185,19 +172,34 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                     </div>
 
                     <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         Phone Number *
                       </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        required
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
-                        placeholder="Enter your phone number"
-                      />
+                      <div className="grid grid-cols-[140px_1fr] gap-3">
+                        <CountryCodeDropdown
+                          value={(formData.phone || '').split(' ')[0] || ''}
+                          onChange={(code) => {
+                            const numberOnly = (formData.phone || '').replace(/^\+\d+\s*/, '');
+                            setFormData((prev) => ({ ...prev, phone: `${code} ${numberOnly}`.trim() }));
+                          }}
+                          className=""
+                          bgColor="bg-white"
+                          borderColor="border-gray-300"
+                        />
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          required
+                          value={(formData.phone || '').replace(/^\+\d+\s*/, '')}
+                          onChange={(e) => {
+                            const existingCode = (formData.phone || '+91').match(/^\+\d+/)?.[0] || '+91';
+                            setFormData((prev) => ({ ...prev, phone: `${existingCode} ${e.target.value}`.trim() }));
+                          }}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 placeholder-gray-500"
+                          placeholder="Enter your phone number"
+                        />
+                      </div>
                     </div>
 
                     <button
@@ -227,7 +229,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4 font-unbounded">Thank You!</h3>
                   <p className="text-gray-600 mb-4">
-                    Your booking request has been submitted successfully! Our team will contact you within 24 hours to discuss your adventure.
+                    Your booking request has been submitted successfully! Our team will get back to you soon to discuss your adventure.
                   </p>
                   <p className="text-sm text-gray-500">
                     We&apos;ve sent pricing information and the PDF link to your email. The PDF has also been downloaded to your device.

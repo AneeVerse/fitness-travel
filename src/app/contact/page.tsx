@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Image from 'next/image';
 import CTASection from '@/components/CTASection';
+import CountryCodeDropdown from '@/components/CountryCodeDropdown';
 
 const ContactPage = () => {
   const router = useRouter();
@@ -202,28 +203,44 @@ const ContactPage = () => {
                     />
                   </div>
 
-                  {/* Email and Phone Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Email Address"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
-                        required
+                  {/* Email */}
+                  <div>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Email Address"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                      required
+                    />
+                  </div>
+
+                  {/* Phone - on its own line with custom dropdown */}
+                  <div>
+                    <div className="grid grid-cols-[140px_1fr] gap-3">
+                      <CountryCodeDropdown
+                        value={(formData.phone || '').split(' ')[0] || ''}
+                        onChange={(code) => {
+                          const numberOnly = (formData.phone || '').replace(/^\+\d+\s*/, '');
+                          setFormData((prev) => ({ ...prev, phone: `${code} ${numberOnly}`.trim() }));
+                        }}
+                        className=""
+                        bgColor="bg-gray-800/50"
+                        borderColor="border-gray-600/50"
+                        textClass="text-white"
                       />
-                    </div>
-                    <div>
                       <input
                         type="tel"
                         id="phone"
                         name="phone"
                         placeholder="Phone Number"
-                        value={formData.phone}
-                        onChange={handleInputChange}
+                        value={(formData.phone || '').replace(/^\+\d+\s*/, '')}
+                        onChange={(e) => {
+                          const existingCode = (formData.phone || '+91').match(/^\+\d+/)?.[0] || '+91';
+                          setFormData((prev) => ({ ...prev, phone: `${existingCode} ${e.target.value}`.trim() }));
+                        }}
                         className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
                       />
                     </div>
@@ -276,7 +293,7 @@ const ContactPage = () => {
                   </div>
 
                   <p className="text-white/60 text-sm text-center mt-4">
-                    We&apos;ll get back to you within 24 hours.
+                    Our team will get back to you soon.
                   </p>
                 </form>
               </div>

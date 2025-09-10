@@ -22,7 +22,7 @@ export default function ThankYouPage() {
             Your submission has been received successfully!
           </p>
           <p className="text-base text-white/70">
-            Our team will get back to you within 24 hours.
+            Our team will get back to you soon.
           </p>
         </div>
 

@@ -2,6 +2,9 @@
 
 import type React from "react"
 import { useState } from "react"
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import CountryCodeDropdown from './CountryCodeDropdown'
 import { useRouter } from "next/navigation"
 import { ChevronDown, Calendar, Users, Home } from "lucide-react"
 import { TripData } from '@/lib/tripData'
@@ -29,6 +32,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
     people: "",
     accommodation: "",
   })
+  const [countryCode, setCountryCode] = useState("+91")
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDateOpen, setIsDateOpen] = useState(false)
@@ -42,8 +46,8 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
 
   const accommodationTypes = [
     { value: "single", label: "Single Room" },
-    { value: "double", label: "Double Room" },
-    { value: "triple", label: "Triple Room" },
+    { value: "twin", label: "Twin Sharing" },
+    { value: "triple", label: "Triple Sharing" },
   ]
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,16 +150,32 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
                     <label htmlFor="phone" className="block text-sm font-medium text-white/90">
                       Phone Number *
                     </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
-                      placeholder="Your phone number"
-                    />
+                    <div className="grid grid-cols-[140px_1fr] gap-3">
+                      <CountryCodeDropdown
+                        value={(formData.phone || '').split(' ')[0] || ''}
+                        onChange={(code) => {
+                          const numberOnly = (formData.phone || '').replace(/^\+\d+\s*/, '');
+                          setFormData((prev) => ({ ...prev, phone: `${code} ${numberOnly}`.trim() }));
+                        }}
+                        className=""
+                        bgColor="bg-gray-800/50"
+                        borderColor="border-gray-600/50"
+                        textClass="text-white"
+                      />
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        value={(formData.phone || '').replace(/^\+\d+\s*/, '')}
+                        onChange={(e) => {
+                          const existingCode = (formData.phone || '+91').match(/^\+\d+/)?.[0] || '+91';
+                          setFormData((prev) => ({ ...prev, phone: `${existingCode} ${e.target.value}`.trim() }));
+                        }}
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white placeholder:text-white/50 text-base backdrop-blur-sm hover:bg-gray-800/70"
+                        placeholder="Your phone number"
+                      />
+                    </div>
                   </div>
                   <div className="space-y-2">
                     <label htmlFor="email" className="block text-sm font-medium text-white/90">
