@@ -1,4 +1,6 @@
-import type React from "react"
+"use client"
+
+import React, { useState } from "react"
 import Image from "next/image"
 import { Teko } from "next/font/google"
 
@@ -7,8 +9,21 @@ type Coach = {
   name: string
   role: string
   imageSrc: string
+  description: string
   socials?: { label: string; href: string }[]
 }
+
+// CSS for flip effect (consistent with UpcomingEvents)
+const flipStyles = `
+  .backface-hidden { backface-visibility: hidden; }
+  .transform-style-preserve-3d { transform-style: preserve-3d; }
+  .text-ellipsis-6 {
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+`;
 
 const coaches: Coach[] = [
   {
@@ -16,6 +31,8 @@ const coaches: Coach[] = [
     name: "MANOJ",
     role: "FOUNDER",
     imageSrc: "/images/coach/team1.webp",
+    description:
+      "Manoj Kumbhar, a Level 3 CrossFit coach and founder of CrossFit Myden, is passionate about building strength, endurance, and community. With years of expertise, he empowers athletes to push limits, achieve goals, and embrace fitness as a lifestyle.",
     socials: [
       { label: "LinkedIn", href: "https://www.linkedin.com/in/coachmanojk/" },
       { label: "Instagram", href: "https://www.instagram.com/coachmanojk/" },
@@ -27,6 +44,8 @@ const coaches: Coach[] = [
     name: "VIKRAM MANGHNANI",
     role: "CO-FOUNDER",
     imageSrc: "/images/coach/team2.webp",
+    description:
+      "Always passionate about fitness and travel, Tiger Terrain is Vikram’s natural progression into this new venture. Vikram Manghnani brings years of his advertising experience into enhancing the customer journey at Tiger Terrain that keeps people coming back for more.",
     socials: [
       { label: "LinkedIn", href: "https://www.linkedin.com/in/vmcww/" },
       { label: "Instagram", href: "https://www.instagram.com/vmcrocks/" },
@@ -80,8 +99,10 @@ const getSocialType = (label: string): "li" | "ig" | "email" => {
 const teko = Teko({ subsets: ["latin"], weight: ["400", "600", "700"] })
 
 const CoachesSection: React.FC = () => {
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   return (
          <section id="coaches-section" className="relative py-20 md:py-24 lg:py-28 xl:py-36 bg-black">
+      <style dangerouslySetInnerHTML={{ __html: flipStyles }} />
       <div className="max-w-[1325px] mx-auto px-4 sm:px-6 lg:px-8">
                  {/* Mobile & Tablet Layout */}
          <div className="lg:hidden">
@@ -103,48 +124,39 @@ const CoachesSection: React.FC = () => {
            <div className="space-y-6 sm:space-y-8 md:space-y-10">
              {coaches.map((coach) => (
                <article
-                 key={coach.id}
-                 className="w-full max-w-xs mx-auto bg-white rounded-2xl sm:rounded-3xl shadow-lg overflow-hidden"
+                key={coach.id}
+                className="w-full max-w-xs mx-auto bg-transparent rounded-2xl sm:rounded-3xl"
+                onMouseEnter={() => setHoveredCard(coach.id)}
+                onMouseLeave={() => setHoveredCard(null)}
                >
-                <div className="relative h-96 sm:h-[420px] md:h-[480px]">
-                  <Image 
-                    src={coach.imageSrc || "/placeholder.svg"} 
-                    alt={coach.name} 
-                    fill 
-                    className="object-cover" 
-                  />
-                  
-                  {/* Social Media Icons - Left Side Vertical Stack */}
-                  {coach.socials && (
-                    <div className="absolute left-4 top-4 flex flex-col gap-3">
-                      {coach.socials.map((social, index) => (
-                        <a
-                          key={index}
-                          href={social.href}
-                          className="w-10 h-10 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg"
-                          aria-label={social.label}
-                        >
-                          <SocialIcon type={getSocialType(social.label)} />
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                  
-                  <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4 sm:p-5 md:p-6">
-                   <h3
-                     className={`text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 ${teko.className}`}
-                     style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
-                   >
-                      {coach.name}
-                    </h3>
-                    <p 
-                      className="text-base sm:text-lg md:text-xl text-white/90 font-medium"
-                      style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}
-                    >
-                      {coach.role}
-                    </p>
-                  </div>
-                </div>
+               <div className="relative h-96 sm:h-[420px] md:h-[480px] shadow-lg" style={{ perspective: '1000px' }}>
+                 <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${hoveredCard === coach.id ? 'rotate-y-180' : ''}`} style={{ transformStyle: 'preserve-3d', transform: hoveredCard === coach.id ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+                   <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-black">
+                     <Image src={coach.imageSrc || "/placeholder.svg"} alt={coach.name} fill className="object-cover" />
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
+                     {coach.socials && (
+                       <div className="absolute left-4 top-4 flex flex-col gap-3">
+                         {coach.socials.map((social, index) => (
+                           <a key={index} href={social.href} className="w-10 h-10 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg" aria-label={social.label}>
+                             <SocialIcon type={getSocialType(social.label)} />
+                           </a>
+                         ))}
+                       </div>
+                     )}
+                     <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4 sm:p-5 md:p-6">
+                       <h3 className={`text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 ${teko.className}`} style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>{coach.name}</h3>
+                       <p className="text-base sm:text-lg md:text-xl text-white/90 font-medium" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>{coach.role}</p>
+                     </div>
+                   </div>
+                   <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-white" style={{ transform: 'rotateY(180deg)' }}>
+                     <div className="p-5 h-full flex flex-col">
+                       <h3 className={`text-xl font-bold text-black mb-1 ${teko.className}`}>{coach.name}</h3>
+                       <p className="text-sm text-[#ef4a25] font-semibold mb-3">{coach.role}</p>
+                       <p className="text-sm text-black/80 leading-relaxed"><span className="text-ellipsis-6 sm:line-clamp-none">{coach.description}</span></p>
+                     </div>
+                   </div>
+                 </div>
+               </div>
                </article>
              ))}
            </div>
@@ -171,80 +183,66 @@ const CoachesSection: React.FC = () => {
            {/* Right Content - Desktop overlapping cards */}
            <div className="relative w-full max-w-2xl">
               {/* First Card */}
-              <article className="relative w-72 h-92 bg-white rounded-2xl shadow-lg overflow-hidden -ml-4">
-               <Image
-                 src={coaches[0].imageSrc || "/placeholder.svg"}
-                 alt={coaches[0].name}
-                 fill
-                 className="object-cover"
-               />
-               
-               {/* Social Media Icons - Left Side Vertical Stack */}
-               {coaches[0].socials && (
-                 <div className="absolute left-3 top-3 flex flex-col gap-2">
-                   {coaches[0].socials.map((social, index) => (
-                     <a
-                       key={index}
-                       href={social.href}
-                       className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg"
-                       aria-label={social.label}
-                     >
-                       <SocialIcon type={getSocialType(social.label)} />
-                     </a>
-                   ))}
-                 </div>
-               )}
-               
-               <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
-                 <h3
-                   className={`text-lg font-bold text-white ${teko.className}`}
-                   style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
-                 >
-                   {coaches[0].name}
-                 </h3>
-                 <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>
-                   {coaches[0].role}
-                 </p>
-               </div>
+              <article className="relative w-72 h-92 rounded-2xl shadow-lg -ml-4">
+              <div className="relative w-full h-full" style={{ perspective: '1000px' }} onMouseEnter={() => setHoveredCard(coaches[0].id)} onMouseLeave={() => setHoveredCard(null)}>
+                <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${hoveredCard === coaches[0].id ? 'rotate-y-180' : ''}`} style={{ transformStyle: 'preserve-3d', transform: hoveredCard === coaches[0].id ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+                  <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-black">
+                    <Image src={coaches[0].imageSrc || "/placeholder.svg"} alt={coaches[0].name} fill className="object-cover" />
+                    {coaches[0].socials && (
+                      <div className="absolute left-3 top-3 flex flex-col gap-2">
+                        {coaches[0].socials.map((social, index) => (
+                          <a key={index} href={social.href} className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg" aria-label={social.label}>
+                            <SocialIcon type={getSocialType(social.label)} />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
+                      <h3 className={`text-lg font-bold text-white ${teko.className}`} style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>{coaches[0].name}</h3>
+                      <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>{coaches[0].role}</p>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-white" style={{ transform: 'rotateY(180deg)' }}>
+                    <div className="p-4 h-full flex flex-col">
+                      <h3 className={`text-lg font-bold text-black mb-1 ${teko.className}`}>{coaches[0].name}</h3>
+                      <p className="text-xs text-[#ef4a25] font-semibold mb-2">{coaches[0].role}</p>
+                      <p className="text-sm text-black/80 leading-relaxed">{coaches[0].description}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
              </article>
 
                              {/* Second Card - Overlapping on desktop only */}
-              <article className="absolute top-0 right-0 w-72 h-92 bg-white rounded-2xl shadow-lg overflow-hidden ml-24">
-               <Image
-                 src={coaches[1].imageSrc || "/placeholder.svg"}
-                 alt={coaches[1].name}
-                 fill
-                 className="object-cover"
-               />
-               
-               {/* Social Media Icons - Left Side Vertical Stack */}
-               {coaches[1].socials && (
-                 <div className="absolute left-3 top-3 flex flex-col gap-2">
-                   {coaches[1].socials.map((social, index) => (
-                     <a
-                       key={index}
-                       href={social.href}
-                       className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg"
-                       aria-label={social.label}
-                     >
-                       <SocialIcon type={getSocialType(social.label)} />
-                     </a>
-                   ))}
-                 </div>
-               )}
-               
-               <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
-                 <h3
-                   className={`text-lg font-bold text-white ${teko.className}`}
-                   style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}
-                 >
-                   {coaches[1].name}
-                 </h3>
-                 <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>
-                   {coaches[1].role}
-                 </p>
-               </div>
-                             </article>
+              <article className="absolute top-0 right-0 w-72 h-92 rounded-2xl shadow-lg ml-24">
+              <div className="relative w-full h-full" style={{ perspective: '1000px' }} onMouseEnter={() => setHoveredCard(coaches[1].id)} onMouseLeave={() => setHoveredCard(null)}>
+                <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${hoveredCard === coaches[1].id ? 'rotate-y-180' : ''}`} style={{ transformStyle: 'preserve-3d', transform: hoveredCard === coaches[1].id ? 'rotateY(180deg)' : 'rotateY(0deg)' }}>
+                  <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-black">
+                    <Image src={coaches[1].imageSrc || "/placeholder.svg"} alt={coaches[1].name} fill className="object-cover" />
+                    {coaches[1].socials && (
+                      <div className="absolute left-3 top-3 flex flex-col gap-2">
+                        {coaches[1].socials.map((social, index) => (
+                          <a key={index} href={social.href} className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-lg" aria-label={social.label}>
+                            <SocialIcon type={getSocialType(social.label)} />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/85 p-4">
+                      <h3 className={`text-lg font-bold text-white ${teko.className}`} style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.8)" }}>{coaches[1].name}</h3>
+                      <p className="text-sm text-white/90" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.8)" }}>{coaches[1].role}</p>
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden bg-white" style={{ transform: 'rotateY(180deg)' }}>
+                    <div className="p-4 h-full flex flex-col">
+                      <h3 className={`text-lg font-bold text-black mb-1 ${teko.className}`}>{coaches[1].name}</h3>
+                      <p className="text-xs text-[#ef4a25] font-semibold mb-2">{coaches[1].role}</p>
+                      <p className="text-sm text-black/80 leading-relaxed">{coaches[1].description}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
            </div>
          </div>
       </div>
