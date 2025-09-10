@@ -22,8 +22,8 @@ const teko = Teko({
 });
 
 export const metadata: Metadata = {
-  title: "Fitness Travel - Adventure Fitness Retreats",
-  description: "Join our week-long fitness retreats for like-minded travelers. Experience mouth-watering food, sun-soaked workouts, and epic adventures.",
+  title: "Tiger Terrain - Experiential Fitness Journeys",
+  description: "This is where fitness meets travel. Experience week-long fitness journeys that has sun-soaked workouts, curated nutrition plans, recovery sessions and epic adventures.",
   keywords: "fitness retreats, travel, adventure, wellness, vacation, fitness travel",
   icons: {
     icon: [
