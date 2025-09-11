@@ -109,7 +109,7 @@ const CoachesSection: React.FC = () => {
            {/* Header Section */}
            <div className="text-center mb-8 sm:mb-10 md:mb-12">
              <h2
-               className={`text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight mb-4 sm:mb-6 ${teko.className}`}
+               className={`text-3xl sm:text-4xl md:text-5xl font-bold text-[#ef4a25] leading-tight mb-4 sm:mb-6 ${teko.className}`}
              >
                Meet Your
                <br />
@@ -168,7 +168,7 @@ const CoachesSection: React.FC = () => {
            <div className="space-y-6 text-left">
              <div className="space-y-4">
                <h2
-                 className={`text-5xl xl:text-6xl font-bold text-white leading-tight ${teko.className}`}
+                 className={`text-5xl xl:text-6xl font-bold text-[#ef4a25] leading-tight ${teko.className}`}
                >
                  Meet Your
                  <br />

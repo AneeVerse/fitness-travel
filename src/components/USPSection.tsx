@@ -52,7 +52,7 @@ const USPSection = () => {
             <span className="h-1.5 w-1.5 rounded-full bg-white" />
             WHAT&apos;S INCLUDED
           </span>
-          <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-white leading-[0.95] ${teko.className}`}>
+          <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-[#ef4a25] leading-[0.95] ${teko.className}`}>
             What&apos;s Included in Every Journey
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto mt-2">

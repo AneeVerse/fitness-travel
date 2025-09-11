@@ -91,7 +91,7 @@ const FeaturesSection = () => {
             {/* Left Column - Text Content */}
             <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-1 lg:order-1">
               <div className="max-w-xl sm:max-w-2xl">
-                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-white leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
                   Need a fitness retreat or adventure travel experience?
                 </h2>
                 

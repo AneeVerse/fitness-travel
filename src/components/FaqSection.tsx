@@ -54,7 +54,7 @@ const FaqSection: React.FC = () => {
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
               FAQs
             </span>
-            <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-white leading-[0.95] ${teko.className}`}>
+            <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-[#ef4a25] leading-[0.95] ${teko.className}`}>
               Frequently Asked Questions
             </h2>
 

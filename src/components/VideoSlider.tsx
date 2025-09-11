@@ -156,7 +156,7 @@ export default function VideoSlider() {
       <div className="w-full">
         {/* Header - Centered */}
         <div className="text-center mb-6 sm:mb-8 md:mb-12 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1390px] mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white"
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[#ef4a25]"
             style={{ fontFamily: 'var(--font-teko)' }}
           >
             Tiger Terrain Highlights

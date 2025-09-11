@@ -43,7 +43,7 @@ const ReviewsSection: React.FC = () => {
       <div className="w-full">
         {/* Voices of Transformation Header */}
         <div className="text-center mb-8 sm:mb-9 md:mb-10 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1325px] mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white font-unbounded">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#ef4a25] font-unbounded">
             Voices of Transformation
           </h2>
           <p className="mt-3 text-base sm:text-lg md:text-xl text-white xl:mb-10">
