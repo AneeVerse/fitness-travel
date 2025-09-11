@@ -69,14 +69,55 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     setIsPaused(false);
   };
 
+  // Handle wheel events for trackpad/trackball horizontal scrolling
+  const handleWheel = (e: React.WheelEvent) => {
+    // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    
+    if (isHorizontalScroll) {
+      // Only handle horizontal scroll - prevent default and scroll
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
+      translateX.current += scrollAmount;
+      
+      // Infinite scroll - seamless looping like drag version
+      if (Math.abs(translateX.current) >= totalWidth.current) {
+        translateX.current = 0; // Reset position to ensure smooth loop
+      }
+      
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+      }
+    }
+    // Ignore vertical scrolling - let it work normally for page scrolling
+  };
+
   // Start Animation & Recalculate on Resize
   useEffect(() => {
     calculateWidth();
     window.addEventListener("resize", calculateWidth);
     animationRef.current = requestAnimationFrame(animate);
 
+    // Add wheel event listener to prevent browser navigation only for horizontal scroll
+    const handleWheelCapture = (e: WheelEvent) => {
+      if (containerRef.current && containerRef.current.contains(e.target as Node)) {
+        // Only prevent default for horizontal scrolling
+        const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (isHorizontalScroll) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    };
+
+    // Use passive: false to allow preventDefault
+    document.addEventListener('wheel', handleWheelCapture, { passive: false });
+
     return () => {
       window.removeEventListener("resize", calculateWidth);
+      document.removeEventListener('wheel', handleWheelCapture);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -110,6 +151,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
           onMouseUp={handlePointerUp}
+          onWheel={handleWheel}
         >
           <div
             ref={containerRef}

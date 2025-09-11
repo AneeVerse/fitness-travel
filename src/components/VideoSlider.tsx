@@ -54,8 +54,8 @@ const videos: VideoCard[] = [
   },
 ];
 
-// Duplicate data for seamless looping
-const duplicatedVideos = [...videos, ...videos];
+// Duplicate data for seamless looping - create more copies to prevent black screen
+const duplicatedVideos = [...videos, ...videos, ...videos, ...videos];
 
 export default function VideoSlider() {
   const [isPaused, setIsPaused] = useState(false);
@@ -81,6 +81,28 @@ export default function VideoSlider() {
         totalWidth.current = firstChild.offsetWidth * videos.length;
       }
     }
+  }, []);
+
+  // Reset position for infinite scroll
+  const resetPosition = useCallback(() => {
+    if (containerRef.current) {
+      translateX.current = 0;
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  }, []);
+
+  // Calculate boundaries for proper scroll limits
+  const calculateBoundaries = useCallback(() => {
+    if (containerRef.current) {
+      const container = containerRef.current.parentElement;
+      if (container) {
+        const containerWidth = container.offsetWidth;
+        const totalContentWidth = containerRef.current.scrollWidth;
+        const maxScroll = Math.max(0, totalContentWidth - containerWidth);
+        return { containerWidth, totalContentWidth, maxScroll };
+      }
+    }
+    return { containerWidth: 0, totalContentWidth: 0, maxScroll: 0 };
   }, []);
 
   // Animation Loop
@@ -112,6 +134,12 @@ export default function VideoSlider() {
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 2; // Adjust sensitivity
     translateX.current = scrollLeft.current + walk;
+    
+    // Infinite scroll - seamless looping for drag
+    if (Math.abs(translateX.current) >= totalWidth.current) {
+      translateX.current = 0; // Reset position to ensure smooth loop
+    }
+    
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -120,6 +148,31 @@ export default function VideoSlider() {
   const handlePointerUp = () => {
     isDragging.current = false;
     setIsPaused(false);
+  };
+
+  // Handle wheel events for trackpad/trackball horizontal scrolling
+  const handleWheel = (e: React.WheelEvent) => {
+    // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    
+    if (isHorizontalScroll) {
+      // Only handle horizontal scroll - prevent default and scroll
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
+      translateX.current += scrollAmount;
+      
+      // Infinite scroll - seamless looping like drag version
+      if (Math.abs(translateX.current) >= totalWidth.current) {
+        translateX.current = 0; // Reset position to ensure smooth loop
+      }
+      
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+      }
+    }
+    // Ignore vertical scrolling - let it work normally for page scrolling
   };
 
   // Handle play button click
@@ -143,8 +196,24 @@ export default function VideoSlider() {
     window.addEventListener("resize", calculateWidth);
     animationRef.current = requestAnimationFrame(animate);
 
+    // Add wheel event listener to prevent browser navigation only for horizontal scroll
+    const handleWheelCapture = (e: WheelEvent) => {
+      if (containerRef.current && containerRef.current.contains(e.target as Node)) {
+        // Only prevent default for horizontal scrolling
+        const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (isHorizontalScroll) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    };
+
+    // Use passive: false to allow preventDefault
+    document.addEventListener('wheel', handleWheelCapture, { passive: false });
+
     return () => {
       window.removeEventListener("resize", calculateWidth);
+      document.removeEventListener('wheel', handleWheelCapture);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -174,10 +243,16 @@ export default function VideoSlider() {
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
           onMouseUp={handlePointerUp}
+          onWheel={handleWheel}
         >
           <div
             ref={containerRef}
             className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-6"
+            style={{ 
+              transition: 'none',
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)'
+            }}
           >
             {duplicatedVideos.map((video, index) => {
               const videoId = `${index}-${video.id}`;
@@ -262,10 +337,21 @@ const VideoCard: React.FC<{
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all shadow-lg"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all shadow-lg select-none"
       draggable={false}
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
+      onSelectStart={(e) => e.preventDefault()}
+      onDragStart={(e) => e.preventDefault()}
+      onMouseDown={(e) => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ 
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        WebkitTouchCallout: 'none'
+      }}
     >
       {/* Video Background */}
       <video
@@ -304,15 +390,56 @@ const VideoCard: React.FC<{
       </button>
 
       {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
-        <div className="space-y-1 sm:space-y-2">
-          <p className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90">
+      <div 
+        className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white select-none"
+        onSelectStart={(e) => e.preventDefault()}
+        onDragStart={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{ 
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+          WebkitTouchCallout: 'none'
+        }}
+      >
+        <div 
+          className="space-y-1 sm:space-y-2"
+          onSelectStart={(e) => e.preventDefault()}
+          onDragStart={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()}
+          style={{ 
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none'
+          }}
+        >
+          <p 
+            className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90 select-none"
+            onSelectStart={(e) => e.preventDefault()}
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
             {video.subtitle}
           </p>
-          <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
+          <h3 
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight select-none"
+            onSelectStart={(e) => e.preventDefault()}
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
             {video.title}
           </h3>
-          <p className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2">
+          <p 
+            className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2 select-none"
+            onSelectStart={(e) => e.preventDefault()}
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
             {video.description}
           </p>
         </div>
