@@ -28,7 +28,7 @@ const flipStyles = `
 const coaches: Coach[] = [
   {
     id: "team-member-1",
-    name: "MANOJ",
+    name: "MANOJ KUMBHAR",
     role: "FOUNDER",
     imageSrc: "/images/coach/team1.webp",
     description:

@@ -341,7 +341,6 @@ const VideoCard: React.FC<{
       draggable={false}
       onMouseEnter={() => onHover(videoId)}
       onMouseLeave={() => onHover(null)}
-      onSelectStart={(e) => e.preventDefault()}
       onDragStart={(e) => e.preventDefault()}
       onMouseDown={(e) => e.preventDefault()}
       onContextMenu={(e) => e.preventDefault()}
@@ -392,7 +391,6 @@ const VideoCard: React.FC<{
       {/* Content */}
       <div 
         className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white select-none"
-        onSelectStart={(e) => e.preventDefault()}
         onDragStart={(e) => e.preventDefault()}
         onMouseDown={(e) => e.preventDefault()}
         style={{ 
@@ -405,7 +403,6 @@ const VideoCard: React.FC<{
       >
         <div 
           className="space-y-1 sm:space-y-2"
-          onSelectStart={(e) => e.preventDefault()}
           onDragStart={(e) => e.preventDefault()}
           onMouseDown={(e) => e.preventDefault()}
           style={{ 
@@ -417,7 +414,6 @@ const VideoCard: React.FC<{
         >
           <p 
             className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90 select-none"
-            onSelectStart={(e) => e.preventDefault()}
             onDragStart={(e) => e.preventDefault()}
             onMouseDown={(e) => e.preventDefault()}
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
@@ -426,7 +422,6 @@ const VideoCard: React.FC<{
           </p>
           <h3 
             className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight select-none"
-            onSelectStart={(e) => e.preventDefault()}
             onDragStart={(e) => e.preventDefault()}
             onMouseDown={(e) => e.preventDefault()}
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
@@ -435,7 +430,6 @@ const VideoCard: React.FC<{
           </h3>
           <p 
             className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2 select-none"
-            onSelectStart={(e) => e.preventDefault()}
             onDragStart={(e) => e.preventDefault()}
             onMouseDown={(e) => e.preventDefault()}
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
