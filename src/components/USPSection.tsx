@@ -13,32 +13,32 @@ const USPSection = () => {
   const uspItems = [
     {
       title: "Daily guided fitness sessions (2-3 hours)",
-      image: "/images/destination/67c950df732207c200bc9b76__MEN2735.jpg",
+      image: "/images/Whats- include/daily guided fitness sessions.png",
       description: "Professional training sessions tailored to your fitness level"
     },
     {
       title: "Nutritious meals featuring local cuisine",
-      image: "/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg",
+      image: "/images/Whats- include/nutritious meals.png",
       description: "Healthy, delicious meals prepared with fresh local ingredients"
     },
     {
       title: "Recovery sessions and wellness treatments",
-      image: "/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif",
+      image: "/images/Whats- include/recovery sessions.png",
       description: "Rejuvenating treatments to optimize your recovery"
     },
     {
       title: "Cultural excursions and adventure activities",
-      image: "/images/itinerary/trip-detail/67caa4ac34cc07b6457e13c1_saguaita_06.jpg",
+      image: "/images/Whats- include/cultural excursions and adventure activites.png",
       description: "Immersive experiences that connect you with local culture"
     },
     {
       title: "Expert coaching and personalized guidance",
-      image: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
+      image: "/images/Whats- include/expert coaching.png",
       description: "One-on-one attention from certified fitness professionals"
     },
     {
       title: "Premium accommodation and transportation",
-      image: "/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg",
+      image: "/images/Whats- include/premium accomodation.png",
       description: "Luxury accommodations and seamless travel arrangements"
     }
   ];
