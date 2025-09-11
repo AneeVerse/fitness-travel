@@ -201,7 +201,7 @@ export default function ReviewVideo() {
       e.stopPropagation();
       
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
-      translateX.current += scrollAmount;
+      translateX.current -= scrollAmount;
       
       // Infinite scroll - seamless looping like drag version
       if (Math.abs(translateX.current) >= totalWidth.current) {
