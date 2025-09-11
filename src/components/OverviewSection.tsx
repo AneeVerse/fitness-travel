@@ -30,15 +30,15 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ tripData }) => {
           {/* Left Content */}
           <div className="order-2 lg:order-1 space-y-4 sm:space-y-5 md:space-y-6">
             {tripData.overview.description.map((paragraph, index) => {
-              if (index === 2 && tripData.overview.subtitle) {
+              if (index === 1) {
                 return (
                   <React.Fragment key={index}>
-                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
-                      {paragraph}
-                    </p>
                     <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mt-6 sm:mt-8 md:mt-10 font-unbounded">
                       {tripData.overview.subtitle}
                     </h3>
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+                      {paragraph}
+                    </p>
                   </React.Fragment>
                 );
               }

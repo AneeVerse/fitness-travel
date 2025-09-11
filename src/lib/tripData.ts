@@ -148,9 +148,7 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'FIND OUT WHAT YOU ARE MADE UP OF',
       subtitle: 'Who is it for?',
       description: [
-        'Tiger Terrain is about embarking on a journey of self-discovery. It\'s not about taking a holiday or chasing a fleeting transformation.',
-        'Instead, it\'s about regaining your sense of direction and embracing a sustainable lifestyle change. It\'s about breaking bad habits and adopting new ones, improving your fitness and mental well-being.',
-        'Helping you meet a stronger, more authentic version of yourself.',
+        'Tiger Terrain is about embarking on a journey of self-discovery not taking a holiday or chasing a fleeting transformation, but regaining your sense of direction and embracing a sustainable lifestyle change by breaking bad habits and adopting new ones, improving your fitness and mental well-being, and helping you meet a stronger, more authentic version of yourself.',
         'Tiger Terrain isn\'t reserved only for elite athletes, nor is it exclusive to any gender. It\'s designed for anyone and everyone eager to begin the pursuit of a better life - and do so while exploring new places.'
       ],
       images: [
@@ -350,9 +348,7 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'TRANSFORM YOUR BODY AND MIND IN PARADISE',
       subtitle: 'Why Choose Bali?',
       description: [
-        'Bali offers the perfect blend of fitness challenges and tropical serenity. Our retreat combines high-intensity training with the healing power of Balinese culture.',
-        'Experience world-class gyms like Wanderlust, ride the waves of Canggu, and find your zen in Ubud\'s spiritual atmosphere.',
-        'From sunrise treks up Mount Batur to recovery sessions at luxury spas, every moment is designed to push your limits while nourishing your soul.',
+        'Bali offers the perfect blend of fitness challenges and tropical serenity our retreat combines high-intensity training with the healing power of Balinese culture, where you\'ll experience world-class gyms like Wanderlust, ride the waves of Canggu, find your zen in Ubud\'s spiritual atmosphere, and from sunrise treks up Mount Batur to recovery sessions at luxury spas, every moment is designed to push your limits while nourishing your soul.',
         'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Bali Fitcation welcomes everyone ready to transform their life in paradise.'
       ],
       images: [
@@ -447,10 +443,8 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'DISCOVER YOUR FITNESS POTENTIAL IN GOA',
       subtitle: 'Why Goa Fitcation?',
       description: [
-        'Goa provides the perfect backdrop for a transformative fitness experience. Our retreat combines the energy of beach workouts with the relaxation of coastal vibes.',
-        'Experience unique training sessions right on the beach, with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement.',
-        'Connect with fellow fitness enthusiasts in a supportive community environment, where new friendships are forged through shared challenges and triumphs.',
-        'From sunrise yoga sessions to evening beach parties, every moment is designed to energize your body, refresh your mind, and create memories that last a lifetime.'
+        'Goa provides the perfect backdrop for a transformative fitness experience our retreat combines the energy of beach workouts with the relaxation of coastal vibes, where you\'ll experience unique training sessions right on the beach with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement, connect with fellow fitness enthusiasts in a supportive community environment where new friendships are forged through shared challenges and triumphs, and from sunrise yoga sessions to evening beach parties, every moment is designed to energize your body, refresh your mind, and create memories that last a lifetime.',
+        'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Goa Fitcation welcomes everyone ready to transform their life in paradise.'
       ],
       images: [
         '/images/contact/How-to-Choose-The-Right-Running-Group.jpg',
