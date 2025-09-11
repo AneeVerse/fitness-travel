@@ -233,8 +233,9 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
           </p>
 
           {/* Event Details */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8 md:mb-10">
-            <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
+          <div className="flex justify-start mb-6 sm:mb-8 md:mb-10">
+            {/* Commented out Dates and Stay sections */}
+            {/* <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Dates</h3>
               <p className="text-white/90 text-xs sm:text-sm">{tripData.dates}</p>
             </div>
@@ -242,11 +243,11 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
             <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 sm:p-6">
               <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Stay</h3>
               <p className="text-white/90 text-xs sm:text-sm" style={{ whiteSpace: 'pre-line' }}>{tripData.stay}</p>
-            </div>
+            </div> */}
             
             <button
               onClick={() => setIsPricingModalOpen(true)}
-              className="relative bg-gradient-to-br from-orange-400/80 via-orange-500/70 to-orange-600/80 backdrop-blur-md hover:from-orange-500/90 hover:via-orange-600/80 hover:to-orange-700/90 rounded-2xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1 transform hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 w-full text-center group shadow-2xl hover:shadow-orange-500/25 border border-white/20 backdrop-saturate-150 overflow-hidden"
+              className="relative bg-gradient-to-br from-orange-400/80 via-orange-500/70 to-orange-600/80 backdrop-blur-md hover:from-orange-500/90 hover:via-orange-600/80 hover:to-orange-700/90 rounded-2xl p-4 sm:p-6 transform hover:scale-[1.02] hover:-translate-y-1 transition-all duration-300 w-full max-w-xs text-center group shadow-2xl hover:shadow-orange-500/25 border border-white/20 backdrop-saturate-150 overflow-hidden"
             >
               {/* Glass reflection effect */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-300 rounded-2xl"></div>
@@ -256,8 +257,7 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
               
               <div className="relative z-10 flex flex-col items-center justify-center gap-1">
                 <div className="flex items-center gap-2">
-
-                  <span className="text-white font-bold text-base sm:text-lg tracking-wide drop-shadow-sm">See Pricing</span>
+                  <span className="text-white font-bold text-base sm:text-lg tracking-wide drop-shadow-sm">Get Pricing</span>
                 </div>
                 <p className="text-white/90 text-xs sm:text-sm font-medium drop-shadow-sm">View packages & rates</p>
               </div>

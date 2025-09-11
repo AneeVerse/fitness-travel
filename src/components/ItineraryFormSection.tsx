@@ -114,8 +114,8 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
         {/* Section Title */}
         <div className="text-center mb-6 sm:mb-8">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white font-unbounded leading-tight mb-3">
-            Book Your
-            <span className="text-[#ef4a25]"> Adventure</span>
+            Join the
+            <span className="text-[#ef4a25]"> Tribe</span>
           </h2>
           <p className="text-white/90 text-base sm:text-lg max-w-xl mx-auto">
             Reserve your spot for an unforgettable fitness and wellness journey

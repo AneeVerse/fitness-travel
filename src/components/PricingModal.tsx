@@ -131,7 +131,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                 <>
                   <div className="mb-8">
                     <h2 className="text-3xl font-bold text-gray-900 mb-4 font-unbounded">
-                      Book Your Adventure
+                      Join the Tribe
                     </h2>
                     <p className="text-gray-600">
                       Fill out the form below and we&apos;ll send you detailed pricing information and a complete itinerary PDF via email. Our team will get back to you soon.

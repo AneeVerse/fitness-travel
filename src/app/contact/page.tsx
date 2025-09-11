@@ -162,7 +162,7 @@ const ContactPage = () => {
                   </div>
                 </div>
 
-                                 {/* Our Camp Section */}
+                                 {/* Office Address Section */}
                  <div className="space-y-4">
                    <div className="flex items-center gap-3 mb-4">
                      <div className="w-12 h-12 bg-[#ef4a25] rounded-full flex items-center justify-center">
@@ -171,11 +171,14 @@ const ContactPage = () => {
                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                        </svg>
                      </div>
-                     <h3 className="text-xl font-bold text-white font-unbounded">OUR CAMP</h3>
+                     <h3 className="text-xl font-bold text-white font-unbounded">OFFICE ADDRESS</h3>
                    </div>
                   <div className="space-y-2 text-white/80">
-                    <p>Mumbai, Maharashtra</p>
-                    <p>India 400001</p>
+                    <p className="font-medium text-white">Tiger Terrain</p>
+                    <p>S77, Cyberone, 18th Floor</p>
+                    <p>Sector 30A, Vashi</p>
+                    <p>Navi Mumbai, Maharashtra</p>
+                    <p className="font-semibold text-[#ef4a25]">400703, INDIA</p>
                   </div>
                 </div>
               </div>
