@@ -20,30 +20,41 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
   const totalWidth = useRef(0);
   const scrollSpeed = 0.5; // Adjust speed as needed
 
-  // Calculate Total Width of Scrollable Content
+  // Calculate width of one logical set and center to second copy for bi-directional loop
+  const COPIES = 4;
   const calculateWidth = useCallback(() => {
-    if (containerRef.current) {
-      const firstChild = containerRef.current.children[0] as HTMLElement;
-      if (firstChild) {
-        totalWidth.current = firstChild.offsetWidth * itineraryDays.length;
+    if (!containerRef.current) return;
+    const fullScrollWidth = containerRef.current.scrollWidth;
+    totalWidth.current = fullScrollWidth / COPIES;
+    translateX.current = -totalWidth.current;
+    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+  }, [itineraryDays.length]);
+
+  // Keep translateX wrapped so it loops in both directions
+  const wrapTranslateX = useCallback(() => {
+    if (!containerRef.current) return;
+    if (translateX.current >= 0) {
+      translateX.current -= totalWidth.current;
+    }
+    if (translateX.current <= -totalWidth.current * (COPIES - 1)) {
+      translateX.current += totalWidth.current;
+    } else if (translateX.current <= -totalWidth.current) {
+      while (translateX.current <= -totalWidth.current * 2) {
+        translateX.current += totalWidth.current;
       }
     }
-  }, [itineraryDays.length]);
+  }, []);
 
   // Animation Loop
   const animate = useCallback(() => {
     if (!isPaused && !isDragging.current && containerRef.current) {
       translateX.current -= scrollSpeed;
-
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
-
+      wrapTranslateX();
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused]);
+  }, [isPaused, wrapTranslateX]);
 
   // Handle Pointer Events (Mouse & Touch)
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -59,6 +70,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 2; // Adjust sensitivity
     translateX.current = scrollLeft.current + walk;
+    wrapTranslateX();
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -82,10 +94,8 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
       translateX.current -= scrollAmount;
       
-      // Infinite scroll - seamless looping like drag version
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
+      // Infinite scroll - seamless looping like drag version (both directions)
+      wrapTranslateX();
       
       if (containerRef.current) {
         containerRef.current.style.transform = `translateX(${translateX.current}px)`;
@@ -124,8 +134,8 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     };
   }, [animate, calculateWidth]);
 
-  // Duplicate data for seamless looping
-  const duplicatedDays = [...itineraryDays, ...itineraryDays];
+  // Duplicate data for seamless looping with multiple copies
+  const duplicatedDays = Array.from({ length: COPIES }).flatMap(() => itineraryDays);
 
   return (
     <section id="itinerary-days" className="relative py-12 md:py-16 bg-black z-[10] overflow-visible">

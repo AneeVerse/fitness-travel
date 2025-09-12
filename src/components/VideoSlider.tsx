@@ -55,7 +55,8 @@ const videos: VideoCard[] = [
 ];
 
 // Duplicate data for seamless looping - create more copies to prevent black screen
-const duplicatedVideos = [...videos, ...videos, ...videos, ...videos];
+const COPIES = 4;
+const duplicatedVideos = Array.from({ length: COPIES }).flatMap(() => videos);
 
 export default function VideoSlider() {
   const [isPaused, setIsPaused] = useState(false);
@@ -73,21 +74,34 @@ export default function VideoSlider() {
   const totalWidth = useRef(0);
   const scrollSpeed = 0.5; // Adjust speed as needed
 
-  // Calculate Total Width of Scrollable Content
+  // Calculate Total Width of one logical set and position to middle copy
   const calculateWidth = useCallback(() => {
-    if (containerRef.current) {
-      const firstChild = containerRef.current.children[0] as HTMLElement;
-      if (firstChild) {
-        totalWidth.current = firstChild.offsetWidth * videos.length;
-      }
-    }
+    if (!containerRef.current) return;
+    // Width of a single logical set is total scroll width divided by number of copies
+    const fullScrollWidth = containerRef.current.scrollWidth;
+    totalWidth.current = fullScrollWidth / COPIES;
+
+    // Start from the second copy so we can scroll infinitely in both directions
+    translateX.current = -totalWidth.current;
+    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
   }, []);
 
-  // Reset position for infinite scroll
-  const resetPosition = useCallback(() => {
-    if (containerRef.current) {
-      translateX.current = 0;
-      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+  // Keep translateX within a stable window to enable bi-directional infinite scroll
+  const wrapTranslateX = useCallback(() => {
+    if (!containerRef.current) return;
+    // If we move past the left edge (greater than or equal to 0), jump back one set
+    if (translateX.current >= 0) {
+      translateX.current -= totalWidth.current;
+    }
+    // If we move past the right edge (beyond one set to the left), jump forward one set
+    if (translateX.current <= -totalWidth.current * (COPIES - 1)) {
+      translateX.current += totalWidth.current;
+    } else if (translateX.current <= -totalWidth.current) {
+      // Also allow simple wrap for the common case
+      // When going left (more negative), keep bringing it back by one set
+      while (translateX.current <= -totalWidth.current * 2) {
+        translateX.current += totalWidth.current;
+      }
     }
   }, []);
 
@@ -109,16 +123,12 @@ export default function VideoSlider() {
   const animate = useCallback(() => {
     if (!isPaused && !isDragging.current && containerRef.current) {
       translateX.current -= scrollSpeed;
-
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
-
+      wrapTranslateX();
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused]);
+  }, [isPaused, wrapTranslateX]);
 
   // Handle Pointer Events (Mouse & Touch)
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -135,10 +145,8 @@ export default function VideoSlider() {
     const walk = (clientX - startX.current) * 2; // Adjust sensitivity
     translateX.current = scrollLeft.current + walk;
     
-    // Infinite scroll - seamless looping for drag
-    if (Math.abs(translateX.current) >= totalWidth.current) {
-      translateX.current = 0; // Reset position to ensure smooth loop
-    }
+    // Infinite scroll - seamless looping for drag (both directions)
+    wrapTranslateX();
     
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
@@ -163,10 +171,8 @@ export default function VideoSlider() {
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
       translateX.current -= scrollAmount;
       
-      // Infinite scroll - seamless looping like drag version
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
+      // Infinite scroll - seamless looping for wheel in both directions
+      wrapTranslateX();
       
       if (containerRef.current) {
         containerRef.current.style.transform = `translateX(${translateX.current}px)`;

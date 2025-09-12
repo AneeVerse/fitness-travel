@@ -95,8 +95,9 @@ const videos: VideoCard[] = [
   }
 ];
 
-// Duplicate data for seamless looping
-const duplicatedVideos = [...videos, ...videos];
+// Duplicate data for seamless looping (multi-copy for bi-directional loop)
+const COPIES = 4;
+const duplicatedVideos = Array.from({ length: COPIES }).flatMap(() => videos);
 
 export default function ReviewVideo() {
   // Add CSS for line-clamp utility
@@ -141,12 +142,27 @@ export default function ReviewVideo() {
   const totalWidth = useRef(0);
   const scrollSpeed = 0.5; // Adjust speed as needed
 
-  // Calculate Total Width of Scrollable Content
+  // Calculate width of one logical set and position to middle copy for bi-directional scroll
   const calculateWidth = useCallback(() => {
-    if (containerRef.current) {
-      const firstChild = containerRef.current.children[0] as HTMLElement;
-      if (firstChild) {
-        totalWidth.current = firstChild.offsetWidth * videos.length;
+    if (!containerRef.current) return;
+    const fullScrollWidth = containerRef.current.scrollWidth;
+    totalWidth.current = fullScrollWidth / COPIES;
+    // Start at second copy so we can go both directions seamlessly
+    translateX.current = -totalWidth.current;
+    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+  }, []);
+
+  // Keep translateX within bounds across both directions
+  const wrapTranslateX = useCallback(() => {
+    if (!containerRef.current) return;
+    if (translateX.current >= 0) {
+      translateX.current -= totalWidth.current;
+    }
+    if (translateX.current <= -totalWidth.current * (COPIES - 1)) {
+      translateX.current += totalWidth.current;
+    } else if (translateX.current <= -totalWidth.current) {
+      while (translateX.current <= -totalWidth.current * 2) {
+        translateX.current += totalWidth.current;
       }
     }
   }, []);
@@ -155,16 +171,12 @@ export default function ReviewVideo() {
   const animate = useCallback(() => {
     if (!isPaused && !isDragging.current && containerRef.current) {
       translateX.current -= scrollSpeed;
-
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
-
+      wrapTranslateX();
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused]);
+  }, [isPaused, wrapTranslateX]);
 
   // Handle Pointer Events (Mouse & Touch)
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -180,6 +192,7 @@ export default function ReviewVideo() {
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 2; // Adjust sensitivity
     translateX.current = scrollLeft.current + walk;
+    wrapTranslateX();
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -203,10 +216,8 @@ export default function ReviewVideo() {
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
       translateX.current -= scrollAmount;
       
-      // Infinite scroll - seamless looping like drag version
-      if (Math.abs(translateX.current) >= totalWidth.current) {
-        translateX.current = 0; // Reset position to ensure smooth loop
-      }
+      // Infinite scroll - seamless looping in both directions
+      wrapTranslateX();
       
       if (containerRef.current) {
         containerRef.current.style.transform = `translateX(${translateX.current}px)`;
