@@ -16,7 +16,7 @@ interface PricingModalProps {
 const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }) => {
   // Default trip data for when not provided
   const defaultTripData = {
-    location: 'Ibiza',
+    location: '',
     overview: {
       images: ['/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg']
     }

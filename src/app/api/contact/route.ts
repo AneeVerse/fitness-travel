@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
     const userMailOptions = {
       from: `"Tiger Terrain" <${process.env.EMAIL_USER}>`,
       to: email,
-      subject: 'Thank you for contacting Tiger Terrain - Your Ibiza Adventure Awaits!',
+      subject: 'Thank you for contacting Tiger Terrain - Your  Adventure Awaits!',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: linear-gradient(135deg, #ef4a25, #d16d1f); padding: 30px; text-align: center; border-radius: 15px 15px 0 0;">
@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
             <h2 style="color: #333; margin-bottom: 20px;">Hello ${finalFirstName}!</h2>
             
             <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
-              Thank you for contacting Tiger Terrain about your Ibiza adventure! We're excited to help you plan the perfect fitness retreat.
+              Thank you for contacting Tiger Terrain about your  adventure! We're excited to help you plan the perfect fitness retreat.
             </p>
             
             <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
             <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
               <h3 style="color: #ef4a25; margin-top: 0;">Your Itinerary PDF</h3>
               <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">
-                Access your complete Ibiza itinerary and pricing details:
+                Access your complete itinerary and pricing details:
               </p>
               <a href="${pdfLink}" style="display: inline-block; background: #ef4a25; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Download Itinerary PDF</a>
             </div>

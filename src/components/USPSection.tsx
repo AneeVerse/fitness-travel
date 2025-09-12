@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Teko } from 'next/font/google';
 
@@ -42,6 +42,16 @@ const USPSection = () => {
       description: "Luxury accommodations and seamless travel arrangements"
     }
   ];
+
+  // Preload images to make hover switching instantaneous
+  useEffect(() => {
+    try {
+      uspItems.forEach((item) => {
+        const img = new window.Image();
+        img.src = item.image;
+      });
+    } catch {}
+  }, []);
 
   return (
     <section className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-black">
@@ -159,10 +169,11 @@ const USPSection = () => {
               <div className="relative overflow-hidden rounded-2xl shadow-xl bg-gradient-to-br from-gray-800 to-gray-900">
                 <div className="w-full h-64 sm:h-72 md:h-80 lg:h-96 xl:h-140 relative">
                   <Image
+                    key={uspItems[activeIndex].image}
                     src={uspItems[activeIndex].image}
                     alt={uspItems[activeIndex].title}
                     fill
-                    className="object-cover transition-all duration-500 ease-in-out"
+                    className="object-cover transition-all duration-200 ease-out will-change-transform"
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority
                   />

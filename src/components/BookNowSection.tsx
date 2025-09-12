@@ -17,7 +17,7 @@ const BookNowSection = () => {
           <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl sm:rounded-3xl overflow-hidden">
             <Image
               src="/images/itinerary/book-now/67caa355bd857a68d6ab0bfa_salt escapes-ibz-2919.jpg"
-              alt="Friends enjoying boat day in Ibiza"
+              alt="Friends enjoying boat day in "
               fill
               className="object-cover"
               sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1024px) 50vw, 50vw"
