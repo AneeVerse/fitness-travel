@@ -14,43 +14,51 @@ interface VideoCard {
 const videos: VideoCard[] = [
   {
     id: 1,
-    title: "FUNCTIONAL FITNESS",
+    title: "Beach workouts",
     subtitle: "TIGER TERRAIN",
-    description: "If the trip doesn't look like this, then I don't want it",
-    videoUrl: "/video/small/vid-7.mp4",
+    description: "Energizing strength and conditioning by the shore",
+    videoUrl: "/video/vids/vid (5).mp4",
     timestamp: "0:32"
   },
   {
     id: 2,
-    title: "GROUP ACTIVITIES",
+    title: "HIIT Interval training",
     subtitle: "TIGER TERRAIN",
-    description: "Group fitness challenge",
-    videoUrl: "/video/small/vid-9.mp4",
+    description: "High-intensity intervals to push your limits",
+    videoUrl: "/video/vids/vid (16).mp4",
     timestamp: "0:28"
   },
   {
     id: 3,
-    title: "OUTDOOR TRAINING",
+    title: "Pool recovery",
     subtitle: "TIGER TERRAIN",
-    description: "Outdoor fitness training session",
-    videoUrl: "/video/small/vid-13.mp4",
+    description: "Low-impact mobility and cool-down in the pool",
+    videoUrl: "/video/vids/vid (8).mp4",
     timestamp: "0:20"
   },
   {
     id: 4,
-    title: "BEACH YOGA",
+    title: "Running",
     subtitle: "TIGER TERRAIN",
-    description: "Beach yoga session",
-    videoUrl: "/video/small/vid-14.mp4",
-    timestamp: "0:18"
+    description: "Group runs to build endurance and camaraderie",
+    videoUrl: "/video/vids/vid (9).mp4",
+    timestamp: "0:24"
   },
   {
     id: 5,
-    title: "SUNSET WORKOUT",
+    title: "Kickboxing",
     subtitle: "TIGER TERRAIN",
-    description: "Sunset fitness session",
-    videoUrl: "/video/small/vid-16.mp4",
+    description: "Power, speed, and technique in every combo",
+    videoUrl: "/video/vids/vid (11).mp4",
     timestamp: "0:26"
+  },
+  {
+    id: 6,
+    title: "Outdoor activities",
+    subtitle: "TIGER TERRAIN",
+    description: "Adventure sessions that take training beyond the gym",
+    videoUrl: "/video/vids/vid (20).mp4",
+    timestamp: "0:22"
   },
 ];
 
@@ -72,7 +80,17 @@ export default function VideoSlider() {
   const startX = useRef(0);
   const scrollLeft = useRef(0);
   const totalWidth = useRef(0);
+  const offsetWithinSet = useRef(0); // normalized offset within one logical set [0, totalWidth)
   const scrollSpeed = 0.5; // Adjust speed as needed
+
+  // Normalize any offset to [0, totalWidth)
+  const normalizeOffset = useCallback((value: number) => {
+    if (totalWidth.current === 0) return 0;
+    const width = totalWidth.current;
+    let offset = value % width;
+    if (offset < 0) offset += width;
+    return offset;
+  }, []);
 
   // Calculate Total Width of one logical set and position to middle copy
   const calculateWidth = useCallback(() => {
@@ -81,54 +99,25 @@ export default function VideoSlider() {
     const fullScrollWidth = containerRef.current.scrollWidth;
     totalWidth.current = fullScrollWidth / COPIES;
 
-    // Start from the second copy so we can scroll infinitely in both directions
-    translateX.current = -totalWidth.current;
+    // Anchor at the second copy with zero offset within the set
+    offsetWithinSet.current = 0;
+    translateX.current = -totalWidth.current + offsetWithinSet.current;
     containerRef.current.style.transform = `translateX(${translateX.current}px)`;
   }, []);
 
   // Keep translateX within a stable window to enable bi-directional infinite scroll
-  const wrapTranslateX = useCallback(() => {
-    if (!containerRef.current) return;
-    // If we move past the left edge (greater than or equal to 0), jump back one set
-    if (translateX.current >= 0) {
-      translateX.current -= totalWidth.current;
-    }
-    // If we move past the right edge (beyond one set to the left), jump forward one set
-    if (translateX.current <= -totalWidth.current * (COPIES - 1)) {
-      translateX.current += totalWidth.current;
-    } else if (translateX.current <= -totalWidth.current) {
-      // Also allow simple wrap for the common case
-      // When going left (more negative), keep bringing it back by one set
-      while (translateX.current <= -totalWidth.current * 2) {
-        translateX.current += totalWidth.current;
-      }
-    }
-  }, []);
-
-  // Calculate boundaries for proper scroll limits
-  const calculateBoundaries = useCallback(() => {
-    if (containerRef.current) {
-      const container = containerRef.current.parentElement;
-      if (container) {
-        const containerWidth = container.offsetWidth;
-        const totalContentWidth = containerRef.current.scrollWidth;
-        const maxScroll = Math.max(0, totalContentWidth - containerWidth);
-        return { containerWidth, totalContentWidth, maxScroll };
-      }
-    }
-    return { containerWidth: 0, totalContentWidth: 0, maxScroll: 0 };
-  }, []);
+  // We compute translateX from the normalized offset so it never snaps
 
   // Animation Loop
   const animate = useCallback(() => {
     if (!isPaused && !isDragging.current && containerRef.current) {
-      translateX.current -= scrollSpeed;
-      wrapTranslateX();
+      offsetWithinSet.current = normalizeOffset(offsetWithinSet.current - scrollSpeed);
+      translateX.current = -totalWidth.current + offsetWithinSet.current;
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [isPaused, wrapTranslateX]);
+  }, [isPaused, normalizeOffset]);
 
   // Handle Pointer Events (Mouse & Touch)
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -136,18 +125,16 @@ export default function VideoSlider() {
     setIsPaused(true);
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     startX.current = clientX;
-    scrollLeft.current = translateX.current;
+    // store current offset within the set so dragging adds on top
+    scrollLeft.current = offsetWithinSet.current;
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging.current) return;
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 2; // Adjust sensitivity
-    translateX.current = scrollLeft.current + walk;
-    
-    // Infinite scroll - seamless looping for drag (both directions)
-    wrapTranslateX();
-    
+    offsetWithinSet.current = normalizeOffset(scrollLeft.current + walk);
+    translateX.current = -totalWidth.current + offsetWithinSet.current;
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -155,7 +142,7 @@ export default function VideoSlider() {
 
   const handlePointerUp = () => {
     isDragging.current = false;
-    setIsPaused(false);
+    // Keep paused so it stops exactly where user releases.
   };
 
   // Handle wheel events for trackpad/trackball horizontal scrolling
@@ -169,10 +156,8 @@ export default function VideoSlider() {
       e.stopPropagation();
       
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
-      translateX.current -= scrollAmount;
-      
-      // Infinite scroll - seamless looping for wheel in both directions
-      wrapTranslateX();
+      offsetWithinSet.current = normalizeOffset(offsetWithinSet.current - scrollAmount);
+      translateX.current = -totalWidth.current + offsetWithinSet.current;
       
       if (containerRef.current) {
         containerRef.current.style.transform = `translateX(${translateX.current}px)`;
@@ -242,13 +227,13 @@ export default function VideoSlider() {
         <div
           className="mt-12 overflow-hidden relative"
           onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
           onTouchStart={handlePointerDown}
           onTouchMove={handlePointerMove}
           onTouchEnd={handlePointerUp}
           onMouseDown={handlePointerDown}
           onMouseMove={handlePointerMove}
           onMouseUp={handlePointerUp}
+          onMouseLeave={() => { handlePointerUp(); setIsPaused(false); }}
           onWheel={handleWheel}
         >
           <div
@@ -427,7 +412,7 @@ const VideoCard: React.FC<{
             {video.subtitle}
           </p>
           <h3 
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight select-none"
+            className="uppercase text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight select-none"
             onDragStart={(e) => e.preventDefault()}
             onMouseDown={(e) => e.preventDefault()}
             style={{ userSelect: 'none', WebkitUserSelect: 'none' }}

@@ -200,7 +200,7 @@ export default function ReviewVideo() {
 
   const handlePointerUp = () => {
     isDragging.current = false;
-    setIsPaused(false);
+
   };
 
   // Handle wheel events for trackpad/trackball horizontal scrolling
