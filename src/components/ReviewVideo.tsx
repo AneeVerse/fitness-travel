@@ -24,7 +24,7 @@ const videos: VideoCard[] = [
     videoUrl: "/TT Testimonials/2.mp4",
     timestamp: "0:15",
     transcript: "This experience has been absolutely incredible! The transformation I've seen in myself and others is remarkable. The guidance, support, and community here is unlike anything I've experienced before. I highly recommend this to anyone looking to push their limits and discover their true potential.",
-    reviewerName: "Member",
+    reviewerName: "Kanika",
     rating: 5
   },
   {
@@ -35,7 +35,7 @@ const videos: VideoCard[] = [
     videoUrl: "/TT Testimonials/4.mp4",
     timestamp: "0:18",
     transcript: "This has been a life-changing experience for me. The level of support, the quality of training, and the amazing community here has transformed not just my body, but my entire mindset. I've learned so much about myself and what I'm truly capable of achieving.",
-    reviewerName: "Member",
+    reviewerName: "Archana",
     rating: 5
   },
   {
@@ -46,7 +46,7 @@ const videos: VideoCard[] = [
     videoUrl: "/TT Testimonials/6.mp4",
     timestamp: "0:20",
     transcript: "I came here with doubts about my abilities, but I'm leaving with complete confidence. The training, the nutrition guidance, and the incredible support system here has shown me that I can achieve things I never thought possible. This experience has been truly transformative.",
-    reviewerName: "Member",
+    reviewerName: "Girish",
     rating: 5
   },
   {
@@ -57,7 +57,7 @@ const videos: VideoCard[] = [
     videoUrl: "/TT Testimonials/7.mp4",
     timestamp: "0:16",
     transcript: "The quality of this program is exceptional. Every aspect, from the training to the nutrition to the community support, is designed to help you succeed. I've seen incredible results and I know this is just the beginning of my journey.",
-    reviewerName: "Member",
+    reviewerName: "Ravi",
     rating: 5
   },
   {
