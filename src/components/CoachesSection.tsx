@@ -153,6 +153,22 @@ const CoachesSection: React.FC = () => {
                        <h3 className={`text-xl font-bold text-black mb-1 ${teko.className}`}>{coach.name}</h3>
                        <p className="text-sm text-[#ef4a25] font-semibold mb-3">{coach.role}</p>
                        <p className="text-sm text-black/80 leading-relaxed"><span className="text-ellipsis-6 sm:line-clamp-none">{coach.description}</span></p>
+                       {coach.socials && (
+                         <div className="mt-4 flex items-center gap-3">
+                           {coach.socials.map((social, index) => (
+                             <a
+                               key={index}
+                               href={social.href}
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               className="w-9 h-9 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-md"
+                               aria-label={`${coach.name} ${social.label}`}
+                             >
+                               <SocialIcon type={getSocialType(social.label)} />
+                             </a>
+                           ))}
+                         </div>
+                       )}
                      </div>
                    </div>
                  </div>
@@ -207,6 +223,22 @@ const CoachesSection: React.FC = () => {
                       <h3 className={`text-lg font-bold text-black mb-1 ${teko.className}`}>{coaches[0].name}</h3>
                       <p className="text-xs text-[#ef4a25] font-semibold mb-2">{coaches[0].role}</p>
                       <p className="text-sm text-black/80 leading-relaxed">{coaches[0].description}</p>
+                      {coaches[0].socials && (
+                        <div className="mt-3 flex items-center gap-2">
+                          {coaches[0].socials.map((social, index) => (
+                            <a
+                              key={index}
+                              href={social.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-md"
+                              aria-label={`${coaches[0].name} ${social.label}`}
+                            >
+                              <SocialIcon type={getSocialType(social.label)} />
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -238,6 +270,22 @@ const CoachesSection: React.FC = () => {
                       <h3 className={`text-lg font-bold text-black mb-1 ${teko.className}`}>{coaches[1].name}</h3>
                       <p className="text-xs text-[#ef4a25] font-semibold mb-2">{coaches[1].role}</p>
                       <p className="text-sm text-black/80 leading-relaxed">{coaches[1].description}</p>
+                      {coaches[1].socials && (
+                        <div className="mt-3 flex items-center gap-2">
+                          {coaches[1].socials.map((social, index) => (
+                            <a
+                              key={index}
+                              href={social.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-8 h-8 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110 shadow-md"
+                              aria-label={`${coaches[1].name} ${social.label}`}
+                            >
+                              <SocialIcon type={getSocialType(social.label)} />
+                            </a>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
