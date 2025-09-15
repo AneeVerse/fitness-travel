@@ -13,28 +13,28 @@ type Highlight = {
 const highlights: Highlight[] = [
   {
     id: 1,
-    image: '/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Diver fitness modalities.png',
     title: 'Diverse Fitness Modalities',
     description:
       'From HIIT and strength training to yoga and martial arts, experience varied workouts designed for all levels',
   },
   {
     id: 2,
-    image: '/images/COMPLETE EXPERIENCE/Nutrition Mastery.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Nutrition mastery.png',
     title: 'Nutrition Mastery',
     description:
       'Learn local, healthy cuisine and sustainable eating habits with expert nutritionists and local chefs',
   },
   {
     id: 3,
-    image: '/images/COMPLETE EXPERIENCE/Recovery & Wellness.jpg',
+    image: '/images/COMPLETE EXPERIENCE/recovery and wellness.png',
     title: 'Recovery & Wellness',
     description:
       'Master recovery techniques including massage therapy, meditation, and traditional healing practices',
   },
   {
     id: 4,
-    image: '/images/COMPLETE EXPERIENCE/Cultural Immersion.jpg',
+    image: '/images/COMPLETE EXPERIENCE/Cultural immersion.png',
     title: 'Cultural Immersion',
     description:
       'Connect with local communities and traditions while exploring breathtaking natural landscapes',
@@ -192,7 +192,7 @@ const EpicDestinationsSection: React.FC = () => {
               {[...highlights, ...highlights, ...highlights].map((h, index) => (
                 <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[calc(100vw-2rem)] max-w-[320px] flex-shrink-0" draggable={false}>
                   <div className="relative w-full h-48 sm:h-52 rounded-xl overflow-hidden">
-                    <Image src={h.image} alt={h.title} fill className="object-cover" />
+                    <Image src={h.image} alt={h.title} fill className={`object-cover ${h.id === 3 ? 'scale-110' : ''}`} />
                   </div>
                   <h3 className="text-white font-semibold text-base sm:text-lg mt-3 sm:mt-4">{h.title}</h3>
                   <p className="text-white/75 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
@@ -207,7 +207,7 @@ const EpicDestinationsSection: React.FC = () => {
             {highlights.slice(0, 4).map((h) => (
               <div key={h.id} className="flex flex-col h-full">
                 <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
-                  <Image src={h.image} alt={h.title} fill className="object-cover" />
+                  <Image src={h.image} alt={h.title} fill className={`object-cover ${h.id === 3 ? 'scale-110' : ''}`} />
                 </div>
                 <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
                 <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
