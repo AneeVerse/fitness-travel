@@ -46,7 +46,7 @@ const videos: VideoCard[] = [
   },
   {
     id: 5,
-    title: "Kickboxing",
+    title: "Cultural Experiences",
     subtitle: "TIGER TERRAIN",
     description: "Immerse yourself in local culture and traditions",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172522_0005.mp4",
