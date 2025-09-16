@@ -14,51 +14,67 @@ interface VideoCard {
 const videos: VideoCard[] = [
   {
     id: 1,
-    title: "Beach workouts",
+    title: "Fitness Adventures",
     subtitle: "TIGER TERRAIN",
-    description: "Energizing strength and conditioning by the shore",
-    videoUrl: "/video/vids/vid (5).mp4",
-    timestamp: "0:32"
+    description: "Epic fitness journeys in stunning destinations",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172107_0001.mp4",
+    timestamp: "0:45"
   },
   {
     id: 2,
     title: "HIIT Interval training",
     subtitle: "TIGER TERRAIN",
-    description: "High-intensity intervals to push your limits",
-    videoUrl: "/video/vids/vid (16).mp4",
-    timestamp: "0:28"
+    description: "High-energy group workouts and team challenges",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172213_0002.mp4",
+    timestamp: "0:38"
   },
   {
     id: 3,
     title: "Pool recovery",
     subtitle: "TIGER TERRAIN",
-    description: "Low-impact mobility and cool-down in the pool",
-    videoUrl: "/video/vids/vid (8).mp4",
-    timestamp: "0:20"
+    description: "Relaxation and recovery in beautiful settings",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172316_0003.mp4",
+    timestamp: "0:42"
   },
   {
     id: 4,
     title: "Running",
     subtitle: "TIGER TERRAIN",
-    description: "Group runs to build endurance and camaraderie",
-    videoUrl: "/video/vids/vid (9).mp4",
-    timestamp: "0:24"
+    description: "Adventure activities in nature's playground",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172419_0004.mp4",
+    timestamp: "0:55"
   },
   {
     id: 5,
     title: "Kickboxing",
     subtitle: "TIGER TERRAIN",
-    description: "Power, speed, and technique in every combo",
-    videoUrl: "/video/vids/vid (11).mp4",
-    timestamp: "0:26"
+    description: "Immerse yourself in local culture and traditions",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172522_0005.mp4",
+    timestamp: "0:48"
   },
   {
     id: 6,
-    title: "Outdoor activities",
+    title: "Wellness Journey",
     subtitle: "TIGER TERRAIN",
-    description: "Adventure sessions that take training beyond the gym",
-    videoUrl: "/video/vids/vid (20).mp4",
-    timestamp: "0:22"
+    description: "Complete wellness transformation experiences",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172916_0001.mp4",
+    timestamp: "0:41"
+  },
+  {
+    id: 7,
+    title: "Team Building",
+    subtitle: "TIGER TERRAIN",
+    description: "Build connections through shared challenges",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173123_0002.mp4",
+    timestamp: "0:52"
+  },
+  {
+    id: 8,
+    title: "Adventure Fitness",
+    subtitle: "TIGER TERRAIN",
+    description: "Push your limits in extraordinary locations",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173242_0003.mp4",
+    timestamp: "0:46"
   },
 ];
 
