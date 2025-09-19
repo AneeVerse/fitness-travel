@@ -22,7 +22,7 @@ const videos: VideoCard[] = [
   },
   {
     id: 2,
-    title: "HIIT Interval training",
+    title: "BOXING ",
     subtitle: "TIGER TERRAIN",
     description: "High-energy group workouts and team challenges",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172213_0002.mp4",
@@ -46,7 +46,7 @@ const videos: VideoCard[] = [
   },
   {
     id: 5,
-    title: "Cultural Experiences",
+    title: "HIIT INTERVAL TRAINING”",
     subtitle: "TIGER TERRAIN",
     description: "Immerse yourself in local culture and traditions",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172522_0005.mp4",

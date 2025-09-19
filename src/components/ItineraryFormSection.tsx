@@ -195,7 +195,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-sm font-medium text-white/90">Trip Date *</label>
+                  <label className="block text-sm font-medium text-white/90">Trip Date & Destination *</label>
                   <div className="relative">
                     <button
                       type="button"
