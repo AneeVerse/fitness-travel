@@ -3,11 +3,9 @@
 import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import PricingModal from "./PricingModal"
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
 
   const navItems = [
@@ -77,13 +75,21 @@ const Navbar = () => {
 
             {/* Right-aligned CTA */}
             <div className="hidden md:block md:mt-1 lg:mt-0">
-              <button
-                onClick={() => setIsPricingModalOpen(true)}
-                className="px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-white hover:text-[#ef4a25] transition-colors duration-200"
+              <Link
+                href="/itinerary"
+                onClick={() => {
+                  if (!isNavigating) {
+                    setIsNavigating(true)
+                    setTimeout(() => setIsNavigating(false), 1000)
+                  }
+                }}
+                className={`px-3 md:px-4 lg:px-5 xl:px-6 py-2 md:py-2.5 lg:py-3 xl:py-4 rounded-full font-semibold text-[9px] md:text-[10px] lg:text-[11px] xl:text-[12px] text-white bg-[#ef4a25] hover:bg-white hover:text-[#ef4a25] transition-colors duration-200 inline-block ${
+                  isNavigating ? "pointer-events-none opacity-50" : ""
+                }`}
                 style={{ fontFamily: "var(--font-unbounded)" }}
               >
                 BOOK JOURNEY
-              </button>
+              </Link>
             </div>
 
             {/* Mobile menu button */}
@@ -191,22 +197,26 @@ const Navbar = () => {
 
           {/* CTA Button */}
           <div className="mt-6 px-3 sm:px-4 md:px-5 lg:px-6">
-            <button
+            <Link
+              href="/itinerary"
               onClick={() => {
-                setIsPricingModalOpen(true)
                 setIsMenuOpen(false)
+                if (!isNavigating) {
+                  setIsNavigating(true)
+                  setTimeout(() => setIsNavigating(false), 1000)
+                }
               }}
-              className="block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-white hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base"
+              className={`block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-white hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base ${
+                isNavigating ? "pointer-events-none opacity-50" : ""
+              }`}
               style={{ fontFamily: "var(--font-unbounded)" }}
             >
               BOOK JOURNEY
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Pricing Modal */}
-      <PricingModal isOpen={isPricingModalOpen} onClose={() => setIsPricingModalOpen(false)} />
     </>
   )
 }
