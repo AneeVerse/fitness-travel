@@ -16,28 +16,28 @@ const highlights: Highlight[] = [
     image: '/images/COMPLETE EXPERIENCE/Diver fitness modalities.png',
     title: 'Diverse Fitness Modalities',
     description:
-      'From HIIT and strength training to yoga and martial arts, experience varied workouts designed for all levels',
+      'From HIIT and strength training to yoga and kick boxing, experience varied workouts designed for all levels.',
   },
   {
     id: 2,
     image: '/images/COMPLETE EXPERIENCE/Nutrition mastery.png',
     title: 'Nutrition Mastery',
     description:
-      'Learn local, healthy cuisine and sustainable eating habits with expert nutritionists and local chefs',
+      'Enjoy healthy cuisine and sustainable eating habits with expert nutritionists and local chefs that suit your fitness goals.',
   },
   {
     id: 3,
     image: '/images/COMPLETE EXPERIENCE/recovery and wellness.png',
     title: 'Recovery & Wellness',
     description:
-      'Master recovery techniques including massage therapy, meditation, and traditional healing practices',
+      'Master recovery techniques including massage therapy, meditation, ice baths and traditional healing practices.',
   },
   {
     id: 4,
     image: '/images/COMPLETE EXPERIENCE/Cultural immersion.png',
     title: 'Cultural Immersion',
     description:
-      'Connect with local communities and traditions while exploring breathtaking natural landscapes',
+      'Connect with local communities, traditions and city tours while soaking up the city’s flavor and its breathtaking natural landscapes.',
   },
 ];
 
@@ -166,8 +166,8 @@ const EpicDestinationsSection: React.FC = () => {
 
             </h2>
             <p className="text-white/80 max-w-2xl mx-auto text-sm sm:text-base">
-              Real transformations, real people, real adventures. See how our tribe members transformed their lives
-              through Tiger Terrain adventures.
+              Real experiences, real people, real adventures. See how our tribe members transformed their lives
+              through Tiger Terrain journeys.
             </p>
           </div>
         </div>

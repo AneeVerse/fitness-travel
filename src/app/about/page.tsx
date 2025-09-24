@@ -56,7 +56,7 @@ const AboutPage = () => {
                   — Our Story —
                 </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-unbounded leading-tight">
-                  From the first step to the finish line
+                  From the first step to the where we are now
                 </h2>
               </div>
                               <Link 
@@ -82,7 +82,7 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2016</div>
-                <p className="text-gray-300 text-sm leading-relaxed">Club founded with 12 members. Tiger Terrain began with passionate runners who believed travel could transform lives.</p>
+                <p className="text-gray-300 text-sm leading-relaxed">Tiger Terrain (formerly known as Myden Fitcation) did its first escapade with 12 in-house members. We believed that if we blend fitness with travel, it could transform lives. And we were right!</p>
               </div>
 
               {/* Card 2 - 2018 */}
@@ -95,7 +95,7 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="text-5xl font-unbounded font-bold text-white mb-9 mt-8">2018</div>
-                <p className="text-gray-300 text-sm leading-relaxed">Hosted our first community 10K. Expanded into multi-day experiences blending fitness and culture.</p>
+                <p className="text-gray-300 text-sm leading-relaxed">We managed to take 5 trips to Phuket, 2 to Bali and 4 to Goa. We collaborated with local hosts and partners to provide multi-day experiences blending fitness and culture.</p>
               </div>
 
               {/* Bottom Left Image - no gap */}
@@ -132,7 +132,7 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2020</div>
-                <p className="text-gray-300 text-sm leading-relaxed">Expanded into virtual runs and training programs. Adapted to serve our global community remotely.</p>
+                <p className="text-gray-300 text-sm leading-relaxed">Marked our 15th fitness escapade with members joining in from different communities.</p>
               </div>
 
               {/* Card 4 - 2024 */}
@@ -144,8 +144,8 @@ const AboutPage = () => {
                     </svg>
                   </div>
                 </div>
-                <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2024</div>
-                <p className="text-gray-300 text-sm leading-relaxed">Over 3,000 active members across the region. A global community where challenge meets purpose.</p>
+                <div className="text-5xl font-unbounded font-bold text-white mb-3 mt-8">2025</div>
+                <p className="text-gray-300 text-sm leading-relaxed">Embarking on a new vibrant scale that is inviting people from all walks of life to improve their fitness and mental well-being. We are now aiming to build a global community where challenge meets purpose.</p>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@ const AboutPage = () => {
                   STRONGER WITH EVERY STRIDE
                 </h2>
                 <p className="text-gray-300 leading-relaxed mb-8">
-                  Tiger Terrain is more than just a fitness club—it&apos;s a thriving, inclusive community where athletes of all levels come together to train, race, and grow. Founded in 2016, we&apos;ve helped over 3,000 members across the region reach their goals—whether it&apos;s a couch-to-5K transformation or a marathon dream.
+                  Tiger Terrain is more than just a fitness club or a travel company it&apos;s a thriving, inclusive community where people from all walks of life and levels come together to sweat, train, enjoy and grow.
                 </p>
                 
                 <div className="space-y-4">
@@ -243,7 +243,7 @@ const AboutPage = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white mb-2 font-unbounded">ADVENTURES FOR EVERY FITNESS LEVEL</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">Whether you&apos;re a beginner or an elite athlete, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger.</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">Whether you&apos;re a beginner or an elite athlete, a professional or a house maker, Tiger Terrain offers tailored experiences that challenge you at your current level while helping you grow stronger as a person, inside and out.</p>
                 </div>
               </div>
 
@@ -357,15 +357,15 @@ const AboutPage = () => {
               {/* Statistics Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 lg:gap-30 lg:mr-50  ">
                 <div className="text-center ">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">50+</div>
-                  <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">ADVENTURE DESTINATIONS</div>
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">20+</div>
+                  <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">TRIPS DONE</div>
                 </div>
                 <div className="text-center">
                   <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">95%</div>
                   <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">MEMBER SATISFACTION</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">3000+</div>
+                  <div className="text-4xl lg:text-5xl font-bold text-white mb-2 font-unbounded">300+</div>
                   <div className="text-sm font-bold text-gray-300 uppercase tracking-wide">LIVES TRANSFORMED</div>
                 </div>
               </div>

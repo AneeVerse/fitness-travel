@@ -14,7 +14,7 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ tripData }) => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 font-unbounded leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
             {tripData.overview.mainTitle.split(' ARE MADE UP OF').length > 1 ? (
               <>
                 {tripData.overview.mainTitle.split(' ARE MADE UP OF')[0]} <br /> ARE MADE UP OF
@@ -33,7 +33,7 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ tripData }) => {
               if (index === 1) {
                 return (
                   <React.Fragment key={index}>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mt-6 sm:mt-8 md:mt-10 font-unbounded">
+                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#ef4a25] mt-6 sm:mt-8 md:mt-10 font-unbounded">
                       {tripData.overview.subtitle}
                     </h3>
                     <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">

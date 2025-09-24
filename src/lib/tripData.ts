@@ -76,7 +76,7 @@ const tripDataMap: Record<string, TripData> = {
         id: 'DAY2',
         day: 'Day 2',
         title: 'HIIT Workout & Hot Yoga',
-        description: '9.30 - Head to Pirates camp for HIIT Workout',
+        description: '9.30 - HIIT Workout',
         extraContent: '10.30 - Breakfast followed by free exploration, 4.30PM - Hot Yoga session',
         time: '9:30 AM - 6:00 PM',
         image: '/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg',
@@ -148,8 +148,8 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'FIND OUT WHAT YOU ARE MADE UP OF',
       subtitle: 'Who is it for?',
       description: [
-        'Tiger Terrain is about embarking on a journey of self-discovery not taking a holiday or chasing a fleeting transformation, but regaining your sense of direction and embracing a sustainable lifestyle change by breaking bad habits and adopting new ones, improving your fitness and mental well-being, and helping you meet a stronger, more authentic version of yourself.',
-        'Tiger Terrain isn\'t reserved only for elite athletes, nor is it exclusive to any gender. It\'s designed for anyone and everyone eager to begin the pursuit of a better life - and do so while exploring new places.'
+        'The journey with Tiger Terrain is not about taking a holiday or chasing a fleeting transformation, but regaining your sense of direction and embracing a sustainable lifestyle change by breaking bad habits and adopting new ones. You do this by improving your fitness and mental well-being, meeting like minded people and by immersing with local culture. Overall helping you meet a stronger, more authentic version of yourself.',
+        'Tiger Terrain isn\'t reserved only for elite athletes, nor is it exclusive to any gender. It\'s designed for anyone and everyone eager to embark on a journey of self-discovery.'
       ],
       images: [
         '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
@@ -162,11 +162,11 @@ const tripDataMap: Record<string, TripData> = {
   bali: {
     slug: 'bali',
     title: 'BALI FITCATION',
-    description: 'Join our Bali Fitcation for an unforgettable 10-day adventure, packed with unlimited fun and training. Highlights include invigorating workouts at Wanderlust Gym, thrilling surfing sessions, a sunrise trek to Mount Batur, a refreshing visit to Tukad Waterfall, cultural exploration in Ubud, high-energy trampoline workouts at Bounce Fit, ultimate relaxation at AMO Spa\'s ice bath and recovery massage, and guided nutrition to fuel your journey.',
+    description: 'Join our Bali Fitcation for an unforgettable 11-day adventure, packed with unlimited fun and training. Highlights include invigorating workouts at Wanderlust Gym, thrilling surfing sessions, a sunrise trek to Mount Batur, a refreshing visit to Tukad Waterfall, cultural exploration in Ubud, high-energy trampoline workouts at Bounce Fit, ultimate relaxation at AMO Spa\'s ice bath and recovery massage, and guided nutrition to fuel your journey.',
     dates: '15 Feb 2024 To 25 Feb 2024',
     stay: 'The Sanskara Suites and Villas\nCanggu & Ubud Stay',
     location: 'Bali, Indonesia',
-    heroVideo: '/video/BG2.mp4',
+    heroVideo: '/video/hero-bg.mp4',
     highlights: [
       'Workouts at Wanderlust Gym',
       'Surfing Adventures at Canggu',
@@ -180,7 +180,7 @@ const tripDataMap: Record<string, TripData> = {
     days: [
       {
         id: 'DAY1',
-        day: 'Day 1 (15 Feb)',
+        day: 'Day 1',
         title: 'Arrival in Bali',
         description: 'Arrive at the airport and head to the hotel',
         extraContent: 'Rest and Shower',
@@ -190,7 +190,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY2',
-        day: 'Day 2 (16 Feb)',
+        day: 'Day 2',
         title: 'Waterfall & Temple Visit',
         description: 'Discover the breathtaking Tukad Waterfall',
         extraContent: 'Afternoon: Immerse yourself in Balinese culture with a temple visit. Evening: Experience Ubud\'s vibrant cafe scene and cultural charm.',
@@ -200,7 +200,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY3',
-        day: 'Day 3 (17 Feb)',
+        day: 'Day 3',
         title: 'Mount Batur Sunrise Trek',
         description: 'Early Morning: Embark on an unforgettable journey to Mount Batur',
         extraContent: 'Hike to the summit and witness the sunrise over Bali\'s stunning landscapes. Explore the enchanting town of ubud.',
@@ -210,7 +210,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY4',
-        day: 'Day 4 (18 Feb)',
+        day: 'Day 4',
         title: 'Rice Terrace & Move to Canggu',
         description: 'Morning: Venture to the iconic Tegalalang Rice Terrace',
         extraContent: 'Explore the lush green fields and capture the breathtaking scenery. Evening: Head to Canggu. Let the adventure begin!',
@@ -220,7 +220,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY5',
-        day: 'Day 5 (19 Feb)',
+        day: 'Day 5',
         title: 'Wanderlust Gym Double Session',
         description: '7am: Breakfast. Morning: Energize with invigorating workout at Wanderlust Gym',
         extraContent: 'Lunch: Refuel with healthy lunch. Afternoon: Relax by the pool. Evening: Return to Wanderlust Gym for another empowering fitness session.',
@@ -230,7 +230,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY6',
-        day: 'Day 6 (20 Feb)',
+        day: 'Day 6',
         title: 'Surfing & CrossFit',
         description: 'Morning: Catch some waves with a morning surfing lesson',
         extraContent: 'Evening: Head back to Wanderlust Gym for an evening CrossFit session. Beach Yoga session included.',
@@ -240,7 +240,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY7',
-        day: 'Day 7 (21 Feb)',
+        day: 'Day 7',
         title: 'Beach Yoga & Gymnastics',
         description: 'Morning: Begin your day with tranquility during a beachfront yoga session',
         extraContent: 'Evening: Enhance your strength and agility with a Nirvana Strength gymnastics workout at the gym.',
@@ -250,7 +250,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY8',
-        day: 'Day 8 (22 Feb)',
+        day: 'Day 8',
         title: 'Beach Training & Bounce Bali',
         description: 'Morning: Kickstart your day with an invigorating beach training session',
         extraContent: 'Evening: Get ready for a unique workout experience with a session at Bounce Bali. Jump into trampoline workouts.',
@@ -260,7 +260,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY9',
-        day: 'Day 9 (23 Feb)',
+        day: 'Day 9',
         title: 'Wanderlust & Nightlife',
         description: 'Morning: Start your day with another empowering session at Wanderlust Gym',
         extraContent: 'Evening: Embrace the lively nightlife and dining scene in Canggu and Seminyak.',
@@ -270,7 +270,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY10',
-        day: 'Day 10 (24 Feb)',
+        day: 'Day 10',
         title: 'AMO Spa & Beach Club',
         description: 'Morning: Indulge in a revitalizing recovery session at AMO Spa Bali',
         extraContent: 'Recharging your body and senses after intense training. Evening: Head to a beach club for a memorable party.',
@@ -280,7 +280,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY11',
-        day: 'Day 11 (25 Feb)',
+        day: 'Day 11',
         title: 'Farewell Bali',
         description: 'Take a moment to reflect on the wonderful memories created',
         extraContent: 'Bid farewell to this enchanting island, cherishing the experiences that will stay with you forever.',
@@ -300,7 +300,7 @@ const tripDataMap: Record<string, TripData> = {
           'Meals: At Canggu: Breakfast and dinner. At Ubud: Daily Breakfast only',
           'All ground transportation including airport transfers',
           'Admission to Wanderlust',
-          'A surf lesson',
+          'Surfing lesson',
           'Access to Nirvana Strength',
           'Admission to Bounce trampoline park',
           'Beach yoga sessions',
@@ -348,7 +348,7 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'TRANSFORM YOUR BODY AND MIND IN PARADISE',
       subtitle: 'Why Choose Bali?',
       description: [
-        'Bali offers the perfect blend of fitness challenges and tropical serenity our retreat combines high-intensity training with the healing power of Balinese culture, where you\'ll experience world-class gyms like Wanderlust, ride the waves of Canggu, find your zen in Ubud\'s spiritual atmosphere, and from sunrise treks up Mount Batur to recovery sessions at luxury spas, every moment is designed to push your limits while nourishing your soul.',
+        'Bali offers the perfect blend of fitness challenges and tropical serenity. Our retreat combines high-intensity training with the healing power of Balinese culture. Experience world-class gyms like Wanderlust, ride the waves of Canggu, find your zen in Ubud\'s spiritual atmosphere, do sunrise treks up to Mount Batur and relax with recovery sessions at luxury spas. All in all, every moment is designed to push your limits while nourishing your soul.',
         'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Bali Fitcation welcomes everyone ready to transform their life in paradise.'
       ],
       images: [
@@ -362,7 +362,7 @@ const tripDataMap: Record<string, TripData> = {
   goa: {
     slug: 'goa',
     title: 'GOA FITCATION',
-    description: 'Unleash your inner wellness with our Goa Fitcation! Experience the perfect blend of beach training, yoga, pool recovery, and team building activities. Enjoy retreat vibes at White Woods Resort & Spa while connecting with like-minded fitness enthusiasts in India\'s most vibrant coastal destination.',
+    description: 'Unleash your inner wellness with our Goa Fitcation! Experience the perfect blend of beach training, yoga, pool recovery, and team building activities. Enjoy retreat vibes at a selected luxury hotel while connecting with like-minded fitness enthusiasts in India\'s most vibrant coastal destination.',
     dates: 'Feb 3 – 6, 2022',
     stay: 'White Woods Resort & Spa\nTwin Sharing Basis',
     location: 'Goa, India',
@@ -378,7 +378,7 @@ const tripDataMap: Record<string, TripData> = {
     days: [
       {
         id: 'DAY1',
-        day: 'Day 1 (3rd Feb)',
+        day: 'Day 1',
         title: 'Arrival & Welcome',
         description: 'Check-in: 1 PM. 4:30 PM: Briefing & High Tea',
         extraContent: 'Evening: Dinner with Teammates',
@@ -388,7 +388,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY2',
-        day: 'Day 2 (4th Feb)',
+        day: 'Day 2',
         title: 'Sunrise Yoga & Beach Training',
         description: '6:00 AM: Sunrise Yoga. 7:30 – 8:30 AM: Beach Training (Surprise 😊)',
         extraContent: '9:00 AM: Breakfast. 1:00 PM: Lunch. 4:30 PM: Gather at Pool. 5:00 – 6:00 PM: Pool Recovery. Free time to explore',
@@ -398,7 +398,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY3',
-        day: 'Day 3 (5th Feb)',
+        day: 'Day 3',
         title: 'Beach Training & Community Dinner',
         description: '7:30 – 8:30 AM: Beach Training (Water Activity, Core Mash in Sea 😊)',
         extraContent: '9:00 AM: Breakfast. 1:00 PM: Lunch. 4:30 PM: Gather at Beach. 5:00 – 6:00 PM: Surprise Element. 6:15 – 7:15 PM: Beach, Beer & Workout. 9:00 PM: Community Dinner',
@@ -408,7 +408,7 @@ const tripDataMap: Record<string, TripData> = {
       },
       {
         id: 'DAY4',
-        day: 'Day 4 (6th Feb)',
+        day: 'Day 4',
         title: 'Farewell & Departure',
         description: '8:00 AM: Breakfast. 10:00 AM: High-Five to teammates & Goodbye',
         extraContent: 'Checkout and take memories that will last a lifetime',
@@ -443,7 +443,7 @@ const tripDataMap: Record<string, TripData> = {
       mainTitle: 'DISCOVER YOUR FITNESS POTENTIAL IN GOA',
       subtitle: 'Why Goa Fitcation?',
       description: [
-        'Goa provides the perfect backdrop for a transformative fitness experience our retreat combines the energy of beach workouts with the relaxation of coastal vibes, where you\'ll experience unique training sessions right on the beach with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement, connect with fellow fitness enthusiasts in a supportive community environment where new friendships are forged through shared challenges and triumphs, and from sunrise yoga sessions to evening beach parties, every moment is designed to energize your body, refresh your mind, and create memories that last a lifetime.',
+        'Goa provides the perfect backdrop for a transformative fitness experience. Tiger Terrain combines the energy of beach workouts with the relaxation of coastal vibes, where you\'ll experience unique training sessions right on the beach with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement. Connect with fellow fitness enthusiasts in a supportive community environment where new friendships are forged through shared challenges and triumphs. From waking up to sunrise yoga sessions to enjoying evening beach parties, every moment is designed to energize your body, refresh your mind, and etch memories that last a lifetime.',
         'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Goa Fitcation welcomes everyone ready to transform their life in paradise.'
       ],
       images: [

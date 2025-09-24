@@ -54,7 +54,7 @@ const videos: VideoCard[] = [
   },
   {
     id: 6,
-    title: "Wellness Journey",
+    title: "CITY EXCURSIONS",
     subtitle: "TIGER TERRAIN",
     description: "Complete wellness transformation experiences",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172916_0001.mp4",

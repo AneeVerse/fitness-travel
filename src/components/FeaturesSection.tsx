@@ -92,16 +92,16 @@ const FeaturesSection = () => {
             <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-1 lg:order-1">
               <div className="max-w-xl sm:max-w-2xl">
                 <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
-                  Need a fitness retreat or adventure travel experience?
+                  This is more than a vacation. It&apos;s a journey.
                 </h2>
                 
                 <div className="space-y-3 sm:space-y-4 md:space-y-5 text-white leading-relaxed">
                   <p className="text-sm sm:text-base md:text-lg lg:text-xl">
-                    Finding the right fitness retreat that combines training, travel, and community can be challenging. Choosing the wrong one can lead to disappointment and wasted time.
+                    Fitness never takes a vacation - it travels with you. It is this thought that has driven us to curate a journey that combines training, travel, and community in the same breath. 
                   </p>
                   
                   <p className="text-sm sm:text-base md:text-lg lg:text-xl">
-                    With Tiger Terrain, we make this easy. Join legitimate fitness retreats and adventure travel experiences at incredible value. Book transformative experiences to any destination instantly.
+                    With Tiger Terrain, you get to join your tribe, go for bespoke fitness camps and travel experiences at incredible value. Book an experiences to any destination and experience the change instantly.
                   </p>
                 </div>
 

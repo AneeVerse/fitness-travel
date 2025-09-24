@@ -19,7 +19,7 @@ const USPSection = () => {
     {
       title: "Nutritious meals featuring local cuisine",
       image: "/images/Whats- include/nutritious meals.png",
-      description: "Healthy, delicious meals prepared with fresh local ingredients"
+      description: "Healthy, delicious meals prepared with fresh nutritious ingredients"
     },
     {
       title: "Recovery sessions and wellness treatments",
@@ -37,9 +37,9 @@ const USPSection = () => {
       description: "One-on-one attention from certified fitness professionals"
     },
     {
-      title: "Premium accommodation and transportation",
+      title: "Premium accommodation",
       image: "/images/Whats- include/premium accomodation.png",
-      description: "Luxury accommodations and seamless travel arrangements"
+      description: "Seamless travel arrangements"
     }
   ];
 
@@ -63,7 +63,7 @@ const USPSection = () => {
             WHAT&apos;S INCLUDED
           </span>
           <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-[#ef4a25] leading-[0.95] ${teko.className}`}>
-            What&apos;s Included in Every Journey
+            WHAT&apos;S INCLUDED IN EVERY JOURNEY
           </h2>
           <p className="text-sm sm:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto mt-2">
             Everything you need for transformation

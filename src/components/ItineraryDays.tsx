@@ -142,7 +142,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#ef4a25] uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             ITINERARY DAYS
           </h2>
           <p className="text-white/80 text-lg mt-4 max-w-2xl mx-auto">

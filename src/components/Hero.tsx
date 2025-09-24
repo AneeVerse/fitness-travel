@@ -227,15 +227,15 @@ const Hero = () => {
       {/* Content */}
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-0 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-10 mt-75 sm:mt-70 md:mt-65 lg:mt-60">
         <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded">
-          This is more than a 
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded">
+          Love Fitness? Love Travel?
           </h1>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[40.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-2.5 md:-mt-3">
-           vacation. It&apos;s a journey.
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[41.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-2.5 md:-mt-3">
+           Then you&rsquo;ll love Tiger Terrain.
           </h1>
 
-          <p className="text-sm sm:text-base md:text-[17px] lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
-          Tiger Terrain is for anyone and everyone eager to begin the pursuit of a <br className="hidden sm:block" /> better life and do so while exploring new places.
+          <p className="text-sm sm:text-base md:text-[17px] lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-[750px] leading-relaxed">
+          Take a journey with Tiger Terrain to a thrilling fitness destination that changes you for the better. Slow, strong, serious, friendly: this journey is for anyone and everyone eager to experience a change and do so while keeping fit and exploring new places.
           </p>
 
           {/* CTA Buttons */}

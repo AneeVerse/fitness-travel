@@ -110,6 +110,8 @@ const ContactPage = () => {
                    — CONTACT US —
                  </span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white font-unbounded leading-tight">
+                  WANT TO COLLABORATE? <br />
+                  HAVE A QUERY? <br />
                   WE&apos;D LOVE TO HEAR FROM YOU
                 </h2>
               </div>
