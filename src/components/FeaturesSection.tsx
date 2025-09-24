@@ -187,7 +187,7 @@ const FeaturesSection = () => {
                           setIsVideoPlaying(false);
                         }}
                       >
-                        <source src="/video/TT V1 version 2 vertical.mp4" type="video/mp4" />
+                        <source src="/video/feature_preview.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                       
