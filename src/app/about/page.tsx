@@ -21,7 +21,7 @@ const AboutPage = () => {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg"
+                src="/images/COMPLETE EXPERIENCE/Diver fitness modalities.png"
                 alt="About Tiger Terrain"
                 fill
                 className="object-cover"
@@ -101,15 +101,15 @@ const AboutPage = () => {
               {/* Bottom Left Image - no gap */}
               <div className="rounded-2xl overflow-hidden shadow-sm mt-0">
                 <div className="relative h-[280px]">
-                  <Image src="/images/social/piratecamp_phuket-20250814-0003.jpg" alt="Group training" fill className="object-cover" />
+                  <Image src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" alt="Group training" fill className="object-cover" />
                 </div>
               </div>
             </div>
 
             {/* Middle Column - Center Image Only */}
             <div className="rounded-2xl overflow-hidden shadow-sm lg:col-span-4 flex justify-center">
-              <div className="relative h-[750px] w-[500px]">
-                <Image src="/images/social/piratecamp_phuket-20250814-0002.jpg" alt="Team celebration" fill className="object-cover" />
+              <div className="relative h-[820px] w-[500px]">
+                <Image src="/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg" alt="Team celebration" fill className="object-cover" />
               </div>
             </div>
 
@@ -118,7 +118,7 @@ const AboutPage = () => {
               {/* Top Right Image */}
               <div className="rounded-2xl overflow-hidden shadow-sm mb-6">
                 <div className="relative h-[280px]">
-                  <Image src="/images/social/piratecamp_phuket-20250814-0001.jpg" alt="Adventure training" fill className="object-cover" />
+                  <Image src="/images/itinerary/overview/67caa708e544afc27b621096_DJI_20240906165547_0062_D.jpg" alt="Adventure training" fill className="object-cover" />
                 </div>
               </div>
 
@@ -165,7 +165,7 @@ const AboutPage = () => {
             <div className="lg:col-span-1">
               <div className="rounded-2xl overflow-hidden shadow-sm">
                 <div className="relative h-[500px] w-full">
-                  <Image src="/images/COMPLETE EXPERIENCE/Diverse Fitness Modalities.jpg" alt="Runners on beach path" fill className="object-cover" />
+                  <Image src="/images/COMPLETE EXPERIENCE/Diver fitness modalities.png" alt="Runners on beach path" fill className="object-cover" />
                 </div>
               </div>
             </div>
