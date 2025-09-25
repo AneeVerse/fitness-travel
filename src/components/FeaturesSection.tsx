@@ -140,7 +140,8 @@ const FeaturesSection = () => {
                         src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
                         alt="Fitness retreat thumbnail"
                         fill
-                        className="object-cover"
+                        className="object-cover object-top"
+                        style={{ objectPosition: 'center 25%' }}
                       />
                       
                       {/* Overlay */}
@@ -176,7 +177,8 @@ const FeaturesSection = () => {
                     <div className="relative aspect-[4/5] bg-black">
                       <video
                         ref={videoRef}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover object-top"
+                        style={{ objectPosition: 'center 25%' }}
                         controls
                         autoPlay
                         playsInline
