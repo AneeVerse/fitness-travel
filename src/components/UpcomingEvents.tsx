@@ -62,6 +62,8 @@ const events: EventItem[] = [
     totalSlots: 25,
     bookedSlots: 10,
   },
+  // COMMENTED OUT: Bali event removed
+  /*
   {
     id: 'BALI',
     title: 'BALI',
@@ -77,6 +79,7 @@ const events: EventItem[] = [
     totalSlots: 20,
     bookedSlots: 8,
   },
+  */
   {
     id: 'GOA',
     title: 'GOA',

@@ -41,7 +41,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
   const dateOptions = [
     { value: "phuket-17aug-25aug-2026", label: "From 17 Aug – 25 Aug 2026 (Phuket)" },
     { value: "goa-3feb-6feb-2026", label: "Feb 3 – 6, 2026 (Goa)" },
-    { value: "bali-15feb-25feb-2026", label: "15 Feb 2026 To 25 Feb 2026 (Bali)" },
+    // { value: "bali-15feb-25feb-2026", label: "15 Feb 2026 To 25 Feb 2026 (Bali)" }, // COMMENTED OUT: Bali option removed
   ]
 
   const accommodationTypes = [

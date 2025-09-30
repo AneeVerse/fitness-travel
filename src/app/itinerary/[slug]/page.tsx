@@ -44,7 +44,7 @@ export default async function ItineraryPage({ params }: PageProps) {
 export async function generateStaticParams() {
   return [
     { slug: 'phuket' },
-    { slug: 'bali' },
+    // { slug: 'bali' }, // COMMENTED OUT: Bali page removed
     { slug: 'goa' },
   ];
 }

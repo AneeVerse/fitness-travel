@@ -159,6 +159,8 @@ const tripDataMap: Record<string, TripData> = {
     }
   },
   
+  // COMMENTED OUT: Bali trip data
+  /*
   bali: {
     slug: 'bali',
     title: 'BALI FITCATION',
@@ -358,6 +360,7 @@ const tripDataMap: Record<string, TripData> = {
       ]
     }
   },
+  */
 
   goa: {
     slug: 'goa',

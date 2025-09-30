@@ -39,9 +39,8 @@ const SocialMosaic: React.FC = () => {
                 height={500}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '315px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -54,9 +53,8 @@ const SocialMosaic: React.FC = () => {
                 height={250}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '180px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -69,9 +67,8 @@ const SocialMosaic: React.FC = () => {
                 height={350}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '240px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -90,7 +87,7 @@ const SocialMosaic: React.FC = () => {
                     width={100}
                     height={100}
                     className="rounded-lg shadow-md border-2 border-[#ef4a25]"
-                    priority
+                    loading="lazy"
                   />
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full flex items-center justify-center">
                     <svg className="w-1.5 h-1.5 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
@@ -129,9 +126,8 @@ const SocialMosaic: React.FC = () => {
                 height={450}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '320px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -144,9 +140,8 @@ const SocialMosaic: React.FC = () => {
                 height={250}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '200px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -159,9 +154,8 @@ const SocialMosaic: React.FC = () => {
                 height={350}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '260px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -180,7 +174,7 @@ const SocialMosaic: React.FC = () => {
                     width={100}
                     height={100}
                     className="rounded-lg shadow-md border-2 border-[#ef4a25]"
-                    priority
+                    loading="lazy"
                   />
                   <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-white rounded-full flex items-center justify-center">
                     <svg className="w-2 h-2 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
@@ -219,9 +213,8 @@ const SocialMosaic: React.FC = () => {
                 height={400}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '300px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -234,9 +227,8 @@ const SocialMosaic: React.FC = () => {
                 height={250}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '220px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -249,9 +241,8 @@ const SocialMosaic: React.FC = () => {
                 height={350}
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '280px' }}
-                priority
-                unoptimized={false}
-                quality={85}
+                loading="lazy"
+                quality={75}
               />
             </div>
 
@@ -270,7 +261,7 @@ const SocialMosaic: React.FC = () => {
                     width={140}
                     height={140}
                     className="rounded-xl shadow-md border-2 border-[#ef4a25]"
-                    priority
+                    loading="lazy"
                   />
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full flex items-center justify-center">
                     <svg className="w-2.5 h-2.5 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
@@ -322,7 +313,7 @@ const SocialMosaic: React.FC = () => {
                   width={200}
                   height={200}
                   className="rounded-2xl shadow-lg border-2 border-[#ef4a25] transition-all duration-300 group-hover:scale-110 group-hover:border-4 group-hover:border-[#ef4a25] group-hover:shadow-2xl"
-                  priority
+                  loading="lazy"
                 />
                 <div className="absolute -top-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-110">
                   <svg className="w-4 h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
@@ -345,9 +336,8 @@ const CardImage = ({ src }: { src: string }) => (
       alt="Gallery" 
       fill 
       className="object-cover"
-      priority
-      unoptimized={false}
-      quality={85}
+      loading="lazy"
+      quality={75}
     />
   </div>
 );

@@ -34,7 +34,7 @@ const highlights: Highlight[] = [
   },
   {
     id: 4,
-    image: '/images/COMPLETE EXPERIENCE/Cultural immersion.png',
+    image: '/images/COMPLETE EXPERIENCE/Cultural immersion1.png',
     title: 'Cultural Immersion',
     description:
       'Connect with local communities, traditions and city tours while soaking up the city’s flavor and its breathtaking natural landscapes.',
@@ -192,7 +192,15 @@ const EpicDestinationsSection: React.FC = () => {
               {[...highlights, ...highlights, ...highlights].map((h, index) => (
                 <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[calc(100vw-2rem)] max-w-[320px] flex-shrink-0" draggable={false}>
                   <div className="relative w-full h-48 sm:h-52 rounded-xl overflow-hidden">
-                    <Image src={h.image} alt={h.title} fill className={`object-cover ${h.id === 3 ? 'scale-110' : ''}`} />
+                    <Image 
+                      src={h.image} 
+                      alt={h.title} 
+                      fill 
+                      className={`object-cover ${
+                        h.id === 3 ? 'scale-110' : 
+                        h.id === 4 ? 'object-left scale-110' : ''
+                      }`} 
+                    />
                   </div>
                   <h3 className="text-white font-semibold text-base sm:text-lg mt-3 sm:mt-4">{h.title}</h3>
                   <p className="text-white/75 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
@@ -207,7 +215,15 @@ const EpicDestinationsSection: React.FC = () => {
             {highlights.slice(0, 4).map((h) => (
               <div key={h.id} className="flex flex-col h-full">
                 <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
-                  <Image src={h.image} alt={h.title} fill className={`object-cover ${h.id === 3 ? 'scale-110' : ''}`} />
+                  <Image 
+                    src={h.image} 
+                    alt={h.title} 
+                    fill 
+                    className={`object-cover ${
+                      h.id === 3 ? 'scale-110' : 
+                      h.id === 4 ? 'object-left scale-110' : ''
+                    }`} 
+                  />
                 </div>
                 <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
                 <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">

@@ -9,6 +9,7 @@ interface VideoCard {
   subtitle: string;
   description: string;
   videoUrl: string;
+  thumbnailUrl: string; // Add thumbnail URL
   timestamp: string;
   transcript: string;
   reviewerName: string;
@@ -22,6 +23,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT TESTIMONIAL",
     description: "A powerful testimonial showcasing the incredible journey of transformation through dedication, discipline, and the right guidance. This member's story proves that with determination, anything is possible.",
     videoUrl: "/TT Testimonials/2.mp4",
+    thumbnailUrl: "/images/review/kanika.png",
     timestamp: "0:15",
     transcript: "This experience has been absolutely incredible! The transformation I've seen in myself and others is remarkable. The guidance, support, and community here is unlike anything I've experienced before. I highly recommend this to anyone looking to push their limits and discover their true potential.",
     reviewerName: "Kanika",
@@ -33,6 +35,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT SPOTLIGHT",
     description: "An amazing story of personal growth and achievement. This member's journey demonstrates how the right environment and support can unlock hidden potential and create lasting positive change.",
     videoUrl: "/TT Testimonials/4.mp4",
+    thumbnailUrl: "/images/review/archana.png",
     timestamp: "0:18",
     transcript: "This has been a life-changing experience for me. The level of support, the quality of training, and the amazing community here has transformed not just my body, but my entire mindset. I've learned so much about myself and what I'm truly capable of achieving.",
     reviewerName: "Archana",
@@ -44,6 +47,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT TESTIMONIAL",
     description: "A story of resilience and determination that will inspire anyone. This member's journey shows that with the right mindset and support, no challenge is too great to overcome.",
     videoUrl: "/TT Testimonials/6.mp4",
+    thumbnailUrl: "/images/review/girish.png",
     timestamp: "0:20",
     transcript: "I came here with doubts about my abilities, but I'm leaving with complete confidence. The training, the nutrition guidance, and the incredible support system here has shown me that I can achieve things I never thought possible. This experience has been truly transformative.",
     reviewerName: "Girish",
@@ -55,6 +59,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT TESTIMONIAL",
     description: "An outstanding testimonial highlighting the exceptional quality of the program. This member's experience showcases the comprehensive approach to fitness, nutrition, and personal development.",
     videoUrl: "/TT Testimonials/7.mp4",
+    thumbnailUrl: "/images/review/ravi.png",
     timestamp: "0:16",
     transcript: "The quality of this program is exceptional. Every aspect, from the training to the nutrition to the community support, is designed to help you succeed. I've seen incredible results and I know this is just the beginning of my journey.",
     reviewerName: "Ravi",
@@ -66,6 +71,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT SPOTLIGHT",
     description: "Atul shares his incredible transformation story, highlighting the physical and mental changes he experienced. His journey is a testament to the power of commitment and the right guidance.",
     videoUrl: "/TT Testimonials/Atul.mp4",
+    thumbnailUrl: "/images/review/atul.png",
     timestamp: "0:25",
     transcript: "My journey here has been absolutely incredible. I've not only transformed physically but mentally as well. The discipline, the training, and the amazing community here has changed my life. I'm stronger, more confident, and ready to take on any challenge. This experience has been worth every moment.",
     reviewerName: "Atul",
@@ -77,6 +83,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT TESTIMONIAL",
     description: "Gaurav's powerful testimonial showcases his remarkable transformation journey. His story demonstrates the comprehensive impact of the program on both physical fitness and personal growth.",
     videoUrl: "/TT Testimonials/Gaurav.mp4",
+    thumbnailUrl: "/images/review/gaurav.png",
     timestamp: "0:30",
     transcript: "This program has completely transformed my life. The level of training, the nutritional guidance, and the incredible support system here is unmatched. I've achieved things I never thought possible and I'm excited to continue this journey. The community here is like family and the results speak for themselves.",
     reviewerName: "Gaurav",
@@ -88,6 +95,7 @@ const videos: VideoCard[] = [
     subtitle: "CLIENT SPOTLIGHT",
     description: "Prajakta shares her inspiring success story, highlighting the transformative power of dedication and the right support system. Her journey is a perfect example of what's possible with commitment.",
     videoUrl: "/TT Testimonials/Prajakta.mp4",
+    thumbnailUrl: "/images/review/prajakta.png",
     timestamp: "0:22",
     transcript: "This experience has been absolutely life-changing. The training, the nutrition guidance, and the incredible community here has helped me achieve goals I never thought possible. I've grown stronger, more confident, and I've learned so much about myself. This is truly a transformative journey that I would recommend to anyone.",
     reviewerName: "Prajakta",
@@ -125,15 +133,11 @@ export default function ReviewVideo() {
   }, []);
 
   const [isPaused, setIsPaused] = useState(false);
-  const [preloadedVideos, setPreloadedVideos] = useState<Set<string>>(new Set());
-  const [loadingVideos, setLoadingVideos] = useState<Set<string>>(new Set());
-  const [hoveredVideoId, setHoveredVideoId] = useState<string | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoCard | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const modalVideoRef = useRef<HTMLVideoElement>(null);
-  const videoCacheRef = useRef<Map<string, HTMLVideoElement>>(new Map());
   const animationRef = useRef<number | null>(null);
   const translateX = useRef(0);
   const isDragging = useRef(false);
@@ -226,69 +230,6 @@ export default function ReviewVideo() {
     // Ignore vertical scrolling - let it work normally for page scrolling
   };
 
-  // Helper function for preloading
-  const preloadVideoWithPriority = useCallback(async (url: string, priority: 'high' | 'medium' | 'low' = 'medium') => {
-    if (preloadedVideos.has(url) || loadingVideos.has(url)) return;
-
-    setLoadingVideos(prev => new Set(prev).add(url));
-
-    try {
-      const video = document.createElement('video');
-      video.preload = priority === 'high' ? 'auto' : 'metadata';
-      video.muted = true;
-      video.playsInline = true;
-      video.crossOrigin = 'anonymous';
-      
-      return new Promise<void>((resolve, reject) => {
-        const timeout = setTimeout(() => {
-          reject(new Error(`Video preload timeout: ${url}`));
-        }, 10000);
-
-        video.onloadedmetadata = () => {
-          clearTimeout(timeout);
-          setPreloadedVideos(prev => new Set(prev).add(url));
-          setLoadingVideos(prev => {
-            const newSet = new Set(prev);
-            newSet.delete(url);
-            return newSet;
-          });
-          videoCacheRef.current.set(url, video);
-          resolve();
-        };
-
-        video.oncanplay = () => {
-          clearTimeout(timeout);
-          setPreloadedVideos(prev => new Set(prev).add(url));
-          setLoadingVideos(prev => {
-            const newSet = new Set(prev);
-            newSet.delete(url);
-            return newSet;
-          });
-          videoCacheRef.current.set(url, video);
-          resolve();
-        };
-
-        video.onerror = () => {
-          clearTimeout(timeout);
-          setLoadingVideos(prev => {
-            const newSet = new Set(prev);
-            newSet.delete(url);
-            return newSet;
-          });
-          reject(new Error(`Failed to preload video: ${url}`));
-        };
-
-        video.src = url;
-      });
-    } catch (error) {
-      setLoadingVideos(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(url);
-        return newSet;
-      });
-      console.warn(`Failed to preload video ${url}:`, error);
-    }
-  }, [preloadedVideos, loadingVideos]);
 
   // Handle play button click
   const handlePlayClick = (video: VideoCard) => {
@@ -305,13 +246,6 @@ export default function ReviewVideo() {
     }
   };
 
-  // Handle modal video play
-  const handleModalVideoPlay = () => {
-    if (modalVideoRef.current) {
-      modalVideoRef.current.muted = false;
-      modalVideoRef.current.play();
-    }
-  };
 
   // Start Animation & Recalculate on Resize
   useEffect(() => {
@@ -343,36 +277,6 @@ export default function ReviewVideo() {
     };
   }, [animate, calculateWidth]);
 
-  // Ultra-fast video preloading with priority system
-  useEffect(() => {
-    // Immediate high-priority preloading of first few videos
-    const preloadCriticalVideos = async () => {
-      const criticalVideos = videos.slice(0, 3).map(v => v.videoUrl);
-      await Promise.allSettled(
-        criticalVideos.map(url => preloadVideoWithPriority(url, 'high'))
-      );
-    };
-
-    // Medium priority preloading of remaining videos
-    const preloadRemainingVideos = async () => {
-      const remainingVideos = videos.slice(3).map(v => v.videoUrl);
-      // Preload in batches to avoid overwhelming the network
-      const batchSize = 2;
-      for (let i = 0; i < remainingVideos.length; i += batchSize) {
-        const batch = remainingVideos.slice(i, i + batchSize);
-        await Promise.allSettled(
-          batch.map(url => preloadVideoWithPriority(url, 'medium'))
-        );
-        // Small delay between batches
-        await new Promise(resolve => setTimeout(resolve, 100));
-      }
-    };
-
-    // Start preloading immediately
-    preloadCriticalVideos().then(() => {
-      preloadRemainingVideos();
-    });
-  }, [preloadVideoWithPriority]);
 
   return (
     <>
@@ -397,18 +301,12 @@ export default function ReviewVideo() {
             >
               {duplicatedVideos.map((video, index) => {
                 const videoId = `${index}-${video.id}`;
-                const isHovered = hoveredVideoId === videoId;
                 
                 return (
                   <VideoCard
                     key={videoId}
                     video={video}
-                    isHovered={isHovered}
-                    onHover={setHoveredVideoId}
                     videoId={videoId}
-                    preloadedVideos={preloadedVideos}
-                    loadingVideos={loadingVideos}
-                    preloadVideoWithPriority={preloadVideoWithPriority}
                     onPlayClick={handlePlayClick}
                   />
                 );
@@ -438,9 +336,18 @@ export default function ReviewVideo() {
                   className="w-full h-auto max-h-[90vh] object-contain"
                   controls
                   autoPlay
-                  muted
                   playsInline
-                  onLoadedMetadata={handleModalVideoPlay}
+                  preload="metadata"
+                  onLoadedData={() => {
+                    // Unmute and play when video loads
+                    if (modalVideoRef.current) {
+                      modalVideoRef.current.muted = false;
+                      modalVideoRef.current.play().catch(() => {
+                        // If autoplay fails, user will need to click play manually
+                        console.log('Autoplay prevented by browser');
+                      });
+                    }
+                  }}
                 >
                   <source src={selectedVideo.videoUrl} type="video/mp4" />
                 </video>
@@ -500,84 +407,38 @@ export default function ReviewVideo() {
   );
 }
 
-// VideoCard component
+// VideoCard component - Now using thumbnails instead of autoplay videos
 const VideoCard: React.FC<{
   video: VideoCard;
-  isHovered: boolean;
-  onHover: (videoId: string | null) => void;
   videoId: string;
-  preloadedVideos: Set<string>;
-  loadingVideos: Set<string>;
-  preloadVideoWithPriority: (url: string, priority?: 'high' | 'medium' | 'low') => Promise<void>;
   onPlayClick: (video: VideoCard) => void;
-}> = ({ video, isHovered, onHover, videoId, preloadedVideos, loadingVideos, preloadVideoWithPriority, onPlayClick }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  // Handle video play/pause on hover
-  useEffect(() => {
-    if (videoRef.current) {
-      if (isHovered) {
-        videoRef.current.play().catch(console.error);
-      } else {
-        videoRef.current.pause();
-        videoRef.current.currentTime = 0; // Reset to beginning
-      }
-    }
-  }, [isHovered]);
+}> = ({ video, onPlayClick }) => {
   
   return (
     <div
-      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all shadow-lg select-none"
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all shadow-lg select-none cursor-pointer"
       data-card="true"
       draggable={false}
-      onMouseEnter={() => onHover(videoId)}
-      onMouseLeave={() => onHover(null)}
+      onClick={() => onPlayClick(video)}
       style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
     >
-      {/* Video Background */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        muted
-        loop
-        playsInline
-        preload={preloadedVideos.has(video.videoUrl) ? "auto" : "metadata"}
-        onLoadStart={() => {
-          if (!preloadedVideos.has(video.videoUrl) && !loadingVideos.has(video.videoUrl)) {
-            console.log(`Starting to load video: ${video.title}`);
-            preloadVideoWithPriority(video.videoUrl, 'high');
-          }
-        }}
-        onCanPlay={() => {
-          if (!preloadedVideos.has(video.videoUrl)) {
-            // This will be handled by the parent component
-          }
-        }}
-        onError={(e) => {
-          console.warn(`Video error for ${video.title}:`, e);
-        }}
-      >
-        <source src={video.videoUrl} type="video/mp4" />
-      </video>
-      
-      {/* Loading Overlay */}
-      {(!preloadedVideos.has(video.videoUrl) || loadingVideos.has(video.videoUrl)) && (
-        <div className="absolute inset-0 bg-black/100 flex items-center justify-center z-10 select-none">
-          <div className="flex flex-col items-center space-y-2 select-none">
-            <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            <span className="text-white text-xs font-medium select-none">
-              {loadingVideos.has(video.videoUrl) ? 'Preloading...' : 'Loading...'}
-            </span>
-          </div>
-        </div>
-      )}
+      {/* Thumbnail Background - No autoplay, no preload */}
+      <img
+        src={video.thumbnailUrl}
+        alt={`${video.reviewerName} testimonial thumbnail`}
+        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+        draggable={false}
+      />
       
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
       
       {/* Play Button - Clickable */}
       <button
-        onClick={() => onPlayClick(video)}
+        onClick={(e) => {
+          e.stopPropagation();
+          onPlayClick(video);
+        }}
         className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-20"
       >
         <Play className="w-8 h-8" fill="white" />
@@ -611,7 +472,7 @@ const VideoCard: React.FC<{
         </div>
 
         {/* Hover State - Brief Preview */}
-        <div className="absolute inset-0 bg-black pt-2 pb-4 px-6 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-start select-none">
+        <div className="absolute inset-0 bg-black/90 pt-2 pb-4 px-6 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-start select-none">
           <div className="text-center select-none">
             <div className="flex items-center justify-center gap-1 mb-2 select-none">
               {[...Array(video.rating)].map((_, i) => (

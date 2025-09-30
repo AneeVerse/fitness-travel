@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PricingModal from './PricingModal';
@@ -14,9 +15,13 @@ const Hero = () => {
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  // Preloader state: covers entire page until hero video is ready
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [preloaderFadeOut, setPreloaderFadeOut] = useState(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -162,11 +167,66 @@ const Hero = () => {
     };
   }, []);
 
+  // Preloader fade-out logic tied to hero readiness (smoother)
+  useEffect(() => {
+    if (!(videoLoaded || videoError)) return;
+
+    const el = preloaderRef.current;
+    if (!el) {
+      // Fallback: if ref not available, use previous behavior
+      setPreloaderFadeOut(true);
+      const t = setTimeout(() => setShowPreloader(false), 500);
+      return () => clearTimeout(t);
+    }
+
+    // Ensure transition runs on a separate frame
+    const id = requestAnimationFrame(() => {
+      setPreloaderFadeOut(true);
+    });
+
+    const onDone = (e: TransitionEvent) => {
+      if (e.target === el && e.propertyName === 'opacity') {
+        setShowPreloader(false);
+      }
+    };
+    el.addEventListener('transitionend', onDone);
+
+    return () => {
+      cancelAnimationFrame(id);
+      el.removeEventListener('transitionend', onDone);
+    };
+  }, [videoLoaded, videoError]);
+
   return (
     <>
-      <section ref={heroRef} className="relative min-h-[110vh] sm:min-h-[112vh] md:min-h-[114vh] lg:min-h-[115vh] w-full overflow-hidden -mb-38 sm:mb-4 rounded-b-3xl">
-      {/* Video Background */}
-      <div className="absolute inset-0 z-0">
+      {/* Full-screen preloader overlay: dark background with fading logo */}
+      {showPreloader && (
+        <div
+          ref={preloaderRef}
+          className={`fixed inset-0 z-[10000] flex items-center justify-center transition-opacity duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+            preloaderFadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+          aria-busy={!preloaderFadeOut}
+          aria-live="polite"
+          role="status"
+          style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
+        >
+          <div className="absolute inset-0 bg-black/90" />
+          <div className="relative flex flex-col items-center">
+            <Image
+              src="/images/new-logo.svg"
+              alt="Tiger Terrain"
+              width={540}
+              height={540}
+              priority
+              className="preloader-logo drop-shadow-[0_0_35px_rgba(255,255,255,0.12)] w-[440px] h-[440px] max-w-[70vw] max-h-[50vh]"
+            />
+          </div>
+        </div>
+      )}
+
+      <section ref={heroRef} className="relative h-screen overflow-hidden rounded-b-3xl">
+        <div className="absolute inset-0 z-0">
         {/* Fallback background when video is loading or has error */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           videoLoaded ? 'opacity-0' : 'opacity-100'
@@ -181,13 +241,15 @@ const Hero = () => {
           loop
           muted
           playsInline
-          preload="metadata"
+          preload="auto"
+          poster="/images/cta.png"
           className={`absolute min-w-full min-h-full object-cover transition-opacity duration-700 will-change-transform ${
             videoLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           onLoadedData={handleVideoLoad}
           onCanPlay={handleVideoCanPlay}
           onError={handleVideoError}
+          aria-hidden="true"
           style={{
             transform: 'translateZ(0)', // Force hardware acceleration
             backfaceVisibility: 'hidden'
@@ -198,24 +260,14 @@ const Hero = () => {
             src="/video/BG2.mp4" 
             type="video/mp4" 
           />
+          {/* Removed duplicate source */}
+          {/* CDN as fallback - only use if local file fails */}
           <source 
-            src="/video/BG2.mp4" 
-            type="video/mp4" 
-          />
-          {/* CDN as fallback */}
-          <source 
-            src="https://ik.imagekit.io/cuovrrwder/BG-(2).mp4?updatedAt=1756192776676" 
+            src="https://ik.imagekit.io/cuovrrwder/BG-(2).mp4?tr=q-70" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.
         </video>
-        
-        {/* Loading indicator */}
-        {!videoLoaded && !videoError && (
-          <div className="absolute inset-0 flex items-center justify-center z-10">
-            <div className="w-16 h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
-          </div>
-        )}
         
         {/* Base dim overlay */}
         <div className="absolute inset-0 bg-black/25"></div>
@@ -225,7 +277,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-0 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-10 mt-75 sm:mt-70 md:mt-65 lg:mt-60">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-0 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-10 mt-30 sm:mt-50 md:mt-35 lg:mt-30">
         <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded">
           Love Fitness? Love Travel?
