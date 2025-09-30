@@ -179,17 +179,13 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                   style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
                 >
                   <div className="relative h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] rounded-2xl overflow-hidden shadow-xl bg-black group">
-                    {/* Video Background */}
+                    {/* Image Background */}
                     <div className="relative w-full h-full">
-                      <video
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
+                      <img
+                        src={day.image}
+                        alt={day.title}
                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                      >
-                        <source src={day.videoSrc} type="video/mp4" />
-                      </video>
+                      />
                       
                       {/* Enhanced Black Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/20" />
@@ -203,17 +199,17 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                           </h3>
                         </div>
 
-                        {/* Middle Section */}
-                        <div className="space-y-3 select-none">
+                        {/* Middle Section - Fixed Alignment */}
+                        <div className="flex-1 flex flex-col justify-start space-y-3 select-none pt-20">
                           <h4 className="text-sm sm:text-base font-semibold leading-tight select-none">
                             {day.title}
                           </h4>
-                          <p className="text-xs sm:text-sm opacity-90 leading-relaxed select-none">{day.description}</p>
-                          <p className="text-xs opacity-80 leading-relaxed select-none">{day.extraContent}</p>
+                          <p className="text-xs md:text-xs sm:text-sm opacity-90 leading-relaxed select-none -mb-0">{day.description}</p>
+                          <p className="text-xs md:text-xs sm:text-sm opacity-80 leading-relaxed select-none">{day.extraContent}</p>
                         </div>
 
                         {/* Bottom Section */}
-                        <div className="space-y-3 select-none">
+                        <div className="space-y-2 select-none">
                           {/* Details */}
                           <div className="space-y-1.5 text-xs select-none">
                             <div className="flex items-center gap-2 select-none">
@@ -237,8 +233,8 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                           </div>
                           
                           {/* Time Badge */}
-                          <div className="flex justify-start mt-2 select-none">
-                            <div className="bg-[#ef4a25] text-white px-3 py-1.5 rounded-full text-sm font-semibold select-none">
+                          <div className="flex justify-start select-none">
+                            <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap select-none">
                               {day.time}
                             </div>
                           </div>
