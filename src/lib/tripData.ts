@@ -69,7 +69,7 @@ const tripDataMap: Record<string, TripData> = {
         description: 'Check In, Intros & Briefing on the week ahead. Leave for Phuket Town for Tour',
         extraContent: 'Welcome orientation and cultural exploration of Phuket Town',
         time: 'All Day',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 1.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 1.webp',
         videoSrc: '/video/vids/vid (1).mp4',
       },
       {
@@ -79,7 +79,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '9:30 AM - HIIT Workout, 10:30 AM - Breakfast followed by free exploration, 4:30 PM - Hot Yoga session',
         extraContent: 'High-intensity interval training followed by relaxing hot yoga to balance your day',
         time: '9:30 AM - 6:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 2.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 2.webp',
         videoSrc: '/video/vids/vid (2).mp4',
       },
       {
@@ -89,7 +89,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '8:00 AM - BodyFit Workout, 9:30 AM - Breakfast followed by free exploration, 4:30 PM - Outdoor Session',
         extraContent: 'Comprehensive body fitness training combined with outdoor adventure activities',
         time: '8:00 AM - 6:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 3.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 3.webp',
         videoSrc: '/video/vids/vid (3).mp4',
       },
       {
@@ -99,7 +99,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '7:15 AM - Beach Training, 10:00 AM - Breakfast followed by free exploration, 5:00 PM - Muay Thai Session',
         extraContent: 'Experience traditional Thai martial arts and energizing beach workouts',
         time: '7:15 AM - 7:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 4.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 4.webp',
         videoSrc: '/video/vids/vid (4).mp4',
       },
       {
@@ -109,7 +109,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '7:15 AM - Big Buddha Run, 10:00 AM - Breakfast followed by free exploration, 4:00 PM - Pool Recovery Session',
         extraContent: 'Scenic run to the iconic Big Buddha followed by relaxing pool recovery',
         time: '7:15 AM - 6:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 5.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 5.webp',
         videoSrc: '/video/vids/vid (5).mp4',
       },
       {
@@ -119,7 +119,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '9:30 AM - Breakfast, 11:00 AM - Partner Chipper, 4:00 PM - OnSen Spa',
         extraContent: 'Team workout challenges followed by rejuvenating spa treatments',
         time: '9:30 AM - 7:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 6.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 6.webp',
         videoSrc: '/video/vids/vid (6).mp4',
       },
       {
@@ -129,7 +129,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '10:00 AM - Breakfast followed by free exploration, 11:00 AM - 7:00 PM - Boat Party (optional)',
         extraContent: 'Relaxing free day with optional boat party adventure',
         time: '10:00 AM - 11:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 7.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 7.webp',
         videoSrc: '/video/vids/vid (7).mp4',
       },
       {
@@ -139,7 +139,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '8:00 AM - Transfer back to Airport. Check out and farewell to your new fitness family',
         extraContent: 'Final goodbyes and departure with lasting memories and new friendships',
         time: '8:00 AM - 12:00 PM',
-        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 8.png',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 8.webp',
         videoSrc: '/video/vids/vid (8).mp4',
       }
     ],
@@ -386,7 +386,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '1:00 PM - Check-in, 4:30 PM - Briefing & High Tea, Evening - Dinner with Teammates',
         extraContent: 'Welcome to your Goa fitness adventure with team introductions and orientation',
         time: '1:00 PM - 10:00 PM',
-        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 1.png',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 1.webp',
         videoSrc: '/video/vids/vid (1).mp4',
       },
       {
@@ -396,7 +396,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '6:00 AM - Sunrise Yoga, 7:30 AM - 8:30 AM - Beach Training (Surprise 😊), 9:00 AM - Breakfast, 1:00 PM - Lunch, 4:30 PM - Gather at Pool, 5:00 PM - 6:00 PM - Pool Recovery',
         extraContent: 'Start your day with peaceful yoga and energizing beach workouts, followed by relaxing pool recovery',
         time: '6:00 AM - Evening',
-        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 3.png',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
         videoSrc: '/video/vids/vid (2).mp4',
       },
       {
@@ -406,7 +406,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '7:30 AM - 8:30 AM - Beach Training (Water Activity, Core Mash in Sea 😊), 9:00 AM - Breakfast, 1:00 PM - Lunch, 4:30 PM - Gather at Beach, 5:00 PM - 6:00 PM - Surprise Element, 6:15 PM - 7:15 PM - Beach, Beer & Workout, 9:00 PM - Community Dinner',
         extraContent: 'Exciting water-based beach training followed by fun social activities and community bonding',
         time: '7:30 AM - 10:00 PM',
-        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Phuket Day 4.png',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Phuket Day 4.webp',
         videoSrc: '/video/vids/vid (3).mp4',
       },
       {
@@ -416,7 +416,7 @@ const tripDataMap: Record<string, TripData> = {
         description: '8:00 AM - Breakfast, 10:00 AM - High-Five to teammates & Goodbye. Checkout and take memories that will last a lifetime',
         extraContent: 'Final farewell with your fitness family and departure with unforgettable memories',
         time: '8:00 AM - 12:00 PM',
-        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.png',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
         videoSrc: '/video/vids/vid (4).mp4',
       }
     ],
