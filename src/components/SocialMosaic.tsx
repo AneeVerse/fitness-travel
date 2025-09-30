@@ -26,7 +26,7 @@ const SocialMosaic: React.FC = () => {
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '280px' }}
               >
-                <source src="/images/social/piratecamp_phuket-20250814-0001.mp4" type="video/mp4" />
+                <source src="/images/social/pirate.mp4" type="video/mp4" />
               </video>
             </div>
 

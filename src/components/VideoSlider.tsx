@@ -8,6 +8,7 @@ interface VideoCard {
   subtitle: string;
   description: string;
   videoUrl: string;
+  thumbnailUrl?: string; // Optional thumbnail URL
   timestamp: string;
 }
 
@@ -16,24 +17,27 @@ const videos: VideoCard[] = [
     id: 1,
     title: "Fitness Adventures",
     subtitle: "TIGER TERRAIN",
-    description: "Epic fitness journeys in stunning destinations",
+    description: "Epic Fitness Journeys in Stunning Locations",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172107_0001.mp4",
+    thumbnailUrl: "/images/highlights/fitness adventure.webp",
     timestamp: "0:45"
   },
   {
     id: 2,
-    title: "BOXING ",
+    title: "Muay Thai",
     subtitle: "TIGER TERRAIN",
-    description: "High-energy group workouts and team challenges",
+    description: "Experience a high-energy Muay Thai workout and team challenges",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172213_0002.mp4",
+    thumbnailUrl: "/images/highlights/muay thai.webp",
     timestamp: "0:38"
   },
   {
     id: 3,
-    title: "Pool recovery",
+    title: "recovery session",
     subtitle: "TIGER TERRAIN",
-    description: "Relaxation and recovery in beautiful settings",
+    description: "Relaxation and recovery session ",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172316_0003.mp4",
+    thumbnailUrl: "/images/highlights/recovery.webp",
     timestamp: "0:42"
   },
   {
@@ -42,22 +46,25 @@ const videos: VideoCard[] = [
     subtitle: "TIGER TERRAIN",
     description: "Adventure activities in nature's playground",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172419_0004.mp4",
+    thumbnailUrl: "/images/highlights/running.webp",
     timestamp: "0:55"
   },
   {
     id: 5,
     title: "HIIT INTERVAL TRAINING”",
     subtitle: "TIGER TERRAIN",
-    description: "Immerse yourself in local culture and traditions",
+    description: "Complete wellness transformation experiences",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172522_0005.mp4",
+    thumbnailUrl: "/images/highlights/hiit.webp",
     timestamp: "0:48"
   },
   {
     id: 6,
     title: "CITY EXCURSIONS",
     subtitle: "TIGER TERRAIN",
-    description: "Complete wellness transformation experiences",
+    description: "Immerse yourself in local culture and traditions",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172916_0001.mp4",
+    thumbnailUrl: "/images/highlights/city-excurtion.webp",
     timestamp: "0:41"
   },
   {
@@ -66,14 +73,16 @@ const videos: VideoCard[] = [
     subtitle: "TIGER TERRAIN",
     description: "Build connections through shared challenges",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173123_0002.mp4",
+    thumbnailUrl: "/images/highlights/team building.webp",
     timestamp: "0:52"
   },
   {
     id: 8,
-    title: "Adventure Fitness",
+    title: "Pool workout",
     subtitle: "TIGER TERRAIN",
-    description: "Push your limits in extraordinary locations",
+    description: "Experience a different level of workout in the pool",
     videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173242_0003.mp4",
+    thumbnailUrl: "/images/highlights/poll workout.webp",
     timestamp: "0:46"
   },
 ];
@@ -282,7 +291,7 @@ export default function VideoSlider() {
 
       {/* Modal */}
       {isModalOpen && selectedVideo && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[99999] p-4">
           <div className="relative max-w-4xl w-full max-h-[80vh] bg-white rounded-2xl overflow-hidden">
             {/* Close Button */}
             <button
@@ -320,7 +329,7 @@ export default function VideoSlider() {
   );
 }
 
-// VideoCard component
+// VideoCard component - Now with thumbnail and lazy video loading ONLY on hover
 const VideoCard: React.FC<{
   video: VideoCard;
   isHovered: boolean;
@@ -329,10 +338,19 @@ const VideoCard: React.FC<{
   onPlayClick: (video: VideoCard) => void;
 }> = ({ video, isHovered, onHover, videoId, onPlayClick }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
   
-  // Handle video play/pause on hover
+  // Only load video when hovered for the first time
   useEffect(() => {
-    if (videoRef.current) {
+    if (isHovered && !shouldLoadVideo) {
+      setShouldLoadVideo(true);
+    }
+  }, [isHovered, shouldLoadVideo]);
+  
+  // Handle video play/pause on hover ONLY after video is loaded
+  useEffect(() => {
+    if (videoRef.current && videoLoaded) {
       if (isHovered) {
         videoRef.current.play().catch(console.error);
       } else {
@@ -340,7 +358,16 @@ const VideoCard: React.FC<{
         videoRef.current.currentTime = 0; // Reset to beginning
       }
     }
-  }, [isHovered]);
+  }, [isHovered, videoLoaded]);
+  
+  // Generate thumbnail from video ID - using a placeholder or video poster frame
+  const getThumbnailUrl = (video: VideoCard) => {
+    if (video.thumbnailUrl) {
+      return video.thumbnailUrl;
+    }
+    // Create a placeholder based on video title/id
+    return `https://via.placeholder.com/400x300/1a1a1a/ef4a25?text=${encodeURIComponent(video.title.substring(0, 20))}`;
+  };
   
   return (
     <div
@@ -359,16 +386,49 @@ const VideoCard: React.FC<{
         WebkitTouchCallout: 'none'
       }}
     >
-      {/* Video Background */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-        muted
-        loop
-        playsInline
-      >
-        <source src={video.videoUrl} type="video/mp4" />
-      </video>
+      {/* Thumbnail Image - Always shown initially */}
+      {!shouldLoadVideo && (
+        <img
+          src={getThumbnailUrl(video)}
+          alt={`${video.title} thumbnail`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          draggable={false}
+        />
+      )}
+      
+      {/* Video Background - Only loads on hover */}
+      {shouldLoadVideo && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+            !videoLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => {
+            setVideoLoaded(true);
+            // Auto-play if still hovered when video loads
+            if (isHovered && videoRef.current) {
+              videoRef.current.play().catch(console.error);
+            }
+          }}
+          onError={() => {
+            console.warn(`Failed to load video: ${video.videoUrl}`);
+            setVideoLoaded(false);
+          }}
+        >
+          <source src={video.videoUrl} type="video/mp4" />
+        </video>
+      )}
+      
+      {/* Loading indicator when video is loading */}
+      {shouldLoadVideo && !videoLoaded && (
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
       
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/40" />
