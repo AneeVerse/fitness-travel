@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import VideoSection from '@/components/VideoSection';
 import CoachesSection from '@/components/CoachesSection';
 import CTASection from '@/components/CTASection';
 import FeaturesSection from '@/components/FeaturesSection';

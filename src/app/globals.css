@@ -108,8 +108,8 @@ button, [role="button"], a.button, .btn, .cursor-pointer, .clickable {
     height: auto;
   }
   
-  /* Improve video responsiveness */
-  video {
+  /* Improve video responsiveness - apply to opted-in videos only */
+  .responsive-video {
     width: 100%;
     height: auto;
     max-height: 50vh;
@@ -191,6 +191,15 @@ button, [role="button"], a.button, .btn, .cursor-pointer, .clickable {
 /* Ensure smooth scrolling on mobile */
 html {
   scroll-behavior: smooth;
+}
+
+/* Strong override for fullscreen modal videos */
+@media (max-width: 768px) {
+  .tt-modal video {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+  }
 }
 
 

@@ -11,6 +11,14 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// ========================================
+// PRELOADER TIMING CONTROLLER
+// ========================================
+// Adjust this value to control minimum preloader duration
+// Even if page loads instantly, preloader will show for this duration
+const PRELOADER_MIN_DURATION_SECONDS = 1.5; // Change this number to adjust timing
+// ========================================
+
 interface ItineraryHeroProps {
   tripData: TripData;
 }
@@ -24,7 +32,57 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
   const [videoError, setVideoError] = useState(false);
   // Preloader state: covers entire page until hero video is ready
   const [showPreloader, setShowPreloader] = useState(true);
-  const [preloaderFadeOut, setPreloaderFadeOut] = useState(false);
+
+  // Progress-driven preloader using the controller
+  const MIN_PRELOAD_MS = PRELOADER_MIN_DURATION_SECONDS * 1000;
+  const progressRef = useRef(0);
+  const fadeOutStarted = useRef(false);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const isReady = videoLoaded || videoError;
+  const isReadyRef = useRef(false);
+
+  // Lock scroll during preloader and detect mobile
+  useEffect(() => {
+    // Detect mobile viewport
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Lock body scroll while preloader is showing
+    if (showPreloader) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.height = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.height = '';
+    };
+  }, [showPreloader]);
+
+  // Get the starting offset based on device
+  const getProgressValue = (p: number) => {
+    if (isMobile) {
+      // On mobile: start from -300% (far left in black area) to hide initial jiggle
+      // Map 0..1 to -300..100 (total range = 400)
+      return -300 + (p * 400);
+    }
+    // On desktop: normal 0..100
+    return p * 100;
+  };
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -36,7 +94,9 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
     let cleanup: () => void = () => {};
 
     const init = () => {
+      // Scope animations to this component and make cleanup trivial
       const ctx = gsap.context(() => {
+        // GPU-friendly properties only
         gsap.set([hero, video, content], {
           willChange: "transform",
           backfaceVisibility: "hidden",
@@ -73,14 +133,17 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
           .to(content, { y: contentY, scale: contentScale, duration: 1 }, 0);
         };
 
+        // Respect user's reduced motion settings
         mm.add("(prefers-reduced-motion: reduce)", () => {
           gsap.set([hero, video, content], { clearProps: "all" });
         });
 
+        // Lighter animation on small screens
         mm.add("(max-width: 767px)", () => {
           createTimeline(0.92, -40, 1.02, -10, -20, 0.98);
         });
 
+        // Default animation on larger screens
         mm.add("(min-width: 768px)", () => {
           createTimeline(0.8, -90, 1.05, -25, -40, 0.95);
         });
@@ -89,6 +152,7 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
       cleanup = () => ctx.revert();
     };
 
+    // Defer initialization to idle to avoid blocking first paint
     const anyWindow = window as unknown as { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
     if (anyWindow.requestIdleCallback) {
       anyWindow.requestIdleCallback(init, { timeout: 200 });
@@ -164,35 +228,94 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
     };
   }, []);
 
-  // Preloader fade-out logic tied to hero readiness (smoother)
+  // Update isReadyRef when video loads, but don't restart animation
   useEffect(() => {
-    if (!(videoLoaded || videoError)) return;
+    isReadyRef.current = isReady;
+  }, [isReady]);
 
-    const el = preloaderRef.current;
-    if (!el) {
-      // Fallback: if ref not available, use previous behavior
-      setPreloaderFadeOut(true);
-      const t = setTimeout(() => setShowPreloader(false), 500);
-      return () => clearTimeout(t);
-    }
+  // Progress animation loop using GSAP directly - avoids React re-render jiggle
+  // NO DEPENDENCIES - runs only once on mount to prevent restart jiggle
+  useEffect(() => {
+    if (!overlayRef.current) return;
+    
+    const overlay = overlayRef.current;
+    let raf = 0;
+    const start = performance.now();
 
-    // Ensure transition runs on a separate frame
-    const id = requestAnimationFrame(() => {
-      setPreloaderFadeOut(true);
-    });
+    const tick = (now: number) => {
+      const elapsed = now - start;
+      const base = Math.min(elapsed / MIN_PRELOAD_MS, 1);
+      let p = progressRef.current;
 
-    const onDone = (e: TransitionEvent) => {
-      if (e.target === el && e.propertyName === 'opacity') {
-        setShowPreloader(false);
+      // Use ref instead of state to avoid triggering re-render
+      if (isReadyRef.current && base >= 1) {
+        const target = 1;
+        const delta = Math.max(0.005, (target - p) * 0.08);
+        p = Math.min(1, p + delta);
+      } else {
+        if (base < 1) {
+          const target = base * 0.9;
+          const delta = Math.max(0.003, (target - p) * 0.03);
+          p = Math.min(target, p + delta);
+        } else if (!isReadyRef.current) {
+          p = Math.min(0.95, p + 0.0005);
+        }
+      }
+
+      if (p !== progressRef.current) {
+        progressRef.current = p;
+        // Update directly with GSAP instead of React state
+        const progressValue = getProgressValue(p);
+        gsap.set(overlay, {
+          clipPath: `inset(0 0 0 ${progressValue}%)`,
+        });
+      }
+
+      if (p < 1) {
+        raf = requestAnimationFrame(tick);
+      } else {
+        // Progress complete, trigger fade out
+        if (!fadeOutStarted.current && preloaderRef.current) {
+          fadeOutStarted.current = true;
+          gsap.to(preloaderRef.current, {
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.inOut",
+            force3D: true,
+            overwrite: 'auto',
+            onComplete: () => {
+              setShowPreloader(false);
+            }
+          });
+        }
       }
     };
-    el.addEventListener('transitionend', onDone);
 
-    return () => {
-      cancelAnimationFrame(id);
-      el.removeEventListener('transitionend', onDone);
-    };
-  }, [videoLoaded, videoError]);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Set initial GSAP properties on preloader to prevent any jiggle
+  useEffect(() => {
+    if (preloaderRef.current) {
+      gsap.set(preloaderRef.current, {
+        opacity: 1,
+        force3D: true,
+        transformStyle: 'preserve-3d',
+        willChange: 'opacity'
+      });
+    }
+    if (overlayRef.current) {
+      // Start from -300% on mobile to hide any initial jiggle
+      const initialClip = isMobile ? 'inset(0 0 0 -300%)' : 'inset(0 0 0 0%)';
+      gsap.set(overlayRef.current, {
+        clipPath: initialClip,
+        force3D: true,
+        willChange: 'clip-path'
+      });
+    }
+  }, [isMobile]);
 
   return (
     <>
@@ -200,24 +323,54 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
       {showPreloader && (
         <div
           ref={preloaderRef}
-          className={`fixed inset-0 z-[10000] flex items-center justify-center transition-opacity duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
-            preloaderFadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
-          }`}
-          aria-busy={!preloaderFadeOut}
+          className="fixed inset-0 z-[10000] flex items-center justify-center overflow-hidden"
+          aria-busy={true}
           aria-live="polite"
           role="status"
-          style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
+          style={{ 
+            willChange: 'opacity', 
+            transform: 'translate3d(0,0,0)',
+            WebkitTransform: 'translate3d(0,0,0)',
+            opacity: 1,
+            pointerEvents: 'none',
+            touchAction: 'none',
+            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: 'hidden'
+          }}
         >
-          <div className="absolute inset-0 bg-black/90" />
+          <div 
+            className="absolute inset-0 bg-black" 
+            style={{ 
+              touchAction: 'none',
+              transform: 'translate3d(0,0,0)',
+              WebkitTransform: 'translate3d(0,0,0)',
+              WebkitBackfaceVisibility: 'hidden',
+              backfaceVisibility: 'hidden'
+            }}
+          />
           <div className="relative flex flex-col items-center">
-            <Image
-              src="/images/new-logo.svg"
-              alt="Tiger Terrain"
-              width={540}
-              height={540}
-              priority
-              className="preloader-logo drop-shadow-[0_0_35px_rgba(255,255,255,0.12)] w-[440px] h-[440px] max-w-[70vw] max-h-[50vh]"
-            />
+            <div className="relative w-[440px] h-[440px] md:w-[400px] md:h-[400px] max-w-[70vw] max-h-[50vh]">
+              <Image
+                src="/images/new-logo.svg"
+                alt="Tiger Terrain"
+                width={540}
+                height={540}
+                priority
+                unoptimized
+                className="drop-shadow-[0_0_35px_rgba(255,255,255,0.12)] w-full h-full !opacity-100"
+                style={{ 
+                  opacity: '1 !important', 
+                  visibility: 'visible',
+                  animation: 'none',
+                  transition: 'none'
+                }}
+              />
+              {/* Dark overlay that gets removed from left to right */}
+              <div 
+                ref={overlayRef}
+                className="absolute inset-0 bg-black/70"
+              />
+            </div>
           </div>
         </div>
       )}

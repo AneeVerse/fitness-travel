@@ -3,8 +3,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { TripData } from '@/lib/tripData';
-import PhoneInput from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
 import CountryCodeDropdown from './CountryCodeDropdown';
 
 interface PricingModalProps {

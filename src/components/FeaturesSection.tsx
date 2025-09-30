@@ -16,7 +16,6 @@ const FeaturesSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [videoAspectRatio, setVideoAspectRatio] = useState<string>('9/16'); // Default to portrait
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -60,18 +59,7 @@ const FeaturesSection = () => {
       video.load(); // Reload the video source
       
       // Detect video aspect ratio when metadata is loaded
-      const handleLoadedMetadata = () => {
-        if (video.videoWidth && video.videoHeight) {
-          const aspectRatio = `${video.videoWidth}/${video.videoHeight}`;
-          setVideoAspectRatio(aspectRatio);
-        }
-      };
-      
-      video.addEventListener('loadedmetadata', handleLoadedMetadata);
-      
-      return () => {
-        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
-      };
+      // Video metadata loaded (aspect ratio calculation removed as unused)
     }
   }, [isVideoPlaying]);
 
@@ -155,7 +143,7 @@ const FeaturesSection = () => {
 
             {/* Right Column - Video Card */}
             <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
-              <div className="relative w-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] lg:max-w-[320px] xl:max-w-[320px]">
+              <div className="relative w-full max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[320px] xl:max-w-[320px]">
                 {/* Video Card Container */}
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-white">
                   {!isVideoPlaying ? (
@@ -213,7 +201,7 @@ const FeaturesSection = () => {
                           setIsVideoPlaying(false);
                         }}
                       >
-                        <source src="/video/feature_preview.mp4" type="video/mp4" />
+                        <source src="/video/feature1.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                       

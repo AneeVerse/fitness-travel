@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Image from 'next/image';
+import { createPortal } from 'react-dom';
 
 interface VideoCard {
   id: number;
@@ -96,6 +98,7 @@ export default function VideoSlider() {
   const [hoveredVideoId, setHoveredVideoId] = useState<string | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<VideoCard | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
   
   const containerRef = useRef<HTMLDivElement>(null);
   const modalVideoRef = useRef<HTMLVideoElement>(null);
@@ -206,6 +209,11 @@ export default function VideoSlider() {
     }
   };
 
+  // Ensure portal target is available
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Start Animation & Recalculate on Resize
   useEffect(() => {
     calculateWidth();
@@ -289,14 +297,14 @@ export default function VideoSlider() {
         </div>
       </div>
 
-      {/* Modal */}
-      {isModalOpen && selectedVideo && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[99999] p-4">
-          <div className="relative max-w-4xl w-full max-h-[80vh] bg-white rounded-2xl overflow-hidden">
+      {/* Modal - Fullscreen on Mobile like Reels */}
+      {mounted && isModalOpen && selectedVideo && createPortal(
+        <div className="tt-modal fixed inset-0 z-[99999] grid place-items-center bg-black p-3 md:p-4 w-screen h-[100dvh] min-h-[100svh] [padding-top:env(safe-area-inset-top)] [padding-bottom:env(safe-area-inset-bottom)] [padding-left:env(safe-area-inset-left)] [padding-right:env(safe-area-inset-right)]">
+          <div className="relative w-full h-full md:max-w-4xl md:w-full md:max-h-[80vh] md:bg-white rounded-xl md:rounded-2xl overflow-hidden">
             {/* Close Button */}
             <button
               onClick={handleCloseModal}
-              className="absolute top-4 right-4 w-10 h-10 bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/40 transition-all z-10"
+              className="absolute top-4 right-4 w-10 h-10 md:w-10 md:h-10 bg-black/50 md:bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 md:hover:bg-black/40 transition-all z-10"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
@@ -304,10 +312,10 @@ export default function VideoSlider() {
             </button>
             
             {/* Video Content */}
-            <div className="relative">
+            <div className="relative w-full h-full">
               <video
                 ref={modalVideoRef}
-                className="w-full h-auto max-h-[80vh] object-contain"
+                className="absolute inset-0 w-full h-full object-cover md:object-contain md:max-h-[80vh]"
                 controls
                 autoPlay
                 muted
@@ -323,7 +331,8 @@ export default function VideoSlider() {
               </video>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
@@ -388,11 +397,14 @@ const VideoCard: React.FC<{
     >
       {/* Thumbnail Image - Always shown initially */}
       {!shouldLoadVideo && (
-        <img
+        <Image
           src={getThumbnailUrl(video)}
           alt={`${video.title} thumbnail`}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          fill
+          sizes="(max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
           draggable={false}
+          unoptimized
         />
       )}
       

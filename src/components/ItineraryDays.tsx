@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import { TripData } from '@/lib/tripData';
 
 interface ItineraryDaysProps {
@@ -28,7 +29,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
     totalWidth.current = fullScrollWidth / COPIES;
     translateX.current = -totalWidth.current;
     containerRef.current.style.transform = `translateX(${translateX.current}px)`;
-  }, [itineraryDays.length]);
+  }, []);
 
   // Keep translateX wrapped so it loops in both directions
   const wrapTranslateX = useCallback(() => {
@@ -181,10 +182,12 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                   <div className="relative h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] rounded-2xl overflow-hidden shadow-xl bg-black group">
                     {/* Image Background */}
                     <div className="relative w-full h-full">
-                      <img
+                      <Image
                         src={day.image}
                         alt={day.title}
-                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                        fill
+                        className="object-cover transition-transform duration-300 hover:scale-105"
+                        sizes="(max-width: 768px) 250px, (max-width: 1024px) 350px, 380px"
                       />
                       
                       {/* Enhanced Black Gradient Overlay */}
@@ -200,12 +203,24 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                         </div>
 
                         {/* Middle Section - Fixed Alignment */}
-                        <div className="flex-1 flex flex-col justify-start space-y-3 select-none pt-20">
-                          <h4 className="text-sm sm:text-base font-semibold leading-tight select-none">
+                        <div className={`flex-1 flex flex-col justify-start space-y-2 select-none ${tripData.slug === 'phuket' ? 'pt-25' : 'pt-5'}`}>
+                          <h4 className="text-sm sm:text-base font-semibold leading-tight select-none mb-2">
                             {day.title}
                           </h4>
-                          <p className="text-xs md:text-xs sm:text-sm opacity-90 leading-relaxed select-none -mb-0">{day.description}</p>
-                          <p className="text-xs md:text-xs sm:text-sm opacity-80 leading-relaxed select-none">{day.extraContent}</p>
+                          {/* Display schedule points */}
+                          <div className="space-y-1.5 select-none">
+                            {day.description.split(',').map((point, idx) => {
+                              const trimmedPoint = point.trim();
+                              if (!trimmedPoint) return null;
+                              return (
+                                <div key={idx}>
+                                  <p className="text-xs opacity-90 leading-snug select-none">
+                                    {trimmedPoint}
+                                  </p>
+                                </div>
+                              );
+                            })}
+                          </div>
                         </div>
 
                         {/* Bottom Section */}

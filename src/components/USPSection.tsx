@@ -51,7 +51,7 @@ const USPSection = () => {
         img.src = item.image;
       });
     } catch {}
-  }, []);
+  }, [uspItems]);
 
   return (
     <section className="relative py-12 sm:py-14 md:py-15 lg:py-16 bg-black">

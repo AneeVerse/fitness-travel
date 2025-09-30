@@ -91,7 +91,9 @@ const CountryCodeDropdown: React.FC<CountryCodeDropdownProps> = ({
           const spaceBelow = window.innerHeight - rect.bottom;
           setOpenUp(spaceBelow < dropdownEstimatedHeight + gap);
         }
-      } catch (_) {}
+      } catch {
+        // Ignore errors
+      }
       setIsOpen(!isOpen);
     }
   };

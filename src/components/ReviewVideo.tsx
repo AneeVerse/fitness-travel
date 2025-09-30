@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Play, X } from "lucide-react";
+import Image from 'next/image';
 
 interface VideoCard {
   id: number;
@@ -423,11 +424,14 @@ const VideoCard: React.FC<{
       style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
     >
       {/* Thumbnail Background - No autoplay, no preload */}
-      <img
+      <Image
         src={video.thumbnailUrl}
         alt={`${video.reviewerName} testimonial thumbnail`}
-        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+        fill
+        sizes="(max-width: 1024px) 50vw, 33vw"
+        className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
         draggable={false}
+        unoptimized
       />
       
       {/* Overlay */}

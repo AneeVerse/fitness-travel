@@ -2,8 +2,6 @@
 
 import type React from "react"
 import { useState } from "react"
-import PhoneInput from 'react-phone-number-input'
-import 'react-phone-number-input/style.css'
 import CountryCodeDropdown from './CountryCodeDropdown'
 import { useRouter } from "next/navigation"
 import { ChevronDown, Calendar, Users, Home } from "lucide-react"
@@ -32,7 +30,6 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
     people: "",
     accommodation: "",
   })
-  const [countryCode, setCountryCode] = useState("+91")
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDateOpen, setIsDateOpen] = useState(false)
