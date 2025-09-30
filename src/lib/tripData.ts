@@ -432,12 +432,13 @@ const tripDataMap: Record<string, TripData> = {
           'Beach Yoga',
           'Beach Training',
           'Pool Recovery',
-          'Team Building & Fun Activities'
+          'Team Building & Fun Activities',
+          'Transit to Hotel and Workout Sites',
         ],
         excludes: [
           'Travelling',
           'Food (Lunch & Dinner)',
-          'Transit to Hotel and Workout Sites',
+          
           'Anything not mentioned in inclusion'
         ]
       }

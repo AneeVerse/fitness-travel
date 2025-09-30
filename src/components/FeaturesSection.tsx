@@ -96,6 +96,16 @@ const FeaturesSection = () => {
     }
   };
 
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
+
   return (
     <>
     <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 -mb-30 md:mb-16 lg:mb-20 xl:-mb-34  mobile-features ">
@@ -192,10 +202,11 @@ const FeaturesSection = () => {
                     <div className="relative w-full bg-black">
                       <video
                         ref={videoRef}
-                        className="w-full h-auto"
+                        className="w-full h-auto cursor-pointer"
                         autoPlay
                         playsInline
                         preload="metadata"
+                        onClick={handleVideoClick}
                         onEnded={() => setIsVideoPlaying(false)}
                         onError={(e) => {
                           console.error('Video error:', e);

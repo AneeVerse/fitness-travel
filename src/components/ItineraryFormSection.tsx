@@ -118,7 +118,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
             <span className="text-[#ef4a25]"> Tribe</span>
           </h2>
           <p className="text-white/90 text-base sm:text-lg max-w-xl mx-auto">
-            Reserve your spot for an unforgettable fitness and wellness journey
+          Fill out the form to get pricing for an unforgettable fitness journey
           </p>
           <div className="w-16 h-0.5 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>
@@ -309,7 +309,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
                         Submitting...
                       </div>
                     ) : (
-                      "BOOK NOW"
+                      "See itinerary and pricing"
                     )}
                   </button>
                 </div>
