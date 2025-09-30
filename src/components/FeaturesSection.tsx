@@ -145,17 +145,18 @@ const FeaturesSection = () => {
 
             {/* Right Column - Video Card */}
             <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
-              <div className="relative w-full max-w-[320px] sm:max-w-[320px] md:max-w-[320px] lg:max-w-[320px] xl:max-w-[320px]">
+              <div className="relative w-full max-w-[260px] sm:max-w-[280px] md:max-w-[300px] lg:max-w-[320px] xl:max-w-[320px]">
                 {/* Video Card Container */}
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-white">
                   {!isVideoPlaying ? (
-                    <div className="relative w-full overflow-hidden" style={{ aspectRatio: videoAspectRatio }}>
+                    <div className="relative w-full overflow-hidden">
                       {/* Video Thumbnail Image */}
                       <Image 
                         src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
                         alt="Fitness retreat thumbnail"
-                        fill
-                        className="object-cover"
+                        width={320}
+                        height={568}
+                        className="w-full h-auto object-contain"
                       />
                       
                       {/* Overlay */}
@@ -188,10 +189,10 @@ const FeaturesSection = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative w-full bg-black" style={{ aspectRatio: videoAspectRatio }}>
+                    <div className="relative w-full bg-black">
                       <video
                         ref={videoRef}
-                        className="w-full h-full object-cover"
+                        className="w-full h-auto"
                         autoPlay
                         playsInline
                         preload="metadata"
