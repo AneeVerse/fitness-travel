@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TripData } from '@/lib/tripData';
@@ -18,8 +19,12 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
   const heroRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  // Preloader state: covers entire page until hero video is ready
+  const [showPreloader, setShowPreloader] = useState(true);
+  const [preloaderFadeOut, setPreloaderFadeOut] = useState(false);
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -159,8 +164,63 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
     };
   }, []);
 
+  // Preloader fade-out logic tied to hero readiness (smoother)
+  useEffect(() => {
+    if (!(videoLoaded || videoError)) return;
+
+    const el = preloaderRef.current;
+    if (!el) {
+      // Fallback: if ref not available, use previous behavior
+      setPreloaderFadeOut(true);
+      const t = setTimeout(() => setShowPreloader(false), 500);
+      return () => clearTimeout(t);
+    }
+
+    // Ensure transition runs on a separate frame
+    const id = requestAnimationFrame(() => {
+      setPreloaderFadeOut(true);
+    });
+
+    const onDone = (e: TransitionEvent) => {
+      if (e.target === el && e.propertyName === 'opacity') {
+        setShowPreloader(false);
+      }
+    };
+    el.addEventListener('transitionend', onDone);
+
+    return () => {
+      cancelAnimationFrame(id);
+      el.removeEventListener('transitionend', onDone);
+    };
+  }, [videoLoaded, videoError]);
+
   return (
     <>
+      {/* Full-screen preloader overlay: dark background with fading logo */}
+      {showPreloader && (
+        <div
+          ref={preloaderRef}
+          className={`fixed inset-0 z-[10000] flex items-center justify-center transition-opacity duration-500 ease-[cubic-bezier(0.22,0.61,0.36,1)] ${
+            preloaderFadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+          aria-busy={!preloaderFadeOut}
+          aria-live="polite"
+          role="status"
+          style={{ willChange: 'opacity', transform: 'translateZ(0)' }}
+        >
+          <div className="absolute inset-0 bg-black/90" />
+          <div className="relative flex flex-col items-center">
+            <Image
+              src="/images/new-logo.svg"
+              alt="Tiger Terrain"
+              width={540}
+              height={540}
+              priority
+              className="preloader-logo drop-shadow-[0_0_35px_rgba(255,255,255,0.12)] w-[440px] h-[440px] max-w-[70vw] max-h-[50vh]"
+            />
+          </div>
+        </div>
+      )}
       <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-20 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       {/* Video Background */}
       <div className="absolute inset-0 z-0">

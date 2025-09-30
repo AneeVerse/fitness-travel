@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import VideoSection from '@/components/VideoSection';
 import CoachesSection from '@/components/CoachesSection';
 import CTASection from '@/components/CTASection';
+import FeaturesSection from '@/components/FeaturesSection';
 
 const AboutPage = () => {
   return (
@@ -216,8 +217,8 @@ const AboutPage = () => {
 
       {/* Video Section - Full Width */}
       <section className="w-full px-0 py-16 bg-black">
-        <div className="w-full">
-          <VideoSection />
+        <div className="w-full max-w-[1325px] mx-auto">
+          <FeaturesSection />
         </div>
       </section>
 

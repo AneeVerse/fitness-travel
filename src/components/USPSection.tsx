@@ -58,10 +58,6 @@ const USPSection = () => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-12">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-7 md:mb-8 lg:mb-10">
-          <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ef4a25] text-white text-xs tracking-wider uppercase hover:bg-black hover:text-white transition-colors duration-200">
-            <span className="h-1.5 w-1.5 rounded-full bg-white" />
-            WHAT&apos;S INCLUDED
-          </span>
           <h2 className={`mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[40px] xl:max-w-8xl font-extrabold tracking-tight text-[#ef4a25] leading-[0.95] ${teko.className}`}>
             WHAT&apos;S INCLUDED IN EVERY JOURNEY
           </h2>
