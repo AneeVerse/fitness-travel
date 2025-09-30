@@ -16,6 +16,7 @@ const FeaturesSection = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [videoAspectRatio, setVideoAspectRatio] = useState<string>('9/16'); // Default to portrait
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -52,11 +53,25 @@ const FeaturesSection = () => {
     };
   }, []);
 
-  // Handle video loading
+  // Handle video loading and aspect ratio detection
   useEffect(() => {
     if (isVideoPlaying && videoRef.current) {
       const video = videoRef.current;
       video.load(); // Reload the video source
+      
+      // Detect video aspect ratio when metadata is loaded
+      const handleLoadedMetadata = () => {
+        if (video.videoWidth && video.videoHeight) {
+          const aspectRatio = `${video.videoWidth}/${video.videoHeight}`;
+          setVideoAspectRatio(aspectRatio);
+        }
+      };
+      
+      video.addEventListener('loadedmetadata', handleLoadedMetadata);
+      
+      return () => {
+        video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      };
     }
   }, [isVideoPlaying]);
 
@@ -85,8 +100,8 @@ const FeaturesSection = () => {
     <>
     <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 -mb-30 md:mb-16 lg:mb-20 xl:-mb-34  mobile-features ">
       <div className="relative px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
-        <div className="max-w-[1325px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 lg:gap-14 xl:gap-16 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">
+        <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl xl:max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">
             
             {/* Left Column - Text Content */}
             <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-1 lg:order-1">
@@ -130,18 +145,17 @@ const FeaturesSection = () => {
 
             {/* Right Column - Video Card */}
             <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
-              <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-sm xl:max-w-md">
+              <div className="relative w-full max-w-[320px] sm:max-w-[320px] md:max-w-[320px] lg:max-w-[320px] xl:max-w-[320px]">
                 {/* Video Card Container */}
                 <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-white">
                   {!isVideoPlaying ? (
-                    <div className="relative aspect-[4/5] overflow-hidden">
+                    <div className="relative w-full overflow-hidden" style={{ aspectRatio: videoAspectRatio }}>
                       {/* Video Thumbnail Image */}
                       <Image 
                         src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
                         alt="Fitness retreat thumbnail"
                         fill
-                        className="object-cover object-top"
-                        style={{ objectPosition: 'center 25%' }}
+                        className="object-cover"
                       />
                       
                       {/* Overlay */}
@@ -174,12 +188,10 @@ const FeaturesSection = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="relative aspect-[4/5] bg-black">
+                    <div className="relative w-full bg-black" style={{ aspectRatio: videoAspectRatio }}>
                       <video
                         ref={videoRef}
-                        className="w-full h-full object-cover object-top"
-                        style={{ objectPosition: 'center 25%' }}
-                        controls
+                        className="w-full h-full object-cover"
                         autoPlay
                         playsInline
                         preload="metadata"
