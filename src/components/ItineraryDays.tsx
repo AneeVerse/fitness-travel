@@ -143,10 +143,10 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
       <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
         {/* Section Title */}
         <div className="text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#ef4a25] uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+          <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#ef4a25] uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             ITINERARY DAYS
           </h2>
-          <p className="text-white/80 text-lg mt-4 max-w-2xl mx-auto">
+          <p className="text-white/80 text-xs sm:text-sm md:text-lg mt-4 max-w-2xl mx-auto">
             Your {itineraryDays.length}-day fitness journey in {tripData.location} - explore each day&apos;s activities and adventures
           </p>
         </div>
@@ -197,14 +197,14 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                       <div className="absolute inset-4 z-10 flex flex-col justify-between text-white select-none">
                         {/* Top Section */}
                         <div className="space-y-2 select-none">
-                          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
+                          <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
                             {day.day}
                           </h3>
                         </div>
 
                         {/* Middle Section - Fixed Alignment */}
                         <div className={`flex-1 flex flex-col justify-start space-y-2 select-none ${tripData.slug === 'phuket' ? 'pt-25' : 'pt-5'}`}>
-                          <h4 className="text-sm sm:text-base font-semibold leading-tight select-none mb-2">
+                          <h4 className="text-[11px] sm:text-xs md:text-base font-semibold leading-tight select-none mb-2">
                             {day.title}
                           </h4>
                           {/* Display schedule points */}
@@ -214,7 +214,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                               if (!trimmedPoint) return null;
                               return (
                                 <div key={idx}>
-                                  <p className="text-xs opacity-90 leading-snug select-none">
+                                  <p className="text-[10px] md:text-xs opacity-90 leading-snug select-none">
                                     {trimmedPoint}
                                   </p>
                                 </div>
@@ -231,25 +231,25 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                               </svg>
-                              <span className="opacity-90 select-none">Included in Package</span>
+                              <span className="text-[10px] md:text-base opacity-90 select-none">Included in Package</span>
                             </div>
                             <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                               </svg>
-                              <span className="opacity-90 select-none">{tripData.location}</span>
+                              <span className="text-[10px] md:text-base opacity-90 select-none">{tripData.location}</span>
                             </div>
                             <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                               </svg>
-                              <span className="opacity-90 select-none">Professional Guided</span>
+                              <span className="text-[10px] md:text-base opacity-90 select-none">Professional Guided</span>
                             </div>
                           </div>
                           
                           {/* Time Badge */}
                           <div className="flex justify-start select-none">
-                            <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap select-none">
+                            <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-[10px] md:text-xs font-semibold whitespace-nowrap select-none">
                               {day.time}
                             </div>
                           </div>

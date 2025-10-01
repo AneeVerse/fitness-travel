@@ -49,10 +49,13 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: formData.fullName,
+          firstName: formData.fullName.split(' ')[0] || formData.fullName,
+          lastName: formData.fullName.split(' ').slice(1).join(' ') || '',
           email: formData.email,
           phone: formData.phone,
-          pdfLink: 'https://drive.google.com/file/d/1JJUEMumBSM0QnfywoQzuoFXqOU46SBNs/view?usp=sharing'
+          pdfLink: '/pdf/TT Brochure.pdf',
+          formType: 'pricing-modal',
+          subject: `Pricing Request from ${formData.fullName}`,
         }),
       });
 
@@ -62,8 +65,8 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
 
       // Download the local PDF file
       const link = document.createElement('a');
-      link.href = '/pdf/TT Brochure .pdf';
-      link.download = 'TT Brochure.pdf';
+      link.href = '/pdf/TT Brochure.pdf';
+      link.download = 'Tiger-Terrain-Itinerary.pdf';
       link.click();
 
       setIsSubmitting(false);

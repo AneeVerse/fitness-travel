@@ -299,7 +299,7 @@ export default function VideoSlider() {
 
       {/* Modal - Fullscreen on Mobile like Reels */}
       {mounted && isModalOpen && selectedVideo && createPortal(
-        <div className="tt-modal fixed inset-0 z-[99999] grid place-items-center bg-black p-3 md:p-4 w-screen h-[100dvh] min-h-[100svh] [padding-top:env(safe-area-inset-top)] [padding-bottom:env(safe-area-inset-bottom)] [padding-left:env(safe-area-inset-left)] [padding-right:env(safe-area-inset-right)]">
+        <div className="tt-modal fixed inset-0 z-[99999] grid place-items-center bg-black p-1 md:p-4 w-screen h-[100dvh] min-h-[100svh] [padding-top:env(safe-area-inset-top)] [padding-bottom:env(safe-area-inset-bottom)] [padding-left:env(safe-area-inset-left)] [padding-right:env(safe-area-inset-right)]">
           <div className="relative w-full h-full md:max-w-4xl md:w-full md:max-h-[80vh] md:bg-white rounded-xl md:rounded-2xl overflow-hidden">
             {/* Close Button */}
             <button

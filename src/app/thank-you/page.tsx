@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CheckCircle, ArrowLeft } from 'lucide-react';
+import { CheckCircle, ArrowLeft, Download, FileDown } from 'lucide-react';
 
 export default function ThankYouPage() {
   return (
@@ -24,6 +24,25 @@ export default function ThankYouPage() {
           <p className="text-base text-white/70">
             Our team will get back to you soon.
           </p>
+        </div>
+
+        {/* Download PDF Section */}
+        <div className="mb-8 bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-600/30 p-6">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <FileDown className="w-6 h-6 text-[#ef4a25]" />
+            <h2 className="text-xl font-bold text-white font-unbounded">Your Itinerary</h2>
+          </div>
+          <p className="text-white/70 text-sm mb-4 text-center">
+            Download your complete itinerary and pricing details
+          </p>
+          <a 
+            href="/pdf/TT Brochure.pdf"
+            download="Tiger-Terrain-Itinerary.pdf"
+            className="inline-flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#ef4a25] to-[#d63e20] hover:from-[#d63e20] hover:to-[#c23619] text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 font-unbounded"
+          >
+            <Download className="w-5 h-5" />
+            Download Itinerary PDF
+          </a>
         </div>
 
         {/* Action Buttons */}

@@ -36,9 +36,12 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
   const [isAccommodationOpen, setIsAccommodationOpen] = useState(false)
 
   const dateOptions = [
-    { value: "phuket-17aug-25aug-2026", label: "From 17 Aug – 25 Aug 2026 (Phuket)" },
-    { value: "goa-3feb-6feb-2026", label: "Feb 3 – 6, 2026 (Goa)" },
-    // { value: "bali-15feb-25feb-2026", label: "15 Feb 2026 To 25 Feb 2026 (Bali)" }, // COMMENTED OUT: Bali option removed
+    { value: "phuket-18jan-25jan-2026", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)" },
+    { value: "goa-19feb-22feb-2026", label: "19th Feb 2026 - 22nd Feb 2026 (Goa Edition)" },
+    { value: "bkk-hyrox-15mar-22mar-2026", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)" },
+    { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)" },
+    { value: "sri-lanka-29apr-3may-2026", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)" },
+    { value: "phuket-finale-27sep-4oct-2026", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)" },
   ]
 
   const accommodationTypes = [
@@ -80,13 +83,17 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
           lastName: formData.name.split(' ').slice(1).join(' ') || '',
           email: formData.email,
           phone: formData.phone,
-          pdfLink: '/path/to/itinerary.pdf', // You can update this with actual PDF path
+          pdfLink: '/pdf/TT Brochure.pdf',
           formType: "itinerary-booking",
           subject: `Itinerary Booking Request - ${formData.date}`,
+          // Send detailed booking information
+          tripDate: dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
+          numberOfPeople: formData.people,
+          accommodationType: accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation,
           message: `Booking Details:
-- Date: ${formData.date}
+- Trip Date: ${dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date}
 - Number of People: ${formData.people}
-- Accommodation Type: ${formData.accommodation}`,
+- Accommodation Type: ${accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation}`,
         }),
       })
 

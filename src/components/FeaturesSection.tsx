@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import PricingModal from './PricingModal';
@@ -11,7 +12,11 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-const FeaturesSection = () => {
+interface FeaturesSectionProps {
+  navigateToItinerary?: boolean;
+}
+
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({ navigateToItinerary = false }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
@@ -126,17 +131,26 @@ const FeaturesSection = () => {
                   >
                     Book Adventure
                   </button>
-                  <button
-                    onClick={() => {
-                      const upcomingEventsSection = document.querySelector('#upcoming-events');
-                      if (upcomingEventsSection) {
-                        upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
-                      }
-                    }}
-                    className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
-                  >
-                    View Destinations
-                  </button>
+                  {navigateToItinerary ? (
+                    <Link
+                      href="/itinerary"
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        const upcomingEventsSection = document.querySelector('#upcoming-events');
+                        if (upcomingEventsSection) {
+                          upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
@@ -230,17 +244,12 @@ const FeaturesSection = () => {
                 >
                   Book Adventure
                 </button>
-                <button
-                  onClick={() => {
-                    const upcomingEventsSection = document.querySelector('#upcoming-events');
-                    if (upcomingEventsSection) {
-                      upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
+                <Link
+                  href="/#upcoming-events"
                   className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
                 >
                   View Destinations
-                </button>
+                </Link>
               </div>
             </div>
 

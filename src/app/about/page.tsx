@@ -217,7 +217,7 @@ const AboutPage = () => {
       {/* Video Section - Full Width */}
       <section className="w-full px-0 py-16 bg-black">
         <div className="w-full max-w-[1325px] mx-auto">
-          <FeaturesSection />
+          <FeaturesSection navigateToItinerary={true} />
         </div>
       </section>
 
@@ -421,9 +421,9 @@ const AboutPage = () => {
 
             {/* Content */}
             <div className="relative z-10 px-8 sm:px-12 md:px-16 lg:px-20 py-12 lg:py-14">
-              <div className="text-center max-w-4xl mx-auto">
+              <div className="text-center max-w-5xl mx-auto">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 font-unbounded leading-tight">
-                  JOIN THE CLUB – READY TO ADVENTURE WITH US?
+                  READY TO ADVENTURE WITH US?
                 </h2>
                 
                 <p className="text-white/90 text-base sm:text-lg leading-relaxed mb-6 max-w-2xl mx-auto">
