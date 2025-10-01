@@ -52,8 +52,8 @@ const events: EventItem[] = [
     title: 'PHUKET',
     description:
       'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: '14th sept - 21st sept',
-    access: 'Member Only',
+    date: 'Click on "See Itinerary" to view upcoming dates.',
+    access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
     priceLabel: '$50',
@@ -85,8 +85,8 @@ const events: EventItem[] = [
     title: 'GOA',
     description:
       'Unleash your inner wellness with beach training, yoga, and pool recovery. Experience the perfect blend of fitness and coastal vibes in India\'s most vibrant destination.',
-    date: 'Feb 3 – 6, 2022',
-    access: 'Member Only',
+    date: 'Click on "See Itinerary" to view upcoming dates.',
+    access: 'On-Location Experienced Coaches.',
     time: 'Start 06:00 AM – Finish',
     location: 'Goa',
     priceLabel: 'INR 10.5K',
