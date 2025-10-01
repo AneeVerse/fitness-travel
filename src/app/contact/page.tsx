@@ -73,7 +73,7 @@ const ContactPage = () => {
              {/* Background Image */}
              <div className="absolute inset-0 z-0">
                <Image
-                 src="/images/contact/How-to-Choose-The-Right-Running-Group.jpg"
+                 src="/images/COMPLETE EXPERIENCE/Diver fitness modalities.png"
                  alt="Contact Us"
                  fill
                  className="object-cover"
