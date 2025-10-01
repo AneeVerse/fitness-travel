@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Unbounded, Teko } from "next/font/google";
 import Script from "next/script";
 import Image from "next/image";
+import FloatingActionButton from "@/components/FloatingActionButton";
 import "./globals.css";
 
 const inter = Inter({
@@ -84,6 +85,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${unbounded.variable} ${teko.variable} antialiased`}>
         {children}
+        <FloatingActionButton />
       </body>
     </html>
   );

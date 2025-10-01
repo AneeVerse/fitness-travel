@@ -458,10 +458,12 @@ const Hero = () => {
               onClick={() => {
                 const featuresSection = document.querySelector('#features-section');
                 if (featuresSection) {
-                  featuresSection.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
+                  const elementPosition = featuresSection.getBoundingClientRect().top + window.pageYOffset;
+                  const offsetPosition = elementPosition - 280; // Adjust this value to control spacing (200px above)
+                  
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                   });
                 }
               }}
