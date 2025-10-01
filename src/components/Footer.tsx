@@ -135,7 +135,7 @@ export default function Footer() {
                   alt="Aneeverse"
                   width={16}
                   height={16}
-                  className="opacity-70 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0"
+                  className="brightness-0 invert"
                 />
               </a>
             </div>
