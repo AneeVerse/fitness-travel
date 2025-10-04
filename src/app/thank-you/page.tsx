@@ -3,12 +3,13 @@
 import Link from 'next/link';
 import { CheckCircle, ArrowLeft, Download, FileDown } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
-export default function ThankYouPage() {
+function ThankYouContent() {
   const searchParams = useSearchParams();
   const location = searchParams?.get('location') || '';
   const isGoa = location === 'goa';
-
+  
   return (
     <div className="min-h-screen bg-black flex items-center justify-center px-4">
       <div className="max-w-lg w-full text-center">
@@ -54,29 +55,43 @@ export default function ThankYouPage() {
           </div>
         )}
 
-        {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+        {/* Back to Home Button */}
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
           <Link 
             href="/"
-            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#ef4a25] to-[#d63e20] hover:from-[#d63e20] hover:to-[#c23619] text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 font-unbounded"
+            className="inline-flex items-center justify-center gap-2 bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-5 h-5" />
             Back to Home
           </Link>
-          
           <Link 
             href="/itinerary"
-            className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-[#ef4a25] text-[#ef4a25] hover:bg-[#ef4a25] hover:text-white font-bold py-3 px-6 rounded-xl transition-all duration-300 font-unbounded"
+            className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-gray-800/50 text-white border border-gray-600 font-bold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105"
           >
             View Itinerary
           </Link>
         </div>
-
-        {/* Footer Note */}
-        <p className="text-white/50 text-sm">
+        
+        <p className="text-white/50 text-sm mt-8">
           Thank you for choosing Tiger Terrain!
         </p>
       </div>
     </div>
+  );
+}
+
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black flex items-center justify-center px-4">
+        <div className="max-w-lg w-full text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4 font-unbounded">
+            Loading...
+          </h1>
+        </div>
+      </div>
+    }>
+      <ThankYouContent />
+    </Suspense>
   );
 }
