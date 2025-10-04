@@ -183,7 +183,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                     {/* Image Background */}
                     <div className="relative w-full h-full">
                       <Image
-                        src={day.image}
+                        src={day.image}  
                         alt={day.title}
                         fill
                         className="object-cover transition-transform duration-300 hover:scale-105"
