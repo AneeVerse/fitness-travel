@@ -18,9 +18,10 @@ interface FormData {
 
 interface ItineraryFormSectionProps {
   tripData: TripData;
+  location?: 'goa' | 'phuket';
 }
 
-const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
+const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ location = 'phuket' }) => {
   const router = useRouter()
   const [formData, setFormData] = useState<FormData>({
     name: "",
@@ -35,14 +36,16 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
   const [isDateOpen, setIsDateOpen] = useState(false)
   const [isAccommodationOpen, setIsAccommodationOpen] = useState(false)
 
-  const dateOptions = [
-    { value: "phuket-18jan-25jan-2026", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)" },
-    { value: "goa-19feb-22feb-2026", label: "19th Feb 2026 - 22nd Feb 2026 (Goa Edition)" },
-    { value: "bkk-hyrox-15mar-22mar-2026", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)" },
-    { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)" },
-    { value: "sri-lanka-29apr-3may-2026", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)" },
-    { value: "phuket-finale-27sep-4oct-2026", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)" },
+  const allDateOptions = [
+    { value: "phuket-18jan-25jan-2026", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)", location: "phuket" },
+    { value: "goa-19feb-22feb-2026", label: "19th Feb 2026 - 22nd Feb 2026 (Goa Edition)", location: "goa" },
+    { value: "bkk-hyrox-15mar-22mar-2026", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)", location: "phuket" },
+    { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)", location: "phuket" },
+    { value: "phuket-finale-27sep-4oct-2026", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)", location: "phuket" },
   ]
+  
+  // Filter date options based on location
+  const dateOptions = allDateOptions.filter(option => option.location === location)
 
   const accommodationTypes = [
     { value: "single", label: "Single Room" },
@@ -73,28 +76,34 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = () => {
     setIsSubmitting(true)
 
     try {
+      const requestBody: any = {
+        firstName: formData.name.split(' ')[0] || formData.name,
+        lastName: formData.name.split(' ').slice(1).join(' ') || '',
+        email: formData.email,
+        phone: formData.phone,
+        formType: "itinerary-booking",
+        subject: `Itinerary Booking Request - ${formData.date}`,
+        // Send detailed booking information
+        tripDate: dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
+        numberOfPeople: formData.people,
+        accommodationType: accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation,
+        message: `Booking Details:
+- Trip Date: ${dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date}
+- Number of People: ${formData.people}
+- Accommodation Type: ${accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation}`,
+      }
+      
+      // Only include PDF link for Phuket bookings
+      if (location === 'phuket') {
+        requestBody.pdfLink = '/pdf/TT Brochure.pdf';
+      }
+      
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          firstName: formData.name.split(' ')[0] || formData.name,
-          lastName: formData.name.split(' ').slice(1).join(' ') || '',
-          email: formData.email,
-          phone: formData.phone,
-          pdfLink: '/pdf/TT Brochure.pdf',
-          formType: "itinerary-booking",
-          subject: `Itinerary Booking Request - ${formData.date}`,
-          // Send detailed booking information
-          tripDate: dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
-          numberOfPeople: formData.people,
-          accommodationType: accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation,
-          message: `Booking Details:
-- Trip Date: ${dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date}
-- Number of People: ${formData.people}
-- Accommodation Type: ${accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation}`,
-        }),
+        body: JSON.stringify(requestBody),
       })
 
       if (!response.ok) {
