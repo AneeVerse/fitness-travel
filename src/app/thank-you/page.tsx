@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 export default function ThankYouPage() {
   const searchParams = useSearchParams();
-  const location = searchParams.get('location');
+  const location = searchParams?.get('location') || '';
   const isGoa = location === 'goa';
 
   return (
