@@ -91,6 +91,7 @@ export async function POST(request: NextRequest) {
               </ul>
             </div>
             
+            ${body.isGoa ? `` : `
             <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
               <h3 style="color: #ef4a25; margin-top: 0;">Your Itinerary PDF</h3>
               <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">
@@ -98,6 +99,7 @@ export async function POST(request: NextRequest) {
               </p>
               <a href="${fullPdfLink}" style="display: inline-block; background: #ef4a25; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Download Itinerary PDF</a>
             </div>
+            `}
             
             <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
               If you have any immediate questions, feel free to reply to this email or call us directly.
