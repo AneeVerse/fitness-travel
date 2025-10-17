@@ -208,12 +208,60 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                     <h2 className="text-2xl font-bold text-gray-900 mb-2 font-unbounded">
                       Join the Tribe
                     </h2>
-                    <p className="text-sm text-gray-600">
-                      Fill out the form below and we&apos;ll send you detailed pricing information.
-                    </p>
+                   
                   </div>
 
+
                   <form onSubmit={handleSubmit} className="space-y-4 overflow-visible">
+
+                       <div>
+                      <label className="block text-xs font-medium text-gray-700 mb-1">
+                        Select Trip
+                      </label>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          ref={dateBtnRef}
+                          onClick={() => {
+                            const next = !isDateOpen;
+                            setIsDateOpen(next);
+                            if (next && dateBtnRef.current) {
+                              const r = dateBtnRef.current.getBoundingClientRect();
+                              setDateMenuPos({ top: r.bottom + 8, left: r.left, width: r.width });
+                            }
+                          }}
+                          className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 flex items-center justify-between text-sm"
+                        >
+                          <div className="flex items-center gap-2">
+                            <Calendar className="w-4 h-4 text-[#ef4a25] flex-shrink-0" />
+                            <span className={formData.date ? "text-gray-900 truncate" : "text-gray-500"}>
+                              {formData.date
+                                ? dateOptions.find((opt) => opt.value === formData.date)?.label
+                                : "Select your trip date"}
+                            </span>
+                          </div>
+                          <ChevronDown
+                            className={`w-4 h-4 text-gray-500 transition-transform duration-200 flex-shrink-0 ${isDateOpen ? "rotate-180" : ""}`}
+                          />
+                        </button>
+
+                        {isDateOpen && dateMenuPos && typeof window !== 'undefined' && createPortal(
+                          <div className="mt-1 bg-white border border-gray-300 rounded-lg shadow-2xl z-[100000] max-h-[50vh] overflow-y-auto overscroll-contain" style={{ position: 'fixed', top: dateMenuPos.top, left: dateMenuPos.left, width: dateMenuPos.width }}>
+                            {dateOptions.map((option) => (
+                              <button
+                                key={option.value}
+                                type="button"
+                                onClick={() => handleDateSelect(option.value)}
+                                className="w-full px-3 py-2 text-left text-gray-900 hover:bg-gray-100 transition-colors duration-150 flex items-center gap-2 text-xs"
+                              >
+                                <Calendar className="w-3 h-3 text-[#ef4a25] flex-shrink-0" />
+                                <span className="text-xs">{option.label}</span>
+                              </button>
+                            ))}
+                          </div>, document.body
+                        )}
+                      </div>
+                    </div>
                     <div>
                       <label htmlFor="fullName" className="block text-xs font-medium text-gray-700 mb-1">
                         Full Name *
@@ -277,54 +325,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                       </div>
                     </div>
 
-                    <div>
-                      <label className="block text-xs font-medium text-gray-700 mb-1">
-                        Trip Date & Destination
-                      </label>
-                      <div className="relative">
-                        <button
-                          type="button"
-                          ref={dateBtnRef}
-                          onClick={() => {
-                            const next = !isDateOpen;
-                            setIsDateOpen(next);
-                            if (next && dateBtnRef.current) {
-                              const r = dateBtnRef.current.getBoundingClientRect();
-                              setDateMenuPos({ top: r.bottom + 8, left: r.left, width: r.width });
-                            }
-                          }}
-                          className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 bg-white text-gray-900 flex items-center justify-between text-sm"
-                        >
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-[#ef4a25] flex-shrink-0" />
-                            <span className={formData.date ? "text-gray-900 truncate" : "text-gray-500"}>
-                              {formData.date
-                                ? dateOptions.find((opt) => opt.value === formData.date)?.label
-                                : "Select your trip date"}
-                            </span>
-                          </div>
-                          <ChevronDown
-                            className={`w-4 h-4 text-gray-500 transition-transform duration-200 flex-shrink-0 ${isDateOpen ? "rotate-180" : ""}`}
-                          />
-                        </button>
-
-                        {isDateOpen && dateMenuPos && typeof window !== 'undefined' && createPortal(
-                          <div className="mt-1 bg-white border border-gray-300 rounded-lg shadow-2xl z-[100000] max-h-[50vh] overflow-y-auto overscroll-contain" style={{ position: 'fixed', top: dateMenuPos.top, left: dateMenuPos.left, width: dateMenuPos.width }}>
-                            {dateOptions.map((option) => (
-                              <button
-                                key={option.value}
-                                type="button"
-                                onClick={() => handleDateSelect(option.value)}
-                                className="w-full px-3 py-2 text-left text-gray-900 hover:bg-gray-100 transition-colors duration-150 flex items-center gap-2 text-xs"
-                              >
-                                <Calendar className="w-3 h-3 text-[#ef4a25] flex-shrink-0" />
-                                <span className="text-xs">{option.label}</span>
-                              </button>
-                            ))}
-                          </div>, document.body
-                        )}
-                      </div>
-                    </div>
+                 
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <div>
