@@ -199,40 +199,86 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   }, []);
 
   // Handle mouse wheel scrolling for horizontal scroll
-  const handleWheel = useCallback((e: WheelEvent) => {
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
     
-    // Prevent default vertical scroll
-    e.preventDefault();
+    // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
     
-    // Use deltaY for vertical wheel movement to scroll horizontally
-    const delta = e.deltaY || e.deltaX;
-    let newTranslate = translateX.current - (delta * 2); // Adjust sensitivity
-    
-    // Calculate boundaries and enforce limits
-    const { maxScroll } = calculateBoundaries();
-    
-    // Enforce boundaries
-    if (newTranslate > 0) {
-      newTranslate = 0;
-    } else if (newTranslate < -maxScroll) {
-      newTranslate = -maxScroll;
+    if (isHorizontalScroll) {
+      // Only handle horizontal scroll - prevent default and scroll
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
+      let newTranslate = translateX.current - scrollAmount;
+      
+      // Calculate boundaries and enforce limits
+      const { maxScroll } = calculateBoundaries();
+      
+      // Enforce boundaries
+      if (newTranslate > 0) {
+        newTranslate = 0;
+      } else if (newTranslate < -maxScroll) {
+        newTranslate = -maxScroll;
+      }
+      
+      translateX.current = newTranslate;
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
+    // Ignore vertical scrolling - let it work normally for page scrolling
+  }, [calculateBoundaries]);
+
+  // Handle native wheel events for the useEffect listener
+  const handleNativeWheel = useCallback((e: WheelEvent) => {
+    if (!containerRef.current) return;
     
-    translateX.current = newTranslate;
-    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    
+    if (isHorizontalScroll) {
+      // Only handle horizontal scroll - prevent default and scroll
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
+      let newTranslate = translateX.current - scrollAmount;
+      
+      // Calculate boundaries and enforce limits
+      const { maxScroll } = calculateBoundaries();
+      
+      // Enforce boundaries
+      if (newTranslate > 0) {
+        newTranslate = 0;
+      } else if (newTranslate < -maxScroll) {
+        newTranslate = -maxScroll;
+      }
+      
+      translateX.current = newTranslate;
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+    // Ignore vertical scrolling - let it work normally for page scrolling
   }, [calculateBoundaries]);
 
   // Handle Pointer Events (Mouse & Touch) - NO AUTO-SCROLL, BOUNDARY LIMITED
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault(); // Prevent text selection and other default behaviors
     isDragging.current = true;
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     startX.current = clientX;
     scrollLeft.current = translateX.current;
+    
+    // Add global event listeners for mouse events to handle dragging outside the container
+    if ('clientX' in e) {
+      document.addEventListener('mousemove', handleGlobalMouseMove);
+      document.addEventListener('mouseup', handleGlobalMouseUp);
+    }
   };
 
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging.current) return;
+    e.preventDefault();
+    
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 1.2; // Adjust sensitivity
     let newTranslate = scrollLeft.current + walk;
@@ -255,6 +301,37 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
 
   const handlePointerUp = () => {
     isDragging.current = false;
+    // Remove global event listeners
+    document.removeEventListener('mousemove', handleGlobalMouseMove);
+    document.removeEventListener('mouseup', handleGlobalMouseUp);
+  };
+
+  // Global mouse event handlers for better drag experience
+  const handleGlobalMouseMove = (e: MouseEvent) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+    
+    const walk = (e.clientX - startX.current) * 1.2;
+    let newTranslate = scrollLeft.current + walk;
+    
+    const { maxScroll } = calculateBoundaries();
+    
+    if (newTranslate > 0) {
+      newTranslate = 0;
+    } else if (newTranslate < -maxScroll) {
+      newTranslate = -maxScroll;
+    }
+    
+    translateX.current = newTranslate;
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
+  };
+
+  const handleGlobalMouseUp = () => {
+    isDragging.current = false;
+    document.removeEventListener('mousemove', handleGlobalMouseMove);
+    document.removeEventListener('mouseup', handleGlobalMouseUp);
   };
 
   // Countdown animation effect
@@ -300,10 +377,28 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   useEffect(() => {
     const container = containerRef.current?.parentElement;
     if (container) {
-      container.addEventListener('wheel', handleWheel, { passive: false });
-      return () => container.removeEventListener('wheel', handleWheel);
+      // Add wheel event listener to prevent browser navigation only for horizontal scroll
+      const handleWheelCapture = (e: WheelEvent) => {
+        if (containerRef.current && containerRef.current.contains(e.target as Node)) {
+          // Only prevent default for horizontal scrolling
+          const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+          if (isHorizontalScroll) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }
+      };
+
+      // Use passive: false to allow preventDefault
+      document.addEventListener('wheel', handleWheelCapture, { passive: false });
+      container.addEventListener('wheel', handleNativeWheel, { passive: false });
+      
+      return () => {
+        document.removeEventListener('wheel', handleWheelCapture);
+        container.removeEventListener('wheel', handleNativeWheel);
+      };
     }
-  }, [handleWheel]);
+  }, [handleNativeWheel]);
 
   // Handle hover flip (temporary)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -329,6 +424,8 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
             onMouseDown={handlePointerDown}
             onMouseMove={handlePointerMove}
             onMouseUp={handlePointerUp}
+            onMouseLeave={handlePointerUp}
+            onWheel={handleWheel}
           >
             <div
               ref={containerRef}
