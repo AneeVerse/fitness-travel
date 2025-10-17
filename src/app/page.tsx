@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FeaturesSection from '@/components/FeaturesSection';
@@ -11,8 +14,14 @@ import FaqSection from '@/components/FaqSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 import VideoSlider from '@/components/VideoSlider';
+import { handleScrollAfterNavigation } from '@/utils/navigation';
 
 export default function Home() {
+  useEffect(() => {
+    // Handle scrolling after navigation from other pages
+    handleScrollAfterNavigation();
+  }, []);
+
   return (
     <div className="w-full overflow-x-hidden">
       <Navbar />

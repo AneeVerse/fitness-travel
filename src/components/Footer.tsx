@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useNavigateToSection } from "@/utils/navigation";
 
 export default function Footer() {
+  const navigateToSection = useNavigateToSection();
   return (
     <footer className="w-full bg-black text-white pt-12 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -37,9 +39,12 @@ export default function Footer() {
                   <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     About
                   </Link>
-                  <Link href="/#social-mosaic" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  <button 
+                    onClick={() => navigateToSection('social-mosaic')}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block text-left"
+                  >
                     Gallery
-                  </Link>
+                  </button>
                 </div>
                 
                 {/* Column 2 */}
@@ -50,22 +55,34 @@ export default function Footer() {
                   <Link href="/faq" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
                     FAQ
                   </Link>
-                  <Link href="/#upcoming-events" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  <button
+                    onClick={() => navigateToSection('upcoming-events')}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block text-left"
+                  >
                     Upcoming Events
-                  </Link>
+                  </button>
                 </div>
                 
                 {/* Column 3 */}
                 <div className="space-y-3">
-                  <Link href="/#epic-destinations-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  <button
+                    onClick={() => navigateToSection('epic-destinations-section')}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block text-left"
+                  >
                     Experiences
-                  </Link>
-                  <Link href="/#reviews-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  </button>
+                  <button
+                    onClick={() => navigateToSection('reviews-section')}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block text-left"
+                  >
                     Testimonials
-                  </Link>
-                  <Link href="/#coaches-section" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block">
+                  </button>
+                  <button
+                    onClick={() => navigateToSection('coaches-section')}
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm py-2 border-l-2 border-gray-700 hover:border-orange-500 pl-3 hover:pl-4 transition-all duration-200 block text-left"
+                  >
                     Team
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>
