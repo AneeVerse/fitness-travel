@@ -179,60 +179,10 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    // 3. Send notification email to website owner
-    const ownerMailOptions = {
-      from: `"Tiger Terrain Website" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: `New Booking Request from ${finalFirstName} ${finalLastName}${tripDate ? ` - ${tripDate}` : ''}`,
-      html: `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: #ef4a25; padding: 20px; text-align: center; border-radius: 10px 10px 0 0;">
-            <h1 style="color: white; margin: 0;">🎉 New Booking Request</h1>
-            ${formType ? `<p style="color: white; margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Form Type: ${formType}</p>` : ''}
-          </div>
-          
-          <div style="padding: 20px; background: #f9f9f9; border-radius: 0 0 10px 10px;">
-            <h2 style="color: #333;">👤 Contact Details:</h2>
-            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
-              <p style="margin: 8px 0;"><strong>Name:</strong> ${finalFirstName} ${finalLastName}</p>
-              <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #ef4a25;">${email}</a></p>
-              <p style="margin: 8px 0;"><strong>Phone:</strong> <a href="tel:${phone}" style="color: #ef4a25;">${phone}</a></p>
-              <p style="margin: 8px 0;"><strong>Submitted On:</strong> ${indianDate}</p>
-            </div>
-            
-            ${tripDate || numberOfPeople || accommodationType ? `
-            <h2 style="color: #333;">📋 Booking Details:</h2>
-            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0; border-left: 4px solid #ef4a25;">
-              ${tripDate ? `<p style="margin: 8px 0;"><strong>🗓️ Trip Date:</strong> ${tripDate}</p>` : ''}
-              ${numberOfPeople ? `<p style="margin: 8px 0;"><strong>👥 Number of People:</strong> ${numberOfPeople}</p>` : ''}
-              ${accommodationType ? `<p style="margin: 8px 0;"><strong>🏠 Accommodation Type:</strong> ${accommodationType}</p>` : ''}
-            </div>
-            ` : ''}
-            
-            ${message ? `
-            <h2 style="color: #333;">💬 Additional Message:</h2>
-            <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
-              <p style="color: #555; white-space: pre-line; margin: 0;">${message}</p>
-            </div>
-            ` : ''}
-            
-            <div style="background: #ef4a25; padding: 15px; border-radius: 8px; text-align: center; margin-top: 20px;">
-              <a href="mailto:${email}" style="color: white; text-decoration: none; font-weight: bold; font-size: 16px;">📧 Reply to ${finalFirstName}</a>
-            </div>
-            
-            <p style="color: #666; font-size: 14px; margin-top: 20px; text-align: center;">
-              This is an automated message from your Tiger Terrain website.
-            </p>
-          </div>
-        </div>
-      `,
-    };
-
-    // Send all three emails
+    // Send only two emails: confirmation to user and notification to company owner
     await Promise.all([
       transporter.sendMail(userMailOptions),
-      transporter.sendMail(companyMailOptions),
-      transporter.sendMail(ownerMailOptions)
+      transporter.sendMail(companyMailOptions)
     ]);
 
     return NextResponse.json(
