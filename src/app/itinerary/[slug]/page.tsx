@@ -4,7 +4,7 @@ import ItineraryHero from '@/components/ItineraryHero';
 import OverviewSection from '@/components/OverviewSection';
 import ItineraryDays from '@/components/ItineraryDays';
 import TripDetailsSection from '@/components/TripDetailsSection';
-import ItineraryFormSection from '@/components/ItineraryFormSection';
+import ItineraryFormWrapper from '@/components/ItineraryFormWrapper';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import Footer from '@/components/Footer';
 import FaqSection from '@/components/FaqSection';
@@ -32,7 +32,7 @@ export default async function ItineraryPage({ params }: PageProps) {
       <OverviewSection tripData={tripData} />
       <ItineraryDays tripData={tripData} />
       <TripDetailsSection tripData={tripData} />
-      <ItineraryFormSection tripData={tripData} />
+      <ItineraryFormWrapper tripData={tripData} />
       <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
       <FaqSection />
       <CTASection />
@@ -45,6 +45,7 @@ export async function generateStaticParams() {
   return [
     { slug: 'phuket' },
     // { slug: 'bali' }, // COMMENTED OUT: Bali page removed
-    { slug: 'goa' },
+    // { slug: 'goa' }, // COMMENTED OUT: Goa page removed
+    { slug: 'sri-lanka' },
   ];
 }

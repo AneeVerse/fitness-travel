@@ -362,6 +362,8 @@ const tripDataMap: Record<string, TripData> = {
   },
   */
 
+  // COMMENTED OUT: Goa page removed
+  /*
   goa: {
     slug: 'goa',
     title: 'GOA FITCATION',
@@ -449,6 +451,123 @@ const tripDataMap: Record<string, TripData> = {
       description: [
         'Goa provides the perfect backdrop for a transformative fitness experience. Tiger Terrain combines the energy of beach workouts with the relaxation of coastal vibes, where you\'ll experience unique training sessions right on the beach with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement. Connect with fellow fitness enthusiasts in a supportive community environment where new friendships are forged through shared challenges and triumphs. From waking up to sunrise yoga sessions to enjoying evening beach parties, every moment is designed to energize your body, refresh your mind, and etch memories that last a lifetime.',
         'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Goa Fitcation welcomes everyone ready to transform their life in paradise.'
+      ],
+      images: [
+        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 1.png',
+        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 2.png',
+        '/images/Goa Images/Hero Section images/TT Goa images.zip - Phuket Day 3.png'
+      ]
+    }
+  },
+  */
+
+  'sri-lanka': {
+    slug: 'sri-lanka',
+    title: 'MOI × TIGER TERRAIN',
+    description: '5 Days / 4 Nights – Fitness + Travel Retreat at Surf & Zen – Habaraduwa, Sri Lanka. Experience the perfect blend of fitness training, cultural exploration, and tropical paradise in one of Asia\'s most beautiful destinations.',
+    dates: 'Dec 10 – 14, 2025',
+    stay: 'Surf & Zen – Habaraduwa\nTwin Sharing Basis',
+    location: 'Habaraduwa, Sri Lanka',
+    heroVideo: '/video/BG2.mp4',
+    highlights: [
+      'HIIT & MetCon Power Circuit Sessions',
+      'Sunrise Beach Workouts at Talpe Beach',
+      'Surfing Lessons with Certified Instructors',
+      'UNESCO Heritage Galle Fort Exploration',
+      'Turtle Beach Feeding & Natural Tidal Pools',
+      'Cinnamon Island Boat Ride & Tea Tasting',
+      'Traditional Sri Lankan Cuisine Experience',
+      'Ayurvedic Massages & Wellness Sessions'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1',
+        title: 'Arrival & Local Vibes',
+        description: '10:00 AM - Arrive at Colombo Airport, Transfer to Habaraduwa (2.5 hrs), Welcome Lunch at Surf and Zen with wholesome Sri Lankan-style village meal',
+        extraContent: 'Evening Briefing & Sunset Exploration with choice of Cinnamon Island boat ride on Koggala Lake with tea tasting. Dinner out at local restaurant for street-style Sri Lankan seafood experience.',
+        time: '10:00 AM - Evening',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 1.webp',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2',
+        title: 'Sweat & Explore',
+        description: 'Class 1 - HIIT Session @ Surf & Zen Courtyard, Hydration Break with Fresh Thambili (king coconut), Class 2 - MetCon Power Circuit, Post-Training Breakfast with local fruit bowls',
+        extraContent: 'Midday Excursion to Galle Fort - Walk the UNESCO heritage streets with complimentary welcome drink at Moi Galle Fort Café. Lunch at fort café of choice. Return by 7 PM for live action dinner night featuring Hoppers & Sri Lankan healthy dinner items.',
+        time: 'All Day',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3',
+        title: 'Beach & Balance',
+        description: 'Sunrise Beach Workout at Talpe Beach - HIIT & mobility drills followed by cool-down yoga stretches. Turtle Beach Feeding & Chill at Talpe Rock Pool with natural tidal pools',
+        extraContent: 'Breakfast by the Beach at Moi Talpe with Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit. Lunch at Surf & Zen with healthy set menu. Afternoon at leisure with board games, reading corners, optional Ayurvedic massages. Evening transfer to Ahangama Beach for sunset party & local DJ session at Kabalana Beach Bar.',
+        time: 'Sunrise - Evening',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Phuket Day 4.webp',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4',
+        title: 'Ride the Waves & Recover',
+        description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors - board & rash guard included. Breakfast at Surf and Zen, Late Morning shopping & café trail at Unawatuna Street',
+        extraContent: 'Lunch outside, Evening Pool Workout & Recovery Session with mobility focus. Farewell Dinner & Drinks Night featuring Sri Lankan BBQ & live music night under the stars with karaoke session (Drinks arranged by Tiger Terrain Team).',
+        time: 'Morning - Night',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
+        videoSrc: '/video/vids/vid (4).mp4',
+      },
+      {
+        id: 'DAY5',
+        day: 'Day 5',
+        title: 'Ground & Go',
+        description: 'Morning Yoga & Grounding Session in the garden led by local instructor (1 hr). Breakfast at Surf & Zen - farewell feast with local sweets & fresh juice',
+        extraContent: 'Group Photo & Farewell Gift: Surf & Zen × Tiger Terrain T-shirt or souvenir. Transfer to Colombo Airport for departure.',
+        time: '8:00 AM - Departure',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 1.webp',
+        videoSrc: '/video/vids/vid (5).mp4',
+      }
+    ],
+    pricing: {
+      tourA: {
+        title: 'Moi × Tiger Terrain Sri Lanka Retreat',
+        cost: 'USD 950',
+        duration: '5 Days / 4 Nights',
+        dates: 'Dec 10 – 14, 2025',
+        includes: [
+          'Accommodation at Surf & Zen – Habaraduwa (4 Nights)',
+          'All Meals (Welcome Lunch, Breakfast, Lunch, Dinner)',
+          'HIIT & MetCon Power Circuit Training Sessions',
+          'Sunrise Beach Workouts & Yoga Sessions',
+          'Surfing Lessons with Certified Instructors (Board & Rash Guard Included)',
+          'Galle Fort UNESCO Heritage Tour with Welcome Drink',
+          'Cinnamon Island Boat Ride & Tea Tasting',
+          'Turtle Beach Feeding Experience',
+          'Airport Transfers (Colombo Airport)',
+          'Local Transportation for All Activities',
+          'Fresh Thambili (King Coconut) Hydration',
+          'Farewell Gift: Surf & Zen × Tiger Terrain T-shirt'
+        ],
+        excludes: [
+          'International Airfare to/from Colombo',
+          'Visa Fees for Sri Lanka',
+          'Travel Insurance',
+          'Personal Expenses & Shopping',
+          'Optional Ayurvedic Massages',
+          'Alcoholic Beverages (except farewell night)',
+          'Tips for Local Staff & Instructors'
+        ]
+      }
+    },
+    overview: {
+      mainTitle: 'TRANSFORM YOUR FITNESS JOURNEY IN PARADISE',
+      subtitle: 'Why Choose Sri Lanka with Moi × Tiger Terrain?',
+      description: [
+        'Experience the perfect fusion of fitness and culture in Sri Lanka\'s stunning southern coast. Our retreat at Surf & Zen in Habaraduwa combines high-intensity training with authentic Sri Lankan experiences. From sunrise beach workouts to UNESCO heritage exploration, every moment is designed to challenge your body and enrich your soul.',
+        'Whether you\'re mastering the waves with professional surf instructors, exploring ancient Galle Fort, or feeding turtles in natural tidal pools, this retreat offers the ideal balance of adventure, wellness, and cultural immersion in one of the world\'s most beautiful tropical destinations.'
       ],
       images: [
         '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 1.png',

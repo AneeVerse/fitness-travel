@@ -2,6 +2,18 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
+// Add function to extract main date from date string
+const extractMainDate = (dateString: string): string => {
+  // Extract the first date range from strings like "10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)"
+  const dateMatch = dateString.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})/);
+  if (dateMatch) {
+    return dateMatch[1];
+  }
+  // Fallback for other formats
+  const simpleMatch = dateString.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+)/);
+  return simpleMatch ? simpleMatch[1] : dateString.split(' ').slice(0, 3).join(' ');
+};
+
 // Add CSS for 3D flip effect and text truncation
 const flipStyles = `
   .backface-hidden {
@@ -48,11 +60,26 @@ type EventItem = {
 
 const events: EventItem[] = [
   {
-    id: 'PHUKET',
+    id: 'SRI_LANKA_DEC',
+    title: 'SRI LANKA',
+    description:
+      'Discover the pearl of the Indian Ocean with our Sri Lanka Fitcation! Experience ancient culture, pristine beaches, and challenging workouts.',
+    date: '10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)',
+    access: 'On-Location Experienced Coaches.',
+    time: 'Start 06:00 AM – Finish',
+    location: 'Sri Lanka',
+    priceLabel: 'USD 850',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755519446260',
+    videoSrc: '/video/BG2.mp4',
+    totalSlots: 20,
+    bookedSlots: 8,
+  },
+  {
+    id: 'PHUKET_JAN',
     title: 'PHUKET',
     description:
       'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: 'Click on "SEE THE ITINERARY" to view upcoming dates.',
+    date: '18th Jan 2026 to 25th Jan 2026 (Phuket Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -62,38 +89,65 @@ const events: EventItem[] = [
     totalSlots: 25,
     bookedSlots: 10,
   },
-  // COMMENTED OUT: Bali event removed
-  /*
   {
-    id: 'BALI',
-    title: 'BALI',
+    id: 'PHUKET_HYROX',
+    title: 'PHUKET HYROX',
     description:
-      'Experience the perfect blend of fitness and tropical paradise in Bali. Our retreat combines challenging workouts with the serene beauty of Indonesian culture.',
-    date: '21st sept - 28th sept',
-    access: 'Member Only',
-    time: 'Start 06:00 AM – Finish',
-    location: 'Bali',
+      'Experience the ultimate fitness challenge with our BKK Hyrox Edition in Phuket. Combine competitive training with tropical paradise.',
+    date: '15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)',
+    access: 'On-Location Experienced Coaches.',
+    time: 'Start 05:00 AM – Finish',
+    location: 'Phuket',
     priceLabel: '$60',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200',
-    videoSrc: '/video/Bali_20250910_133459_0002.mp4',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    videoSrc: '/video/BG2.mp4',
     totalSlots: 20,
-    bookedSlots: 8,
+    bookedSlots: 12,
   },
-  */
   {
-    id: 'GOA',
-    title: 'GOA',
+    id: 'PHUKET_SONGKRAN',
+    title: 'PHUKET SONGKRAN',
     description:
-      'Unleash your inner wellness with beach training, yoga, and pool recovery. Experience the perfect blend of fitness and coastal vibes in India\'s most vibrant destination.',
-    date: 'Click on "SEE THE ITINERAR" to view upcoming dates.',
+      'Celebrate Thai New Year with an incredible fitness journey. Experience Songkran festivities while achieving your fitness goals.',
+    date: '12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)',
+    access: 'On-Location Experienced Coaches.',
+    time: 'Start 05:00 AM – Finish',
+    location: 'Phuket',
+    priceLabel: '$55',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    videoSrc: '/video/BG2.mp4',
+    totalSlots: 25,
+    bookedSlots: 15,
+  },
+  {
+    id: 'SRI_LANKA_MAY',
+    title: 'SRI LANKA',
+    description:
+      'Return to the pearl of the Indian Ocean for another transformative fitness experience with ancient wisdom and modern training.',
+    date: '29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 06:00 AM – Finish',
-    location: 'Goa',
-    priceLabel: 'INR 10.5K',
+    location: 'Sri Lanka',
+    priceLabel: 'USD 850',
     imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755519446260',
-    videoSrc: '/video/goa_20250910_134258_0003.mp4',
-    totalSlots: 15,
-    bookedSlots: 5,
+    videoSrc: '/video/BG2.mp4',
+    totalSlots: 20,
+    bookedSlots: 6,
+  },
+  {
+    id: 'PHUKET_FINALE',
+    title: 'PHUKET FINALE',
+    description:
+      'End the year with our grand finale in Phuket. The ultimate fitness celebration combining all our best experiences.',
+    date: '27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)',
+    access: 'On-Location Experienced Coaches.',
+    time: 'Start 05:00 AM – Finish',
+    location: 'Phuket',
+    priceLabel: '$65',
+    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+    videoSrc: '/video/BG2.mp4',
+    totalSlots: 30,
+    bookedSlots: 18,
   },
 ];
 
@@ -116,13 +170,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   // Get global badge numbers from environment variables
   const globalBadgeNumbers = {
     phuket: parseInt(process.env.NEXT_PUBLIC_PHUKET_BADGE_NUMBER || '20'),
-    goa: parseInt(process.env.NEXT_PUBLIC_GOA_BADGE_NUMBER || '10')
+    sriLanka: parseInt(process.env.NEXT_PUBLIC_SRI_LANKA_BADGE_NUMBER || '15')
   };
 
   // Function to get badge number for specific event
   const getBadgeNumber = (eventId: string): number => {
-    if (eventId.toLowerCase() === 'phuket') return globalBadgeNumbers.phuket;
-    if (eventId.toLowerCase() === 'goa') return globalBadgeNumbers.goa;
+    if (eventId.toLowerCase().includes('phuket')) return globalBadgeNumbers.phuket;
+    if (eventId.toLowerCase().includes('sri_lanka')) return globalBadgeNumbers.sriLanka;
     // Fallback to displayedSlots for any other events
     return displayedSlots;
   };
@@ -143,6 +197,31 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
     }
     return { containerWidth: 0, totalContentWidth: 0, maxScroll: 0 };
   }, []);
+
+  // Handle mouse wheel scrolling for horizontal scroll
+  const handleWheel = useCallback((e: WheelEvent) => {
+    if (!containerRef.current) return;
+    
+    // Prevent default vertical scroll
+    e.preventDefault();
+    
+    // Use deltaY for vertical wheel movement to scroll horizontally
+    const delta = e.deltaY || e.deltaX;
+    let newTranslate = translateX.current - (delta * 2); // Adjust sensitivity
+    
+    // Calculate boundaries and enforce limits
+    const { maxScroll } = calculateBoundaries();
+    
+    // Enforce boundaries
+    if (newTranslate > 0) {
+      newTranslate = 0;
+    } else if (newTranslate < -maxScroll) {
+      newTranslate = -maxScroll;
+    }
+    
+    translateX.current = newTranslate;
+    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+  }, [calculateBoundaries]);
 
   // Handle Pointer Events (Mouse & Touch) - NO AUTO-SCROLL, BOUNDARY LIMITED
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
@@ -217,10 +296,14 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
     return () => window.removeEventListener('scroll', handleScroll);
   }, [hasAnimated]);
 
-  // Handle card click - NO NAVIGATION on card click (only button should navigate)
-  // const handleCardClick = (eventId: string) => {
-  //   // Do nothing - only button should navigate
-  // };
+  // Add wheel event listener
+  useEffect(() => {
+    const container = containerRef.current?.parentElement;
+    if (container) {
+      container.addEventListener('wheel', handleWheel, { passive: false });
+      return () => container.removeEventListener('wheel', handleWheel);
+    }
+  }, [handleWheel]);
 
   // Handle hover flip (temporary)
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -256,7 +339,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                 const isFlipped = flippedCards.has(event.id);
                 const isHovered = hoveredCard === event.id;
                 const shouldFlip = isFlipped || isHovered;
-                const availableSlots = event.totalSlots - event.bookedSlots;
                 
                 return (
                   <div
@@ -317,7 +399,12 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                             {/* Content */}
                             <div className="absolute bottom-4 left-4 right-4 z-10">
                               <div className="text-white space-y-2 select-none">
-                                <p className="text-xs opacity-80 select-none">TIGER TERRAIN</p>
+                                <div className="flex items-center justify-between">
+                                  <p className="text-xs opacity-80 select-none">TIGER TERRAIN</p>
+                                  <div className="bg-[#ef4a25] text-white px-2 py-1 rounded text-xs font-semibold">
+                                    {extractMainDate(event.date)}
+                                  </div>
+                                </div>
                                 <h3 className={`font-bold uppercase select-none ${event.id === 'PHUKET' ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`} style={{ fontFamily: 'var(--font-teko)' }}>
                                   {event.title}
                                 </h3>
@@ -350,25 +437,27 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                               </div>
                               
                               {/* Details */}
-                              <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-black select-none">
-                                <div className="flex items-start gap-2 select-none ">
-                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                              <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-black select-none">
+                                <div className="flex items-start gap-3 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
                                     <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
                                   </svg>
-                                  <span className="select-none leading-tight">{event.date}</span>
+                                  <div>
+                                    <span className="select-none leading-tight font-medium">{event.date}</span>
+                                  </div>
                                 </div>
-                                <div className="flex items-start gap-2 select-none">
-                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:-mt-1" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-3 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 -mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                                   </svg>
-                                  <span className="select-none leading-tight">{event.location}</span>
+                                  <span className="select-none leading-tight font-medium">{event.location}</span>
                                 </div>
-                                <div className="flex items-start gap-2 select-none">
-                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:-mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-3 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 -mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                   </svg>
-                                  <span className="select-none leading-tight">{event.access}</span>
+                                  <span className="select-none leading-tight font-medium">{event.access}</span>
                                 </div>
                               </div>
                             </div>
@@ -381,9 +470,15 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                   e.stopPropagation();
                                   console.log('Button clicked, navigating to itinerary for', event.id);
                                   
-                                  // Navigate to specific itinerary based on event ID
-                                  const slug = event.id.toLowerCase();
-                                  window.location.href = `/itinerary/${slug}`;
+                                  // Map event IDs to correct route slugs
+                                  let slug = 'phuket'; // default
+                                  if (event.id.includes('SRI_LANKA')) {
+                                    slug = 'sri-lanka';
+                                  } else if (event.id.includes('PHUKET')) {
+                                    slug = 'phuket';
+                                  }
+                                  // include event id as date query param
+                                  window.location.href = `/itinerary/${slug}?date=${event.id}`;
                                 }}
                                 onMouseDown={(e) => e.stopPropagation()}
                                 onMouseUp={(e) => e.stopPropagation()}

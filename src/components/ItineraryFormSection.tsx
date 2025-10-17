@@ -1,9 +1,9 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CountryCodeDropdown from './CountryCodeDropdown'
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { ChevronDown, Calendar, Users, Home } from "lucide-react"
 import { TripData } from '@/lib/tripData'
 
@@ -32,23 +32,36 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isDateOpen, setIsDateOpen] = useState(false)
   const [isAccommodationOpen, setIsAccommodationOpen] = useState(false)
 
-  // All available date options
+  const searchParams = useSearchParams();
+  const selectedDateParam = searchParams?.get('date');
+
+  // All available date options - synchronized with UpcomingEvents
   const allDateOptions = [
-    { value: "phuket-18jan-25jan-2026", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)", location: "phuket" },
-    { value: "goa-19feb-22feb-2026", label: "19th Feb 2026 - 22nd Feb 2026 (Goa Edition)", location: "goa" },
-    { value: "bkk-hyrox-15mar-22mar-2026", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)", location: "phuket" },
-    { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)", location: "phuket" },
-    { value: "sri-lanka-29apr-3may-2026", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)", location: "sri-lanka" },
-    { value: "phuket-finale-27sep-4oct-2026", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)", location: "phuket" },
+    { value: "SRI_LANKA_DEC", label: "10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)", location: "sri-lanka" },
+    { value: "PHUKET_JAN", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)", location: "phuket" },
+    { value: "PHUKET_HYROX", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)", location: "phuket" },
+    { value: "PHUKET_SONGKRAN", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)", location: "phuket" },
+    { value: "SRI_LANKA_MAY", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)", location: "sri-lanka" },
+    { value: "PHUKET_FINALE", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)", location: "phuket" },
   ]
   
-  // Filter date options based on current trip location
-  const dateOptions = tripData ? 
-    allDateOptions.filter(option => option.location === tripData.slug) : 
-    allDateOptions;
+  // Get the fixed date based on current trip location
+  const getFixedDateForLocation = (slug: string) => {
+    const locationDates = allDateOptions.filter(option => option.location === slug);
+    return locationDates.length > 0 ? locationDates[0] : null;
+  };
+
+  const initialDateValue = selectedDateParam || getFixedDateForLocation(tripData.slug)?.value || '';
+  const fixedDate = allDateOptions.find(opt=>opt.value===initialDateValue) || null;
+
+  // Set the fixed date in form data on component mount
+  useEffect(() => {
+    if (initialDateValue && !formData.date) {
+      setFormData(prev => ({ ...prev, date: initialDateValue }));
+    }
+  }, [initialDateValue, formData.date]);
 
   const accommodationTypes = [
     { value: "single", label: "Single Room" },
@@ -64,11 +77,6 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
     }))
   }
 
-  const handleDateSelect = (value: string) => {
-    setFormData((prev) => ({ ...prev, date: value }))
-    setIsDateOpen(false)
-  }
-
   const handleAccommodationSelect = (value: string) => {
     setFormData((prev) => ({ ...prev, accommodation: value }))
     setIsAccommodationOpen(false)
@@ -79,9 +87,8 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
     setIsSubmitting(true)
 
     // Determine the location from the selected date or from tripData
-    const selectedDateOption = dateOptions.find((opt) => opt.value === formData.date);
+    const selectedDateOption = allDateOptions.find((opt) => opt.value === formData.date);
     const location = selectedDateOption?.location || tripData?.slug || '';
-    const isGoa = location === 'goa';
 
     try {
       const response = await fetch("/api/contact", {
@@ -94,18 +101,16 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
           lastName: formData.name.split(' ').slice(1).join(' ') || '',
           email: formData.email,
           phone: formData.phone,
-          // Only include PDF link if not Goa
-          pdfLink: isGoa ? '' : '/pdf/TT Brochure.pdf',
+          pdfLink: '/pdf/TT Brochure.pdf',
           formType: "itinerary-booking",
           subject: `Itinerary Booking Request - ${formData.date}`,
           // Send detailed booking information
-          tripDate: dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
+          tripDate: allDateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
           numberOfPeople: formData.people,
           accommodationType: accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation,
           location: location, // Add location information
-          isGoa: isGoa, // Flag to indicate if this is a Goa booking
           message: `Booking Details:
-- Trip Date: ${dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date}
+- Trip Date: ${allDateOptions.find((opt) => opt.value === formData.date)?.label || formData.date}
 - Number of People: ${formData.people}
 - Accommodation Type: ${accommodationTypes.find((opt) => opt.value === formData.accommodation)?.label || formData.accommodation}`,
         }),
@@ -214,40 +219,11 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
 
                 <div className="space-y-2">
                   <label className="block text-sm font-medium text-white/90">Trip Date & Destination *</label>
-                  <div className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setIsDateOpen(!isDateOpen)}
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70 flex items-center justify-between"
-                    >
-                      <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-[#ef4a25]" />
-                        <span className={formData.date ? "text-white" : "text-white/50"}>
-                          {formData.date
-                            ? dateOptions.find((opt) => opt.value === formData.date)?.label
-                            : "Select your trip date"}
-                        </span>
-                      </div>
-                      <ChevronDown
-                        className={`w-5 h-5 text-white/70 transition-transform duration-200 ${isDateOpen ? "rotate-180" : ""}`}
-                      />
-                    </button>
-
-                    {isDateOpen && (
-                      <div className="absolute top-full left-0 right-0 mt-2 bg-gray-800/95 backdrop-blur-md border border-gray-600/50 rounded-xl shadow-2xl z-50 overflow-hidden">
-                        {dateOptions.map((option) => (
-                          <button
-                            key={option.value}
-                            type="button"
-                            onClick={() => handleDateSelect(option.value)}
-                            className="w-full px-4 py-3 text-left text-white hover:bg-[#ef4a25]/20 transition-colors duration-150 flex items-center gap-3"
-                          >
-                            <Calendar className="w-4 h-4 text-[#ef4a25]" />
-                            {option.label}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+                  <div className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl text-white text-base backdrop-blur-sm flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-[#ef4a25]" />
+                    <span className="text-white">
+                      {fixedDate ? fixedDate.label : "No date available for this destination"}
+                    </span>
                   </div>
                 </div>
 

@@ -95,7 +95,7 @@ const AboutPage = () => {
                   </div>
                 </div>
                 <div className="text-5xl font-unbounded font-bold text-white mb-9 mt-8">2018</div>
-                <p className="text-gray-300 text-sm leading-relaxed">We managed to take 5 trips to Phuket, 2 to Bali and 4 to Goa. We collaborated with local hosts and partners to provide multi-day experiences blending fitness and culture.</p>
+                <p className="text-gray-300 text-sm leading-relaxed">We managed to take multiple trips to Phuket and Sri Lanka. We collaborated with local hosts and partners to provide multi-day experiences blending fitness and culture.</p>
               </div>
 
               {/* Bottom Left Image - no gap */}
