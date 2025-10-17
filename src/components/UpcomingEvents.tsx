@@ -113,6 +113,20 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
+  // Get global badge numbers from environment variables
+  const globalBadgeNumbers = {
+    phuket: parseInt(process.env.NEXT_PUBLIC_PHUKET_BADGE_NUMBER || '20'),
+    goa: parseInt(process.env.NEXT_PUBLIC_GOA_BADGE_NUMBER || '10')
+  };
+
+  // Function to get badge number for specific event
+  const getBadgeNumber = (eventId: string): number => {
+    if (eventId.toLowerCase() === 'phuket') return globalBadgeNumbers.phuket;
+    if (eventId.toLowerCase() === 'goa') return globalBadgeNumbers.goa;
+    // Fallback to displayedSlots for any other events
+    return displayedSlots;
+  };
+
   // Filter events based on currentSlug - NO DUPLICATION, NO AUTO-SCROLL
   const filteredEvents = events.filter(event => !currentSlug || event.id.toLowerCase() !== currentSlug);
 
@@ -251,23 +265,21 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                     data-card="true"
                     draggable={false}
                   >
-                    {/* Spots Badge - Only on first card */}
-                    {event.id === 'PHUKET' && (
-                      <div className="absolute -top-5 left-4 z-[9999]">
-                        <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2 select-none">
-                          <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
-                            <div 
-                              className="h-full bg-white rounded-sm transition-all duration-300"
-                              style={{ width: `${(displayedSlots / event.totalSlots) * 100}%` }}
-                            />
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-xs font-bold text-black select-none">{displayedSlots}</span>
-                            </div>
+                    {/* Spots Badge - Now on all cards */}
+                    <div className="absolute -top-5 left-4 z-[9999]">
+                      <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2 select-none">
+                        <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
+                          <div 
+                            className="h-full bg-white rounded-sm transition-all duration-300"
+                            style={{ width: `${(getBadgeNumber(event.id) / event.totalSlots) * 100}%` }}
+                          />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <span className="text-xs font-bold text-black select-none">{getBadgeNumber(event.id)}</span>
                           </div>
-                          <span className="text-xs font-semibold select-none">Spots left!</span>
                         </div>
+                        <span className="text-xs font-semibold select-none">left</span>
                       </div>
-                    )}
+                    </div>
                     
                     <div 
                       className="relative h-[380px] sm:h-[420px] md:h-[450px] lg:h-[520px] xl:h-[450px] group shadow-lg"
@@ -306,7 +318,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                             <div className="absolute bottom-4 left-4 right-4 z-10">
                               <div className="text-white space-y-2 select-none">
                                 <p className="text-xs opacity-80 select-none">TIGER TERRAIN</p>
-                                <h3 className="text-lg sm:text-xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
+                                <h3 className={`font-bold uppercase select-none ${event.id === 'PHUKET' ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`} style={{ fontFamily: 'var(--font-teko)' }}>
                                   {event.title}
                                 </h3>
                                 {/* Mobile: Truncated description, Desktop: Full description */}
@@ -326,12 +338,9 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                             {/* Header */}
                             <div>
                               <div className="flex items-center justify-between mb-3 sm:mb-4">
-                                <h3 className="text-lg sm:text-xl font-bold text-black uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
+                                <h3 className={`font-bold text-black uppercase select-none ${event.id === 'PHUKET' ? 'text-2xl sm:text-3xl' : 'text-lg sm:text-xl'}`} style={{ fontFamily: 'var(--font-teko)' }}>
                                   {event.title}
                                 </h3>
-                                <div className="bg-[#ef4a25] text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-semibold select-none">
-                                  {availableSlots} left
-                                </div>
                               </div>
                               
                               {/* Mobile: Limited description with ellipsis, Desktop: Full description */}
@@ -342,24 +351,24 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                               
                               {/* Details */}
                               <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-black select-none">
-                                <div className="flex items-center gap-2 select-none">
-                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-2 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
                                     <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
                                   </svg>
-                                  <span className="select-none">{event.date}</span>
+                                  <span className="select-none leading-tight">{event.date}</span>
                                 </div>
-                                <div className="flex items-center gap-2 select-none">
-                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-2 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                                   </svg>
-                                  <span className="select-none">{event.location}</span>
+                                  <span className="select-none leading-tight">{event.location}</span>
                                 </div>
-                                <div className="flex items-center gap-2 select-none">
-                                  <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-2 select-none">
+                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                   </svg>
-                                  <span className="select-none">{event.access}</span>
+                                  <span className="select-none leading-tight">{event.access}</span>
                                 </div>
                               </div>
                             </div>

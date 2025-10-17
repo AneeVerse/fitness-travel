@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
@@ -39,12 +41,16 @@ export default function ItineraryPage() {
           </div>
         </div>
       </section>
-      
-      <div className="pt-10">
-        <UpcomingEvents title="CHOOSE YOUR ADVENTURE" />
-      </div>
+
+      {/* Upcoming Events Section */}
+      <section className="py-8 px-4 sm:px-8 md:px-12 lg:px-16">
+        <div className="max-w-[1325px] mx-auto">
+          <UpcomingEvents title="CHOOSE YOUR DESTINATION" />
+        </div>
+      </section>
+
       <CTASection />
       <Footer />
-    </div>  
+    </div>
   );
 }

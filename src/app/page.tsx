@@ -35,10 +35,8 @@ export default function Home() {
   
       <USPSection />
       <CoachesSection />
-    
       <FaqSection />
       <CTASection />
-      {/* Additional sections can be added here */}
       <Footer />
     </div>
   );
