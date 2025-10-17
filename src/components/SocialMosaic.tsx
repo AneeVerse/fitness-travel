@@ -98,7 +98,7 @@ const SocialMosaic: React.FC = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <button className="px-3  bg-[#ef4a25] text-white text-[8px] font-medium rounded-full hover:bg-[#d13d1f] transition-colors duration-200">
+                  <button className=" text-[#ef4a25] text-[8px] font-medium rounded-full hover:bg-[#d13d1f] transition-colors duration-200">
                     SCAN / CLICK TO VIEW
                   </button>
                 </div>
