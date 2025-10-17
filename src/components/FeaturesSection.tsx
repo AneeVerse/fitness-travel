@@ -106,56 +106,14 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ navigateToItinerary =
         <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl xl:max-w-[1200px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">
             
-            {/* Left Column - Text Content */}
-            <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-1 lg:order-1">
-              <div className="max-w-xl sm:max-w-2xl">
-                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
-                  This is more than a vacation. It&apos;s a journey.
-                </h2>
-                
-                <div className="space-y-3 sm:space-y-4 md:space-y-5 text-white leading-relaxed">
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
-                    Fitness never takes a vacation - it travels with you. It is this thought that has driven us to curate a journey that combines training, travel, and community in the same breath. 
-                  </p>
-                  
-                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
-                    With Tiger Terrain, you get to join your tribe, go for bespoke fitness camps and travel experiences at incredible value. Book an experiences to any destination and experience the change instantly.
-                  </p>
-                </div>
-
-                {/* CTA Buttons - Desktop only, hidden on mobile */}
-                <div className="hidden lg:flex flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
-                  <button
-                    onClick={() => setIsPricingModalOpen(true)}
-                    className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg"
-                  >
-                    Book Adventure
-                  </button>
-                  {navigateToItinerary ? (
-                    <Link
-                      href="/itinerary"
-                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
-                    >
-                      View Destinations
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => {
-                        const upcomingEventsSection = document.querySelector('#upcoming-events');
-                        if (upcomingEventsSection) {
-                          upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
-                        }
-                      }}
-                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
-                    >
-                      View Destinations
-                    </button>
-                  )}
-                </div>
-              </div>
+            {/* Mobile Heading - Only visible on mobile */}
+            <div className="lg:hidden order-1">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6 text-center">
+                This is more than a vacation. It&apos;s a journey.
+              </h2>
             </div>
 
-            {/* Right Column - Video Card */}
+            {/* Video Card - Order 2 on mobile, 2 on desktop */}
             <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
               <div className="relative w-full max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[320px] xl:max-w-[320px]">
                 {/* Video Card Container */}
@@ -230,6 +188,56 @@ const FeaturesSection: React.FC<FeaturesSectionProps> = ({ navigateToItinerary =
                         </svg>
                       </button>
                     </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Left Column - Text Content */}
+            <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-3 lg:order-1">
+              <div className="max-w-xl sm:max-w-2xl">
+                {/* Desktop Heading - Only visible on desktop */}
+                <h2 className="hidden lg:block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
+                  This is more than a vacation. It&apos;s a journey.
+                </h2>
+                
+                <div className="space-y-3 sm:space-y-4 md:space-y-5 text-white leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+                    Fitness never takes a vacation - it travels with you. It is this thought that has driven us to curate a journey that combines training, travel, and community in the same breath. 
+                  </p>
+                  
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+                    With Tiger Terrain, you get to join your tribe, go for bespoke fitness camps and travel experiences at incredible value. Book an experiences to any destination and experience the change instantly.
+                  </p>
+                </div>
+
+                {/* CTA Buttons - Desktop only, hidden on mobile */}
+                <div className="hidden lg:flex flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
+                  <button
+                    onClick={() => setIsPricingModalOpen(true)}
+                    className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  >
+                    Book Adventure
+                  </button>
+                  {navigateToItinerary ? (
+                    <Link
+                      href="/itinerary"
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        const upcomingEventsSection = document.querySelector('#upcoming-events');
+                        if (upcomingEventsSection) {
+                          upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </button>
                   )}
                 </div>
               </div>

@@ -230,7 +230,7 @@ const Navbar = () => {
                   setTimeout(() => setIsNavigating(false), 1000)
                 }
               }}
-              className={`block w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 text-center rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-white hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base ${
+              className={`flex items-center justify-center w-full px-5 sm:px-6 md:px-7 lg:px-8 py-2.5 sm:py-3 rounded-full font-semibold bg-[#ef4a25] text-white hover:bg-white hover:text-[#ef4a25] transition-colors duration-300 text-xs sm:text-sm md:text-base ${
                 isNavigating ? "pointer-events-none opacity-50" : ""
               }`}
               style={{ fontFamily: "var(--font-unbounded)" }}
