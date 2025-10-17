@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaWhatsapp, FaEnvelope, FaPhone } from 'react-icons/fa';
 import { IoIosClose, IoMdChatboxes } from "react-icons/io";
@@ -8,12 +8,62 @@ import { MdContentCopy } from 'react-icons/md';
 const FloatingActionButton = () => {
   const [open, setOpen] = useState(false);
   const [showFloatingButtons, setShowFloatingButtons] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isInHeroSection, setIsInHeroSection] = useState(true);
+  const [shouldShowButton, setShouldShowButton] = useState(true);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text)
       .then(() => setOpen(false))
       .catch((err) => alert('Failed to copy: ' + err));
   };
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Handle scroll detection for hero section
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.querySelector('section[class*="h-screen"]') || 
+                         document.querySelector('section[class*="min-h-[100vh]"]');
+      
+      if (heroSection) {
+        const heroRect = heroSection.getBoundingClientRect();
+        const isInHero = heroRect.bottom > 0;
+        setIsInHeroSection(isInHero);
+      }
+    };
+
+    handleScroll(); // Check initial state
+    window.addEventListener('scroll', handleScroll);
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Update button visibility based on mobile and hero section
+  useEffect(() => {
+    if (isMobile && isInHeroSection) {
+      setShouldShowButton(false);
+    } else {
+      setShouldShowButton(true);
+    }
+  }, [isMobile, isInHeroSection]);
+
+  // Force floating buttons to be collapsed on mobile initially
+  useEffect(() => {
+    if (isMobile) {
+      setShowFloatingButtons(false);
+    }
+  }, [isMobile]);
 
   // Framer Motion variants for animation
   const containerVariants = {
@@ -30,7 +80,9 @@ const FloatingActionButton = () => {
   };
 
   return (
-    <div className="fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-40">
+    <div className={`fixed bottom-3 right-3 sm:bottom-6 sm:right-6 z-40 transition-opacity duration-300 ${
+      shouldShowButton ? 'opacity-100' : 'opacity-0 pointer-events-none'
+    }`}>
       {showFloatingButtons && (
         <motion.div 
           initial="hidden" 
@@ -158,12 +210,20 @@ const FloatingActionButton = () => {
       <motion.button
         className="w-14 h-14 bg-[#ef4a25] text-white rounded-full flex items-center justify-center shadow-lg focus:outline-none"
         onClick={() => {
-          if (showFloatingButtons) {
-            setShowFloatingButtons(false);
-          } else if (open) {
-            setOpen(false);
+          if (isMobile) {
+            if (showFloatingButtons) {
+              setShowFloatingButtons(false);
+            } else {
+              setShowFloatingButtons(true);
+            }
           } else {
-            setShowFloatingButtons(true);
+            if (showFloatingButtons) {
+              setShowFloatingButtons(false);
+            } else if (open) {
+              setOpen(false);
+            } else {
+              setShowFloatingButtons(true);
+            }
           }
         }}
         whileHover="hover"
@@ -172,6 +232,8 @@ const FloatingActionButton = () => {
       >
         <div>
           {open ? (
+            <IoIosClose className='self-center h-7 w-7' />
+          ) : isMobile && showFloatingButtons ? (
             <IoIosClose className='self-center h-7 w-7' />
           ) : showFloatingButtons ? (
             <IoIosClose className='self-center h-7 w-7' />
