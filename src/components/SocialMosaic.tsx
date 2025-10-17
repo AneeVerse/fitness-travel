@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 const images = [
@@ -8,6 +8,68 @@ const images = [
   '/images/social/piratecamp_phuket-20250814-0002.jpg',
   '/images/social/piratecamp_phuket-20250814-0003.jpg',
 ];
+
+// Consistent video URL for all breakpoints
+const VIDEO_URL = 'https://ik.imagekit.io/cuovrrwder/video4.mp4?updatedAt=1760710643781';
+const VIDEO_FALLBACK_IMAGE = '/images/social/piratecamp_phuket-20250814-0001.jpg';
+
+// Video component with error handling
+const VideoWithFallback = ({ 
+  className, 
+  style 
+}: { 
+  className?: string; 
+  style?: React.CSSProperties;
+}) => {
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleVideoError = () => {
+    setHasError(true);
+    setIsLoading(false);
+  };
+
+  const handleVideoLoad = () => {
+    setIsLoading(false);
+  };
+
+  if (hasError) {
+    return (
+      <Image
+        src={VIDEO_FALLBACK_IMAGE}
+        alt="Gallery Video Fallback"
+        fill
+        className="object-cover"
+        loading="lazy"
+        quality={75}
+      />
+    );
+  }
+
+  return (
+    <>
+      {isLoading && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-[#ef4a25] border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className={className}
+        style={style}
+        onError={handleVideoError}
+        onLoadedData={handleVideoLoad}
+        preload="metadata"
+      >
+        <source src={VIDEO_URL} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </>
+  );
+};
 
 const SocialMosaic: React.FC = () => {
   return (
@@ -18,18 +80,10 @@ const SocialMosaic: React.FC = () => {
           <div className="columns-2 gap-3 space-y-3">
             {/* Video - Tall */}
             <div className="relative rounded-xl overflow-hidden break-inside-avoid mb-3 w-full">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
+              <VideoWithFallback
                 className="w-full h-auto object-cover block"
                 style={{ minHeight: '280px', maxHeight: '400px', aspectRatio: '9/16' }}
-                preload="metadata"
-              >
-                <source src="/images/social/pirate.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              />
             </div>
 
             {/* Image 1 - Medium */}
@@ -138,16 +192,10 @@ const SocialMosaic: React.FC = () => {
           <div className="columns-2 gap-4 space-y-4">
             {/* Video - Tall */}
             <div className="relative rounded-xl overflow-hidden break-inside-avoid mb-4">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
+              <VideoWithFallback
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '300px' }}
-              >
-                <source src="/images/social/piratecamp_phuket-20250814-0001.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
 
             {/* Image 1 - Medium */}
@@ -225,16 +273,10 @@ const SocialMosaic: React.FC = () => {
           <div className="columns-3 gap-4 space-y-4">
             {/* Video - Tall */}
             <div className="relative rounded-2xl overflow-hidden break-inside-avoid mb-4">
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
+              <VideoWithFallback
                 className="w-full h-auto object-cover"
                 style={{ minHeight: '320px' }}
-              >
-                <source src="/images/social/video4.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
 
             {/* Image 1 - Medium */}
@@ -311,15 +353,7 @@ const SocialMosaic: React.FC = () => {
         <div className="hidden xl:grid xl:grid-cols-3 gap-6">
           {/* Big video left (spans 2 rows on large screens) */}
           <div className="relative rounded-3xl overflow-hidden xl:row-span-2 h-[280px] sm:h-[360px] md:h-[420px] xl:h-full min-h-[400px] sm:min-h-[520px]">
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            >
-              <source src="/images/social/piratecamp_phuket-20250814-0001.mp4" type="video/mp4" />
-            </video>
+            <VideoWithFallback className="absolute inset-0 w-full h-full object-cover" />
           </div>
 
           {/* Top-right image 1 */}
