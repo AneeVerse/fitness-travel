@@ -351,21 +351,21 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                               
                               {/* Details */}
                               <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-black select-none">
-                                <div className="flex items-start gap-2 select-none">
-                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-start gap-2 select-none ">
+                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v3H3V6a2 2 0 012-2h1V3a1 1 0 112 0v1z" />
                                     <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
                                   </svg>
                                   <span className="select-none leading-tight">{event.date}</span>
                                 </div>
                                 <div className="flex items-start gap-2 select-none">
-                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0" fill="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:-mt-1" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
                                   </svg>
                                   <span className="select-none leading-tight">{event.location}</span>
                                 </div>
                                 <div className="flex items-start gap-2 select-none">
-                                  <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-4 h-4 sm:w-6 sm:h-6 text-[#ef4a25] flex-shrink-0 sm:-mt-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                                   </svg>
                                   <span className="select-none leading-tight">{event.access}</span>
