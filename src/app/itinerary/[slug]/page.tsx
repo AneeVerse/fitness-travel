@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import ItineraryHero from '@/components/ItineraryHero';
 import OverviewSection from '@/components/OverviewSection';
 import ItineraryDays from '@/components/ItineraryDays';
+import RoomPricingSection from '@/components/RoomPricingSection';
 import TripDetailsSection from '@/components/TripDetailsSection';
 import ItineraryFormWrapper from '@/components/ItineraryFormWrapper';
 import UpcomingEvents from '@/components/UpcomingEvents';
@@ -31,6 +32,7 @@ export default async function ItineraryPage({ params }: PageProps) {
       <ItineraryHero tripData={tripData} />
       <OverviewSection tripData={tripData} />
       <ItineraryDays tripData={tripData} />
+      <RoomPricingSection />
       <TripDetailsSection tripData={tripData} />
       <ItineraryFormWrapper tripData={tripData} />
       <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
