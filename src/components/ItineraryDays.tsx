@@ -208,19 +208,24 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
                             {day.title}
                           </h4>
                           {/* Display schedule points */}
-                          <div className="space-y-1.5 select-none">
-                            {day.description.split(',').map((point, idx) => {
-                              const trimmedPoint = point.trim();
-                              if (!trimmedPoint) return null;
-                              return (
-                                <div key={idx}>
-                                  <p className="text-[10px] md:text-xs opacity-90 leading-snug select-none">
+                          <ul className="space-y-1.5 select-none list-disc pl-4">
+                            {(() => {
+                              const isSriLanka = tripData.slug === 'srilanka' || tripData.slug === 'sri-lanka';
+                              const segments = isSriLanka
+                                ? day.description.split(/\n+/)
+                                : day.description.split(/,\s*/);
+                              return segments.map((point, idx) => {
+                                const trimmedPoint = point.trim();
+                                if (!trimmedPoint) return null;
+                                return (
+                                  <li key={idx} className="text-[10px] md:text-xs opacity-90 leading-snug select-none">
                                     {trimmedPoint}
-                                  </p>
-                                </div>
-                              );
-                            })}
-                          </div>
+                                  </li>
+                                );
+                              });
+                            })()}
+                          </ul
+                          >
                         </div>
 
                         {/* Bottom Section */}

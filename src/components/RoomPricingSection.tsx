@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { TripData } from '@/lib/tripData';
 
 interface PricingOption {
   type: string;
@@ -9,9 +10,10 @@ interface PricingOption {
 
 interface RoomPricingSectionProps {
   className?: string;
+  tripData?: TripData;
 }
 
-const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "" }) => {
+const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "", tripData }) => {
   const standardRoomPricing: PricingOption[] = [
     {
       type: "Single",
@@ -41,6 +43,33 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "" 
       price: "₹68,950"
     }
   ];
+
+  const isSriLanka = tripData?.slug === 'sri-lanka' || tripData?.slug === 'srilanka';
+
+  const surfSuitesPricing: PricingOption[] = [
+    { type: 'Single', price: '₹59,400' },
+    { type: 'Twin Sharing', price: '₹59,400' },
+  ];
+
+  const zenPricing: PricingOption[] = [
+    { type: 'Single', price: '₹59,400' },
+    { type: 'Twin Sharing', price: '₹59,400' },
+  ];
+
+  const breezePricing: PricingOption[] = [
+    { type: 'Triple Sharing', price: '₹59,400' },
+  ];
+
+  const categories = isSriLanka
+    ? [
+        { title: 'Surf Suites', pricing: surfSuitesPricing },
+        { title: 'Zen', pricing: zenPricing },
+        { title: 'Breeze', pricing: breezePricing },
+      ]
+    : [
+        { title: 'Standard Room', pricing: standardRoomPricing },
+        { title: 'Pool Facing', pricing: poolFacingPricing },
+      ];
 
   const SingleHomeIcon = () => (
     <svg className="w-4 h-4 text-[#ef4a25]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
@@ -93,20 +122,20 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "" 
   };
 
   const RoomTypeCard = ({ title, pricing }: { title: string; pricing: PricingOption[] }) => (
-    <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-      <h3 className="text-white text-xl md:text-2xl font-bold mb-6 font-teko uppercase tracking-wide text-center">
+    <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10 h-full flex flex-col min-h-[280px]">
+      <h3 className="text-white text-xl md:text-2xl font-bold mb-8 font-teko uppercase tracking-wide text-center">
         {title}
       </h3>
       
-      <div className="space-y-4">
+      <div className="space-y-6 flex-1 flex flex-col justify-center">
         {pricing.map((option, index) => (
-          <div key={index} className="flex items-center justify-between py-3 border-b border-white/10 last:border-b-0">
+          <div key={index} className="flex items-center justify-between py-4 border-b border-white/10 last:border-b-0">
             <div className="flex items-center gap-3">
               {getIconForType(option.type)}
-              <span className="text-white/90 font-medium">{option.type}</span>
+              <span className="text-white/90 font-medium text-base">{option.type}</span>
             </div>
             <div className="text-right">
-              <span className="text-white font-bold text-lg">
+              <span className="text-white font-bold text-xl whitespace-nowrap">
                 {option.price}
               </span>
             </div>
@@ -136,34 +165,10 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "" 
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <RoomTypeCard title="Standard Room" pricing={standardRoomPricing} />
-          <RoomTypeCard title="Pool Facing" pricing={poolFacingPricing} />
-        </div>
-
-        {/* Additional Info */}
-        <div className="mt-12 text-center">
-          <div className="bg-[#ef4a25]/10 border border-[#ef4a25]/20 rounded-xl p-6 max-w-2xl mx-auto">
-            <h4 className="text-white font-bold text-lg mb-3">What&apos;s Included</h4>
-            <div className="grid sm:grid-cols-2 gap-3 text-sm text-white/80">
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-[#ef4a25] rounded-full"></div>
-                <span>All meals included</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-[#ef4a25] rounded-full"></div>
-                <span>Fitness training sessions</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-[#ef4a25] rounded-full"></div>
-                <span>Airport transfers</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-1.5 h-1.5 bg-[#ef4a25] rounded-full"></div>
-                <span>All activities</span>
-              </div>
-            </div>
-          </div>
+        <div className={`grid ${isSriLanka ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl' : 'md:grid-cols-2 max-w-4xl'} gap-8 mx-auto items-stretch`}>
+          {categories.map((cat, index) => (
+            <RoomTypeCard key={index} title={cat.title} pricing={cat.pricing} />
+          ))}
         </div>
       </div>
     </section>

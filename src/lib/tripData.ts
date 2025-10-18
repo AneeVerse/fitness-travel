@@ -69,10 +69,10 @@ const tripDataMap: Record<string, TripData> = {
         id: 'DAY1',
         day: 'Day 1',
         title: 'Arrival & Local Vibes',
-        description: '10:00 AM – Arrive at Colombo Airport, Transfer to Habaraduwa (approx. 2.5 hrs), Welcome Lunch at Surf and Zen - A wholesome Sri Lankan-style village meal served, Evening Briefing & Sunset Exploration - Choice of excursions: Cinnamon Island boat ride on Koggala Lake with tea tasting, Dinner Out - Dine at a local restaurant for a street-style Sri Lankan seafood experience',
+        description: '10:00 AM – Arrive at Colombo Airport\nWelcome to Moi resort | Enjoy a wholesome Sri Lankan-style village lunch\nEvening Briefing & Sunset Exploration\nDinner Outing',
         extraContent: 'Welcome to Sri Lanka with authentic local experiences and cultural immersion',
         time: '10:00 AM - 10:00 PM',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
         videoSrc: '/video/vids/vid (1).mp4',
       },
       {
@@ -82,7 +82,7 @@ const tripDataMap: Record<string, TripData> = {
         description: 'Class 1 – HIIT Session @ Surf & Zen Courtyard, Hydration Break: Fresh Thambili (king coconut) served as natural electrolyte, Class 2 – MetCon Power Circuit, Post-Training Breakfast: Local fruit bowls, and healthy Sri Lankan spread, Midday Excursion to Galle Fort, Walk the UNESCO heritage streets with a complimentary welcome drink at Moi Galle Fort Café, Lunch at a fort café of choice, Return by 7 PM – Dinner at Surf & Zen, Live action dinner night featuring Hoppers & other Sri Lankan healthy dinner items. Local musicians or drummers can be added at an extra cost',
         extraContent: 'Intensive training sessions combined with UNESCO World Heritage site exploration',
         time: 'Full Day',
-        image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
         videoSrc: '/video/vids/vid (2).mp4',
       },
       {
@@ -92,7 +92,7 @@ const tripDataMap: Record<string, TripData> = {
         description: 'Sunrise Beach Workout at Talpe Beach, HIIT & mobility drills followed by cool-down yoga stretches, Turtle Beach Feeding & Chill at Talpe Rock Pool, Experience natural tidal pools & turtle feeding, Breakfast by the Beach at Moi Talpe – Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit, Lunch at Surf & Zen – Sri Lankan healthy set menu, Afternoon at Leisure, Board games • Reading corners • Ayurvedic massages (optional add-on), Evening Transfer to Ahangama Beach, Chill at Kabalana Beach Bar – sunset party & local DJ session',
         extraContent: 'Beach training, wildlife encounters, and sunset celebrations',
         time: 'Sunrise - Late Evening',
-        image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 3.png',
         videoSrc: '/video/vids/vid (3).mp4',
       },
       {
@@ -102,7 +102,7 @@ const tripDataMap: Record<string, TripData> = {
         description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors — board & rash guard included, Breakfast at Surf and Zen, Late Morning: Shopping & café trail at Unawatuna Street, Lunch Outside, Evening Pool Workout & Recovery Session with mobility focus, Farewell Dinner & Drinks Night:, Sri Lankan BBQ & live music night under the stars with karaoke session, (Drinks arranged by Tiger Terrain Team)',
         extraContent: 'Surfing adventures, local shopping, and farewell celebrations',
         time: 'Full Day',
-        image: '/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 4.png',
         videoSrc: '/video/vids/vid (4).mp4',
       },
       {
@@ -112,7 +112,7 @@ const tripDataMap: Record<string, TripData> = {
         description: 'Morning Yoga & Grounding Session in the garden led by local instructor (1 hr), Breakfast at Surf & Zen: A farewell feast with local sweets & fresh juice, Group Photo & Farewell Gift: Surf & Zen × Tiger Terrain T-shirt or souvenir, Transfer to Colombo Airport',
         extraContent: 'Final yoga session, farewell breakfast, and departure with lasting memories',
         time: '8:00 AM - 2:00 PM',
-        image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 5.png',
         videoSrc: '/video/vids/vid (5).mp4',
       }
     ],
@@ -565,8 +565,8 @@ const tripDataMap: Record<string, TripData> = {
         'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Goa Fitcation welcomes everyone ready to transform their life in paradise.'
       ],
       images: [
-        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 1.png',
-        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 2.png',
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
         '/images/Goa Images/Hero Section images/TT Goa images.zip - Phuket Day 3.png'
       ]
     }
@@ -575,10 +575,10 @@ const tripDataMap: Record<string, TripData> = {
 
   'sri-lanka': {
     slug: 'sri-lanka',
-    title: 'MOI × TIGER TERRAIN',
-    description: '5 Days / 4 Nights – Fitness + Travel Retreat at Surf & Zen – Habaraduwa, Sri Lanka. Experience the perfect blend of fitness training, cultural exploration, and tropical paradise in one of Asia\'s most beautiful destinations.',
+    title: 'TIGER TERRAIN X MOI',
+    description: '5 Days / 4 Nights – Fitness + Travel Retreat at Moi Resorts – Habaraduwa, Sri Lanka. Experience the perfect blend of fitness training, cultural exploration, and tropical paradise in one of Asia\'s most beautiful destinations.',
     dates: 'Dec 10 – 14, 2025',
-    stay: 'Surf & Zen – Habaraduwa\nTwin Sharing Basis',
+    stay: 'Moi Resorts – Habaraduwa',
     location: 'Habaraduwa, Sri Lanka',
     heroVideo: '/video/BG2.mp4',
     highlights: [
@@ -596,62 +596,62 @@ const tripDataMap: Record<string, TripData> = {
         id: 'DAY1',
         day: 'Day 1',
         title: 'Arrival & Local Vibes',
-        description: '10:00 AM – Arrive at Colombo Airport\nTransfer to Habaraduwa (approx. 2.5 hrs)\nWelcome Lunch at Surf and Zen\nA wholesome Sri Lankan-style village meal served\nEvening Briefing & Sunset Exploration\nChoice of excursions:\nCinnamon Island boat ride on Koggala Lake with tea tasting\nDinner Out\nDine at a local restaurant for a street-style Sri Lankan seafood experience',
+        description: '10:00 AM – Arrive at Colombo Airport\nWelcome to Moi resort | Enjoy a wholesome Sri Lankan-style village lunch\nEvening Briefing & Sunset Exploration\nDinner Outing',
         extraContent: 'Welcome to Sri Lanka with authentic local experiences and cultural immersion',
         time: '10:00 AM - 10:00 PM',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
         videoSrc: '/video/vids/vid (1).mp4',
       },
       {
         id: 'DAY2',
         day: 'Day 2',
         title: 'Sweat & Explore',
-        description: 'Class 1 – HIIT Session @ Surf & Zen Courtyard\nHydration Break: Fresh Thambili (king coconut) served as natural electrolyte\nClass 2 – MetCon Power Circuit\nPost-Training Breakfast: Local fruit bowls, and healthy Sri Lankan spread\nMidday Excursion to Galle Fort\nWalk the UNESCO heritage streets with a complimentary welcome drink at Moi Galle Fort Café\nLunch at a fort café of choice\nReturn by 7 PM – Dinner at Surf & Zen\nLive action dinner night featuring Hoppers & other Sri Lankan healthy dinner items. Local musicians or drummers can be added at an extra cost',
+        description: 'Class 1 – HIIT Session @ Moi resort\nHydration Break: Fresh Thambili (king coconut) served as natural electrolyte\nClass 2 – MetCon Power Circuit\nPost-Training Breakfast: Local fruit bowls, and healthy Sri Lankan spread\nMidday Excursion to Galle Fort\nReturn by 7 PM – Dinner at Moi resort',
         extraContent: 'A perfect blend of fitness training and cultural exploration in historic Galle',
         time: 'All Day',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
         videoSrc: '/video/vids/vid (2).mp4',
       },
       {
         id: 'DAY3',
         day: 'Day 3',
         title: 'Beach & Balance',
-        description: 'Sunrise Beach Workout at Talpe Beach\nHIIT & mobility drills followed by cool-down yoga stretches\nTurtle Beach Feeding & Chill at Talpe Rock Pool\nExperience natural tidal pools & turtle feeding\nBreakfast by the Beach at Moi Talpe – Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit\nLunch at Surf & Zen – Sri Lankan healthy set menu\nAfternoon at Leisure\nBoard games • Reading corners • Ayurvedic massages (optional add-on)\nEvening Transfer to Ahangama Beach\nChill at Kabalana Beach Bar – sunset party & local DJ session',
+        description: 'Sunrise Beach Workout at Talpe Beach\nTurtle Beach Feeding & Chill at Talpe Rock Pool\nBreakfast by the Beach at Moi Talpe – Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit\nLunch at Moi resort – Sri Lankan healthy set menu\nAfternoon at Leisure\nEvening Transfer to Ahangama Beach',
         extraContent: 'Beach workouts, turtle encounters, and sunset celebrations by the ocean',
         time: 'Sunrise - Evening',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 3.png',
         videoSrc: '/video/vids/vid (3).mp4',
       },
       {
         id: 'DAY4',
         day: 'Day 4',
         title: 'Ride the Waves & Recover',
-        description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors — board & rash guard included\nBreakfast at Surf and Zen\nLate Morning: Shopping & café trail at Unawatuna Street\nLunch Outside\nEvening Pool Workout & Recovery Session with mobility focus\nFarewell Dinner & Drinks Night:\nSri Lankan BBQ & live music night under the stars with karaoke session\n(Drinks arranged by Tiger Terrain Team)',
+        description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors — board & rash guard included\nBreakfast at Moi resort\nLate Morning: Shopping & café trail at Unawatuna Street\nLunch Outside\nEvening Pool Workout & Recovery Session with mobility focus\nFarewell Dinner & Drinks Night:',
         extraContent: 'Surfing adventures, local shopping, and farewell celebrations with BBQ and music',
         time: 'Morning - Night',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 4.png',
         videoSrc: '/video/vids/vid (4).mp4',
       },
       {
         id: 'DAY5',
         day: 'Day 5',
         title: 'Ground & Go',
-        description: 'Morning Yoga & Grounding Session in the garden led by local instructor (1 hr)\nBreakfast at Surf & Zen: A farewell feast with local sweets & fresh juice\nGroup Photo & Farewell Gift: Surf & Zen × Tiger Terrain T-shirt or souvenir\nTransfer to Colombo Airport',
+        description: 'Morning Yoga & Grounding Session in the garden.\nBreakfast at Moi resort: A farewell feast with local sweets & fresh juice.\nGroup Photos and Final Farewell\nTransfer to Colombo Airport.',
         extraContent: 'Final moments of mindfulness and departure with memorable keepsakes',
         time: '8:00 AM - Departure',
-        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 5.png',
         videoSrc: '/video/vids/vid (5).mp4',
       }
     ],
     pricing: {
       tourA: {
         title: 'Moi × Tiger Terrain Sri Lanka Retreat',
-        cost: 'USD 950',
+        cost: 'Rs. 59,400 Per Person',
         duration: '5 Days / 4 Nights',
         dates: 'Dec 10 – 14, 2025',
         includes: [
-          'Accommodation at Surf & Zen – Habaraduwa (4 Nights)',
-          'All Meals (Welcome Lunch, Breakfast, Lunch, Dinner)',
+          'Accommodation at Moi Resorts – Habaraduwa (4 Nights)',
+          '2 x Meals (Breakfast, Lunch/Dinner)',
           'HIIT & MetCon Power Circuit Training Sessions',
           'Sunrise Beach Workouts & Yoga Sessions',
           'Surfing Lessons with Certified Instructors (Board & Rash Guard Included)',
@@ -660,8 +660,9 @@ const tripDataMap: Record<string, TripData> = {
           'Turtle Beach Feeding Experience',
           'Airport Transfers (Colombo Airport)',
           'Local Transportation for All Activities',
-          'Fresh Thambili (King Coconut) Hydration',
-          'Farewell Gift: Surf & Zen × Tiger Terrain T-shirt'
+          'Sadhu Board Therapy',
+          'Pool Workout and Recovery',
+          'Farewell Drinks And Dinner'
         ],
         excludes: [
           'International Airfare to/from Colombo',
@@ -670,21 +671,22 @@ const tripDataMap: Record<string, TripData> = {
           'Personal Expenses & Shopping',
           'Optional Ayurvedic Massages',
           'Alcoholic Beverages (except farewell night)',
-          'Tips for Local Staff & Instructors'
+          'Tips for Local Staff & Instructors',
+          'Additional or private sessions'
         ]
       }
     },
     overview: {
-      mainTitle: 'TRANSFORM YOUR FITNESS JOURNEY IN PARADISE',
+      mainTitle: 'JOIN US FOR A FITNESS JOURNEY IN SRI LANKA',
       subtitle: 'Why Choose Sri Lanka with Moi × Tiger Terrain?',
       description: [
-        'Experience the perfect fusion of fitness and culture in Sri Lanka\'s stunning southern coast. Our retreat at Surf & Zen in Habaraduwa combines high-intensity training with authentic Sri Lankan experiences. From sunrise beach workouts to UNESCO heritage exploration, every moment is designed to challenge your body and enrich your soul.',
-        'Whether you\'re mastering the waves with professional surf instructors, exploring ancient Galle Fort, or feeding turtles in natural tidal pools, this retreat offers the ideal balance of adventure, wellness, and cultural immersion in one of the world\'s most beautiful tropical destinations.'
+        'Experience the perfect fusion of fitness and culture in Sri Lanka\'s stunning southern coast. Moi Resort in Habaraduwa combines high-intensity training with authentic Sri Lankan experiences. From sunrise beach workouts to UNESCO heritage exploration, every moment is designed to challenge your body and enrich your soul.',
+        'Whether you\'re mastering the waves with professional surf instructors, exploring ancient Galle Fort, or feeding turtles in natural tidal pools, this retreat offers the ideal balance of fitness, adventure, wellness, and cultural immersion in one of the world\'s most beautiful tropical destinations.'
       ],
       images: [
-        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 1.png',
-        '/images/Goa Images/Hero Section images/TT Goa images.zip - Goa Intro Image 2.png',
-        '/images/Goa Images/Hero Section images/TT Goa images.zip - Phuket Day 3.png'
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        '/images/srilanka day images/Untitled design.zip - 1.png',
+        '/images/srilanka day images/Untitled design.zip - 2.png'
       ]
     }
   }

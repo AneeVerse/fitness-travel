@@ -32,7 +32,7 @@ export default async function ItineraryPage({ params }: PageProps) {
       <ItineraryHero tripData={tripData} />
       <OverviewSection tripData={tripData} />
       <ItineraryDays tripData={tripData} />
-      <RoomPricingSection />
+      <RoomPricingSection tripData={tripData} />
       <TripDetailsSection tripData={tripData} />
       <ItineraryFormWrapper tripData={tripData} />
       <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
