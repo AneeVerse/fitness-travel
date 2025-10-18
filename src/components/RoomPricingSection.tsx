@@ -144,7 +144,7 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "" 
         {/* Additional Info */}
         <div className="mt-12 text-center">
           <div className="bg-[#ef4a25]/10 border border-[#ef4a25]/20 rounded-xl p-6 max-w-2xl mx-auto">
-            <h4 className="text-white font-bold text-lg mb-3">What's Included</h4>
+            <h4 className="text-white font-bold text-lg mb-3">What&apos;s Included</h4>
             <div className="grid sm:grid-cols-2 gap-3 text-sm text-white/80">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 bg-[#ef4a25] rounded-full"></div>
