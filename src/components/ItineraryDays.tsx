@@ -139,10 +139,10 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
   const duplicatedDays = Array.from({ length: COPIES }).flatMap(() => itineraryDays);
 
   return (
-    <section id="itinerary-days" className="relative py-12 md:py-16 bg-black z-[10] overflow-visible">
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-12">
+    <section id="itinerary-days" className="relative py-0 md:py-16 bg-black z-[10] overflow-visible ">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 pt-2">
         {/* Section Title */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-2">
           <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#ef4a25] uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
             ITINERARY DAYS
           </h2>
