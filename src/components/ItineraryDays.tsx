@@ -147,7 +147,7 @@ const ItineraryDays: React.FC<ItineraryDaysProps> = ({ tripData }) => {
             ITINERARY DAYS
           </h2>
           <p className="text-white/80 text-xs sm:text-sm md:text-lg mt-4 max-w-2xl mx-auto">
-            Your {itineraryDays.length}-day fitness journey in {tripData.location} - explore each day&apos;s activities and adventures
+            Your {itineraryDays.length}-day fitness journey in {tripData.location} <br />explore each day&apos;s activities and adventures
           </p>
         </div>
 

@@ -64,7 +64,7 @@ const events: EventItem[] = [
     title: 'SRI LANKA',
     description:
       'Discover the pearl of the Indian Ocean with our Sri Lanka Fitcation! Experience ancient culture, pristine beaches, and challenging workouts.',
-    date: '10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)',
+    date: '10th Dec 2025 - 14th Dec 2025\n(Sri Lanka Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 06:00 AM – Finish',
     location: 'Sri Lanka',
@@ -79,7 +79,7 @@ const events: EventItem[] = [
     title: 'PHUKET',
     description:
       'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: '18th Jan 2026 to 25th Jan 2026 (Phuket Edition)',
+    date: '18th Jan 2026 to 25th Jan 2026\n(Phuket Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -94,7 +94,7 @@ const events: EventItem[] = [
     title: 'PHUKET HYROX',
     description:
       'Experience the ultimate fitness challenge with our BKK Hyrox Edition in Phuket. Combine competitive training with tropical paradise.',
-    date: '15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)',
+    date: '15th Mar 2026 - 22nd Mar 2026\n(BKK Hyrox Edition-Phuket)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -109,7 +109,7 @@ const events: EventItem[] = [
     title: 'PHUKET SONGKRAN',
     description:
       'Celebrate Thai New Year with an incredible fitness journey. Experience Songkran festivities while achieving your fitness goals.',
-    date: '12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)',
+    date: '12th Apr 2026 - 19th April 2026\n(Songkran Edition-Phuket)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -124,7 +124,7 @@ const events: EventItem[] = [
     title: 'SRI LANKA',
     description:
       'Return to the pearl of the Indian Ocean for another transformative fitness experience with ancient wisdom and modern training.',
-    date: '29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)',
+    date: '29th Apr 2026 - 3rd May 2026\n(Sri Lanka Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 06:00 AM – Finish',
     location: 'Sri Lanka',
@@ -139,7 +139,7 @@ const events: EventItem[] = [
     title: 'PHUKET FINALE',
     description:
       'End the year with our grand finale in Phuket. The ultimate fitness celebration combining all our best experiences.',
-    date: '27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)',
+    date: '27th Sep 2026 - 4th Oct 2026\n(Phuket Finale Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -541,7 +541,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                     <path d="M3 10h18v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8z" />
                                   </svg>
                                   <div>
-                                    <span className="select-none leading-tight font-medium">{event.date}</span>
+                                    <span className="select-none leading-tight font-medium whitespace-pre-line">{event.date}</span>
                                   </div>
                                 </div>
                                 <div className="flex items-start gap-3 select-none">
