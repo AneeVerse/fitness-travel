@@ -76,11 +76,11 @@ const TripDetailsSection: React.FC<TripDetailsSectionProps> = ({ tripData }) => 
   return (
     <section id="trip-details" className="py-10 sm:py-12 md:py-14 bg-black min-h-screen flex items-center">
       <div className="max-w-[1200px] mx-auto px-6 sm:px-8 lg:px-12 w-full">
-        
+       
         {/* Centered Title */}
         <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight">
-            {tripData.title}<br /> <span className="text-[#ef4a25]">Package Details</span>
+          <h2 className="text-sm xs:text-base sm:text-xl md:text-5xl lg:text-6xl xl:text-4xl font-bold text-white font-unbounded leading-tight whitespace-nowrap">
+            <span className="block sm:inline">{tripData.title}</span><br className="hidden sm:block" /> <span className="text-[#ef4a25]">Package Details</span>
           </h2>
           <div className="w-24 h-1 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>
@@ -102,7 +102,7 @@ const TripDetailsSection: React.FC<TripDetailsSectionProps> = ({ tripData }) => 
               </button>
             ))}
           </div>
-        </div>
+        </div> 
 
         {/* Content - Two Columns of Bullet Points */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 max-w-5xl mx-auto">

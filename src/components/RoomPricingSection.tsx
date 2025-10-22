@@ -122,24 +122,24 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
   };
 
   const RoomTypeCard = ({ title, pricing }: { title: string; pricing: PricingOption[] }) => (
-    <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-8 border border-white/10 h-full flex flex-col min-h-[280px]">
-      <h3 className="text-white text-xl md:text-2xl font-bold mb-8 font-teko uppercase tracking-wide text-center">
+    <div className="bg-black/80 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-white/10 h-full flex flex-col min-h-[200px] md:min-h-[280px]">
+      <h3 className="text-white text-lg md:text-xl lg:text-2xl font-bold  mb-4 md:mb-8 font-teko uppercase tracking-wide text-center">
         {title}
       </h3>
       
-      <div className="space-y-6 flex-1 flex flex-col justify-center">
+      <div className="space-y-3 md:space-y-6 flex-1 flex flex-col justify-center">
         {pricing.map((option, index) => (
-          <div key={index} className="flex items-center justify-between py-4 border-b border-white/10 last:border-b-0">
-            <div className="flex items-center gap-3">
+          <div key={index} className="flex items-center justify-between py-2 md:py-4 border-b border-white/10 last:border-b-0">
+            <div className="flex items-center gap-2 md:gap-3">
               {getIconForType(option.type)}
-              <span className="text-white/90 font-medium text-base">{option.type}</span>
+              <span className="text-white/90 font-medium text-sm md:text-base">{option.type}</span>
             </div>
             <div className="text-right">
-              <span className="text-white font-bold text-xl whitespace-nowrap">
+              <span className="text-white font-bold text-lg md:text-xl whitespace-nowrap">
                 {option.price}
               </span>
               {isSriLanka && (
-                <div className="text-white/60 text-sm mt-1">
+                <div className="text-white/60 text-xs md:text-sm mt-1">
                   Per Person
                 </div>
               )}
@@ -151,7 +151,7 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
   );
 
   return (
-    <section className={`py-12 md:py-16 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden ${className}`}>
+    <section className={`py-6 md:py-16 bg-gradient-to-b from-black via-gray-900 to-black relative overflow-hidden ${className}`}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-32 h-32 bg-[#ef4a25] rounded-full blur-3xl"></div>
@@ -160,20 +160,40 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-[#ef4a25] uppercase mb-4 font-teko tracking-wide">
+        <div className="text-center mb-10 mt-6 md:mb-12">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-[#ef4a25] uppercase mb-2 md:mb-4 font-teko tracking-wide">
             Room Pricing
           </h2>
-          <p className="text-white/80 text-lg max-w-2xl mx-auto">
+          <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
             Choose your perfect accommodation option with transparent pricing
           </p>
         </div>
 
         {/* Pricing Cards Grid */}
-        <div className={`grid ${isSriLanka ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl' : 'md:grid-cols-2 max-w-4xl'} gap-8 mx-auto items-stretch`}>
+        <div className={`grid ${isSriLanka ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl' : 'md:grid-cols-2 max-w-4xl'} gap-4 md:gap-8 mx-auto items-stretch`}>
           {categories.map((cat, index) => (
             <RoomTypeCard key={index} title={cat.title} pricing={cat.pricing} />
           ))}
+        </div>
+
+        {/* Book Now Button */}
+        <div className="text-center mt-6 md:mt-12">
+          <button 
+            onClick={() => {
+              const formSection = document.querySelector('section:has(form)') || 
+                                document.querySelector('[class*="ItineraryForm"]') ||
+                                document.querySelector('form');
+              if (formSection) {
+                formSection.scrollIntoView({ 
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }}
+            className="bg-[#ef4a25] hover:bg-[#d63916] text-white font-bold py-1 px-6 md:py-4 md:px-12 rounded-full text-sm md:text-xl font-teko uppercase tracking-wide transition-colors duration-300 shadow-lg hover:shadow-xl"
+          >
+            BOOK NOW
+          </button>
         </div>
       </div>
     </section>

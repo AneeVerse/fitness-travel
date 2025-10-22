@@ -9,6 +9,7 @@ const Navbar = () => {
   const [isNavigating, setIsNavigating] = useState(false)
 
   const navItems = [
+    { name: "HOME", href: "/", hasDropdown: false },
     { name: "UPCOMING TRIPS", href: "/itinerary", hasDropdown: false },
     { name: "ABOUT", href: "/about", hasDropdown: false },
     { name: "FAQ", href: "/faq", hasDropdown: false },

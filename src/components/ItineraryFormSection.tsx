@@ -41,9 +41,9 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
   const allDateOptions = [
     { value: "SRI_LANKA_DEC", label: "10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)", location: "sri-lanka" },
     { value: "PHUKET_JAN", label: "18th Jan 2026 to 25th Jan 2026 (Phuket Edition)", location: "phuket" },
-    { value: "PHUKET_HYROX", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)", location: "phuket" },
+    // { value: "PHUKET_HYROX", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)", location: "phuket" },
     { value: "PHUKET_SONGKRAN", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)", location: "phuket" },
-    { value: "SRI_LANKA_MAY", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)", location: "sri-lanka" },
+    // { value: "SRI_LANKA_MAY", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)", location: "sri-lanka" },
     { value: "PHUKET_FINALE", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)", location: "phuket" },
   ]
   
