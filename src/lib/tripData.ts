@@ -48,7 +48,7 @@ export interface TripData {
 const tripDataMap: Record<string, TripData> = {
   srilanka: {
     slug: 'srilanka',
-    title: 'SRI LANKA FITCATION',
+    title: 'TIGER TERRAIN X MOI',
     description: 'Moi × Tiger Terrain 5 Days / 4 Nights – Fitness + Travel Retreat. Experience the perfect blend of fitness training, cultural exploration, and beach adventures in the beautiful coastal town of Habaraduwa, Sri Lanka.',
     dates: 'Coming Soon',
     stay: 'Surf & Zen - Habaraduwa',

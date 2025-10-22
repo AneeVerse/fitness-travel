@@ -303,7 +303,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
                         Submitting...
                       </div>
                     ) : (
-                      "See itinerary and pricing"
+                      "Limited spots. Book Now.."
                     )}
                   </button>
                 </div>

@@ -138,6 +138,11 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
               <span className="text-white font-bold text-xl whitespace-nowrap">
                 {option.price}
               </span>
+              {isSriLanka && (
+                <div className="text-white/60 text-sm mt-1">
+                  Per Person
+                </div>
+              )}
             </div>
           </div>
         ))}
