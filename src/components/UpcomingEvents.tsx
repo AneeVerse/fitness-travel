@@ -161,6 +161,8 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const [flippedCards] = useState<Set<string>>(new Set());
   const [displayedSlots, setDisplayedSlots] = useState(25);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [badgeNumbers, setBadgeNumbers] = useState<Record<string, number>>({});
+  const [badgeLoading, setBadgeLoading] = useState(true);
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const translateX = useRef(0);
@@ -172,16 +174,43 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const searchParams = useSearchParams();
   const currentEventIdParam = searchParams?.get('date');
 
-  // Get global badge numbers from environment variables
-  const globalBadgeNumbers = {
-    phuket: parseInt(process.env.NEXT_PUBLIC_PHUKET_BADGE_NUMBER || '20'),
-    sriLanka: parseInt(process.env.NEXT_PUBLIC_SRI_LANKA_BADGE_NUMBER || '15')
-  };
+  // Fetch badge numbers from database
+  useEffect(() => {
+    const fetchBadgeNumbers = async () => {
+      try {
+        setBadgeLoading(true);
+        const response = await fetch('/api/badge-numbers');
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          const badgeMap: Record<string, number> = {};
+          result.data.forEach((item: { eventId: string; badgeNumber: number }) => {
+            badgeMap[item.eventId] = item.badgeNumber;
+          });
+          setBadgeNumbers(badgeMap);
+        }
+      } catch (error) {
+        console.error('Error fetching badge numbers:', error as Error);
+        // Fallback to default values if API fails
+        setBadgeNumbers({
+          'SRI_LANKA_DEC': 15,
+          'PHUKET_JAN': 20,
+          'PHUKET_SONGKRAN': 18,
+          'PHUKET_FINALE': 22,
+        });
+      } finally {
+        setBadgeLoading(false);
+      }
+    };
+
+    fetchBadgeNumbers();
+  }, []);
 
   // Function to get badge number for specific event
   const getBadgeNumber = (eventId: string): number => {
-    if (eventId.toLowerCase().includes('phuket')) return globalBadgeNumbers.phuket;
-    if (eventId.toLowerCase().includes('sri_lanka')) return globalBadgeNumbers.sriLanka;
+    if (badgeNumbers[eventId] !== undefined) {
+      return badgeNumbers[eventId];
+    }
     // Fallback to displayedSlots for any other events
     return displayedSlots;
   };
