@@ -43,7 +43,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Navigation (centered) */}
-            <div className="hidden md:flex items-center justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 absolute left-1/2 transform -translate-x-1/2 md:mt-1 lg:mt-0">
+            <div className="hidden lg:flex items-center justify-center gap-4 md:gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 absolute left-1/2 transform -translate-x-1/2 md:mt-1 lg:mt-0">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -75,7 +75,7 @@ const Navbar = () => {
             </div>
 
             {/* Right-aligned CTA */}
-            <div className="hidden md:flex items-center gap-2 md:gap-3 lg:gap-4 md:mt-1 lg:mt-0">
+            <div className="hidden lg:flex items-center gap-2 md:gap-3 lg:gap-4 md:mt-1 lg:mt-0">
               <a
                 href="https://wa.me/917021015803"
                 target="_blank"
@@ -104,7 +104,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile menu button */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="inline-flex items-center justify-center p-2 sm:p-2.5 md:p-3 rounded-md text-white hover:text-[#ef4a25] hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#ef4a25] transition-colors duration-200 z-50"
@@ -137,7 +137,7 @@ const Navbar = () => {
 
       {/* Full Screen Mobile Menu */}
       <div
-        className={`md:hidden fixed inset-0 z-[9998] transition-all duration-500 ease-in-out ${
+        className={`lg:hidden fixed inset-0 z-[9998] transition-all duration-500 ease-in-out ${
           isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
