@@ -53,7 +53,7 @@ const PartnerSection = () => {
 
   useEffect(() => {
     const updateSpeed = () => {
-      speedRef.current = window.innerWidth < 768 ? 1.6 : 0.8;
+      speedRef.current = window.innerWidth < 768 ? 0.6 : 0.8;
     };
     updateSpeed();
     window.addEventListener('resize', updateSpeed);

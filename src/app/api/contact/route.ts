@@ -9,7 +9,6 @@ export async function POST(request: NextRequest) {
       lastName, 
       email, 
       phone, 
-      pdfLink, 
       name, 
       fullName,
       tripDate,
@@ -19,9 +18,8 @@ export async function POST(request: NextRequest) {
       message
     } = body;
 
-    // Get the full URL for the PDF (use site domain from env or construct from request)
+    // Get the site URL for any future use
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tigerterrain.in';
-    const fullPdfLink = pdfLink?.startsWith('http') ? pdfLink : `${siteUrl}${pdfLink}`;
 
     // Handle different form types
     let finalFirstName = firstName;
@@ -90,16 +88,6 @@ export async function POST(request: NextRequest) {
                 <li>We'll contact you to discuss your adventure details</li>
               </ul>
             </div>
-            
-            ${body.isGoa ? `` : `
-            <div style="background: white; padding: 20px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #ef4a25;">
-              <h3 style="color: #ef4a25; margin-top: 0;">Your Itinerary PDF</h3>
-              <p style="color: #555; line-height: 1.6; margin-bottom: 15px;">
-                Access your complete itinerary and pricing details:
-              </p>
-              <a href="${fullPdfLink}" style="display: inline-block; background: #ef4a25; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Download Itinerary PDF</a>
-            </div>
-            `}
             
             <p style="color: #555; line-height: 1.6; margin-bottom: 20px;">
               If you have any immediate questions, feel free to reply to this email or call us directly.

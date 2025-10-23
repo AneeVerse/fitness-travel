@@ -101,7 +101,6 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
           lastName: formData.name.split(' ').slice(1).join(' ') || '',
           email: formData.email,
           phone: formData.phone,
-          pdfLink: '/pdf/TT Brochure.pdf',
           formType: "itinerary-booking",
           subject: `Itinerary Booking Request - ${formData.date}`,
           // Send detailed booking information
@@ -303,7 +302,10 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
                         Submitting...
                       </div>
                     ) : (
-                      "Limited spots. Book Now."
+                      <span className="block sm:inline">
+                        Limited spots.{" "}
+                        <span className="block sm:inline">Book Now.</span>
+                      </span>
                     )}
                   </button>
                 </div>

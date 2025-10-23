@@ -120,7 +120,6 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
           lastName: formData.fullName.split(' ').slice(1).join(' ') || '',
           email: formData.email,
           phone: formData.phone,
-          pdfLink: '/pdf/TT Brochure.pdf',
           formType: 'pricing-modal',
           subject: `Pricing Request from ${formData.fullName}`,
           tripDate: dateOptions.find((opt) => opt.value === formData.date)?.label || formData.date,
@@ -136,12 +135,6 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
       if (!response.ok) {
         throw new Error('Failed to submit form');
       }
-
-      // Download the local PDF file
-      const link = document.createElement('a');
-      link.href = '/pdf/TT Brochure.pdf';
-      link.download = 'Tiger-Terrain-Itinerary.pdf';
-      link.click();
 
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -409,7 +402,7 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                           Sending Request...
                         </div>
                       ) : (
-                        'Book Now & Get PDF'
+                        'Submit Request'
                       )}
                     </button>
 
@@ -418,17 +411,14 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
                 </>
               ) : (
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4 font-unbounded">Thank You!</h3>
-                  <p className="text-gray-600 mb-4">
-                    Your booking request has been submitted successfully! Our team will get back to you soon to discuss your adventure.
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    We&apos;ve sent pricing information and the PDF link to your email. The PDF has also been downloaded to your device.
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 font-unbounded">Request Submitted!</h3>
+                  <p className="text-gray-600 text-sm">
+                    Thank you for your interest! Our team will contact you within 24 hours with pricing details and next steps.
                   </p>
                 </div>
               )}
