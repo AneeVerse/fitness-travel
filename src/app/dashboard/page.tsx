@@ -17,6 +17,8 @@ const Dashboard: React.FC = () => {
   const [updating, setUpdating] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [badgeInputs, setBadgeInputs] = useState<Record<string, string>>({});
+  const [slotInputs, setSlotInputs] = useState<Record<string, string>>({});
   const router = useRouter();
 
   // Show message helper function
@@ -108,16 +110,64 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  const updateTotalSlots = async (eventId: string, newTotalSlots: number) => {
+    try {
+      setUpdating(eventId);
+      const response = await fetch(`/api/badge-numbers/${eventId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ totalSlots: newTotalSlots }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.success) {
+        setBadgeNumbers(prev => 
+          prev.map(item => 
+            item.eventId === eventId 
+              ? { ...item, totalSlots: newTotalSlots, updatedAt: new Date() }
+              : item
+          )
+        );
+        showMessage('success', `Updated ${eventId} total slots to ${newTotalSlots}`);
+      } else {
+        showMessage('error', result.error || 'Failed to update total slots');
+      }
+    } catch (error) {
+      showMessage('error', 'Network error occurred');
+      console.error('Error updating total slots:', error);
+    } finally {
+      setUpdating(null);
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem('admin_authenticated');
     localStorage.removeItem('admin_email');
     router.push('/admin/login');
   };
 
-  const handleInputChange = (eventId: string, value: string) => {
-    const numValue = parseInt(value);
-    if (!isNaN(numValue) && numValue >= 0) {
-      updateBadgeNumber(eventId, numValue);
+  const handleBadgeSubmit = (eventId: string) => {
+    const value = badgeInputs[eventId];
+    if (value) {
+      const numValue = parseInt(value);
+      if (!isNaN(numValue) && numValue >= 0) {
+        updateBadgeNumber(eventId, numValue);
+        setBadgeInputs(prev => ({ ...prev, [eventId]: '' }));
+      }
+    }
+  };
+
+  const handleSlotSubmit = (eventId: string) => {
+    const value = slotInputs[eventId];
+    if (value) {
+      const numValue = parseInt(value);
+      if (!isNaN(numValue) && numValue > 0) {
+        updateTotalSlots(eventId, numValue);
+        setSlotInputs(prev => ({ ...prev, [eventId]: '' }));
+      }
     }
   };
 
@@ -202,14 +252,14 @@ const Dashboard: React.FC = () => {
               key={item.eventId}
               className="bg-gray-900 rounded-lg p-6 border border-gray-700 hover:border-[#ef4a25] transition-colors"
             >
-              <div className="mb-4">
+              <div className="mb-6">
                 <h3 className="text-xl font-semibold text-[#ef4a25] mb-1">
                   {item.eventTitle}
                 </h3>
                 <p className="text-sm text-gray-400">ID: {item.eventId}</p>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {/* Current Badge Number */}
                 <div className="flex items-center justify-between">
                   <span className="text-gray-300">Current Badge:</span>
@@ -236,9 +286,9 @@ const Dashboard: React.FC = () => {
                   />
                 </div>
 
-                {/* Input Controls */}
-                <div className="space-y-2">
-                  <label className="block text-sm text-gray-300">
+                {/* Badge Number Input */}
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-gray-300">
                     Update Badge Number:
                   </label>
                   <div className="flex gap-2">
@@ -246,52 +296,58 @@ const Dashboard: React.FC = () => {
                       type="number"
                       min="0"
                       max={item.totalSlots}
-                      defaultValue={item.badgeNumber}
-                      className="flex-1 bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-[#ef4a25] focus:outline-none"
-                      onBlur={(e) => {
-                        const value = e.target.value;
-                        if (value !== item.badgeNumber.toString()) {
-                          handleInputChange(item.eventId, value);
-                        }
-                      }}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
-                          const value = (e.target as HTMLInputElement).value;
-                          if (value !== item.badgeNumber.toString()) {
-                            handleInputChange(item.eventId, value);
-                          }
-                        }
-                      }}
+                      value={badgeInputs[item.eventId] || ''}
+                      onChange={(e) => setBadgeInputs(prev => ({ ...prev, [item.eventId]: e.target.value }))}
+                      placeholder={item.badgeNumber.toString()}
+                      className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white focus:border-[#ef4a25] focus:outline-none focus:ring-1 focus:ring-[#ef4a25]"
                       disabled={updating === item.eventId}
                     />
-                    {updating === item.eventId && (
-                      <div className="flex items-center px-3">
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#ef4a25]"></div>
-                      </div>
-                    )}
+                    <button
+                       onClick={() => handleBadgeSubmit(item.eventId)}
+                       disabled={updating === item.eventId || !badgeInputs[item.eventId]}
+                       className="bg-[#ef4a25] hover:bg-[#d63916] disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                     >
+                       Submit
+                     </button>
                   </div>
                 </div>
 
-                {/* Quick Actions */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => updateBadgeNumber(item.eventId, Math.max(0, item.badgeNumber - 1))}
-                    disabled={updating === item.eventId || item.badgeNumber <= 0}
-                    className="flex-1 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-500 text-white py-2 px-3 rounded text-sm transition-colors"
-                  >
-                    -1
-                  </button>
-                  <button
-                    onClick={() => updateBadgeNumber(item.eventId, Math.min(item.totalSlots, item.badgeNumber + 1))}
-                    disabled={updating === item.eventId || item.badgeNumber >= item.totalSlots}
-                    className="flex-1 bg-gray-700 hover:bg-gray-600 disabled:bg-gray-800 disabled:text-gray-500 text-white py-2 px-3 rounded text-sm transition-colors"
-                  >
-                    +1
-                  </button>
+                {/* Total Slots Input */}
+                <div className="space-y-3">
+                  <label className="block text-sm font-medium text-gray-300">
+                    Update Total Slots:
+                  </label>
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      min="1"
+                      max="999"
+                      value={slotInputs[item.eventId] || ''}
+                      onChange={(e) => setSlotInputs(prev => ({ ...prev, [item.eventId]: e.target.value }))}
+                      placeholder={item.totalSlots.toString()}
+                      className="flex-1 bg-gray-800 border border-gray-600 rounded-lg px-3 py-2 text-white focus:border-[#ef4a25] focus:outline-none focus:ring-1 focus:ring-[#ef4a25]"
+                      disabled={updating === item.eventId}
+                    />
+                    <button
+                      onClick={() => handleSlotSubmit(item.eventId)}
+                      disabled={updating === item.eventId || !slotInputs[item.eventId]}
+                      className="bg-[#ef4a25] hover:bg-[#d63916] disabled:bg-gray-600 disabled:cursor-not-allowed text-white px-4 py-2 rounded-lg font-medium transition-colors"
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </div>
 
+                {/* Loading Indicator */}
+                {updating === item.eventId && (
+                  <div className="flex items-center justify-center py-2">
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#ef4a25]"></div>
+                    <span className="ml-2 text-sm text-gray-400">Updating...</span>
+                  </div>
+                )}
+
                 {/* Last Updated */}
-                <div className="text-xs text-gray-500 pt-2 border-t border-gray-700">
+                <div className="text-xs text-gray-500 text-center pt-2 border-t border-gray-700">
                   Last updated: {new Date(item.updatedAt).toLocaleString()}
                 </div>
               </div>

@@ -11,9 +11,10 @@ export async function PUT(
     const body = await request.json();
     const { badgeNumber, eventTitle, totalSlots } = body;
     
-    if (badgeNumber === undefined) {
+    // Check if at least one field is provided for update
+    if (badgeNumber === undefined && totalSlots === undefined && !eventTitle) {
       return NextResponse.json(
-        { success: false, error: 'Badge number is required' },
+        { success: false, error: 'At least one field (badgeNumber, totalSlots, or eventTitle) is required for update' },
         { status: 400 }
       );
     }
@@ -22,12 +23,12 @@ export async function PUT(
     const collection = db.collection<BadgeNumber>(COLLECTION_NAME);
     
     const updateData: Partial<BadgeNumber> = {
-      badgeNumber: parseInt(badgeNumber),
       updatedAt: new Date(),
     };
     
+    if (badgeNumber !== undefined) updateData.badgeNumber = parseInt(badgeNumber);
     if (eventTitle) updateData.eventTitle = eventTitle;
-    if (totalSlots) updateData.totalSlots = parseInt(totalSlots);
+    if (totalSlots !== undefined) updateData.totalSlots = parseInt(totalSlots);
     
     const result = await collection.updateOne(
       { eventId },
