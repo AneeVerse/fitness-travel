@@ -4,11 +4,10 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 
 const PartnerSection = () => {
   const partnerLogos = [
-    '/images/partners/Screenshot 2025-10-18 102705.jpg',
-    '/images/partners/Screenshot 2025-10-18 102717.jpg',
-    '/images/partners/Screenshot 2025-10-18 102724.jpg',
-    '/images/partners/Screenshot 2025-10-18 102732.jpg',
-    '/images/partners/Screenshot 2025-10-18 102743.jpg',
+    '/images/PATNERS/Partner Logos-01.png',
+    '/images/PATNERS/Partner Logos-02.png',
+    '/images/PATNERS/Partner Logos-03.png',
+    '/images/PATNERS/Partner Logos-04.png',
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -142,7 +141,7 @@ const PartnerSection = () => {
                 <img
                   src={logo}
                   alt={`Partner ${index + 1}`}
-                  className="h-8 md:h-24 lg:h-32 w-auto object-contain"
+                  className="partner-logo w-auto object-contain"
                   draggable={false}
                 />
               </div>
@@ -159,6 +158,29 @@ const PartnerSection = () => {
         }
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+      `}</style>
+      <style jsx global>{`
+        .partner-logo {
+          height: 140px;
+        }
+        @media (min-width: 640px) {
+          /* sm */
+          .partner-logo {
+            height: 160px;
+          }
+        }
+        @media (min-width: 768px) {
+          /* md */
+          .partner-logo {
+            height: 200px;
+          }
+        }
+        @media (min-width: 1024px) {
+          /* lg */
+          .partner-logo {
+            height: 220px;
+          }
         }
       `}</style>
     </section>

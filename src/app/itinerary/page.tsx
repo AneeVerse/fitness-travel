@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import UpcomingEvents from '@/components/UpcomingEvents';
@@ -45,7 +45,9 @@ export default function ItineraryPage() {
       {/* Upcoming Events Section */}
       <section className="py-8 px-4 sm:px-8 md:px-12 lg:px-16">
         <div className="max-w-[1325px] mx-auto">
-          <UpcomingEvents title="CHOOSE YOUR DESTINATION" />
+          <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
+            <UpcomingEvents title="CHOOSE YOUR DESTINATION" />
+          </Suspense>
         </div>
       </section>
 

@@ -427,10 +427,10 @@ const Hero = () => {
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-0 sm:ml-2 md:ml-4 lg:ml-6 xl:ml-10 mt-30 sm:mt-50 md:mt-35 lg:mt-30">
         <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl">
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded">
-          Love Fitness? Love Travel?
+          Love Fitness? Love&nbsp;Travel?
           </h1>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[41.5px] font-bold text-white mb-4 sm:mb-5 md:mb-6 leading-tight font-unbounded -mt-2 sm:-mt-2.5 md:-mt-3">
-           Then you&rsquo;ll love Tiger Terrain.
+           Then you&rsquo;ll love Tiger&nbsp;Terrain.
           </h1>
 
           <p className="text-sm sm:text-base md:text-[17px] lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-[750px] leading-relaxed">

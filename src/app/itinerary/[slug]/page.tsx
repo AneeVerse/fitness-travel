@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import ItineraryHero from '@/components/ItineraryHero';
 import OverviewSection from '@/components/OverviewSection';
@@ -35,7 +36,9 @@ export default async function ItineraryPage({ params }: PageProps) {
       <RoomPricingSection tripData={tripData} />
       <TripDetailsSection tripData={tripData} />
       <ItineraryFormWrapper tripData={tripData} />
-      <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
+      <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
+        <UpcomingEvents title="EXPLORE MORE JOURNEYS" currentSlug={slug} />
+      </Suspense>
       <FaqSection />
       <CTASection />
       <Footer />

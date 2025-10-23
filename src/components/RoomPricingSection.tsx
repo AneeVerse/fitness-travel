@@ -47,17 +47,17 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
   const isSriLanka = tripData?.slug === 'sri-lanka' || tripData?.slug === 'srilanka';
 
   const surfSuitesPricing: PricingOption[] = [
-    { type: 'Single', price: '₹59,400' },
-    { type: 'Twin Sharing', price: '₹59,400' },
+    { type: 'Single', price: '₹82,750' },
+    { type: 'Twin Sharing', price: '₹63,200' },
   ];
 
   const zenPricing: PricingOption[] = [
-    { type: 'Single', price: '₹59,400' },
-    { type: 'Twin Sharing', price: '₹59,400' },
+    { type: 'Single', price: '₹73,900' },
+    { type: 'Twin Sharing', price: '₹58,900' },
   ];
 
   const breezePricing: PricingOption[] = [
-    { type: 'Triple Sharing', price: '₹59,400' },
+    { type: 'Triple Sharing', price: '₹56,700' },
   ];
 
   const categories = isSriLanka

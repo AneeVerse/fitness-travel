@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FeaturesSection from '@/components/FeaturesSection';
@@ -28,7 +28,9 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturesSection />
-      <UpcomingEvents />
+      <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
+        <UpcomingEvents />
+      </Suspense>
       <EpicDestinationsSection />
       <PartnerSection />
       <ReviewsSection />

@@ -1,6 +1,7 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 // Add function to extract main date from date string
 const extractMainDate = (dateString: string): string => {
@@ -167,6 +168,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
+  // Access URL search parameters to check for date parameter
+  const searchParams = useSearchParams();
+  const currentEventIdParam = searchParams?.get('date');
+
   // Get global badge numbers from environment variables
   const globalBadgeNumbers = {
     phuket: parseInt(process.env.NEXT_PUBLIC_PHUKET_BADGE_NUMBER || '20'),
@@ -182,7 +187,25 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   };
 
   // Filter events based on currentSlug - NO DUPLICATION, NO AUTO-SCROLL
-  const filteredEvents = events.filter(event => !currentSlug || event.id.toLowerCase() !== currentSlug);
+  /*
+   * Filter events so that the card for the currently viewed journey/date is NOT displayed.
+   * Priority:
+   * 1. If a `date` query-param is present (e.g. ?date=PHUKET_JAN) we hide ONLY that exact event id.
+   * 2. Otherwise, if the `currentSlug` prop is provided (e.g. slug = "phuket" on itinerary page),
+   *    we hide the first event whose id starts with that slug to avoid duplicates.
+   * 3. In all other situations we show every card.
+   */
+  const filteredEvents = events.filter((event) => {
+    if (currentEventIdParam) {
+      return event.id !== currentEventIdParam;
+    }
+
+    if (currentSlug) {
+      return !event.id.toLowerCase().startsWith(currentSlug);
+    }
+
+    return true;
+  });
 
   // Calculate boundaries for proper scroll limits
   const calculateBoundaries = useCallback(() => {
@@ -497,7 +520,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                             <div className="absolute bottom-4 left-4 right-4 z-10">
                               <div className="text-white space-y-2 select-none">
                                 <div className="flex items-center justify-between">
-                                  <p className="text-xs opacity-80 select-none">TIGER TERRAIN</p>
                                   <div className="bg-[#ef4a25] text-white px-2 py-1 rounded text-xs font-semibold">
                                     {extractMainDate(event.date)}
                                   </div>

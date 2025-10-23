@@ -295,7 +295,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-gradient-to-r from-[#ef4a25] to-[#d63e20] hover:from-[#d63e20] hover:to-[#c23619] text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#ef4a25]/50 text-base font-unbounded disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
+                    className="w-full bg-gradient-to-r from-[#ef4a25] to-[#d63e20] hover:from-[#d63e20] hover:to-[#c23619] text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-[#ef4a25]/50 text-sm sm:text-base font-unbounded whitespace-nowrap disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none shadow-lg"
                   >
                     {isSubmitting ? (
                       <div className="flex items-center justify-center gap-3">
@@ -303,7 +303,7 @@ const ItineraryFormSection: React.FC<ItineraryFormSectionProps> = ({ tripData })
                         Submitting...
                       </div>
                     ) : (
-                      "Limited spots. Book Now.."
+                      "Limited spots. Book Now."
                     )}
                   </button>
                 </div>
