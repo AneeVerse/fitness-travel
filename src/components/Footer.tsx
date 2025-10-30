@@ -133,9 +133,9 @@ export default function Footer() {
 
             {/* Center - Privacy Policy and Terms of Service */}
             <div className="flex items-center justify-center space-x-4 sm:space-x-6 text-sm text-gray-400 order-3 lg:order-2">
-              <Link href="#" className="hover:text-white transition-colors duration-200 whitespace-nowrap">Privacy Policy</Link>
+              <Link href="/privacy" className="hover:text-white transition-colors duration-200 whitespace-nowrap">Privacy Policy</Link>
               <span className="text-gray-600">|</span>
-              <Link href="#" className="hover:text-white transition-colors duration-200 whitespace-nowrap">Terms of Service</Link>
+              <Link href="/terms" className="hover:text-white transition-colors duration-200 whitespace-nowrap">Terms of Service</Link>
             </div>
 
             {/* Right Side - Aneeverse Credit */}

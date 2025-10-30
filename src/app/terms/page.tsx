@@ -7,7 +7,8 @@ export default function TermsOfService() {
       <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Terms of Service</h1>
-          <p className="text-lg opacity-90">Last updated: January 2025</p>
+          <p className="text-lg opacity-90">Effective Date: 15th October 2025</p>
+          <p className="text-lg opacity-90">Last Updated: 28th October 2025</p>
         </div>
       </div>
 
@@ -15,6 +16,14 @@ export default function TermsOfService() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <div className="prose prose-lg max-w-none">
           
+          <section className="mb-8">
+            <p className="text-gray-700 leading-relaxed mb-6">
+              Welcome to Tiger Terrain (accessible at <a href="https://tigerterrain.in" className="text-orange-500 hover:text-orange-600">https://tigerterrain.in</a>). 
+              These Terms of Service govern your use of our website and services. By accessing and using Tiger Terrain&apos;s services, 
+              you agree to be bound by these Terms of Service and all applicable laws and regulations.
+            </p>
+          </section>
+
           <section className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">1. Agreement to Terms</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
@@ -129,8 +138,9 @@ export default function TermsOfService() {
               For questions regarding these Terms of Service, please contact us at:
             </p>
             <div className="bg-gray-50 p-6 rounded-lg">
+              <p className="text-gray-700"><strong>Tiger Terrain</strong></p>
               <p className="text-gray-700"><strong>Email:</strong> team.tigerterrain@gmail.com</p>
-              <p className="text-gray-700"><strong>Phone:</strong> +91 70210 15803</p>
+              <p className="text-gray-700"><strong>Website:</strong> <a href="https://tigerterrain.in" className="text-orange-500 hover:text-orange-600">https://tigerterrain.in</a></p>
             </div>
           </section>
 
