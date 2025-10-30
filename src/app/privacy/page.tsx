@@ -69,7 +69,7 @@ export default function PrivacyPolicy() {
             <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
               <li>Respond to your inquiries and provide requested services</li>
               <li>Improve our website and user experience</li>
-              <li>Send updates, offers, or information (only if you've opted in)</li>
+              <li>Send updates, offers, or information (only if you&apos;ve opted in)</li>
               <li>Maintain security and prevent misuse or fraud</li>
             </ul>
             <p className="text-gray-700 leading-relaxed font-semibold">
@@ -191,7 +191,7 @@ export default function PrivacyPolicy() {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">9. Updates to This Policy</h2>
             <p className="text-gray-700 leading-relaxed">
               We may update this Privacy Policy from time to time. The latest version will always be available on this page 
-              with a revised "Last Updated" date.
+              with a revised &quot;Last Updated&quot; date.
             </p>
           </section>
 
