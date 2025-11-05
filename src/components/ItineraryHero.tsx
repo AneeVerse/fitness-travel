@@ -404,15 +404,7 @@ const ItineraryHero: React.FC<ItineraryHeroProps> = ({ tripData }) => {
           }}
         >
           <source 
-            src={tripData.heroVideo} 
-            type="video/mp4" 
-          />
-          <source 
-            src={tripData.heroVideo} 
-            type="video/mp4" 
-          />
-          <source 
-            src="https://ik.imagekit.io/cuovrrwder/BG-(2).mp4?updatedAt=1756192776676" 
+            src="https://cdn.prod.website-files.com/67a584e3f6b2ea60711c39b6%2F688f41572ee6b3760ab6358f_Hero_Home%20Page_Website-transcode.mp4" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.
