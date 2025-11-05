@@ -402,15 +402,8 @@ const Hero = () => {
             backfaceVisibility: 'hidden'
           }}
         >
-          {/* Local video first (faster loading) */}
           <source 
-            src="/video/BG2.mp4" 
-            type="video/mp4" 
-          />
-          {/* Removed duplicate source */}
-          {/* CDN as fallback - only use if local file fails */}
-          <source 
-            src="https://ik.imagekit.io/cuovrrwder/BG-(2).mp4?tr=q-70" 
+            src="https://cdn.prod.website-files.com/67a584e3f6b2ea60711c39b6%2F688f41572ee6b3760ab6358f_Hero_Home%20Page_Website-transcode.mp4" 
             type="video/mp4" 
           />
           Your browser does not support the video tag.
