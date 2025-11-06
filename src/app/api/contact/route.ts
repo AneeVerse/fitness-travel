@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import env from '@/config/env';
 
 export async function POST(request: NextRequest) {
   try {
@@ -104,7 +105,7 @@ export async function POST(request: NextRequest) {
       `,
     };
 
-    // Function to get IST date
+    // Function to get IST date and time
     const getISTDate = () => {
       const now = new Date();
       const utcTime = now.getTime();
@@ -116,7 +117,30 @@ export async function POST(request: NextRequest) {
       return `${day}/${month}/${year}`;
     };
 
+    // Function to get IST timestamp with time
+    const getIndianTime = () => {
+      const now = new Date();
+      const utcTime = now.getTime();
+      const istOffset = 5.5 * 60 * 60 * 1000; // IST offset (5.5 hours in milliseconds)
+      const istTime = new Date(utcTime + istOffset);
+      
+      const year = istTime.getUTCFullYear();
+      const month = String(istTime.getUTCMonth() + 1).padStart(2, '0');
+      const day = String(istTime.getUTCDate()).padStart(2, '0');
+      let hours = istTime.getUTCHours();
+      const minutes = String(istTime.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(istTime.getUTCSeconds()).padStart(2, '0');
+      
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      const displayHours = String(hours).padStart(2, '0');
+      
+      return `${day}/${month}/${year}, ${displayHours}:${minutes}:${seconds} ${ampm} (IST)`;
+    };
+
     const indianDate = getISTDate();
+    const indianTime = getIndianTime();
 
     // 2. Send notification email to company (EMAIL_RECEIVER)
     const companyMailOptions = {
@@ -172,6 +196,55 @@ export async function POST(request: NextRequest) {
       transporter.sendMail(userMailOptions),
       transporter.sendMail(companyMailOptions)
     ]);
+
+    // Send to Google Sheets (non-blocking - don't fail if this fails)
+    try {
+      const googleAppsScriptUrl = env.GOOGLE_APPS_SCRIPT_URL;
+      
+      if (googleAppsScriptUrl) {
+        // Determine page source based on form type
+        let pageSource = 'Contact Page';
+        if (formType === 'itinerary-booking') {
+          pageSource = body.location ? `Itinerary Page - ${body.location}` : 'Itinerary Page';
+        } else if (formType === 'general-contact') {
+          pageSource = 'Contact Page';
+        }
+
+        // Prepare extra info with all booking details
+        const extraInfoParts = [];
+        if (tripDate) extraInfoParts.push(`Trip Date: ${tripDate}`);
+        if (numberOfPeople) extraInfoParts.push(`Number of People: ${numberOfPeople}`);
+        if (accommodationType) extraInfoParts.push(`Accommodation: ${accommodationType}`);
+        if (body.location) extraInfoParts.push(`Location: ${body.location}`);
+        if (body.subject) extraInfoParts.push(`Subject: ${body.subject}`);
+        const extraInfo = extraInfoParts.length > 0 
+          ? extraInfoParts.join(' | ') 
+          : `Submitted at ${indianTime}`;
+
+        await fetch(googleAppsScriptUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pageSource: pageSource,
+            formType: formType || 'Contact Form',
+            name: `${finalFirstName} ${finalLastName}`.trim(),
+            email: email || '',
+            phone: phone || '',
+            message: message || '',
+            trip: tripDate || body.location || '',
+            numberOfPeople: numberOfPeople || '',
+            accommodation: accommodationType || '',
+            extraInfo: extraInfo
+          }),
+        });
+        console.log('Form data sent to Google Sheets successfully');
+      } else {
+        console.warn('Google Apps Script URL not configured. Skipping Google Sheets submission.');
+      }
+    } catch (sheetError) {
+      console.error('Error sending form data to Google Sheets:', sheetError);
+      // Don't fail the entire request if Google Sheets fails
+    }
 
     return NextResponse.json(
       { message: 'Emails sent successfully' },
