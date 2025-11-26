@@ -30,8 +30,8 @@ export default function EventsPage() {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center px-8 sm:px-12 md:px-16 lg:px-20 py-16">
-              <div className="max-w-4xl">
+            <div className="relative z-10 h-full flex items-center justify-center px-8 sm:px-12 md:px-16 lg:px-20 py-16">
+              <div className="max-w-4xl text-center">
                 {/* Title */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-unbounded">
                   EVENTS
