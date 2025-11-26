@@ -47,7 +47,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'Kombucha Introduction & Brewing Basics',
         description: 'Welcome session and introduction to Kombucha\nLearn the fundamentals of fermentation\nBasic brewing techniques and equipment overview',
         time: '9:00 AM - 12:00 PM',
-        image: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+        image: '/images/events/website images_/0001.png',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       },
       {
@@ -56,7 +56,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'Hands-On Brewing & Tasting',
         description: 'Practical brewing session\nTaste different Kombucha varieties\nQ&A with experts',
         time: '1:00 PM - 4:00 PM',
-        image: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+        image: '/images/events/website images_/0002.png',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       },
       {
@@ -65,7 +65,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'Wellness & Community Gathering',
         description: 'Wellness benefits discussion\nCommunity sharing and networking\nClosing ceremony and take-home kit',
         time: '5:00 PM - 8:00 PM',
-        image: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+        image: '/images/events/website images_/0003.png',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       }
     ],
@@ -77,9 +77,9 @@ const eventDataMap: Record<string, EventData> = {
         'Whether you\'re a complete beginner or looking to refine your brewing techniques, this event offers something for everyone. Connect with like-minded wellness enthusiasts and discover the health benefits of fermented beverages.'
       ],
       images: [
-        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
-        '/images/srilanka day images/Untitled design.zip - 1.png',
-        '/images/srilanka day images/Untitled design.zip - 2.png'
+        '/images/events/website images_/WhatsApp Image 2025-11-23 at 20.00.39.jpeg',
+        '/images/events/website images_/3.png',
+        '/images/events/website images_/4.png'
       ]
     }
   }

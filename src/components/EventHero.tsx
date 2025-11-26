@@ -278,7 +278,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
           </div>
         </div>
       )}
-      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-20 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
+      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-70 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       <div className="absolute inset-0 z-0">
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           imageLoaded ? 'opacity-0' : 'opacity-100'
@@ -295,15 +295,16 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
           }}
         >
           <Image
-            src="/images/events/kombucha-hero.jpg"
+            src="/images/events/website images_/hero page.png"
             alt={eventData.title}
             fill
-            className={`object-cover transition-opacity duration-700 ${
+            className={`object-contain transition-opacity duration-700 ${
               imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
             onLoad={handleImageLoad}
             priority
             sizes="100vw"
+            style={{ objectPosition: 'center' }}
           />
         </div>
         
@@ -313,17 +314,17 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
           </div>
         )}
         
-        <div className="absolute inset-0 bg-black/25"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/5 to-transparent" />
       </div>
 
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 ml-2 sm:ml-4 md:ml-6 lg:ml-8 xl:ml-10 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-60">
-        <div className="max-w-4xl">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[48.5px] font-bold text-white mb-4 sm:mb-6 leading-tight font-unbounded">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-70">
+        <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-[320px] w-full">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[25px] font-bold text-white mb-3 sm:mb-4 md:mb-5 leading-tight font-unbounded">
             {eventData.title}
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-6 sm:mb-8 md:mb-10 max-w-4xl leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base lg:text-[15px] text-white/90 mb-4 sm:mb-5 md:mb-6 max-w-full leading-relaxed">
             {eventData.description}
           </p>
 
