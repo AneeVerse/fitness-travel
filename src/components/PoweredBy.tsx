@@ -13,10 +13,9 @@ const PoweredBy: React.FC = () => {
         <div className="text-center">
           {/* Title */}
           <div className="mb-12 sm:mb-16 md:mb-20">
-            <p className="text-white/40 text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] font-medium mb-2">
-              Powered By
-            </p>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#ef4a25] to-transparent mx-auto"></div>
+            <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#ef4a25] uppercase" style={{ fontFamily: 'var(--font-teko)' }}>
+              POWERED BY
+            </h2>
           </div>
 
           {/* Logos Container */}
