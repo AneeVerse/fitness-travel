@@ -47,7 +47,7 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/10" />
                       
                       <div className="absolute inset-4 z-10 flex flex-col text-white select-none">
-                        <div className="space-y-2 select-none">
+                        <div className="space-y-2 select-none mt-4 sm:mt-6 md:mt-2">
                           <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
                             {period.period}
                           </h3>
@@ -70,7 +70,7 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                           </ul>
                         </div>
 
-                        <div className="space-y-2 select-none mt-auto">
+                        <div className="space-y-2 select-none mt-auto mb-2 sm:mb-4 md:mb-8">
                           <div className="space-y-1.5 text-xs select-none">
                             <div className="flex items-center gap-2 select-none">
                               <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
