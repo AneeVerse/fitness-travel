@@ -24,7 +24,7 @@ const events: EventItem[] = [
     title: 'KOMBUCHA',
     description:
       'Join us for an amazing Kombucha event experience. Discover the art of fermentation and wellness in a unique setting.',
-    date: '15th Mar 2026',
+    date: '28 Nov 2025',
     access: 'On-Location Experienced Coaches.',
     time: 'TBA',
     location: 'TBA',
@@ -214,9 +214,9 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                // First card goes to kombucha-1, second card goes to kombucha-2
+                                // First card goes to kombucha-mornings, second card goes to kombucha-2
                                 if (event.id === 'KOMBUCHA_1') {
-                                  window.location.href = '/events/kombucha-1';
+                                  window.location.href = '/events/kombucha-mornings';
                                 } else if (event.id === 'KOMBUCHA_2') {
                                   window.location.href = '/events/kombucha-2';
                                 }

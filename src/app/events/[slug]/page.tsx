@@ -5,6 +5,7 @@ import EventHero from '@/components/EventHero';
 import EventOverview from '@/components/EventOverview';
 import EventDays from '@/components/EventDays';
 import EventForm from '@/components/EventForm';
+import PoweredBy from '@/components/PoweredBy';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import Footer from '@/components/Footer';
 import FaqSection from '@/components/FaqSection';
@@ -32,6 +33,7 @@ export default async function EventPage({ params }: PageProps) {
       <EventOverview eventData={eventData} />
       <EventDays eventData={eventData} />
       <EventForm eventData={eventData} />
+      <PoweredBy />
       <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
         <UpcomingEvents title="EXPLORE MORE EVENTS" />
       </Suspense>
@@ -44,7 +46,7 @@ export default async function EventPage({ params }: PageProps) {
 
 export async function generateStaticParams() {
   return [
-    { slug: 'kombucha-1' },
+    { slug: 'kombucha-mornings' },
   ];
 }
 

@@ -26,9 +26,9 @@ export interface EventData {
 }
 
 const eventDataMap: Record<string, EventData> = {
-  'kombucha-1': {
-    slug: 'kombucha-1',
-    title: 'KOMBUCHA EVENT',
+  'kombucha-mornings': {
+    slug: 'kombucha-mornings',
+    title: 'KOMBUCHA MORNINGS',
     description: 'Join us for an amazing Kombucha event experience. Discover the art of fermentation and wellness in a unique setting.',
     dates: 'Coming Soon',
     location: 'TBA',

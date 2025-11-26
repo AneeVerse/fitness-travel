@@ -288,7 +288,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
 
         <div
           ref={imageRef}
-          className="absolute inset-0 will-change-transform"
+          className="absolute top-22 left-0 right-0 bottom-0 sm:inset-0 will-change-transform"
           style={{
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden'

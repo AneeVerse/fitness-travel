@@ -24,12 +24,13 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
         </div>
 
         <div className="relative overflow-visible pt-8">
-          <div className="flex justify-center items-center gap-4 flex-wrap">
-            {eventPeriods.map((period) => {
-              return (
-                <div
-                  key={period.id}
-                  className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all select-none"
+          <div className="overflow-x-auto md:overflow-visible -mx-4 px-4 md:mx-0 md:px-0">
+            <div className="flex md:flex-wrap md:justify-center md:items-center gap-4 min-w-max md:min-w-0 snap-x snap-mandatory md:snap-none">
+              {eventPeriods.map((period) => {
+                return (
+                  <div
+                    key={period.id}
+                    className="flex-shrink-0 w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all select-none snap-center md:snap-none"
                   data-card="true"
                   draggable={false}
                   style={{ userSelect: 'none', WebkitUserSelect: 'none', MozUserSelect: 'none', msUserSelect: 'none' }}
@@ -97,7 +98,8 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                   </div>
                 </div>
               );
-            })}
+              })}
+            </div>
           </div>
         </div>
       </div>
