@@ -278,7 +278,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
           </div>
         </div>
       )}
-      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-70 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
+      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-60 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       <div className="absolute inset-0 z-0">
         <div className={`absolute inset-0 transition-opacity duration-500 ${
           imageLoaded ? 'opacity-0' : 'opacity-100'
@@ -288,14 +288,14 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
 
         <div
           ref={imageRef}
-          className="absolute top-22 left-0 right-0 bottom-0 sm:inset-0 will-change-transform"
+          className="absolute top-0 left-0 right-0 bottom-0 sm:inset-0 will-change-transform"
           style={{
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden'
           }}
         >
           <Image
-            src="/images/events/website images_/hero page.png"
+            src={isMobile ? "/images/events/website images_/mobile-view-bg.webp" : "/images/events/website images_/hero page.png"}
             alt={eventData.title}
             fill
             className={`object-contain transition-opacity duration-700 ${
@@ -304,7 +304,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
             onLoad={handleImageLoad}
             priority
             sizes="100vw"
-            style={{ objectPosition: 'center' }}
+            style={{ objectPosition: isMobile ? 'center top' : 'center' }}
           />
         </div>
         
@@ -318,7 +318,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/5 to-transparent" />
       </div>
 
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-30 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-70">
+      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-123  sm:mt-20 md:mt-24 lg:mt-32 xl:mt-70">
         <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-[320px] w-full">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[25px] font-bold text-white mb-3 sm:mb-4 md:mb-5 leading-tight font-unbounded">
             {eventData.title}
