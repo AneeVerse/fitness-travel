@@ -19,19 +19,19 @@ export default function EventsPage() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/events/tigerterrain 02.png"
+                src="/images/events/tigerterrain 02.jpg"
                 alt="Events"
                 fill
-                className="object-cover"
+                className="object-center"
                 priority
               />
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black/60"></div>
+              <div className="absolute inset-0 "></div>
             </div>
 
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center justify-center px-8 sm:px-12 md:px-16 lg:px-20 py-16">
-              <div className="max-w-4xl text-center">
+            <div className="relative z-10 h-full flex items-start justify-start px-8 sm:px-12 md:px-16 lg:px-20 py-16">
+              <div className="max-w-4xl text-left">
                 {/* Title */}
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-unbounded">
                   EVENTS

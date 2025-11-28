@@ -19,7 +19,7 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
             EVENT SCHEDULE
           </h2>
           <p className="text-white/80 text-xs sm:text-sm md:text-lg mt-4 max-w-2xl mx-auto">
-            Your day-long Kombucha experience <br />explore each period&apos;s activities and sessions
+            Kombucha Mornings will be a 3 hours session that will attended by not more than 25 guests who will experience a morning ritual like never before. Here is how it flows
           </p>
         </div>
 
@@ -72,21 +72,6 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                         </div>
 
                         <div className="space-y-2 select-none mt-auto mb-2 sm:mb-4 md:mb-8">
-                          <div className="space-y-1.5 text-xs select-none">
-                            <div className="flex items-center gap-2 select-none">
-                              <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                              </svg>
-                              <span className="text-[10px] md:text-base opacity-90 select-none">Expert guidance</span>
-                            </div>
-                            <div className="flex items-center gap-2 select-none">
-                              <svg className="w-3 h-3 text-[#ef4a25]" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C8.134 2 5 5.134 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.866-3.134-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z" />
-                              </svg>
-                              <span className="text-[10px] md:text-base opacity-90 select-none">{eventData.location}</span>
-                            </div>
-                          </div>
-                          
                           <div className="flex justify-start select-none">
                             <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-[10px] md:text-xs font-semibold whitespace-nowrap select-none">
                               {period.time}

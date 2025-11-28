@@ -21,10 +21,10 @@ type EventItem = {
 const events: EventItem[] = [
   {
     id: 'KOMBUCHA_1',
-    title: 'KOMBUCHA',
+    title: 'KOMBUCHA MORNINGS',
     description:
-      'Join us for an amazing Kombucha event experience. Discover the art of fermentation and wellness in a unique setting.',
-    date: '28 Nov 2025',
+      'Indulge in an experiential fitness micro-event curated for uber-cool fitness enthusiasts. This is where fitness meets lifestyle meets community.',
+    date: '6th Dec 2025',
     access: 'On-Location Experienced Coaches.',
     time: 'TBA',
     location: 'TBA',
@@ -36,10 +36,10 @@ const events: EventItem[] = [
   },
   {
     id: 'KOMBUCHA_2',
-    title: 'KOMBUCHA',
+    title: 'KOMBUCHA MORNINGS',
     description:
-      'Join us for an amazing Kombucha event experience. Discover the art of fermentation and wellness in a unique setting.',
-    date: 'Coming Soon',
+      'Indulge in an experiential fitness micro-event curated for uber-cool fitness enthusiasts. This is where fitness meets lifestyle meets community.',
+    date: '10th Jan 2026',
     access: 'On-Location Experienced Coaches.',
     time: 'TBA',
     location: 'TBA',
@@ -133,7 +133,7 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                         {/* Image Background */}
                         <div className="relative w-full h-full">
                           <Image
-                            src="/images/events/tigerterrain 01.png"
+                            src="/images/events/tigerterrain 01.jpg"
                             alt={event.title}
                             fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
@@ -214,12 +214,8 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                               onClick={(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
-                                // First card goes to kombucha-mornings, second card goes to kombucha-2
-                                if (event.id === 'KOMBUCHA_1') {
-                                  window.location.href = '/events/kombucha-mornings';
-                                } else if (event.id === 'KOMBUCHA_2') {
-                                  window.location.href = '/events/kombucha-2';
-                                }
+                                // Both cards go to kombucha-mornings, pass date in query to preselect form option
+                                window.location.href = `/events/kombucha-mornings?date=${event.id}`;
                               }}
                               className="w-full bg-[#ef4a25] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer select-none"
                               style={{ 

@@ -1,30 +1,60 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useMemo, useEffect } from "react"
 import CountryCodeDropdown from './CountryCodeDropdown'
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { EventData } from '@/lib/eventData'
 
 interface FormData {
   name: string
   phone: string
   email: string
+  eventDate: string
 }
 
 interface EventFormProps {
   eventData: EventData;
 }
 
+const KOMBUCHA_DATE_OPTIONS = [
+  { id: 'KOMBUCHA_1', label: '6th Dec 2025 - Kombucha Mornings' },
+  { id: 'KOMBUCHA_2', label: '10th Jan 2026 - Kombucha Mornings' },
+];
+
 const EventForm: React.FC<EventFormProps> = ({ eventData }) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
     email: "",
+    eventDate: "",
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const eventDateOptions = useMemo(() => {
+    if (eventData.slug === 'kombucha-mornings') {
+      return KOMBUCHA_DATE_OPTIONS
+    }
+    return eventData.dates
+      ? [{ id: 'DEFAULT', label: eventData.dates }]
+      : []
+  }, [eventData.slug, eventData.dates])
+
+  const selectedDateParam = searchParams?.get('date')
+  const initialEventDate = useMemo(() => {
+    if (!eventDateOptions.length) return ''
+    const matched = eventDateOptions.find(option => option.id === selectedDateParam)
+    return matched ? matched.id : eventDateOptions[0].id
+  }, [eventDateOptions, selectedDateParam])
+
+  useEffect(() => {
+    if (initialEventDate) {
+      setFormData(prev => ({ ...prev, eventDate: initialEventDate }))
+    }
+  }, [initialEventDate])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -54,7 +84,7 @@ const EventForm: React.FC<EventFormProps> = ({ eventData }) => {
           message: `Event Details:
 - Event: ${eventData.title}
 - Location: ${eventData.location}
-- Date: ${eventData.dates}`,
+- Date: ${eventDateOptions.find(option => option.id === formData.eventDate)?.label || eventData.dates}`,
         }),
       })
 
@@ -79,8 +109,11 @@ const EventForm: React.FC<EventFormProps> = ({ eventData }) => {
             Join the
             <span className="text-[#ef4a25]"> Event</span>
           </h2>
+          <p className="text-white/90 text-base sm:text-lg max-w-xl mx-auto mb-2">
+            This isn&apos;t your regular morning. It&apos;s a culture in the making.
+          </p>
           <p className="text-white/90 text-base sm:text-lg max-w-xl mx-auto">
-            Fill out the form to register for this amazing experience
+            Limited spots. Fill up the form to get your invite.
           </p>
           <div className="w-16 h-0.5 bg-[#ef4a25] mx-auto mt-4"></div>
         </div>
@@ -88,6 +121,30 @@ const EventForm: React.FC<EventFormProps> = ({ eventData }) => {
         <div className="max-w-3xl mx-auto">
           <div className="bg-gradient-to-br from-gray-900/90 to-gray-800/90 backdrop-blur-md rounded-2xl border border-gray-600/30 p-6 sm:p-8 shadow-2xl">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {eventDateOptions.length > 0 && (
+                <div className="space-y-2">
+                  <label htmlFor="eventDate" className="block text-sm font-medium text-white/90">
+                    Preferred Date *
+                  </label>
+                  <select
+                    id="eventDate"
+                    name="eventDate"
+                    required
+                    value={formData.eventDate}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, eventDate: e.target.value }))
+                    }
+                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-xl focus:ring-2 focus:ring-[#ef4a25] focus:border-[#ef4a25] focus:outline-none transition-all duration-200 text-white text-base backdrop-blur-sm hover:bg-gray-800/70"
+                  >
+                    {eventDateOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <label htmlFor="name" className="block text-sm font-medium text-white/90">
                   Full Name *

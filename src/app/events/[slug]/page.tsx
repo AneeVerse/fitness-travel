@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import EventHero from '@/components/EventHero';
 import EventOverview from '@/components/EventOverview';
 import EventDays from '@/components/EventDays';
-import EventForm from '@/components/EventForm';
+import EventFormWrapper from '@/components/EventFormWrapper';
 import PoweredBy from '@/components/PoweredBy';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import Footer from '@/components/Footer';
@@ -32,7 +32,7 @@ export default async function EventPage({ params }: PageProps) {
       <EventHero eventData={eventData} />
       <EventOverview eventData={eventData} />
       <EventDays eventData={eventData} />
-      <EventForm eventData={eventData} />
+      <EventFormWrapper eventData={eventData} />
       <PoweredBy />
       <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
         <UpcomingEvents title="EXPLORE MORE EVENTS" />

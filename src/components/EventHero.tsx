@@ -18,17 +18,18 @@ interface EventHeroProps {
 
 const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
   const heroRef = useRef<HTMLElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const preloaderRef = useRef<HTMLDivElement>(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
   const [showPreloader, setShowPreloader] = useState(true);
   const MIN_PRELOAD_MS = PRELOADER_MIN_DURATION_SECONDS * 1000;
   const progressRef = useRef(0);
   const fadeOutStarted = useRef(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const isReady = imageLoaded;
+  const isReady = videoLoaded || videoError;
   const isReadyRef = useRef(false);
 
   useEffect(() => {
@@ -68,16 +69,16 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
 
   useEffect(() => {
     const hero = heroRef.current;
-    const image = imageRef.current;
+    const video = videoRef.current;
     const content = contentRef.current;
 
-    if (!hero || !image || !content) return;
+    if (!hero || !video || !content) return;
 
     let cleanup: () => void = () => {};
 
     const init = () => {
       const ctx = gsap.context(() => {
-        gsap.set([hero, image, content], {
+        gsap.set([hero, video, content], {
           willChange: "transform",
           backfaceVisibility: "hidden",
           perspective: 1000,
@@ -89,8 +90,8 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
         const createTimeline = (
           heroScale: number,
           heroY: number,
-          imageScale: number,
-          imageY: number,
+          videoScale: number,
+          videoY: number,
           contentY: number,
           contentScale: number
         ) => {
@@ -109,12 +110,12 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
             }
           })
           .to(hero, { scale: heroScale, y: heroY, duration: 1 }, 0)
-          .to(image, { scale: imageScale, y: imageY, duration: 1 }, 0)
+          .to(video, { scale: videoScale, y: videoY, duration: 1 }, 0)
           .to(content, { y: contentY, scale: contentScale, duration: 1 }, 0);
         };
 
         mm.add("(prefers-reduced-motion: reduce)", () => {
-          gsap.set([hero, image, content], { clearProps: "all" });
+          gsap.set([hero, video, content], { clearProps: "all" });
         });
 
         mm.add("(max-width: 767px)", () => {
@@ -139,9 +140,70 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
     return () => cleanup();
   }, []);
 
-  const handleImageLoad = () => {
-    setImageLoaded(true);
+  // Video event handlers
+  const handleVideoLoad = () => {
+    setVideoLoaded(true);
+    setVideoError(false);
   };
+
+  const handleVideoError = () => {
+    setVideoError(true);
+    setVideoLoaded(false);
+  };
+
+  const handleVideoCanPlay = () => {
+    setVideoLoaded(true);
+    // Ensure video plays
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    }
+  };
+
+  // Optimize video loading and handle navigation
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Reset loading state
+    setVideoLoaded(false);
+    setVideoError(false);
+
+    // Set video properties for better performance
+    video.preload = 'metadata';
+    
+    // Force reload and play
+    video.load();
+    
+    // Fallback timeout to show video even if events don't fire
+    const fallbackTimer = setTimeout(() => {
+      setVideoLoaded(true);
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    }, 2000);
+
+    // Ensure video plays after loading
+    const handleCanPlayThrough = () => {
+      setVideoLoaded(true);
+      video.play().catch(() => {
+        // Ignore autoplay errors
+      });
+    };
+
+    video.addEventListener('canplaythrough', handleCanPlayThrough);
+    
+    // Cleanup function
+    return () => {
+      clearTimeout(fallbackTimer);
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      if (video) {
+        video.pause();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     isReadyRef.current = isReady;
@@ -278,53 +340,63 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
           </div>
         </div>
       )}
-      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-60 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
+      <section ref={heroRef} className="relative min-h-[100vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden -mb-10 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-3xl">
       <div className="absolute inset-0 z-0">
+        {/* Fallback background when video is loading or has error */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
-          imageLoaded ? 'opacity-0' : 'opacity-100'
+          videoLoaded ? 'opacity-0' : 'opacity-100'
         }`}>
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800"></div>
         </div>
 
-        <div
-          ref={imageRef}
-          className="absolute top-0 left-0 right-0 bottom-0 sm:inset-0 will-change-transform"
+        {/* Video with proper loading states */}
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className={`absolute min-w-full min-h-full object-cover transition-opacity duration-700 will-change-transform ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
+          onLoadedData={handleVideoLoad}
+          onCanPlay={handleVideoCanPlay}
+          onError={handleVideoError}
+          aria-hidden="true"
           style={{
             transform: 'translateZ(0)',
             backfaceVisibility: 'hidden'
           }}
         >
-          <Image
-            src={isMobile ? "/images/events/website images_/mobile-view-bg.webp" : "/images/events/website images_/hero page.png"}
-            alt={eventData.title}
-            fill
-            className={`object-contain transition-opacity duration-700 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
-            onLoad={handleImageLoad}
-            priority
-            sizes="100vw"
-            style={{ objectPosition: isMobile ? 'center top' : 'center' }}
+          <source 
+            src="/images/events/Videos for Kombucha Mornings2.mp4" 
+            type="video/mp4" 
           />
-        </div>
+          Your browser does not support the video tag.
+        </video>
         
-        {!imageLoaded && (
+        {/* Loading indicator */}
+        {!videoLoaded && !videoError && (
           <div className="absolute inset-0 flex items-center justify-center z-10">
             <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-white/20 border-t-white rounded-full animate-spin"></div>
           </div>
         )}
         
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-black/5 to-transparent" />
+        {/* Base dim overlay */}
+        <div className="absolute inset-0 bg-black/25"></div>
+
+        {/* Stronger black highlight that fades left → right */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
       </div>
 
       <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-123  sm:mt-20 md:mt-24 lg:mt-32 xl:mt-70">
-        <div className="max-w-md sm:max-w-lg md:max-w-xl lg:max-w-[320px] w-full">
+        <div className="max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full">
           <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[25px] font-bold text-white mb-3 sm:mb-4 md:mb-5 leading-tight font-unbounded">
             {eventData.title}
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-base lg:text-[15px] text-white/90 mb-4 sm:mb-5 md:mb-6 max-w-full leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-4 sm:mb-5 md:mb-6 max-w-3xl leading-relaxed">
             {eventData.description}
           </p>
 

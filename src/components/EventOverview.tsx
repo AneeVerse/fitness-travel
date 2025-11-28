@@ -24,17 +24,17 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
               if (index === 1) {
                 return (
                   <React.Fragment key={index}>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#ef4a25] mt-6 sm:mt-8 md:mt-10 font-unbounded">
+                    <h3 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#ef4a25] mt-6 sm:mt-8 md:mt-10 font-unbounded">
                       {eventData.overview.subtitle}
                     </h3>
-                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+                    <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 leading-relaxed">
                       {paragraph}
                     </p>
                   </React.Fragment>
                 );
               }
               return (
-                <p key={index} className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 leading-relaxed">
+                <p key={index} className="text-xs sm:text-sm md:text-base lg:text-lg text-white/90 leading-relaxed">
                   {paragraph}
                 </p>
               );
@@ -43,7 +43,7 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
 
           <div className="order-1 lg:order-2 w-full">
             <div className="space-y-3 sm:space-y-4 md:space-y-5">
-              <div className="relative w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative w-full h-52 sm:h-60 md:h-72 lg:h-80 xl:h-96 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src={eventData.overview.images[0]}
                   alt={`${eventData.location} view`}
@@ -55,7 +55,7 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">
-                <div className="relative w-full h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative w-full h-28 sm:h-32 md:h-36 lg:h-40 xl:h-48 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src={eventData.overview.images[1]}
                     alt={`${eventData.location} view`}
@@ -65,7 +65,7 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
                   />
                 </div>
                 
-                <div className="relative w-full h-24 sm:h-28 md:h-32 lg:h-36 xl:h-40 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
+                <div className="relative w-full h-28 sm:h-32 md:h-36 lg:h-40 xl:h-48 rounded-xl sm:rounded-2xl overflow-hidden shadow-xl">
                   <Image
                     src={eventData.overview.images[2]}
                     alt={`${eventData.location} view`}
