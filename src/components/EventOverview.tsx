@@ -14,17 +14,14 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="text-center mb-6 sm:mb-12 md:mb-16 mt-6">
           {(() => {
-            const [primaryTitle, secondaryTitle] = eventData.overview.mainTitle.split(' - ');
+            const [primaryTitle, secondaryTitle] = eventData.overview.mainTitle.replace(/\.$/, '').split(' - ');
             return (
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
+              <h2 className="text-[clamp(1.25rem,7vw,2.25rem)] sm:text-2xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight whitespace-nowrap sm:whitespace-normal tracking-tight">
                 {primaryTitle}
                 {secondaryTitle && (
-                  <>
-                    <br />
-                    <span className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 font-normal tracking-tight">
-                      {secondaryTitle}
-                    </span>
-                  </>
+                  <span className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 font-normal tracking-tight mt-1">
+                    {secondaryTitle}
+                  </span>
                 )}
               </h2>
             );

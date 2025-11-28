@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useMemo } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -31,6 +31,51 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
   const [isMobile, setIsMobile] = useState(false);
   const isReady = videoLoaded || videoError;
   const isReadyRef = useRef(false);
+  const clampContentSpacing = useMemo<React.CSSProperties | undefined>(() => {
+    if (!isMobile) return undefined;
+    return {
+      paddingTop: 'clamp(1.5rem, 9vw, 4.5rem)',
+      paddingBottom: 'clamp(1.25rem, 8vw, 3.5rem)',
+      paddingLeft: 'clamp(1rem, 6vw, 2.5rem)',
+      paddingRight: 'clamp(1rem, 6vw, 2.5rem)',
+      gap: 'clamp(0.75rem, 4vw, 1.5rem)',
+    };
+  }, [isMobile]);
+
+  const mobileHeroSizing = useMemo(() => {
+    if (!isMobile) return undefined;
+    const targetHeight = 'clamp(32rem, 120vw, 44rem)';
+    return {
+      section: { minHeight: targetHeight },
+      media: { height: targetHeight, minHeight: targetHeight },
+    };
+  }, [isMobile]);
+
+  const headingClampStyles = useMemo<React.CSSProperties | undefined>(() => {
+    if (!isMobile) return undefined;
+    return {
+      fontSize: 'clamp(1.25rem, 5vw, 1.65rem)',
+      lineHeight: 1.15,
+    };
+  }, [isMobile]);
+
+  const paragraphClampStyles = useMemo<React.CSSProperties | undefined>(() => {
+    if (!isMobile) return undefined;
+    return {
+      fontSize: 'clamp(0.85rem, 3.4vw, 0.98rem)',
+      lineHeight: 1.5,
+    };
+  }, [isMobile]);
+
+  const buttonClampStyles = useMemo<React.CSSProperties | undefined>(() => {
+    if (!isMobile) return undefined;
+    return {
+      fontSize: 'clamp(0.95rem, 3.2vw, 1.05rem)',
+      paddingInline: 'clamp(1.25rem, 6vw, 1.9rem)',
+      paddingBlock: 'clamp(0.65rem, 3vw, 0.85rem)',
+      borderRadius: 'clamp(0.65rem, 3vw, 0.9rem)',
+    };
+  }, [isMobile]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -343,11 +388,11 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
       <section
         ref={heroRef}
         className="relative min-h-[50vh] sm:min-h-[110vh] md:min-h-[115vh] w-full overflow-hidden mt-20 -mb-6 sm:mt-0 sm:-mb-24 md:-mb-28 lg:-mb-32 xl:-mb-38 rounded-b-xl sm:rounded-b-3xl"
-        style={isMobile ? { minHeight: '42vh', maxHeight: '55vh' } : undefined}
+        style={mobileHeroSizing?.section}
       >
       <div
         className={`absolute ${isMobile ? 'left-0 right-0 top-0' : 'inset-0'} z-0`}
-        style={isMobile ? { height: '42vh' } : undefined}
+        style={mobileHeroSizing?.media}
       >
         {/* Fallback background when video is loading or has error */}
         <div className={`absolute inset-0 transition-opacity duration-500 ${
@@ -397,17 +442,27 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/10 to-transparent" />
       </div>
 
-      <div ref={contentRef} className="relative z-10 h-full flex items-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-10 sm:mt-20 md:mt-24 lg:mt-32 xl:mt-70">
-        <div className="max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full">
-          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[25px] font-bold text-white mb-3 sm:mb-4 md:mb-5 leading-tight font-unbounded">
+      <div
+        ref={contentRef}
+        className="relative z-10 h-full flex flex-col justify-start md:justify-center items-start px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 mt-6 sm:mt-16 md:mt-24 lg:mt-32 xl:mt-70"
+        style={clampContentSpacing}
+      >
+        <div className="max-w-xl sm:max-w-2xl md:max-w-3xl lg:max-w-4xl w-full space-y-4">
+          <h1
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[25px] font-bold text-white leading-tight font-unbounded"
+            style={headingClampStyles}
+          >
             {eventData.title}
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 mb-4 sm:mb-5 md:mb-6 max-w-3xl leading-relaxed">
+          <p
+            className="text-sm sm:text-base md:text-lg lg:text-[17px] text-white/90 max-w-3xl leading-relaxed"
+            style={paragraphClampStyles}
+          >
             {eventData.description}
           </p>
 
-          <div className="flex justify-start mb-6 sm:mb-8 md:mb-10">
+          <div className="flex justify-start">
             <button
               onClick={() => {
                 const eventPeriodsSection = document.querySelector('#event-periods');
@@ -416,6 +471,7 @@ const EventHero: React.FC<EventHeroProps> = ({ eventData }) => {
                 }
               }}
               className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-[15px] font-semibold text-base sm:text-lg md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg mobile-btn"
+              style={buttonClampStyles}
             >
               See event schedule
             </button>
