@@ -13,9 +13,22 @@ const EventOverview: React.FC<EventOverviewProps> = ({ eventData }) => {
     <section id="overview" className="py-8 sm:py-12 md:py-16 lg:py-20 bg-black ">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="text-center mb-6 sm:mb-12 md:mb-16 mt-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
-            {eventData.overview.mainTitle}
-          </h2>
+          {(() => {
+            const [primaryTitle, secondaryTitle] = eventData.overview.mainTitle.split(' - ');
+            return (
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
+                {primaryTitle}
+                {secondaryTitle && (
+                  <>
+                    <br />
+                    <span className="block text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 font-normal tracking-tight">
+                      {secondaryTitle}
+                    </span>
+                  </>
+                )}
+              </h2>
+            );
+          })()}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center">

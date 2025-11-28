@@ -14,7 +14,7 @@ const OverviewSection: React.FC<OverviewSectionProps> = ({ tripData }) => {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Header */}
         <div className="text-center mb-6 sm:mb-12 md:mb-16 mt-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-[42px] font-bold text-[#ef4a25] mb-4 sm:mb-6 font-unbounded leading-tight">
             {tripData.overview.mainTitle.split(' ARE MADE UP OF').length > 1 ? (
               <>
                 {tripData.overview.mainTitle.split(' ARE MADE UP OF')[0]} <br /> ARE MADE UP OF
