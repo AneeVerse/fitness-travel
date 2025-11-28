@@ -19,10 +19,19 @@ export default function EventsPage() {
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
               <Image
-                src="/images/events/tigerterrain 02.jpg"
-                alt="Events"
+                src="/images/events/tigerterrain20.webp"
+                alt="Events hero background"
                 fill
-                className="object-center"
+                className="object-cover hidden sm:block"
+                sizes="(max-width: 640px) 0px, 100vw"
+                priority
+              />
+              <Image
+                src="/images/events/tigerterrain10.webp"
+                alt="Events hero background mobile"
+                fill
+                className="object-cover sm:hidden"
+                sizes="100vw"
                 priority
               />
               {/* Overlay */}

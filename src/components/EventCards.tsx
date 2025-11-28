@@ -133,7 +133,7 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                         {/* Image Background */}
                         <div className="relative w-full h-full">
                           <Image
-                            src="/images/events/tigerterrain 01.jpg"
+                            src="/images/events/tigerterrain10.webp"
                             alt={event.title}
                             fill
                             className="object-cover transition-transform duration-300 hover:scale-105"
