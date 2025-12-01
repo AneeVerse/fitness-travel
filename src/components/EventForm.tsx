@@ -18,7 +18,7 @@ interface EventFormProps {
 }
 
 const KOMBUCHA_DATE_OPTIONS = [
-  { id: 'KOMBUCHA_1', label: '6th Dec 2025 - Kombucha Mornings' },
+  { id: 'KOMBUCHA_1', label: '13th Dec 2025 - Kombucha Mornings' },
   { id: 'KOMBUCHA_2', label: '10th Jan 2026 - Kombucha Mornings' },
 ];
 

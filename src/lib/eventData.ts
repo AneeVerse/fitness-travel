@@ -30,7 +30,7 @@ const eventDataMap: Record<string, EventData> = {
     slug: 'kombucha-mornings',
     title: 'KOMBUCHA MORNINGS',
     description: 'Kombucha Mornings is an exclusive, invite-only experience curated by Tiger Terrain, bringing together uber-cool fitness enthusiasts for a morning unlike any other. A fusion of high-performance workouts, functional nutrition, and community connection designed for those who live and breathe wellness.',
-    dates: '6th Dec 2025 & 10th Jan 2026',
+    dates: '13th Dec 2025 &amp; 10th Jan 2026',
     location: 'TBA',
     heroVideo: '/images/events/Videos for Kombucha Mornings2.mp4',
     highlights: [

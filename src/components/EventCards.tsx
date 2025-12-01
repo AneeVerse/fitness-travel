@@ -24,7 +24,7 @@ const events: EventItem[] = [
     title: 'KOMBUCHA MORNINGS',
     description:
       'Indulge in an experiential fitness micro-event curated for uber-cool fitness enthusiasts. This is where fitness meets lifestyle meets community.',
-    date: '6th Dec 2025',
+    date: '13th Dec 2025',
     access: 'On-Location Experienced Coaches.',
     time: 'TBA',
     location: 'TBA',
@@ -104,7 +104,7 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
               const eventId = `${event.id}-${index}`;
               const isHovered = hoveredCard === event.id;
               const shouldFlip = isHovered;
-              
+
               return (
                 <div
                   key={eventId}
@@ -112,18 +112,17 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                   data-card="true"
                   draggable={false}
                 >
-                  <div 
+                  <div
                     className="relative h-[380px] sm:h-[420px] md:h-[450px] lg:h-[520px] xl:h-[450px] group shadow-lg"
                     onMouseEnter={() => setHoveredCard(event.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                     style={{ perspective: '1000px', zIndex: 1 }}
                   >
                     {/* Card Container */}
-                    <div 
-                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-                        shouldFlip ? 'rotate-y-180' : ''
-                      }`}
-                      style={{ 
+                    <div
+                      className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${shouldFlip ? 'rotate-y-180' : ''
+                        }`}
+                      style={{
                         transformStyle: 'preserve-3d',
                         transform: shouldFlip ? 'rotateY(180deg)' : 'rotateY(0deg)'
                       }}
@@ -139,10 +138,10 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                             className="object-cover transition-transform duration-300 hover:scale-105"
                             sizes="(max-width: 768px) 250px, (max-width: 1024px) 350px, 380px"
                           />
-                          
+
                           {/* Enhanced Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-                          
+
                           {/* Content */}
                           <div className="absolute bottom-4 left-4 right-4 z-10">
                             <div className="text-white space-y-2 select-none">
@@ -163,7 +162,7 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                       </div>
 
                       {/* Back of Card */}
-                      <div 
+                      <div
                         className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white select-none"
                         style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
                       >
@@ -175,13 +174,13 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                                 {event.title}
                               </h3>
                             </div>
-                            
+
                             {/* Mobile: Limited description with ellipsis, Desktop: Full description */}
                             <div className="text-black text-xs sm:text-sm mb-3 sm:mb-4 select-none">
                               <p className="block sm:hidden"><span className="text-ellipsis-6">{event.description}</span></p>
                               <p className="hidden sm:block">{event.description}</p>
                             </div>
-                            
+
                             {/* Details */}
                             <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-black select-none">
                               <div className="flex items-start gap-3 select-none">
@@ -201,13 +200,13 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                               </div>
                               <div className="flex items-start gap-3 select-none">
                                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 -mt-0.5" fill="currentColor" viewBox="0 0 24 24">
-                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                 </svg>
                                 <span className="select-none leading-tight font-medium">{event.access}</span>
                               </div>
                             </div>
                           </div>
-                          
+
                           {/* Button */}
                           <div className="mt-4 sm:mt-6 relative" style={{ zIndex: 9999 }}>
                             <button
@@ -218,8 +217,8 @@ const EventCards: React.FC<EventCardsProps> = ({ title = "EVENTS" }) => {
                                 window.location.href = `/events/kombucha-mornings?date=${event.id}`;
                               }}
                               className="w-full bg-[#ef4a25] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer select-none"
-                              style={{ 
-                                fontFamily: 'var(--font-teko)', 
+                              style={{
+                                fontFamily: 'var(--font-teko)',
                                 pointerEvents: 'auto',
                                 position: 'relative',
                                 zIndex: 9999,
