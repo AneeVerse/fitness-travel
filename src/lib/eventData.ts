@@ -47,7 +47,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'Prepared for Performance',
         description: 'We meet our tribe at a sun-kissed venue, where everyone mingles around & get our vibe-check in place. This will be accompanied by preworkout elixirs and protein smoothies to prep us up for the drills ahead.\n\nDelivers Essential Ammo for the WOD Ahead',
         time: '7:00 AM - 7:30 AM',
-        image: '/images/events/website images_/0001.png',
+        image: 'https://ik.imagekit.io/cuovrrwder/meet%20the%20tiger',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       },
       {
@@ -56,7 +56,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'HIIT Workout Session',
         description: 'We move to pairing up with partners for a YGIG style workout. You are briefed about the workout ahead which is followed by a quick warm up. And then you unleash your raw power as you dive into HIIT workouts that are synced with a playlist that radiates sunrise intensity.\n\nExpert Coaches\nEquipment Provided',
         time: '7:30 AM - 8:30 AM',
-        image: '/images/events/website images_/0002.png',
+        image: 'https://ik.imagekit.io/cuovrrwder/Go%20for%20the%20kill%201.png',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       },
       {
@@ -65,7 +65,7 @@ const eventDataMap: Record<string, EventData> = {
         title: 'Recovery & Connection',
         description: 'It\'s time to Cool down reward yourself. Fuel up with chef-designed macro-nutrient dense breakfast bowls accompanied with our signature kombucha drinks. Get together for picture perfect moments for the papps as we see wrap in style.\n\nMacro Balance\nPrepared by Nutrition Experts',
         time: '8:30 AM - 9:30 AM',
-        image: '/images/events/website images_/0003.png',
+        image: 'https://ik.imagekit.io/cuovrrwder/time%20to%20roar',
         videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
       }
     ],
@@ -79,8 +79,8 @@ const eventDataMap: Record<string, EventData> = {
       ],
       images: [
         '/images/events/website images_/WhatsApp Image 2025-11-23 at 20.00.39.jpeg',
-        '/images/events/website images_/3.png',
-        '/images/events/website images_/4.png'
+        'https://ik.imagekit.io/cuovrrwder/Why%20should%20you%202.png',
+        'https://ik.imagekit.io/cuovrrwder/bottom%20right'
       ]
     }
   }

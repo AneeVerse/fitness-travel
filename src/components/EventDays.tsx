@@ -48,16 +48,18 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-black/10" />
                       
                       <div className="absolute inset-4 z-10 flex flex-col text-white select-none">
-                        <div className="space-y-2 select-none mt-4 sm:mt-6 md:mt-2">
+                        <div className="flex flex-col space-y-3 select-none">
+                          <div className="flex justify-start select-none">
+                            <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-[10px] md:text-xs font-semibold whitespace-nowrap select-none">
+                              {period.time}
+                            </div>
+                          </div>
                           <h3 className="text-sm sm:text-base md:text-xl lg:text-2xl font-bold uppercase select-none" style={{ fontFamily: 'var(--font-teko)' }}>
                             {period.period}
                           </h3>
                         </div>
 
-                        <div className="flex flex-col space-y-2 select-none mt-[120px] sm:mt-[100px] md:mt-[150px] lg:mt-[170px] xl:mt-[150px]">
-                          <h4 className="text-sm sm:text-base md:text-lg font-semibold leading-tight select-none mb-2">
-                            {period.title}
-                          </h4>
+                        <div className="flex flex-col space-y-2 select-none mt-[180px] sm:mt-[170px] md:mt-[220px] lg:mt-[240px] xl:mt-[220px]">
                           <ul className="space-y-1.5 select-none list-disc pl-4">
                             {period.description.split(/\n+/).map((point, idx) => {
                               const trimmedPoint = point.trim();
@@ -69,14 +71,6 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                               );
                             })}
                           </ul>
-                        </div>
-
-                        <div className="space-y-2 select-none mt-auto mb-2 sm:mb-4 md:mb-8">
-                          <div className="flex justify-start select-none">
-                            <div className="bg-[#ef4a25] text-white px-2.5 py-1 rounded-full text-[10px] md:text-xs font-semibold whitespace-nowrap select-none">
-                              {period.time}
-                            </div>
-                          </div>
                         </div>
                       </div>
                     </div>
