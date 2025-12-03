@@ -60,27 +60,27 @@ type EventItem = {
 };
 
 const events: EventItem[] = [
+  // {
+  //   id: 'SRI_LANKA_DEC',
+  //   title: 'SRI LANKA',
+  //   description:
+  //     'Discover the pearl of the Indian Ocean with our Sri Lanka Fitcation! Experience ancient culture, pristine beaches, and challenging workouts.',
+  //   date: '10th Dec 2025 - 14th Dec 2025\n(Sri Lanka Edition)',
+  //   access: 'On-Location Experienced Coaches.',
+  //   time: 'Start 06:00 AM – Finish',
+  //   location: 'Sri Lanka',
+  //   priceLabel: 'USD 850',
+  //   imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755519446260',
+  //   videoSrc: '/video/srilanka.mp4',
+  //   totalSlots: 20,
+  //   bookedSlots: 8,
+  // },
   {
-    id: 'SRI_LANKA_DEC',
-    title: 'SRI LANKA',
-    description:
-      'Discover the pearl of the Indian Ocean with our Sri Lanka Fitcation! Experience ancient culture, pristine beaches, and challenging workouts.',
-    date: '10th Dec 2025 - 14th Dec 2025\n(Sri Lanka Edition)',
-    access: 'On-Location Experienced Coaches.',
-    time: 'Start 06:00 AM – Finish',
-    location: 'Sri Lanka',
-    priceLabel: 'USD 850',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg3.png?updatedAt=1755519446260',
-    videoSrc: '/video/srilanka.mp4',
-    totalSlots: 20,
-    bookedSlots: 8,
-  },
-  {
-    id: 'PHUKET_JAN',
+    id: 'PHUKET_FEB',
     title: 'PHUKET',
     description:
       'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: '18th Jan 2026 to 25th Jan 2026\n(Phuket Edition)',
+    date: '15th Feb 2026 to 22nd Feb 2026\n(Phuket Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',
@@ -193,8 +193,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
         console.error('Error fetching badge numbers:', error as Error);
         // Fallback to default values if API fails
         setBadgeNumbers({
-          'SRI_LANKA_DEC': 15,
-          'PHUKET_JAN': 20,
+          'PHUKET_FEB': 20,
           'PHUKET_SONGKRAN': 18,
           'PHUKET_FINALE': 22,
         });
@@ -219,7 +218,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   /*
    * Filter events so that the card for the currently viewed journey/date is NOT displayed.
    * Priority:
-   * 1. If a `date` query-param is present (e.g. ?date=PHUKET_JAN) we hide ONLY that exact event id.
+   * 1. If a `date` query-param is present (e.g. ?date=PHUKET_FEB) we hide ONLY that exact event id.
    * 2. Otherwise, if the `currentSlug` prop is provided (e.g. slug = "phuket" on itinerary page),
    *    we hide the first event whose id starts with that slug to avoid duplicates.
    * 3. In all other situations we show every card.

@@ -59,7 +59,7 @@ const EventDays: React.FC<EventDaysProps> = ({ eventData }) => {
                           </h3>
                         </div>
 
-                        <div className="flex flex-col space-y-2 select-none mt-[180px] sm:mt-[170px] md:mt-[220px] lg:mt-[240px] xl:mt-[220px]">
+                        <div className="flex flex-col space-y-2 select-none mt-[140px] sm:mt-[170px] md:mt-[220px] lg:mt-[240px] xl:mt-[220px]">
                           <ul className="space-y-1.5 select-none list-disc pl-4">
                             {period.description.split(/\n+/).map((point, idx) => {
                               const trimmedPoint = point.trim();

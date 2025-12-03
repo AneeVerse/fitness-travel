@@ -16,7 +16,7 @@ export const defaultBadgeNumbers: Omit<BadgeNumber, '_id' | 'createdAt' | 'updat
     totalSlots: 20,
   },
   {
-    eventId: 'PHUKET_JAN',
+    eventId: 'PHUKET_FEB',
     eventTitle: 'PHUKET',
     badgeNumber: 20,
     totalSlots: 25,
