@@ -8,6 +8,7 @@ const PartnerSection = () => {
     '/images/PATNERS/Partner Logos-02.png',
     '/images/PATNERS/Partner Logos-03.png',
     '/images/PATNERS/Partner Logos-04.png',
+    '/images/events/website images_/logo.webp',
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -133,19 +134,22 @@ const PartnerSection = () => {
             className="flex items-center gap-8 md:gap-12"
             style={{ cursor: isPaused ? 'grabbing' : 'grab' }}
           >
-            {duplicatedLogos.map((logo, index) => (
-              <div
-                key={`logo-${index}`}
-                className="flex-shrink-0 mx-3 md:mx-6 lg:mx-8 flex items-center justify-center"
-              >
-                <img
-                  src={logo}
-                  alt={`Partner ${index + 1}`}
-                  className="partner-logo w-auto object-contain"
-                  draggable={false}
-                />
-              </div>
-            ))}
+            {duplicatedLogos.map((logo, index) => {
+              const isSmallLogo = logo.includes('logo.webp');
+              return (
+                <div
+                  key={`logo-${index}`}
+                  className="flex-shrink-0 mx-3 md:mx-6 lg:mx-8 flex items-center justify-center"
+                >
+                  <img
+                    src={logo}
+                    alt={`Partner ${index + 1}`}
+                    className={`${isSmallLogo ? 'partner-logo-small' : 'partner-logo'} w-auto object-contain`}
+                    draggable={false}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -180,6 +184,31 @@ const PartnerSection = () => {
           /* lg */
           .partner-logo {
             height: 220px;
+          }
+        }
+        .partner-logo-small {
+          height: 100px;
+          width: 200px;
+        }
+        @media (min-width: 640px) {
+          /* sm */
+          .partner-logo-small {
+            height: 100px;
+            width: 200px;
+          }
+        }
+        @media (min-width: 768px) {
+          /* md */
+          .partner-logo-small {
+            height: 140px;
+            width: 280px;
+          }
+        }
+        @media (min-width: 1024px) {
+          /* lg */
+          .partner-logo-small {
+            height: 160px;
+            width: 320px;
           }
         }
       `}</style>
