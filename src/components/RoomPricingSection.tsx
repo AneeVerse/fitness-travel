@@ -16,31 +16,27 @@ interface RoomPricingSectionProps {
 const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "", tripData }) => {
   const standardRoomPricing: PricingOption[] = [
     {
-      type: "Single",
-      price: "₹72,450"
+      type: "Twin Sharing (7 nights)",
+      price: "₹54,236"
     },
     {
-      type: "Double", 
-      price: "₹64,850"
-    },
-    {
-      type: "Triple",
-      price: "₹58,750"
+      type: "Single Occupancy", 
+      price: "₹68,373"
     }
   ];
 
   const poolFacingPricing: PricingOption[] = [
     {
-      type: "Single",
-      price: "₹89,650"
+      type: "Twin Sharing (week)",
+      price: "₹68,373"
     },
     {
-      type: "Double",
-      price: "₹76,250"
+      type: "Triple Sharing",
+      price: "₹42,565"
     },
     {
-      type: "Triple",
-      price: "₹68,950"
+      type: "Single Occupancy",
+      price: "₹1,14,048"
     }
   ];
 
@@ -109,12 +105,18 @@ const RoomPricingSection: React.FC<RoomPricingSectionProps> = ({ className = "",
   );
 
   const getIconForType = (type: string) => {
-    switch (type.toLowerCase()) {
+    const normalized = type.toLowerCase();
+    switch (normalized) {
       case 'single':
+      case 'single occupancy':
         return <SingleHomeIcon />;
       case 'double':
+      case 'twin sharing (7 nights)':
+      case 'twin sharing (week)':
+      case 'twin sharing':
         return <DoubleHomeIcon />;
       case 'triple':
+      case 'triple sharing':
         return <TripleHomeIcon />;
       default:
         return <SingleHomeIcon />;

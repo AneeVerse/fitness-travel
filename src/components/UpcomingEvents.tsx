@@ -181,7 +181,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
         setBadgeLoading(true);
         const response = await fetch('/api/badge-numbers');
         const result = await response.json();
-        
+
         if (result.success && result.data) {
           const badgeMap: Record<string, number> = {};
           result.data.forEach((item: { eventId: string; badgeNumber: number }) => {
@@ -252,28 +252,28 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   // Handle mouse wheel scrolling for horizontal scroll
   const handleWheel = useCallback((e: React.WheelEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
-    
+
     // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
     const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-    
+
     if (isHorizontalScroll) {
       // Only handle horizontal scroll - prevent default and scroll
       e.preventDefault();
       e.stopPropagation();
-      
+
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
       let newTranslate = translateX.current - scrollAmount;
-      
+
       // Calculate boundaries and enforce limits
       const { maxScroll } = calculateBoundaries();
-      
+
       // Enforce boundaries
       if (newTranslate > 0) {
         newTranslate = 0;
       } else if (newTranslate < -maxScroll) {
         newTranslate = -maxScroll;
       }
-      
+
       translateX.current = newTranslate;
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -283,28 +283,28 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   // Handle native wheel events for the useEffect listener
   const handleNativeWheel = useCallback((e: WheelEvent) => {
     if (!containerRef.current) return;
-    
+
     // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
     const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-    
+
     if (isHorizontalScroll) {
       // Only handle horizontal scroll - prevent default and scroll
       e.preventDefault();
       e.stopPropagation();
-      
+
       const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
       let newTranslate = translateX.current - scrollAmount;
-      
+
       // Calculate boundaries and enforce limits
       const { maxScroll } = calculateBoundaries();
-      
+
       // Enforce boundaries
       if (newTranslate > 0) {
         newTranslate = 0;
       } else if (newTranslate < -maxScroll) {
         newTranslate = -maxScroll;
       }
-      
+
       translateX.current = newTranslate;
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
@@ -318,7 +318,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     startX.current = clientX;
     scrollLeft.current = translateX.current;
-    
+
     // Add global event listeners for mouse events to handle dragging outside the container
     if ('clientX' in e) {
       document.addEventListener('mousemove', handleGlobalMouseMove);
@@ -329,21 +329,21 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging.current) return;
     e.preventDefault();
-    
+
     const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
     const walk = (clientX - startX.current) * 1.2; // Adjust sensitivity
     let newTranslate = scrollLeft.current + walk;
-    
+
     // Calculate boundaries and enforce limits
     const { maxScroll } = calculateBoundaries();
-    
+
     // Enforce boundaries - no infinite scroll
     if (newTranslate > 0) {
       newTranslate = 0; // Can't scroll past the beginning (right boundary)
     } else if (newTranslate < -maxScroll) {
       newTranslate = -maxScroll; // Can't scroll past the end (left boundary)
     }
-    
+
     translateX.current = newTranslate;
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
@@ -361,18 +361,18 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
   const handleGlobalMouseMove = (e: MouseEvent) => {
     if (!isDragging.current) return;
     e.preventDefault();
-    
+
     const walk = (e.clientX - startX.current) * 1.2;
     let newTranslate = scrollLeft.current + walk;
-    
+
     const { maxScroll } = calculateBoundaries();
-    
+
     if (newTranslate > 0) {
       newTranslate = 0;
     } else if (newTranslate < -maxScroll) {
       newTranslate = -maxScroll;
     }
-    
+
     translateX.current = newTranslate;
     if (containerRef.current) {
       containerRef.current.style.transform = `translateX(${translateX.current}px)`;
@@ -398,7 +398,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
 
       if (isVisible) {
         setHasAnimated(true);
-        
+
         // Start countdown animation from 25 to 15
         let currentCount = 25;
         const targetCount = 15;
@@ -443,7 +443,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
       // Use passive: false to allow preventDefault
       document.addEventListener('wheel', handleWheelCapture, { passive: false });
       container.addEventListener('wheel', handleNativeWheel, { passive: false });
-      
+
       return () => {
         document.removeEventListener('wheel', handleWheelCapture);
         container.removeEventListener('wheel', handleNativeWheel);
@@ -487,7 +487,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                 const isFlipped = flippedCards.has(event.id);
                 const isHovered = hoveredCard === event.id;
                 const shouldFlip = isFlipped || isHovered;
-                
+
                 return (
                   <div
                     key={eventId}
@@ -499,7 +499,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                     <div className="absolute -top-5 left-4 z-[9999]">
                       <div className="bg-[#ef4a25] text-white px-3 py-2 rounded-full shadow-lg flex items-center gap-2 select-none">
                         <div className="w-6 h-4 bg-white/20 rounded border border-white/30 relative">
-                          <div 
+                          <div
                             className="h-full bg-white rounded-sm transition-all duration-300"
                             style={{ width: `${(getBadgeNumber(event.id) / event.totalSlots) * 100}%` }}
                           />
@@ -510,19 +510,18 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                         <span className="text-xs font-semibold select-none">left</span>
                       </div>
                     </div>
-                    
-                    <div 
+
+                    <div
                       className="relative h-[380px] sm:h-[420px] md:h-[450px] lg:h-[520px] xl:h-[450px] group shadow-lg"
                       onMouseEnter={() => setHoveredCard(event.id)}
                       onMouseLeave={() => setHoveredCard(null)}
                       style={{ perspective: '1000px', zIndex: 1 }}
                     >
                       {/* Card Container */}
-                      <div 
-                        className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
-                          shouldFlip ? 'rotate-y-180' : ''
-                        }`}
-                        style={{ 
+                      <div
+                        className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${shouldFlip ? 'rotate-y-180' : ''
+                          }`}
+                        style={{
                           transformStyle: 'preserve-3d',
                           transform: shouldFlip ? 'rotateY(180deg)' : 'rotateY(0deg)'
                         }}
@@ -540,10 +539,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                             >
                               <source src={event.videoSrc} type="video/mp4" />
                             </video>
-                            
+
                             {/* Enhanced Gradient Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/20" />
-                            
+
                             {/* Content */}
                             <div className="absolute bottom-4 left-4 right-4 z-10">
                               <div className="text-white space-y-2 select-none">
@@ -564,7 +563,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                         </div>
 
                         {/* Back of Card */}
-                        <div 
+                        <div
                           className="absolute inset-0 w-full h-full backface-hidden rounded-2xl overflow-hidden shadow-xl bg-white select-none"
                           style={{ transform: 'rotateY(180deg)', zIndex: 10 }}
                         >
@@ -576,13 +575,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                   {event.title}
                                 </h3>
                               </div>
-                              
+
                               {/* Mobile: Limited description with ellipsis, Desktop: Full description */}
                               <div className="text-black text-xs sm:text-sm mb-3 sm:mb-4 select-none">
                                 <p className="block sm:hidden"><span className="text-ellipsis-6">{event.description}</span></p>
                                 <p className="hidden sm:block">{event.description}</p>
                               </div>
-                              
+
                               {/* Details */}
                               <div className="space-y-3 sm:space-y-4 text-xs sm:text-sm text-black select-none">
                                 <div className="flex items-start gap-3 select-none">
@@ -602,13 +601,13 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                 </div>
                                 <div className="flex items-start gap-3 select-none">
                                   <svg className="w-4 h-4 sm:w-5 sm:h-5 text-[#ef4a25] flex-shrink-0 -mt-0.5" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                                   </svg>
                                   <span className="select-none leading-tight font-medium">{event.access}</span>
                                 </div>
                               </div>
                             </div>
-                            
+
                             {/* Button - Better spacing on mobile */}
                             <div className="mt-4 sm:mt-6 relative" style={{ zIndex: 9999 }}>
                               <button
@@ -616,7 +615,7 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                   e.preventDefault();
                                   e.stopPropagation();
                                   console.log('Button clicked, navigating to itinerary for', event.id);
-                                  
+
                                   // Map event IDs to correct route slugs
                                   let slug = 'phuket'; // default
                                   if (event.id.includes('SRI_LANKA')) {
@@ -630,10 +629,10 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ title = "UPCOMING TRIPS
                                 onMouseDown={(e) => e.stopPropagation()}
                                 onMouseUp={(e) => e.stopPropagation()}
                                 onTouchStart={(e) => e.stopPropagation()}
-                                onTouchEnd={() => {}}
+                                onTouchEnd={() => { }}
                                 className="w-full bg-[#ef4a25] text-white px-3 sm:px-4 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-wide hover:bg-black transition-colors inline-flex items-center justify-center cursor-pointer select-none"
-                                style={{ 
-                                  fontFamily: 'var(--font-teko)', 
+                                style={{
+                                  fontFamily: 'var(--font-teko)',
                                   pointerEvents: 'auto',
                                   position: 'relative',
                                   zIndex: 9999,
