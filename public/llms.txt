@@ -1,0 +1,24 @@
+# Tiger Terrain
+
+> Experiential Fitness Journeys where fitness meets travel.
+
+## About
+Tiger Terrain (formerly known as Myden Fitcation) provides week-long fitness journeys that blend sun-soaked workouts, curated nutrition plans, recovery sessions, and epic adventures. Founded in 2016, we've transformed over 300 lives through 20+ trips to destinations like Phuket and Sri Lanka. Our mission is to combine fitness with travel to create transformative experiences that push physical and mental boundaries.
+
+## Key Pages
+- Home: https://tigerterrain.in/
+- About: https://tigerterrain.in/about
+- Events: https://tigerterrain.in/events
+- Contact: https://tigerterrain.in/contact
+- FAQ: https://tigerterrain.in/faq
+
+## Services
+- Fitness Escapades: Multi-day experiences blending fitness modalities with local culture and adventure.
+- Community Runs: Weekly community runs open to all fitness levels.
+- Personalized Training: Expert coaches providing tailored support for members.
+- Adventure Travel: Curated fitness-focused trips to exotic destinations.
+
+## Contact
+- Address: Tiger Terrain, India
+- Website: https://tigerterrain.in
+- Instagram: https://www.instagram.com/tigerterrain/ (Assumed based on common patterns, will verify if needed)

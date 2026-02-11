@@ -19,6 +19,35 @@ interface PageProps {
   }>;
 }
 
+export async function generateMetadata({ params }: PageProps) {
+  const { slug } = await params;
+  const tripData = getTripData(slug);
+
+  if (!tripData) return {};
+
+  return {
+    title: tripData.title,
+    description: tripData.description,
+    alternates: {
+      canonical: `/itinerary/${slug}`,
+    },
+    openGraph: {
+      title: `${tripData.title} | Tiger Terrain`,
+      description: tripData.description,
+      url: `https://tigerterrain.in/itinerary/${slug}`,
+      type: 'website',
+      images: [
+        {
+          url: tripData.overview.images[0] || '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
+          width: 1200,
+          height: 630,
+          alt: tripData.title,
+        },
+      ],
+    },
+  };
+}
+
 export default async function ItineraryPage({ params }: PageProps) {
   const { slug } = await params;
   const tripData = getTripData(slug);
