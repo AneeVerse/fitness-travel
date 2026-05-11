@@ -5,14 +5,33 @@ import { useSearchParams } from 'next/navigation';
 
 // Add function to extract main date from date string
 const extractMainDate = (dateString: string): string => {
-  // Extract the first date range from strings like "10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)"
-  const dateMatch = dateString.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})/);
+  // Remove edition text in parentheses and newlines
+  const cleanDate = dateString.split('\n')[0].replace(/\(.*?\)/g, '').trim();
+  // Try to extract full date range like "20th Sep 2026 - 27th Sep 2026"
+  const rangeMatch = cleanDate.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})\s*[-–to]+\s*(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})/);
+  if (rangeMatch) {
+    // Extract parts: "20th Sep 2026" and "27th Sep 2026"
+    const startParts = rangeMatch[1].match(/(\d{1,2}(?:st|nd|rd|th)?)\s+(\w+)\s+(\d{4})/);
+    const endParts = rangeMatch[2].match(/(\d{1,2}(?:st|nd|rd|th)?)\s+(\w+)\s+(\d{4})/);
+    if (startParts && endParts) {
+      // Same month & year: "20th - 27th Sep 2026"
+      if (startParts[2] === endParts[2] && startParts[3] === endParts[3]) {
+        return `${startParts[1]} - ${endParts[1]} ${endParts[2]} ${endParts[3]}`;
+      }
+      // Same year: "20th Sep - 4th Oct 2026"
+      if (startParts[3] === endParts[3]) {
+        return `${startParts[1]} ${startParts[2]} - ${endParts[1]} ${endParts[2]} ${endParts[3]}`;
+      }
+    }
+    return `${rangeMatch[1]} - ${rangeMatch[2]}`;
+  }
+  // Fallback: single date
+  const dateMatch = cleanDate.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})/);
   if (dateMatch) {
     return dateMatch[1];
   }
-  // Fallback for other formats
-  const simpleMatch = dateString.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+)/);
-  return simpleMatch ? simpleMatch[1] : dateString.split(' ').slice(0, 3).join(' ');
+  const simpleMatch = cleanDate.match(/(\d{1,2}(?:st|nd|rd|th)?\s+\w+)/);
+  return simpleMatch ? simpleMatch[1] : cleanDate.split(' ').slice(0, 3).join(' ');
 };
 
 // Add CSS for 3D flip effect and text truncation
@@ -75,21 +94,21 @@ const events: EventItem[] = [
   //   totalSlots: 20,
   //   bookedSlots: 8,
   // },
-  {
-    id: 'PHUKET_FEB',
-    title: 'PHUKET',
-    description:
-      'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
-    date: '15th Feb 2026 to 22nd Feb 2026\n(Phuket Edition)',
-    access: 'On-Location Experienced Coaches.',
-    time: 'Start 05:00 AM – Finish',
-    location: 'Phuket',
-    priceLabel: '$50',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
-    videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
-    totalSlots: 25,
-    bookedSlots: 10,
-  },
+  // {
+  //   id: 'PHUKET_FEB',
+  //   title: 'PHUKET',
+  //   description:
+  //     'Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment.',
+  //   date: '15th Feb 2026 to 22nd Feb 2026\n(Phuket Edition)',
+  //   access: 'On-Location Experienced Coaches.',
+  //   time: 'Start 05:00 AM – Finish',
+  //   location: 'Phuket',
+  //   priceLabel: '$50',
+  //   imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+  //   videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
+  //   totalSlots: 25,
+  //   bookedSlots: 10,
+  // },
   // {
   //   id: 'PHUKET_HYROX',
   //   title: 'PHUKET HYROX',
@@ -105,21 +124,21 @@ const events: EventItem[] = [
   //   totalSlots: 20,
   //   bookedSlots: 12,
   // },
-  {
-    id: 'PHUKET_SONGKRAN',
-    title: 'PHUKET SONGKRAN',
-    description:
-      'Celebrate Thai New Year with an incredible fitness journey. Experience Songkran festivities while achieving your fitness goals.',
-    date: '12th Apr 2026 - 19th April 2026\n(Songkran Edition-Phuket)',
-    access: 'On-Location Experienced Coaches.',
-    time: 'Start 05:00 AM – Finish',
-    location: 'Phuket',
-    priceLabel: '$55',
-    imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
-    videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
-    totalSlots: 25,
-    bookedSlots: 15,
-  },
+  // {
+  //   id: 'PHUKET_SONGKRAN',
+  //   title: 'PHUKET SONGKRAN',
+  //   description:
+  //     'Celebrate Thai New Year with an incredible fitness journey. Experience Songkran festivities while achieving your fitness goals.',
+  //   date: '12th Apr 2026 - 19th April 2026\n(Songkran Edition-Phuket)',
+  //   access: 'On-Location Experienced Coaches.',
+  //   time: 'Start 05:00 AM – Finish',
+  //   location: 'Phuket',
+  //   priceLabel: '$55',
+  //   imageSrc: 'https://ik.imagekit.io/t8xk4h5as/reviews/Bg2.png?updatedAt=1755519446260',
+  //   videoSrc: '/video/Phuket_20250910_133428_0001.mp4',
+  //   totalSlots: 25,
+  //   bookedSlots: 15,
+  // },
   // {
   //   id: 'SRI_LANKA_MAY',
   //   title: 'SRI LANKA',
@@ -140,7 +159,7 @@ const events: EventItem[] = [
     title: 'PHUKET FINALE',
     description:
       'End the year with our grand finale in Phuket. The ultimate fitness celebration combining all our best experiences.',
-    date: '27th Sep 2026 - 4th Oct 2026\n(Phuket Finale Edition)',
+    date: '20th Sep 2026 - 27th Sep 2026\n(Phuket Finale Edition)',
     access: 'On-Location Experienced Coaches.',
     time: 'Start 05:00 AM – Finish',
     location: 'Phuket',

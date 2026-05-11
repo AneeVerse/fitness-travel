@@ -53,11 +53,11 @@ const PricingModal: React.FC<PricingModalProps> = ({ isOpen, onClose, tripData }
 
   const dateOptions = [
     // { value: "sri-lanka-10dec-14dec-2025", label: "10th Dec 2025 - 14th Dec 2025 (Sri Lanka Edition)" },
-    { value: "phuket-15feb-22feb-2026", label: "15th Feb 2026 to 22nd Feb 2026 (Phuket Edition)" },
+    // { value: "phuket-15feb-22feb-2026", label: "15th Feb 2026 to 22nd Feb 2026 (Phuket Edition)" },
     // { value: "bkk-hyrox-15mar-22mar-2026", label: "15th Mar 2026 - 22nd Mar 2026 (BKK Hyrox Edition-Phuket)" },
-    { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)" },
+    // { value: "songkran-12apr-19apr-2026", label: "12th Apr 2026 - 19th April 2026 (Songkran Edition-Phuket)" },
     // { value: "sri-lanka-29apr-3may-2026", label: "29th Apr 2026 - 3rd May 2026 (Sri Lanka Edition)" },
-    { value: "phuket-finale-27sep-4oct-2026", label: "27th Sep 2026 - 4th Oct 2026 (Phuket Finale Edition)" },
+    { value: "phuket-finale-20sep-27sep-2026", label: "20th Sep 2026 - 27th Sep 2026 (Phuket Finale Edition)" },
   ];
 
   const accommodationTypes = [
