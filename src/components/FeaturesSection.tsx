@@ -1,160 +1,278 @@
 "use client";
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import PricingModal from './PricingModal';
 
-const FeaturesSection = () => {
-  // Scroll-stack items – using the same video for now as requested
-  const items: Array<{ title: string; subtitle: string; description: string; thumbnail?: string }> = [
-    {
-      title: "Welcome to Tiger Terrain",  
-      subtitle: "See how Tiger Terrain creates life-changing experiences that go beyond ordinary travel",
-      description: "Discover how our retreats blend training, travel and community for unforgettable experiences.",
-      thumbnail: "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg",
-    },
-    {
-      title: "Train. Explore. Connect.",
-      subtitle: "Retreats that challenge and inspire",
-      description: "Structured workouts, epic adventures, and time to connect with like‑minded people.",
-      thumbnail: "/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif",
-    },
-    {
-      title: "Built For Community",
-      subtitle: "Move together. Grow together.",
-      description: "We design every moment to foster belonging and lifelong friendships.",
-      thumbnail: "/images/destination/67c950df732207c200bc9b76__MEN2735.jpg",
-    },
-  ];
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+interface FeaturesSectionProps {
+  navigateToItinerary?: boolean;
+}
+
+const FeaturesSection: React.FC<FeaturesSectionProps> = ({ navigateToItinerary = false }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Create animation for the features section to slide up as hero moves up
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "top center",
+        scrub: 1,
+      }
+    });
+
+    // Animate the section to slide up from below
+    tl.fromTo(section, 
+      {
+        y: 200,
+        opacity: 0
+      },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out"
+      }
+    );
+
+    // Cleanup function
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  // Handle video loading and aspect ratio detection
+  useEffect(() => {
+    if (isVideoPlaying && videoRef.current) {
+      const video = videoRef.current;
+      video.load(); // Reload the video source
+      
+      // Detect video aspect ratio when metadata is loaded
+      // Video metadata loaded (aspect ratio calculation removed as unused)
+    }
+  }, [isVideoPlaying]);
+
+  const handlePlayVideo = async () => {
+    setIsVideoPlaying(true);
+    // Wait for the video element to be rendered
+    setTimeout(async () => {
+      if (videoRef.current) {
+        try {
+          await videoRef.current.play();
+        } catch (error) {
+          console.error('Error playing video:', error);
+        }
+      }
+    }, 100);
+  };
+
+  const handlePauseVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+      setIsVideoPlaying(false);
+    }
+  };
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
+    }
+  };
 
   return (
-    <section className="relative -mt-12 w-full px-0">
-      <div className="relative mx-8 sm:mx-12 lg:mx-10">
-        <ScrollStack items={items} />
+    <>
+    <section id="features-section" ref={sectionRef} className="relative mt-10 sm:-mt-12 md:-mt-16 lg:-mt-20 xl:-mt-24 w-full px-0 -mb-30 md:mb-16 lg:mb-20 xl:-mb-34  mobile-features ">
+      <div className="relative px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <div className="max-w-4xl md:max-w-3xl lg:max-w-4xl xl:max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10 items-start lg:items-center py-12 sm:py-14 md:py-16 lg:py-18 xl:py-20">
+            
+            {/* Mobile Heading - Only visible on mobile */}
+            <div className="lg:hidden order-1">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6 text-center">
+                This is more than a vacation. It&apos;s a journey.
+              </h2>
+            </div>
+
+            {/* Video Card - Order 2 on mobile, 2 on desktop */}
+            <div className="flex justify-center lg:justify-end lg:col-span-5 order-2 lg:order-2">
+              <div className="relative w-full max-w-[340px] sm:max-w-[360px] md:max-w-[380px] lg:max-w-[320px] xl:max-w-[320px]">
+                {/* Video Card Container */}
+                <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-white">
+                  {!isVideoPlaying ? (
+                    <div className="relative w-full overflow-hidden">
+                      {/* Video Thumbnail Image */}
+                      <Image 
+                        src="/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg" 
+                        alt="Fitness retreat thumbnail"
+                        width={320}
+                        height={568}
+                        className="w-full h-auto object-contain"
+                      />
+                      
+                      {/* Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      
+                      {/* Play Button - Bottom Right */}
+                      <div className="absolute bottom-4 sm:bottom-5 md:bottom-6 right-4 sm:right-5 md:right-6 z-10">
+                        <div className="relative group">
+                          <span className="absolute -inset-2 sm:-inset-3 rounded-full bg-[#ef4a25] opacity-60 blur-lg animate-pulse group-hover:bg-[#ef4a25] group-hover:opacity-80" />
+                          <button
+                            onClick={handlePlayVideo}
+                            className="relative w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center bg-black ring-2 ring-[#ef4a25] text-[#ef4a25] shadow-xl transition-all duration-200 hover:bg-[#ef4a25] hover:text-white hover:ring-[#ef4a25] hover:scale-110"
+                            aria-label="Play video"
+                          >
+                            <svg className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 ml-0.5 sm:ml-1" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      
+                      {/* Video Title - Bottom Left */}
+                      <div className="absolute bottom-4 sm:bottom-5 md:bottom-6 left-4 sm:left-5 md:left-6 z-10">
+                        <p className="text-white text-sm sm:text-base md:text-lg font-bold font-unbounded drop-shadow-lg">
+                          Watch Our Story
+                        </p>
+                        <p className="text-white/80 text-xs sm:text-sm mt-1">
+                          See what makes us different
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="relative w-full bg-black">
+                      <video
+                        ref={videoRef}
+                        className="w-full h-auto cursor-pointer"
+                        autoPlay
+                        playsInline
+                        preload="metadata"
+                        onClick={handleVideoClick}
+                        onEnded={() => setIsVideoPlaying(false)}
+                        onError={(e) => {
+                          console.error('Video error:', e);
+                          setIsVideoPlaying(false);
+                        }}
+                      >
+                        <source src="/video/feature1.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      
+                      {/* Close Button */}
+                      <button
+                        onClick={handlePauseVideo}
+                        className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10 w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full flex items-center justify-center bg-white/90 text-black ring-1 ring-black/30 hover:bg-white transition-colors backdrop-blur-sm"
+                        aria-label="Close video"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5">
+                          <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Left Column - Text Content */}
+            <div className="flex flex-col justify-start lg:justify-center space-y-4 sm:space-y-5 md:space-y-6 lg:col-span-7 order-3 lg:order-1">
+              <div className="max-w-xl sm:max-w-2xl">
+                {/* Desktop Heading - Only visible on desktop */}
+                <h2 className="hidden lg:block text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold text-[#ef4a25] leading-tight font-unbounded mb-4 sm:mb-5 md:mb-6">
+                  This is more than a vacation. It&apos;s a journey.
+                </h2>
+                
+                <div className="space-y-3 sm:space-y-4 md:space-y-5 text-white leading-relaxed">
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+                    Fitness never takes a vacation - it travels with you. It is this thought that has driven us to curate a journey that combines training, travel, and community in the same breath. 
+                  </p>
+                  
+                  <p className="text-sm sm:text-base md:text-lg lg:text-xl">
+                    With Tiger Terrain, you get to join your tribe, go for bespoke fitness camps and travel experiences at incredible value. Book an experiences to any destination and experience the change instantly.
+                  </p>
+                </div>
+
+                {/* CTA Buttons - Desktop only, hidden on mobile */}
+                <div className="hidden lg:flex flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8">
+                  <button
+                    onClick={() => setIsPricingModalOpen(true)}
+                    className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg"
+                  >
+                    Book Adventure
+                  </button>
+                  {navigateToItinerary ? (
+                    <Link
+                      href="/itinerary"
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        const upcomingEventsSection = document.querySelector('#upcoming-events');
+                        if (upcomingEventsSection) {
+                          upcomingEventsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200"
+                    >
+                      View Destinations
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Buttons - Mobile only, appears after video */}
+            <div className="lg:hidden lg:col-span-12 order-3 flex justify-center w-full">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-7 md:mt-8 w-full max-w-md justify-center items-center">
+                <button
+                  onClick={() => setIsPricingModalOpen(true)}
+                  className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-[#ef4a25] text-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 shadow-lg w-full sm:w-auto text-center"
+                >
+                  Book Adventure
+                </button>
+                <Link
+                  href="/#upcoming-events"
+                  className="inline-flex items-center justify-center px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 bg-transparent text-white border-2 border-white rounded-xl sm:rounded-2xl font-semibold text-sm sm:text-base md:text-lg hover:bg-white hover:text-[#ef4a25] transform hover:scale-105 transition-all duration-200 w-full sm:w-auto text-center"
+                >
+                  View Destinations
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </section>
+    
+    {/* Pricing Modal - Rendered outside section to avoid stacking context issues */}
+    <PricingModal 
+      isOpen={isPricingModalOpen} 
+      onClose={() => setIsPricingModalOpen(false)} 
+    />
+    </>
   );
 };
 
 export default FeaturesSection;
-
-// Scroll Stack implementation
-type StackItem = { title: string; subtitle: string; description: string; thumbnail?: string };
-
-const ScrollStack: React.FC<{ items: StackItem[] }> = ({ items }) => {
-  const panelHeight = 820; // must match the sticky panel height class below
-  const tailHeight = 160; // extra gray space after the last card
-  const [playingIndex, setPlayingIndex] = React.useState<number | null>(null);
-  const videoRefs = React.useRef<Array<HTMLVideoElement | null>>([]);
-
-  React.useEffect(() => {
-    if (playingIndex === null) return;
-    const video = videoRefs.current[playingIndex];
-    if (!video) return;
-    try {
-      video.currentTime = 0;
-      void video.play();
-    } catch {
-      // ignore – user can press play from controls
-    }
-  }, [playingIndex]);
-
-
-  const handleCloseVideo = (index: number) => {
-    const video = videoRefs.current[index];
-    if (video) {
-      video.pause();
-      video.currentTime = 0;
-    }
-    setPlayingIndex(null);
-  };
-
-  return (
-    <div className="relative" style={{ height: items.length * panelHeight + tailHeight }}>
-      {items.map((item, index) => (
-        <div key={index} className="sticky -top-30 h-[820px] bg-gray-200 rounded-3xl ring-1 ring-gray-200/60 shadow-sm overflow-hidden">
-          {/* Heading block at the top of the card */}
-          <div className="pt-16 pb-8">
-            <div className="max-w-[1325px] mx-auto px-4 sm:px-8">
-              <div className="flex flex-col items-start gap-4">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 leading-[1.05] font-unbounded">
-                  {item.title}
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed max-w-4xl">
-                  {item.subtitle}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Video block inside the same card */}
-          <div className="relative h-[600px] mx-8 sm:mx-12 lg:mx-16 rounded-[32px] overflow-hidden">
-            {playingIndex === index ? (
-              <>
-                <video
-                  ref={(el) => { videoRefs.current[index] = el; }}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  controls
-                  autoPlay
-                  playsInline
-                  preload="auto"
-                >
-                  <source src="/video/hero-bg.mp4" type="video/mp4" />
-                </video>
-                {/* Close (X) button */}
-                <button
-                  type="button"
-                  aria-label="Close video"
-                  title="Close video"
-                  onClick={() => handleCloseVideo(index)}
-                  className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full flex items-center justify-center bg-black/70 text-white ring-1 ring-white/30 hover:bg-black/85"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
-                    <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06z" clipRule="evenodd" />
-                  </svg>
-                </button>
-              </>
-            ) : (
-              <>
-                <Image
-                  src={item.thumbnail || "/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg"}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                />
-                <div className="absolute inset-0 bg-black/50" />
-                {/* Big heading bottom-left */}
-                <div className="absolute left-6 sm:left-10 bottom-8 z-10">
-                  <h3 className="text-white text-3xl sm:text-4xl md:text-4xl lg:text-4xl font-extrabold font-unbounded uppercase tracking-tight leading-tight drop-shadow-[0_3px_10px_rgba(0,0,0,0.55)]">
-                    {item.title}
-                    <br />
-                    {item.subtitle}
-                  </h3>
-                </div>
-                {/* Play button bottom-right (slightly smaller and lifted) */}
-                <div className="absolute right-8 bottom-12 z-10 mr-10">
-                  <div className="relative group">
-                    <span className="absolute -inset-2 rounded-full bg-[#e77d25] opacity-70 blur-lg animate-pulse group-hover:opacity-90" />
-                    <button
-                      onClick={() => setPlayingIndex(index)}
-                      className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center bg-black/80 ring-2 ring-[#e77d25] text-[#e77d25] shadow-xl transition-colors hover:bg-[#e77d25] hover:text-black"
-                      aria-label={`Play ${item.title}`}
-                    >
-                      <svg className="w-6 h-6 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Spacer under card content */}
-          <div className="px-8 sm:px-12 lg:px-16 pb-10" />
-        </div>
-      ))}
-     
-    </div>
-  );
-};

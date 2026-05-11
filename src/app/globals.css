@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
 }
 
 @theme inline {
@@ -15,8 +15,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
-    --foreground: #ededed;
+    --background: #000000;
+    --foreground: #ffffff;
   }
 }
 
@@ -24,6 +24,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden; /* Prevent horizontal scroll on mobile */
 }
 
 /* Typography: headings use Unbounded, body (paragraphs) use Inter via body class */
@@ -44,4 +45,423 @@ button, [role="button"], a.button, .btn, .cursor-pointer, .clickable {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;  /* Safari and Chrome */
+}
+
+/* Mobile-specific responsive improvements */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better text readability on mobile */
+  p {
+    line-height: 1.6;
+  }
+  
+  /* Improve heading hierarchy for mobile */
+  h1 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem) !important;
+    line-height: 1.2 !important;
+  }
+  
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem) !important;
+    line-height: 1.3 !important;
+  }
+  
+  h3 {
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem) !important;
+    line-height: 1.4 !important;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Improve grid layouts for mobile */
+  .mobile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  
+  /* Better button sizing for mobile */
+  .mobile-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  
+  /* Improve card layouts for mobile */
+  .mobile-card {
+    margin: 0.5rem 0;
+    padding: 1rem;
+  }
+  
+  /* Better image handling on mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improve video responsiveness - apply to opted-in videos only */
+  .responsive-video {
+    width: 100%;
+    height: auto;
+    max-height: 50vh;
+  }
+  
+  /* Better navigation for mobile */
+  .mobile-nav {
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Improve form elements on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 0.75rem;
+  }
+  
+  /* Better spacing for mobile sections */
+  .mobile-section {
+    padding: 2rem 1rem;
+  }
+  
+  /* Improve hero section for mobile */
+  .mobile-hero {
+    min-height: 80vh;
+    padding: 1rem;
+  }
+  
+  /* Better footer for mobile */
+  .mobile-footer {
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  /* Improve social icons for mobile */
+  .mobile-social {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* Better testimonials for mobile */
+  .mobile-testimonials {
+    padding: 1rem;
+  }
+  
+  /* Improve features section for mobile */
+  .mobile-features {
+    padding: 1rem;
+  }
+  
+  /* Better destinations section for mobile */
+  .mobile-destinations {
+    padding: 1rem;
+  }
+  
+  /* Improve coaches section for mobile */
+  .mobile-coaches {
+    padding: 1rem;
+  }
+  
+  /* Better FAQ section for mobile */
+  .mobile-faq {
+    padding: 1rem;
+  }
+}
+
+/* Tablet-specific improvements */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .tablet-padding {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* Ensure smooth scrolling on mobile */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Strong override for fullscreen modal videos */
+@media (max-width: 768px) {
+  .tt-modal video {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+  }
+}
+
+
+
+/* Better loading states for mobile */
+.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Improve animations for mobile performance */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Additional mobile optimizations for itinerary page */
+@media (max-width: 640px) {
+  /* Ensure proper touch targets */
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-spacing {
+    padding: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Improve text readability on small screens */
+  .mobile-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  /* Better button sizing for mobile */
+  .mobile-btn {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+  }
+  
+  /* Improve image containers on mobile */
+  .mobile-image {
+    height: 200px;
+    border-radius: 1rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Better grid layouts for mobile */
+  .mobile-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Improve navigation on mobile */
+  .mobile-nav {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  /* Better form elements on mobile */
+  .mobile-form {
+    padding: 0.75rem;
+    font-size: 16px;
+    border-radius: 0.75rem;
+  }
+}
+
+/* Enhanced tablet support */
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Better spacing for tablet */
+  .tablet-spacing {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+  
+  /* Improve grid layouts for tablet */
+  .tablet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  /* Better text sizing for tablet */
+  .tablet-text {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Improve button sizing for tablet */
+  .tablet-btn {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    border-radius: 1rem;
+  }
+  
+  /* Better image sizing for tablet */
+  .tablet-image {
+    height: 300px;
+    border-radius: 1.5rem;
+  }
+}
+
+/* Ensure proper scrolling behavior */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+/* Improve performance on mobile devices */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection where needed */
+p, h1, h2, h3, h4, h5, h6, span, div {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+/* Ensure proper touch handling */
+button, a, [role="button"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+/* Enhanced mobile carousel scrolling */
+.carousel-container {
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  touch-action: none; /* Disable default touch actions */
+  overflow: hidden; /* Prevent scrolling */
+}
+
+.carousel-track {
+  will-change: transform; /* Optimize for animations */
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Touch-friendly carousel items */
+.carousel-item {
+  touch-action: none; /* Disable default touch actions */
+  user-select: none; /* Prevent text selection during drag */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto; /* Ensure touch events work */
+}
+
+/* Chrome-specific form input fixes - only apply to inputs without explicit background */
+input[type="text"]:not([class*="bg-"]),
+input[type="email"]:not([class*="bg-"]),
+input[type="tel"]:not([class*="bg-"]),
+input[type="password"]:not([class*="bg-"]),
+input[type="number"]:not([class*="bg-"]),
+textarea:not([class*="bg-"]),
+select:not([class*="bg-"]) {
+  background-color: #374151 !important;
+  color: #ffffff !important; /* white text */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Chrome autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #374151 inset !important; /* dark gray background */
+  -webkit-text-fill-color: #ffffff !important; /* white text */
+  background-color: #374151 !important; /* dark gray background */
+}
+
+/* Ensure placeholders are visible */
+input::placeholder,
+textarea::placeholder {
+  color: #6b7280 !important; /* text-gray-500 */
+  opacity: 1;
+}
+
+/* Breadcrumb Responsive Design with Media Queries */
+/* Default mobile styles */
+.breadcrumb-separator,
+.breadcrumb-current {
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+/* Small tablets (640px+) */
+@media (min-width: 640px) {
+  .breadcrumb-separator,
+  .breadcrumb-current {
+    margin-bottom: 0; /* sm:mb-0 */
+  }
+}
+
+/* iPad Mini (768px+) - keep margin */
+@media (min-width: 768px) {
+  .breadcrumb-separator,
+  .breadcrumb-current {
+    margin-bottom: 1.5rem; /* md:mb-6 for iPad Mini */
+  }
+}
+
+/* iPad Air specific (820px width) - remove margin */
+@media (min-width: 820px) and (max-width: 820px) {
+  .breadcrumb-separator,
+  .breadcrumb-current {
+    margin-bottom: 0 !important; /* Zero margin for iPad Air */
+  }
+}
+
+/* iPad Air and larger (1024px+) - remove margin */
+@media (min-width: 1024px) {
+  .breadcrumb-separator,
+  .breadcrumb-current {
+    margin-bottom: 0; /* lg:mb-0 for desktop */
+  }
+}
+
+/* iPad Pro specific (1024x1366) - Statistics Grid */
+@media (min-width: 1024px) and (max-width: 1024px) {
+  .grid.grid-cols-1.sm\:grid-cols-3 {
+    gap: 2.5rem !important; /* gap-10 */
+    margin-right: 0 !important; /* mr-0 */
+  }
+}
+
+/* Preloader animations */
+@keyframes logoPulse {
+  0% {
+    opacity: 0.0;
+    transform: scale(0.96);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(0.985);
+  }
+}
+
+.preloader-logo {
+  animation: logoPulse 1.6s ease-in-out infinite;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
 }

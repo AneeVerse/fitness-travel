@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 
 type Highlight = {
@@ -13,240 +13,226 @@ type Highlight = {
 const highlights: Highlight[] = [
   {
     id: 1,
-    image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
-    title: 'Luxury private villa accommodation',
+    image: '/images/COMPLETE EXPERIENCE/Diver fitness modalities.png',
+    title: 'Diverse Fitness Modalities',
     description:
-      'A week of workouts, recovery and adventures requires a luxurious home base. That’s why the villas we stay in are nothing short of jaw-dropping, from their incredible views to their beautiful bedrooms, and every space in between.',
+      'From HIIT and strength training to yoga and kick boxing, experience varied workouts designed for all levels.',
   },
   {
     id: 2,
-    image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-    title: 'Fun, challenging workouts',
+    image: '/images/COMPLETE EXPERIENCE/Nutrition mastery.png',
+    title: 'Nutrition Mastery',
     description:
-      'All our workouts on our fitness retreats are designed to be challenging, but scalable, whatever fitness level you’re at. Come ready to get stuck in and give it your all, and we guarantee you’ll head home feeling fit and inspired.',
+      'Enjoy healthy cuisine and sustainable eating habits with expert nutritionists and local chefs that suit your fitness goals.',
   },
   {
     id: 3,
-    image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
-    title: 'Like‑minded travellers',
+    image: '/images/COMPLETE EXPERIENCE/recovery and wellness.png',
+    title: 'Recovery & Wellness',
     description:
-      'We create trips for like‑minded travellers in their 30s+. With a love for fitness, adventure and travel, you’ll join a group of new friends and shared memories.',
+      'Master recovery techniques including massage therapy, meditation, ice baths and traditional healing practices.',
   },
   {
     id: 4,
-    image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
-    title: 'Off the beaten path adventures',
+    image: '/images/COMPLETE EXPERIENCE/Cultural immersion1.png',
+    title: 'Cultural Immersion',
     description:
-      'Expect boat days, cliff jumps, mountain trails and secret swim spots. We explore the best the location has to offer, ticking off bucket‑list moments along the way.',
-  },
-  {
-    id: 5,
-    image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
-    title: 'Stunning coastal boat days',
-    description:
-      'From sunrise skims to golden hour cruises, our boat days are guest favourites and the perfect way to see the coastline.',
-  },
-  {
-    id: 6,
-    image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
-    title: 'Community that lifts you up',
-    description:
-      'Travel with people who share your mindset. You will arrive solo and leave with a group of new friends and shared memories.',
+      'Connect with local communities, traditions and city tours while soaking up the city’s flavor and its breathtaking natural landscapes.',
   },
 ];
 
 const EpicDestinationsSection: React.FC = () => {
-  const viewportRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const duplicatedHighlights = [...highlights, ...highlights, ...highlights];
+  const [isMobile, setIsMobile] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  // Measurements and animation state (same logic as VideoSlider)
-  const [slideSize, setSlideSize] = useState<number>(360);
-  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
+  // Mobile scroll logic
   const animationRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
-  const basePositionRef = useRef<number>(0); // relative to start of middle copy
+  const translateX = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const totalWidth = useRef(0);
+  const scrollSpeed = 0.5;
 
-  // Drag + snap
-  const isPointerDownRef = useRef<boolean>(false);
-  const dragStartXRef = useRef<number>(0);
-  const dragDeltaRef = useRef<number>(0);
-  const isSnappingRef = useRef<boolean>(false);
-  const snapStartRef = useRef<number>(0);
-  const snapTargetRef = useRef<number>(0);
-  const snapStartTimeRef = useRef<number>(0);
-  const snapDurationMsRef = useRef<number>(300);
-
-  const nextSlide = () => { basePositionRef.current -= slideSize; };
-  const prevSlide = () => { basePositionRef.current += slideSize; };
-
-  // Measure card width from DOM
+  // Mobile detection
   useEffect(() => {
-    const compute = () => {
-      const track = trackRef.current;
-      if (!track) return;
-      const cards = track.querySelectorAll('[data-card="true"]');
-      if (cards.length < 2) return;
-      const a = (cards[0] as HTMLElement).getBoundingClientRect();
-      const b = (cards[1] as HTMLElement).getBoundingClientRect();
-      const delta = Math.abs(b.left - a.left);
-      if (delta > 0) setSlideSize(delta);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
     };
-    compute();
-    window.addEventListener('resize', compute);
-    return () => window.removeEventListener('resize', compute);
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Animation loop: continuous auto-scroll; pauses while dragging; smooth snap after release
-  useEffect(() => {
-    const speedPxPerSec = 30;
-    const copyWidth = highlights.length * slideSize;
+  // Calculate Total Width of Scrollable Content
+  const calculateWidth = useCallback(() => {
+    if (scrollContainerRef.current && isMobile) {
+      const firstChild = scrollContainerRef.current.children[0] as HTMLElement;
+      if (firstChild) {
+        const cardWidth = firstChild.offsetWidth;
+        totalWidth.current = cardWidth * highlights.length; // Width of one set of cards
+      }
+    }
+  }, [isMobile]);
 
-    const animate = (currentTime: number) => {
-      const last = lastTimeRef.current || currentTime;
-      const deltaMs = currentTime - last;
-      lastTimeRef.current = currentTime;
+  // Animation Loop for mobile
+  const animate = useCallback(() => {
+    if (!isPaused && !isDragging.current && scrollContainerRef.current && isMobile && totalWidth.current > 0) {
+      translateX.current -= scrollSpeed;
 
-      if (!isPointerDownRef.current) {
-        if (isSnappingRef.current) {
-          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
-          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
-          const eased = easeOutCubic(t);
-          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
-          if (t >= 1) {
-            basePositionRef.current = snapTargetRef.current;
-            isSnappingRef.current = false;
-          }
-        } else {
-          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-          basePositionRef.current -= deltaPx;
-          if (basePositionRef.current <= -copyWidth) basePositionRef.current += copyWidth;
-          else if (basePositionRef.current >= 0) basePositionRef.current -= copyWidth;
-        }
+      // Reset when we've scrolled through one complete set
+      if (translateX.current <= -totalWidth.current) {
+        translateX.current = 0;
       }
 
-      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
-      setRenderTranslateX(x);
-      animationRef.current = requestAnimationFrame(animate);
-    };
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
 
     animationRef.current = requestAnimationFrame(animate);
-    return () => { if (animationRef.current) cancelAnimationFrame(animationRef.current); };
-  }, [slideSize]);
+  }, [isPaused, isMobile]);
 
-  const onPointerDown = (e: React.PointerEvent) => {
-    isPointerDownRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragDeltaRef.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+  // Handle Pointer Events (Mouse & Touch)
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isMobile) return;
+    isDragging.current = true;
+    setIsPaused(true);
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    startX.current = clientX || 0;
+    scrollLeft.current = translateX.current;
   };
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isPointerDownRef.current) return;
-    dragDeltaRef.current = e.clientX - dragStartXRef.current;
+
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging.current || !isMobile) return;
+    const clientX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
+    const x = clientX || 0;
+    const walk = (x - startX.current) * 1; // Adjust sensitivity
+    let newTranslate = scrollLeft.current + walk;
+    
+    // Handle infinite scroll boundaries during drag
+    if (totalWidth.current > 0) {
+      // Wrap around for infinite scroll
+      while (newTranslate <= -totalWidth.current) {
+        newTranslate += totalWidth.current;
+      }
+      while (newTranslate > 0) {
+        newTranslate -= totalWidth.current;
+      }
+    }
+    
+    translateX.current = newTranslate;
+    
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
   };
-  const startSnap = () => {
-    basePositionRef.current += dragDeltaRef.current;
-    dragDeltaRef.current = 0;
-    const copyWidth = highlights.length * slideSize;
-    if (basePositionRef.current <= -copyWidth) basePositionRef.current += copyWidth * Math.ceil((-basePositionRef.current)/copyWidth);
-    else if (basePositionRef.current >= 0) basePositionRef.current -= copyWidth * Math.ceil(basePositionRef.current/copyWidth);
-    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
-    isSnappingRef.current = true;
-    snapStartRef.current = basePositionRef.current;
-    snapTargetRef.current = snapped;
-    snapStartTimeRef.current = performance.now();
+
+  const handlePointerUp = () => {
+    if (!isMobile) return;
+    isDragging.current = false;
+    setIsPaused(false);
   };
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    startSnap();
-  };
-  const onPointerLeave = () => {
-    if (!isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    startSnap();
-  };
+
+  // Start Animation & Recalculate on Resize
+  useEffect(() => {
+    if (isMobile) {
+      // Delay width calculation to ensure DOM is rendered
+      const timer = setTimeout(() => {
+        calculateWidth();
+      }, 100);
+      
+      window.addEventListener("resize", calculateWidth);
+      animationRef.current = requestAnimationFrame(animate);
+
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", calculateWidth);
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current);
+        }
+      };
+    }
+  }, [animate, calculateWidth, isMobile]);
 
   return (
-    <section className="relative bg-[#244447] py-16 sm:py-20">
-      <div className="w-full">
-        <div className="px-4 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-10">
-          {/* Left: Title + Subtitle */}
-          <div className="space-y-3 lg:col-span-8">
-            <h2 className="text-3xl sm:text-4xl md:text-4xl font-extrabold text-white leading-tight font-unbounded">
-              Journey Stories
-            </h2>
-            <p className="text-white/80 max-w-3xl lg:max-w-5xl">
-              Real transformations, real people, real adventures. See how our tribe members transformed their lives
-              through Tiger Terrain adventures.
-            </p>
-          </div>
+    <section id="epic-destinations-section" className="relative bg-[#ef4a25] py-8 sm:py-10 md:py-12 lg:py-14 mobile-destinations">
+      <div className="max-w-[1385px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-6 sm:mb-8 md:mb-10">
+          {/* Centered Title + Subtitle */}
+          <div className="space-y-2 sm:space-y-3">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-tight font-unbounded">
+            COMPLETE EXPERIENCE
 
-          {/* Right: Actions (carousel nav + CTA) */}
-          <div className="lg:col-span-4 flex flex-wrap gap-3 items-center justify-start lg:justify-end mt-4 lg:mt-0">
-            <div className="flex gap-3 order-2 lg:order-1">
-              <button
-                aria-label="Previous"
-                onClick={prevSlide}
-                className="w-10 h-10 rounded-full bg-[#e77d25] text-white flex items-center justify-center shadow hover:bg-black hover:text-white"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                aria-label="Next"
-                onClick={nextSlide}
-                className="w-10 h-10 rounded-full bg-[#e77d25] text-white flex items-center justify-center shadow hover:bg-black hover:text-white"
-              >
-                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-            <button
-              className="order-1 lg:order-2 px-6 py-3 rounded-full bg-[#e77d25] text-white font-semibold hover:bg-black hover:text-white uppercase tracking-wide"
-              style={{ fontFamily: 'var(--font-teko)' }}
-            >
-              View More Destinations
-            </button>
+            </h2>
+            <p className="text-white/80 max-w-2xl mx-auto text-sm sm:text-base">
+              Real experiences, real people, real adventures. See how our tribe members transformed their lives
+              through Tiger Terrain journeys.
+            </p>
           </div>
         </div>
 
-        {/* Horizontal scroller with nav buttons (same logic as VideoSlider) */}
-        <div className="relative">
-          <div
-            ref={viewportRef}
-            className="overflow-hidden"
-            onPointerDown={onPointerDown}
-            onPointerMove={onPointerMove}
-            onPointerUp={onPointerUp}
-            onPointerLeave={onPointerLeave}
+        {/* Desktop: Fixed 4-card grid layout, Mobile: Scrollable */}
+        {isMobile ? (
+          <div 
+            className="relative overflow-hidden -mx-4 sm:-mx-6"
+            onMouseEnter={() => isMobile && setIsPaused(true)}
+            onTouchStart={handlePointerDown}
+            onTouchMove={handlePointerMove}
+            onTouchEnd={handlePointerUp}
+            onMouseDown={handlePointerDown}
+            onMouseMove={handlePointerMove}
+            onMouseUp={handlePointerUp}
+            onMouseLeave={handlePointerUp}
           >
-            <div
-              ref={trackRef}
-              className="flex gap-8 will-change-transform px-4 sm:px-8"
-              style={{ transform: `translateX(${renderTranslateX}px)` }}
-          >
-            {duplicatedHighlights.map((h, idx) => (
-                <div key={`${h.id}-${idx}`} className="min-w-[320px] sm:min-w-[360px]" data-card="true">
-                <div className="flex flex-col h-full">
-                  <div className="relative w-full h-60 sm:h-72 rounded-2xl overflow-hidden">
-                    <Image src={h.image} alt={h.title} fill className="object-cover" />
+            <div 
+              ref={scrollContainerRef}
+              className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-4 px-4 sm:px-6"
+            >
+              {[...highlights, ...highlights, ...highlights].map((h, index) => (
+                <div key={`${h.id}-${index}`} className="flex flex-col h-full w-[calc(100vw-2rem)] max-w-[320px] flex-shrink-0" draggable={false}>
+                  <div className="relative w-full h-48 sm:h-52 rounded-xl overflow-hidden">
+                    <Image 
+                      src={h.image} 
+                      alt={h.title} 
+                      fill 
+                      className={`object-cover ${
+                        h.id === 3 ? 'scale-110' : 
+                        h.id === 4 ? 'object-left scale-110' : ''
+                      }`} 
+                    />
                   </div>
-                  <h3 className="text-white font-semibold text-lg mt-4">{h.title}</h3>
-                  <p className="text-white/75 text-sm mt-2 leading-relaxed">
+                  <h3 className="text-white font-semibold text-base sm:text-lg mt-3 sm:mt-4">{h.title}</h3>
+                  <p className="text-white/75 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
                     {h.description}
                   </p>
                 </div>
-              </div>
-            ))}
+              ))}
             </div>
           </div>
-
-          
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
+            {highlights.slice(0, 4).map((h) => (
+              <div key={h.id} className="flex flex-col h-full">
+                <div className="relative w-full h-40 sm:h-44 md:h-48 lg:h-52 rounded-xl overflow-hidden">
+                  <Image 
+                    src={h.image} 
+                    alt={h.title} 
+                    fill 
+                    className={`object-cover ${
+                      h.id === 3 ? 'scale-110' : 
+                      h.id === 4 ? 'object-left scale-110' : ''
+                    }`} 
+                  />
+                </div>
+                <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mt-2 sm:mt-3">{h.title}</h3>
+                <p className="text-white/75 text-xs sm:text-sm mt-1 sm:mt-2 leading-relaxed">
+                  {h.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

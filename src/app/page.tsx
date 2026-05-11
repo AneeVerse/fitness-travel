@@ -1,30 +1,47 @@
+'use client';
+
+import { useEffect, Suspense } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import FeaturesSection from '@/components/FeaturesSection';
-import TestimonialsSection from '@/components/TestimonialsSection';
 import UpcomingEvents from '@/components/UpcomingEvents';
 import EpicDestinationsSection from '@/components/EpicDestinationsSection';
 import SocialMosaic from '@/components/SocialMosaic';
+import USPSection from '@/components/USPSection';
+import PartnerSection from '@/components/PartnerSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import CoachesSection from '@/components/CoachesSection';
 import FaqSection from '@/components/FaqSection';
+import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
+import VideoSlider from '@/components/VideoSlider';
+import { handleScrollAfterNavigation } from '@/utils/navigation';
 
 export default function Home() {
+  useEffect(() => {
+    // Handle scrolling after navigation from other pages
+    handleScrollAfterNavigation();
+  }, []);
+
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       <Navbar />
       <Hero />
       <FeaturesSection />
-      <TestimonialsSection />
-      <UpcomingEvents />
+      <Suspense fallback={<div className="text-white text-center">Loading...</div>}>
+        <UpcomingEvents />
+      </Suspense>
       <EpicDestinationsSection />
-      <SocialMosaic />
-      <CoachesSection />
+      <PartnerSection />
       <ReviewsSection />
+      <SocialMosaic />
+      <VideoSlider />
+  
+      <USPSection />
+      <CoachesSection />
       <FaqSection />
-      {/* Additional sections can be added here */}
+      <CTASection />
       <Footer />
-    </>
+    </div>
   );
 }

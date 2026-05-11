@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import Image from 'next/image';
+import { createPortal } from 'react-dom';
 
 interface VideoCard {
   id: number;
@@ -9,374 +10,513 @@ interface VideoCard {
   subtitle: string;
   description: string;
   videoUrl: string;
+  thumbnailUrl?: string; // Optional thumbnail URL
   timestamp: string;
 }
 
 const videos: VideoCard[] = [
   {
     id: 1,
-    title: "FITNESS RETREAT",
-    subtitle: "SALT ESCAPES",
-    description: "If the trip doesn't look like this, then I don't want it",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:12"
+    title: "Fitness Adventures",
+    subtitle: "TIGER TERRAIN",
+    description: "Epic Fitness Journeys in Stunning Locations",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172107_0001.mp4",
+    thumbnailUrl: "/images/highlights/fitness adventure.webp",
+    timestamp: "0:45"
   },
   {
     id: 2,
-    title: "ADVENTURE FITNESS",
-    subtitle: "SALT ESCAPES",
-    description: "This is so much more than a fitness retreat",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:15"
+    title: "Muay Thai",
+    subtitle: "TIGER TERRAIN",
+    description: "Experience a high-energy Muay Thai workout and team challenges",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172213_0002.mp4",
+    thumbnailUrl: "/images/highlights/muay thai.webp",
+    timestamp: "0:38"
   },
   {
     id: 3,
-    title: "DAILY RETREAT",
-    subtitle: "SALT ESCAPES",
-    description: "POV: a day with Salt Escapes",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:47"
+    title: "recovery session",
+    subtitle: "TIGER TERRAIN",
+    description: "Relaxation and recovery session ",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172316_0003.mp4",
+    thumbnailUrl: "/images/highlights/recovery.webp",
+    timestamp: "0:42"
   },
   {
     id: 4,
-    title: "BOAT DAY",
-    subtitle: "SALT ESCAPES",
-    description: "POV: boat day with Salt Escapes",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:12"
+    title: "Running",
+    subtitle: "TIGER TERRAIN",
+    description: "Adventure activities in nature's playground",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172419_0004.mp4",
+    thumbnailUrl: "/images/highlights/running.webp",
+    timestamp: "0:55"
   },
   {
     id: 5,
-    title: "IBIZA FITNESS",
-    subtitle: "SALT ESCAPES",
-    description: "Ibiza, but make it fitness",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:19"
+    title: "HIIT INTERVAL TRAINING”",
+    subtitle: "TIGER TERRAIN",
+    description: "Complete wellness transformation experiences",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172522_0005.mp4",
+    thumbnailUrl: "/images/highlights/hiit.webp",
+    timestamp: "0:48"
   },
   {
     id: 6,
-    title: "MOUNTAIN ADVENTURE",
-    subtitle: "SALT ESCAPES",
-    description: "Mountain fitness adventure",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:25"
+    title: "CITY EXCURSIONS",
+    subtitle: "TIGER TERRAIN",
+    description: "Immerse yourself in local culture and traditions",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_172916_0001.mp4",
+    thumbnailUrl: "/images/highlights/city-excurtion.webp",
+    timestamp: "0:41"
   },
   {
     id: 7,
-    title: "SUNSET YOGA",
-    subtitle: "SALT ESCAPES",
-    description: "Sunset yoga session",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:32"
+    title: "Team Building",
+    subtitle: "TIGER TERRAIN",
+    description: "Build connections through shared challenges",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173123_0002.mp4",
+    thumbnailUrl: "/images/highlights/team building.webp",
+    timestamp: "0:52"
   },
   {
     id: 8,
-    title: "BEACH WORKOUT",
-    subtitle: "SALT ESCAPES",
-    description: "Beach workout routine",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:18"
+    title: "Pool workout",
+    subtitle: "TIGER TERRAIN",
+    description: "Experience a different level of workout in the pool",
+    videoUrl: "/video/heighlights/Tiger Terrain Highlights _20250915_173242_0003.mp4",
+    thumbnailUrl: "/images/highlights/poll workout.webp",
+    timestamp: "0:46"
   },
-  {
-    id: 9,
-    title: "GROUP CHALLENGE",
-    subtitle: "SALT ESCAPES",
-    description: "Group fitness challenge",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:28"
-  },
-  {
-    id: 10,
-    title: "WELLNESS HIGHLIGHTS",
-    subtitle: "SALT ESCAPES",
-    description: "Wellness retreat highlights",
-    videoUrl: "/video/hero-bg.mp4",
-    timestamp: "0:22"
-  }
 ];
 
+// Duplicate data for seamless looping - create more copies to prevent black screen
+const COPIES = 4;
+const duplicatedVideos = Array.from({ length: COPIES }).flatMap(() => videos);
+
 export default function VideoSlider() {
-  // Rendered duplicates for seamless loop
-  const DUPLICATES = 3;
-  const renderedVideos = Array.from({ length: DUPLICATES })
-    .flatMap((_, dupIdx) => videos.map((v) => ({ ...v, __dup: dupIdx })));
-
-  // Measurements and animation state
-  const [slideSize, setSlideSize] = useState<number>(244); // px per card incl. gap
-  const [activeIndex, setActiveIndex] = useState<number>(0); // 0..videos.length-1
-  const [renderTranslateX, setRenderTranslateX] = useState<number>(0);
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredVideoId, setHoveredVideoId] = useState<string | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<VideoCard | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [mounted, setMounted] = useState(false);
+  
+  const containerRef = useRef<HTMLDivElement>(null);
+  const modalVideoRef = useRef<HTMLVideoElement>(null);
   const animationRef = useRef<number | null>(null);
-  const lastTimeRef = useRef<number>(0);
+  const translateX = useRef(0);
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+  const totalWidth = useRef(0);
+  const offsetWithinSet = useRef(0); // normalized offset within one logical set [0, totalWidth)
+  const scrollSpeed = 0.5; // Adjust speed as needed
 
-  // Continuous position in px relative to the start of the middle copy
-  // Negative values move left. We wrap this value within one copy width.
-  const basePositionRef = useRef<number>(0);
-
-  // Pointer drag state (mouse/touch unified)
-  const isPointerDownRef = useRef<boolean>(false);
-  const dragStartXRef = useRef<number>(0);
-  const dragDeltaRef = useRef<number>(0);
-
-  // Smooth snap animation state
-  const isSnappingRef = useRef<boolean>(false);
-  const snapStartRef = useRef<number>(0);
-  const snapTargetRef = useRef<number>(0);
-  const snapStartTimeRef = useRef<number>(0);
-  const snapDurationMsRef = useRef<number>(300);
-
-  // Animation runs continuously; pauses only while dragging
-
-  // Manual navigation helpers (adjust base position by one card)
-  const nextSlide = () => {
-    basePositionRef.current -= slideSize;
-  };
-
-  const prevSlide = () => {
-    basePositionRef.current += slideSize;
-  };
-
-  // Measure slide size responsively from actual DOM
-  useEffect(() => {
-    const computeSlideSize = () => {
-      const track = sliderRef.current;
-      if (!track) return;
-      const cards = track.querySelectorAll('[data-card="true"]');
-      if (cards.length < 2) return;
-      const first = (cards[0] as HTMLElement).getBoundingClientRect();
-      const second = (cards[1] as HTMLElement).getBoundingClientRect();
-      const delta = Math.abs(second.left - first.left);
-      if (delta > 0) {
-        setSlideSize(delta);
-      }
-    };
-    computeSlideSize();
-    window.addEventListener('resize', computeSlideSize);
-    return () => window.removeEventListener('resize', computeSlideSize);
+  // Normalize any offset to [0, totalWidth)
+  const normalizeOffset = useCallback((value: number) => {
+    if (totalWidth.current === 0) return 0;
+    const width = totalWidth.current;
+    let offset = value % width;
+    if (offset < 0) offset += width;
+    return offset;
   }, []);
 
-  // Continuous auto-scroll animation (never pauses, seamless wrap)
-  useEffect(() => {
-    const speedPxPerSec = 30; // slow, smooth
-    const copyWidth = videos.length * slideSize;
+  // Calculate Total Width of one logical set and position to middle copy
+  const calculateWidth = useCallback(() => {
+    if (!containerRef.current) return;
+    // Width of a single logical set is total scroll width divided by number of copies
+    const fullScrollWidth = containerRef.current.scrollWidth;
+    totalWidth.current = fullScrollWidth / COPIES;
 
-    const animate = (currentTime: number) => {
-      const last = lastTimeRef.current || currentTime;
-      const deltaMs = currentTime - last;
-      lastTimeRef.current = currentTime;
+    // Anchor at the second copy with zero offset within the set
+    offsetWithinSet.current = 0;
+    translateX.current = -totalWidth.current + offsetWithinSet.current;
+    containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+  }, []);
 
-      // Update position when not dragging
-      if (!isPointerDownRef.current) {
-        if (isSnappingRef.current) {
-          // Smoothly interpolate to target
-          const t = Math.min(1, (currentTime - snapStartTimeRef.current) / snapDurationMsRef.current);
-          const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3);
-          const eased = easeOutCubic(t);
-          basePositionRef.current = snapStartRef.current + (snapTargetRef.current - snapStartRef.current) * eased;
-          if (t >= 1) {
-            basePositionRef.current = snapTargetRef.current;
-            isSnappingRef.current = false;
-          }
-        } else {
-          // Continuous auto-scroll
-          const deltaPx = (speedPxPerSec * deltaMs) / 1000;
-          basePositionRef.current -= deltaPx;
+  // Keep translateX within a stable window to enable bi-directional infinite scroll
+  // We compute translateX from the normalized offset so it never snaps
 
-          // Seamless wrap within [-copyWidth, 0)
-          if (basePositionRef.current <= -copyWidth) {
-            basePositionRef.current += copyWidth;
-          } else if (basePositionRef.current >= 0) {
-            basePositionRef.current -= copyWidth;
-          }
-        }
-      }
-
-      // Apply drag delta (if any) and render transform relative to middle copy
-      const x = -copyWidth + basePositionRef.current + dragDeltaRef.current;
-      setRenderTranslateX(x);
-
-      // Derive active index for dots
-      const rawIndex = Math.round((-basePositionRef.current) / slideSize);
-      const normalized = ((rawIndex % videos.length) + videos.length) % videos.length;
-      if (normalized !== activeIndex) {
-        setActiveIndex(normalized);
-      }
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [slideSize, activeIndex]);
-
-  // Pointer (mouse/touch) unified handlers for smooth drag without pausing
-  const onPointerDown = (e: React.PointerEvent) => {
-    isPointerDownRef.current = true;
-    dragStartXRef.current = e.clientX;
-    dragDeltaRef.current = 0;
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-
-  const onPointerMove = (e: React.PointerEvent) => {
-    if (!isPointerDownRef.current) return;
-    dragDeltaRef.current = e.clientX - dragStartXRef.current;
-  };
-
-  const startSnapToNearestCard = () => {
-    // Merge drag delta into the base position and animate to the nearest card
-    basePositionRef.current += dragDeltaRef.current;
-    dragDeltaRef.current = 0;
-
-    const copyWidth = videos.length * slideSize;
-    // Normalize position into [-copyWidth, 0)
-    if (basePositionRef.current <= -copyWidth) {
-      const wraps = Math.ceil((-basePositionRef.current) / copyWidth);
-      basePositionRef.current += wraps * copyWidth;
-    } else if (basePositionRef.current >= 0) {
-      const wraps = Math.ceil(basePositionRef.current / copyWidth);
-      basePositionRef.current -= wraps * copyWidth;
+  // Animation Loop
+  const animate = useCallback(() => {
+    if (!isPaused && !isDragging.current && containerRef.current) {
+      offsetWithinSet.current = normalizeOffset(offsetWithinSet.current - scrollSpeed);
+      translateX.current = -totalWidth.current + offsetWithinSet.current;
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
     }
 
-    const snapped = Math.round(basePositionRef.current / slideSize) * slideSize;
+    animationRef.current = requestAnimationFrame(animate);
+  }, [isPaused, normalizeOffset]);
 
-    isSnappingRef.current = true;
-    snapStartRef.current = basePositionRef.current;
-    snapTargetRef.current = snapped;
-    snapStartTimeRef.current = performance.now();
+  // Handle Pointer Events (Mouse & Touch)
+  const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
+    isDragging.current = true;
+    setIsPaused(true);
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    startX.current = clientX;
+    // store current offset within the set so dragging adds on top
+    scrollLeft.current = offsetWithinSet.current;
   };
 
-  const onPointerUp = (e: React.PointerEvent) => {
-    if (!isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    startSnapToNearestCard();
+  const handlePointerMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging.current) return;
+    const clientX = 'clientX' in e ? e.clientX : e.touches[0].clientX;
+    const walk = (clientX - startX.current) * 2; // Adjust sensitivity
+    offsetWithinSet.current = normalizeOffset(scrollLeft.current + walk);
+    translateX.current = -totalWidth.current + offsetWithinSet.current;
+    if (containerRef.current) {
+      containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+    }
   };
 
-  const onPointerLeave = () => {
-    if (!isPointerDownRef.current) return;
-    isPointerDownRef.current = false;
-    startSnapToNearestCard();
+  const handlePointerUp = () => {
+    isDragging.current = false;
+    // Keep paused so it stops exactly where user releases.
   };
+
+  // Handle wheel events for trackpad/trackball horizontal scrolling
+  const handleWheel = (e: React.WheelEvent) => {
+    // Check if it's a horizontal scroll (deltaX) or vertical scroll (deltaY)
+    const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    
+    if (isHorizontalScroll) {
+      // Only handle horizontal scroll - prevent default and scroll
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const scrollAmount = e.deltaX * 0.5; // Adjust sensitivity
+      offsetWithinSet.current = normalizeOffset(offsetWithinSet.current - scrollAmount);
+      translateX.current = -totalWidth.current + offsetWithinSet.current;
+      
+      if (containerRef.current) {
+        containerRef.current.style.transform = `translateX(${translateX.current}px)`;
+      }
+    }
+    // Ignore vertical scrolling - let it work normally for page scrolling
+  };
+
+  // Handle play button click
+  const handlePlayClick = (video: VideoCard) => {
+    setSelectedVideo(video);
+    setIsModalOpen(true);
+  };
+
+  // Handle modal close
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedVideo(null);
+    if (modalVideoRef.current) {
+      modalVideoRef.current.pause();
+    }
+  };
+
+  // Ensure portal target is available
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Start Animation & Recalculate on Resize
+  useEffect(() => {
+    calculateWidth();
+    window.addEventListener("resize", calculateWidth);
+    animationRef.current = requestAnimationFrame(animate);
+
+    // Add wheel event listener to prevent browser navigation only for horizontal scroll
+    const handleWheelCapture = (e: WheelEvent) => {
+      if (containerRef.current && containerRef.current.contains(e.target as Node)) {
+        // Only prevent default for horizontal scrolling
+        const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+        if (isHorizontalScroll) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+      }
+    };
+
+    // Use passive: false to allow preventDefault
+    document.addEventListener('wheel', handleWheelCapture, { passive: false });
+
+    return () => {
+      window.removeEventListener("resize", calculateWidth);
+      document.removeEventListener('wheel', handleWheelCapture);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [animate, calculateWidth]);
 
   return (
-    <section className="w-full bg-white mt-10 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
+    <section id="tiger-terrain-highlights" className="w-full bg-black mt-25 mb-10 md:mb-0 sm:mt-12 md:mt-16 lg:mt-20 py-8 sm:py-10 md:py-16 lg:py-20 overflow-hidden -mb-20">
       <div className="w-full">
-
-        {/* Header with Navigation */}
-        <div className="flex items-center justify-between mb-6 sm:mb-8 md:mb-12 px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-black"
-          style={{ fontFamily: 'var(--font-teko)' }}
+        {/* Header - Centered */}
+        <div className="text-center mb-6 sm:mb-8 md:mb-12 px-2 sm:px-3 md:px-4 lg:px-6 xl:px-8 max-w-[1390px] mx-auto">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-[#ef4a25]"
+            style={{ fontFamily: 'var(--font-teko)' }}
           >
-            Fitness Retreats
+            Tiger Terrain Highlights
           </h2>
-         
-
-          
-          <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-            {/* Discover Events Link */}
-            <div className="hidden sm:flex items-center text-gray-600 hover:text-black transition-colors cursor-pointer">
-              <span className="text-sm md:text-base mr-2">Discover retreats</span>
-              <ChevronRight className="w-4 h-4" />
-            </div>
-            
-            {/* Navigation Arrows */}
-            <div className="flex gap-2 sm:gap-3">
-              <button
-                onClick={prevSlide}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
-              >
-                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 hover:bg-gray-200 backdrop-blur-sm border border-gray-200 hover:border-gray-300 flex items-center justify-center text-gray-700 transition-all"
-              >
-                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-              </button>
-            </div>
-          </div>
         </div>
 
-        {/* Slider Container */}
-        <div 
-          className="relative mt-4 sm:mt-6"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={onPointerUp}
-          onPointerLeave={onPointerLeave}
+        {/* Scrolling Video Container */}
+        <div
+          className="mt-12 overflow-hidden relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onTouchStart={handlePointerDown}
+          onTouchMove={handlePointerMove}
+          onTouchEnd={handlePointerUp}
+          onMouseDown={handlePointerDown}
+          onMouseMove={handlePointerMove}
+          onMouseUp={handlePointerUp}
+          onMouseLeave={() => { handlePointerUp(); setIsPaused(false); }}
+          onWheel={handleWheel}
         >
-          <div 
-            ref={sliderRef}
-            className="flex gap-6"
-            style={{
-              transform: `translateX(${renderTranslateX}px)`
+          <div
+            ref={containerRef}
+            className="flex w-max will-change-transform cursor-grab active:cursor-grabbing gap-6"
+            style={{ 
+              transition: 'none',
+              backfaceVisibility: 'hidden',
+              transform: 'translateZ(0)'
             }}
           >
-            {renderedVideos.map((video, index) => (
-              <div
-                key={`${video.__dup}-${video.id}-${index}`}
-                className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px]"
-                data-card="true"
-                style={{ width: 'clamp(215px, calc(24vw - 18px), 500px)' }}
-              >
-                {/* Video Background */}
-                <video
-                  className="absolute inset-0 w-full h-full object-cover"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                >
-                  <source src={video.videoUrl} type="video/mp4" />
-                </video>
-                
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-black/40" />
-                
-                {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white">
-                  <div className="space-y-1 sm:space-y-2">
-                    <p className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90">
-                      {video.subtitle}
-                    </p>
-                    <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
-                      {video.title}
-                    </h3>
-                    <p className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2">
-                      {video.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Timestamp */}
-                <div className="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-                  {video.timestamp}
-                </div>
-              </div>
-            ))}
+            {duplicatedVideos.map((video, index) => {
+              const videoId = `${index}-${video.id}`;
+              const isHovered = hoveredVideoId === videoId;
+              
+              return (
+                <VideoCard
+                  key={videoId}
+                  video={video}
+                  isHovered={isHovered}
+                  onHover={setHoveredVideoId}
+                  videoId={videoId}
+                  onPlayClick={handlePlayClick}
+                />
+              );
+            })}
           </div>
         </div>
-
-        {/* Pagination Dots */}
-        <div className="flex justify-center mt-6 sm:mt-8 gap-2">
-          {videos.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                // Jump to selected index within middle copy
-                basePositionRef.current = -index * slideSize;
-              }}
-              className={`w-2 h-2 rounded-full transition-colors duration-300 disabled:opacity-50 ${
-                index === activeIndex
-                  ? 'bg-black'
-                  : 'bg-gray-400 hover:bg-gray-600'
-              }`}
-            />
-          ))}
-        </div>
       </div>
+
+      {/* Modal - Fullscreen on Mobile like Reels */}
+      {mounted && isModalOpen && selectedVideo && createPortal(
+        <div className="tt-modal fixed inset-0 z-[99999] grid place-items-center bg-black p-1 md:p-4 w-screen h-[100dvh] min-h-[100svh] [padding-top:env(safe-area-inset-top)] [padding-bottom:env(safe-area-inset-bottom)] [padding-left:env(safe-area-inset-left)] [padding-right:env(safe-area-inset-right)]">
+          <div className="relative w-full h-full md:max-w-4xl md:w-full md:max-h-[80vh] md:bg-white rounded-xl md:rounded-2xl overflow-hidden">
+            {/* Close Button */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 w-10 h-10 md:w-10 md:h-10 bg-black/50 md:bg-black/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-black/70 md:hover:bg-black/40 transition-all z-10"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+              </svg>
+            </button>
+            
+            {/* Video Content */}
+            <div className="relative w-full h-full">
+              <video
+                ref={modalVideoRef}
+                className="absolute inset-0 w-full h-full object-cover md:object-contain md:max-h-[80vh]"
+                controls
+                autoPlay
+                muted
+                playsInline
+                onLoadedMetadata={() => {
+                  if (modalVideoRef.current) {
+                    modalVideoRef.current.muted = false;
+                    modalVideoRef.current.play();
+                  }
+                }}
+              >
+                <source src={selectedVideo.videoUrl} type="video/mp4" />
+              </video>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </section>
   );
 }
+
+// VideoCard component - Now with thumbnail and lazy video loading ONLY on hover
+const VideoCard: React.FC<{
+  video: VideoCard;
+  isHovered: boolean;
+  onHover: (videoId: string | null) => void;
+  videoId: string;
+  onPlayClick: (video: VideoCard) => void;
+}> = ({ video, isHovered, onHover, videoId, onPlayClick }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  
+  // Only load video when hovered for the first time
+  useEffect(() => {
+    if (isHovered && !shouldLoadVideo) {
+      setShouldLoadVideo(true);
+    }
+  }, [isHovered, shouldLoadVideo]);
+  
+  // Handle video play/pause on hover ONLY after video is loaded
+  useEffect(() => {
+    if (videoRef.current && videoLoaded) {
+      if (isHovered) {
+        videoRef.current.play().catch(console.error);
+      } else {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0; // Reset to beginning
+      }
+    }
+  }, [isHovered, videoLoaded]);
+  
+  // Generate thumbnail from video ID - using a placeholder or video poster frame
+  const getThumbnailUrl = (video: VideoCard) => {
+    if (video.thumbnailUrl) {
+      return video.thumbnailUrl;
+    }
+    // Create a placeholder based on video title/id
+    return `https://via.placeholder.com/400x300/1a1a1a/ef4a25?text=${encodeURIComponent(video.title.substring(0, 20))}`;
+  };
+  
+  return (
+    <div
+      className="flex-shrink-0 relative rounded-xl sm:rounded-2xl overflow-hidden h-[360px] sm:h-[350px] md:h-[450px] lg:h-[520px] xl:h-[450px] w-[250px] sm:w-[350px] md:w-[320px] lg:w-[380px] xl:w-[330px] group mx-2 hover:translate-y-[-10px] mt-[10px] duration-300 transition-all shadow-lg select-none"
+      draggable={false}
+      onMouseEnter={() => onHover(videoId)}
+      onMouseLeave={() => onHover(null)}
+      onDragStart={(e) => e.preventDefault()}
+      onMouseDown={(e) => e.preventDefault()}
+      onContextMenu={(e) => e.preventDefault()}
+      style={{ 
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+        WebkitTouchCallout: 'none'
+      }}
+    >
+      {/* Thumbnail Image - Always shown initially */}
+      {!shouldLoadVideo && (
+        <Image
+          src={getThumbnailUrl(video)}
+          alt={`${video.title} thumbnail`}
+          fill
+          sizes="(max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          draggable={false}
+          unoptimized
+        />
+      )}
+      
+      {/* Video Background - Only loads on hover */}
+      {shouldLoadVideo && (
+        <video
+          ref={videoRef}
+          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 ${
+            !videoLoaded ? 'opacity-0' : 'opacity-100'
+          }`}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          onLoadedData={() => {
+            setVideoLoaded(true);
+            // Auto-play if still hovered when video loads
+            if (isHovered && videoRef.current) {
+              videoRef.current.play().catch(console.error);
+            }
+          }}
+          onError={() => {
+            console.warn(`Failed to load video: ${video.videoUrl}`);
+            setVideoLoaded(false);
+          }}
+        >
+          <source src={video.videoUrl} type="video/mp4" />
+        </video>
+      )}
+      
+      {/* Loading indicator when video is loading */}
+      {shouldLoadVideo && !videoLoaded && (
+        <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/40" />
+      
+      {/* Play Button */}
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          // Pause the hover video before opening modal
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
+          onPlayClick(video);
+        }}
+        className="absolute top-4 right-4 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group-hover:scale-110 z-10"
+      >
+        <svg 
+          className="w-5 h-5 ml-1" 
+          fill="white" 
+          viewBox="0 0 24 24"
+        >
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+
+      {/* Content */}
+      <div 
+        className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6 md:p-8 text-white select-none"
+        onDragStart={(e) => e.preventDefault()}
+        onMouseDown={(e) => e.preventDefault()}
+        style={{ 
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+          MozUserSelect: 'none',
+          msUserSelect: 'none',
+          WebkitTouchCallout: 'none'
+        }}
+      >
+        <div 
+          className="space-y-1 sm:space-y-2"
+          onDragStart={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.preventDefault()}
+          style={{ 
+            userSelect: 'none',
+            WebkitUserSelect: 'none',
+            MozUserSelect: 'none',
+            msUserSelect: 'none'
+          }}
+        >
+          <p 
+            className="text-xs sm:text-xs md:text-sm font-medium tracking-wider opacity-90 select-none"
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
+            {video.subtitle}
+          </p>
+          <h3 
+            className="uppercase text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold leading-tight select-none"
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
+            {video.title}
+          </h3>
+          <p 
+            className="text-sm sm:text-sm md:text-base opacity-90 mt-1 sm:mt-2 select-none"
+            onDragStart={(e) => e.preventDefault()}
+            onMouseDown={(e) => e.preventDefault()}
+            style={{ userSelect: 'none', WebkitUserSelect: 'none' }}
+          >
+            {video.description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};

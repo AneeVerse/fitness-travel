@@ -1,0 +1,701 @@
+export interface DayItem {
+  id: string;
+  day: string;
+  title: string;
+  description: string;
+  extraContent: string;
+  time: string;
+  image: string;
+  videoSrc: string;
+}
+
+export interface TripData {
+  slug: string;
+  title: string;
+  description: string;
+  dates: string;
+  stay: string;
+  location: string;
+  heroVideo: string;
+  highlights: string[];
+  days: DayItem[];
+  pricing: {
+    tourA?: {
+      title: string;
+      cost: string;
+      duration: string;
+      dates: string;
+      includes: string[];
+      excludes: string[];
+    };
+    tourB?: {
+      title: string;
+      cost: string;
+      duration: string;
+      dates: string;
+      includes: string[];
+      excludes: string[];
+    };
+  };
+  overview: {
+    mainTitle: string;
+    subtitle: string;
+    description: string[];
+    images: string[];
+  };
+}
+
+const tripDataMap: Record<string, TripData> = {
+  srilanka: {
+    slug: 'srilanka',
+    title: 'TIGER TERRAIN X MOI',
+    description: 'Moi × Tiger Terrain 5 Days / 4 Nights – Fitness + Travel Retreat. Experience the perfect blend of fitness training, cultural exploration, and beach adventures in the beautiful coastal town of Habaraduwa, Sri Lanka.',
+    dates: 'Coming Soon',
+    stay: 'Surf & Zen - Habaraduwa',
+    location: 'Habaraduwa, Sri Lanka',
+    heroVideo: '/video/BG2.mp4',
+    highlights: [
+      'HIIT & MetCon training sessions',
+      'Sunrise beach workouts at Talpe Beach',
+      'Surfing lessons with certified instructors',
+      'UNESCO heritage Galle Fort exploration',
+      'Turtle beach feeding experience',
+      'Traditional Sri Lankan cuisine',
+      'Ayurvedic massages and recovery sessions',
+      'Live music and cultural experiences'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1',
+        title: 'Arrival & Local Vibes',
+        description: '10:00 AM – Arrive at Colombo Airport\nWelcome to Moi resort | Enjoy a wholesome Sri Lankan-style village lunch\nEvening Briefing & Sunset Exploration\nDinner Outing',
+        extraContent: 'Welcome to Sri Lanka with authentic local experiences and cultural immersion',
+        time: '10:00 AM - 10:00 PM',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2',
+        title: 'Sweat & Explore',
+        description: 'Class 1 – HIIT Session @ Surf & Zen Courtyard, Hydration Break: Fresh Thambili (king coconut) served as natural electrolyte, Class 2 – MetCon Power Circuit, Post-Training Breakfast: Local fruit bowls, and healthy Sri Lankan spread, Midday Excursion to Galle Fort, Walk the UNESCO heritage streets with a complimentary welcome drink at Moi Galle Fort Café, Lunch at a fort café of choice, Return by 7 PM – Dinner at Surf & Zen, Live action dinner night featuring Hoppers & other Sri Lankan healthy dinner items. Local musicians or drummers can be added at an extra cost',
+        extraContent: 'Intensive training sessions combined with UNESCO World Heritage site exploration',
+        time: 'Full Day',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3',
+        title: 'Beach & Balance',
+        description: 'Sunrise Beach Workout at Talpe Beach, HIIT & mobility drills followed by cool-down yoga stretches, Turtle Beach Feeding & Chill at Talpe Rock Pool, Experience natural tidal pools & turtle feeding, Breakfast by the Beach at Moi Talpe – Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit, Lunch at Surf & Zen – Sri Lankan healthy set menu, Afternoon at Leisure, Board games • Reading corners • Ayurvedic massages (optional add-on), Evening Transfer to Ahangama Beach, Chill at Kabalana Beach Bar – sunset party & local DJ session',
+        extraContent: 'Beach training, wildlife encounters, and sunset celebrations',
+        time: 'Sunrise - Late Evening',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 3.png',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4',
+        title: 'Ride the Waves & Recover',
+        description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors — board & rash guard included, Breakfast at Surf and Zen, Late Morning: Shopping & café trail at Unawatuna Street, Lunch Outside, Evening Pool Workout & Recovery Session with mobility focus, Farewell Dinner & Drinks Night:, Sri Lankan BBQ & live music night under the stars with karaoke session, (Drinks arranged by Tiger Terrain Team)',
+        extraContent: 'Surfing adventures, local shopping, and farewell celebrations',
+        time: 'Full Day',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 4.png',
+        videoSrc: '/video/vids/vid (4).mp4',
+      },
+      {
+        id: 'DAY5',
+        day: 'Day 5',
+        title: 'Ground & Go',
+        description: 'Morning Yoga & Grounding Session in the garden led by local instructor (1 hr), Breakfast at Surf & Zen: A farewell feast with local sweets & fresh juice, Group Photo & Farewell Gift: Surf & Zen × Tiger Terrain T-shirt or souvenir, Transfer to Colombo Airport',
+        extraContent: 'Final yoga session, farewell breakfast, and departure with lasting memories',
+        time: '8:00 AM - 2:00 PM',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 5.png',
+        videoSrc: '/video/vids/vid (5).mp4',
+      }
+    ],
+    pricing: {
+      tourA: {
+        title: 'Sri Lanka Fitness Retreat',
+        cost: 'Coming Soon',
+        duration: '5 Days / 4 Nights',
+        dates: 'Coming Soon',
+        includes: [
+          'Accommodation at Surf & Zen, Habaraduwa',
+          'All meals as mentioned in itinerary',
+          'Airport transfers and local transportation',
+          'All fitness training sessions',
+          'Surfing lesson with equipment',
+          'Galle Fort excursion with guide',
+          'Turtle beach feeding experience',
+          'Welcome drinks and farewell gifts',
+          'Live music and cultural experiences'
+        ],
+        excludes: [
+          'International flights to/from Colombo',
+          'Visa fees',
+          'Travel insurance',
+          'Optional Ayurvedic massages',
+          'Personal expenses and shopping',
+          'Additional drinks and snacks'
+        ]
+      }
+    },
+    overview: {
+      mainTitle: 'DISCOVER FITNESS IN PARADISE',
+      subtitle: 'Why Sri Lanka?',
+      description: [
+        'Sri Lanka offers an unparalleled combination of fitness challenges and cultural richness. Our retreat takes you to the stunning coastal town of Habaraduwa, where pristine beaches meet ancient heritage. Experience world-class training sessions in tropical settings, from sunrise beach workouts to pool recovery sessions, all while immersing yourself in authentic Sri Lankan culture.',
+        'Whether you\'re riding the waves, exploring UNESCO World Heritage sites, or enjoying traditional hoppers under the stars, every moment is designed to challenge your body, enrich your mind, and create unforgettable memories in one of Asia\'s most beautiful destinations.'
+      ],
+      images: [
+        '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+        '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg'
+      ]
+    }
+  },
+
+  phuket: {
+    slug: 'phuket',
+    title: 'PHUKET FITCATION',
+    description: 'Get fit at Fitcation! Phuket stands out as a premier fitness and wellness destination, ideal for those seeking to achieve their fitness goals in a vibrant environment. Experience all-inclusive training, nutrition guidance, and unforgettable adventures in Thailand\'s most dynamic fitness culture.',
+    dates: '15 Feb - 22 Feb 2026',
+    stay: 'Marina House - Standard Room\nPool Access Room',
+    location: 'Phuket, Thailand',
+    heroVideo: '/video/BG2.mp4',
+    highlights: [
+      'Professional fitness training sessions',
+      'Muay Thai and beach workouts',
+      'Spa and recovery sessions',
+      'Cultural exploration of Phuket Town',
+      'Boat party and social activities'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1 — Sunday',
+        title: 'Arrival & Welcome (Phuket Old Town)',
+        description: '2:00 PM – Hotel check-in\n5:00 PM – Group gathering & briefing with Coach Manoj\n6:00 PM – Head to Phuket Old Town\nExplore the Sunday Weekend Night Market\nStreet food, local culture, Sino-Portuguese streets, and photo ops\nDinner in town\nEarly rest for the week ahead!',
+        extraContent: 'Arrival, team briefing, and Phuket Old Town night market exploration',
+        time: '2:00 PM - Night',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 1.webp',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2 — Monday',
+        title: 'High Tide Conditioning + Cape Sunset Walk',
+        description: '8:00 AM – High Tide Class at Pirates Camp\nLong-haul conditioning with high reps & lighter loads. Endurance, stamina & engine-building.\n9:30 AM – Curated Breakfast by Coach Manoj\n2:00 PM – Curated Lunch\nEvening Adventure – Promthep Cape\nScenic sunset viewpoint with light coastal walk/trek\nChill, photos, nature time\nDinner – Relax & recover',
+        extraContent: 'Endurance-focused conditioning followed by a scenic Promthep Cape sunset walk',
+        time: '8:00 AM - Evening',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 2.webp',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3 — Tuesday',
+        title: 'Broadside Team Workout + Lakeside Conditioning',
+        description: '9:30–10:30 AM – BROADSIDE at Pirates (Teams of 3; two work, one rests; cannons every 3 mins)\nPost-Class – Breakfast meal box delivered to room\n2:00 PM – Lunch\n5:00 PM – Lakeside Evening Class curated by Coach Manoj\nDinner at an iconic Phuket café',
+        extraContent: 'Team-based chaos at Pirates plus an energizing lakeside evening session',
+        time: '9:30 AM - Evening',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 3.webp',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4 — Wednesday',
+        title: 'Beach Workout + Muay Thai + Fun Night',
+        description: '7:00 AM – Meet at Pirates (or join at Nai Harn / Yanui Beach by 7:45 AM)\nTeam-style beach workout with sand, sun, and waves\nPost-training – Breakfast provided\nAfternoon – Rest & light snack\n3:00–4:30 PM – Muay Thai at Tiger Muay Thai (pads, basics, striking)\nEvening – Quiz Night or Salsa Night\nDinner at Lucha Mexican + Fun Games / or Salsa vibes',
+        extraContent: 'Beach sweat, Muay Thai at the iconic Tiger Muay Thai, and a playful evening',
+        time: '7:00 AM - Night',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 4.webp',
+        videoSrc: '/video/vids/vid (4).mp4',
+      },
+      {
+        id: 'DAY5',
+        day: 'Day 5 — Thursday',
+        title: 'Big Buddha Challenge + Pool Session',
+        description: '7:00 AM – BIG BUDDHA CHALLENGE\nTeam endurance hike with task stations and views at the top\nLunch – 2:00 PM\n5:00 PM – Pool Workout (recovery, mobility, fun water drills + core activation)',
+        extraContent: 'Sunrise Big Buddha team challenge followed by a recovery-focused pool session',
+        time: '7:00 AM - Evening',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 5.webp',
+        videoSrc: '/video/vids/vid (5).mp4',
+      },
+      {
+        id: 'DAY6',
+        day: 'Day 6 — Friday',
+        title: 'Shipwreck HIIT + Onsen Recovery',
+        description: '9:30–10:30 AM – SHIPWRECK at Pirates (high-intensity intervals + ABS BURNER finisher)\nBreakfast – Curated\n2:00 PM – Lunch\nEvening – Japanese Onsen Recovery (hot/cold pools; optional massage add-on)\nDinner',
+        extraContent: 'A tough HIIT block capped with restorative Japanese onsen recovery',
+        time: '9:30 AM - Evening',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 6.webp',
+        videoSrc: '/video/vids/vid (6).mp4',
+      },
+      {
+        id: 'DAY7',
+        day: 'Day 7 — Saturday',
+        title: 'Free Day — Your Phuket, Your Way',
+        description: 'Options: Chilling, Shopping, Beach hopping, Scuba, Boat party, Jet ski / Parasailing, Massage & spa\nWe’ll help you book and plan anything you like.',
+        extraContent: 'Choose your own adventure day with support for bookings and logistics',
+        time: 'All Day',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 7.webp',
+        videoSrc: '/video/vids/vid (7).mp4',
+      },
+      {
+        id: 'DAY8',
+        day: 'Day 8 — Sunday',
+        title: 'Goodbye Phuket',
+        description: 'Breakfast\nCheck-out\nHugs, smiles, and powerful energy to take home\nUntil next time! 💪🌴',
+        extraContent: 'Farewell breakfast and checkout with the squad',
+        time: 'Morning',
+        image: '/images/Phuket Day Images/Untitled design.zip - Phuket Day 8.webp',
+        videoSrc: '/video/vids/vid (8).mp4',
+      }
+    ],
+    pricing: {},
+    overview: {
+      mainTitle: 'FIND OUT WHAT YOU ARE MADE UP OF',
+      subtitle: 'Who is it for?',
+      description: [
+        'The journey with Tiger Terrain is not about taking a holiday or chasing a fleeting transformation, but regaining your sense of direction and embracing a sustainable lifestyle change by breaking bad habits and adopting new ones. You do this by improving your fitness and mental well-being, meeting like minded people and by immersing with local culture. Overall helping you meet a stronger, more authentic version of yourself.',
+        'Tiger Terrain isn\'t reserved only for elite athletes, nor is it exclusive to any gender. It\'s designed for anyone and everyone eager to embark on a journey of self-discovery.'
+      ],
+      images: [
+        '/images/itinerary/overview/67caa35702778b22b065cb12_SALT ESCAPES-IBZ-5096.jpg',
+        '/images/itinerary/overview/67caa4b283d56183dd43328a_2SALT ESCAPES-IBZ-4551.jpg',
+        '/images/itinerary/overview/67caa708e544afc27b621096_DJI_20240906165547_0062_D.jpg'
+      ]
+    }
+  },
+
+  // COMMENTED OUT: Bali trip data
+  /*
+  bali: {
+    slug: 'bali',
+    title: 'BALI FITCATION',
+    description: 'Join our Bali Fitcation for an unforgettable 11-day adventure, packed with unlimited fun and training. Highlights include invigorating workouts at Wanderlust Gym, thrilling surfing sessions, a sunrise trek to Mount Batur, a refreshing visit to Tukad Waterfall, cultural exploration in Ubud, high-energy trampoline workouts at Bounce Fit, ultimate relaxation at AMO Spa\'s ice bath and recovery massage, and guided nutrition to fuel your journey.',
+    dates: '15 Feb 2024 To 25 Feb 2024',
+    stay: 'The Sanskara Suites and Villas\nCanggu & Ubud Stay',
+    location: 'Bali, Indonesia',
+    heroVideo: '/video/hero-bg.mp4',
+    highlights: [
+      'Workouts at Wanderlust Gym',
+      'Surfing Adventures at Canggu',
+      'Mount Batur Sunrise Trek',
+      'Tukad Waterfall Exploration',
+      'Ubud Cultural Experience',
+      'Bounce Fit Trampoline Workouts',
+      'AMO Spa Ice Bath & Recovery Massage',
+      'Guided Nutrition'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1',
+        title: 'Arrival in Bali',
+        description: 'Arrive at the airport and head to the hotel',
+        extraContent: 'Rest and Shower',
+        time: 'All Day',
+        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2',
+        title: 'Waterfall & Temple Visit',
+        description: 'Discover the breathtaking Tukad Waterfall',
+        extraContent: 'Afternoon: Immerse yourself in Balinese culture with a temple visit. Evening: Experience Ubud\'s vibrant cafe scene and cultural charm.',
+        time: 'All Day',
+        image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3',
+        title: 'Mount Batur Sunrise Trek',
+        description: 'Early Morning: Embark on an unforgettable journey to Mount Batur',
+        extraContent: 'Hike to the summit and witness the sunrise over Bali\'s stunning landscapes. Explore the enchanting town of ubud.',
+        time: 'Early Morning - Evening',
+        image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4',
+        title: 'Rice Terrace & Move to Canggu',
+        description: 'Morning: Venture to the iconic Tegalalang Rice Terrace',
+        extraContent: 'Explore the lush green fields and capture the breathtaking scenery. Evening: Head to Canggu. Let the adventure begin!',
+        time: 'Morning - Evening',
+        image: '/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif',
+        videoSrc: '/video/vids/vid (4).mp4',
+      },
+      {
+        id: 'DAY5',
+        day: 'Day 5',
+        title: 'Wanderlust Gym Double Session',
+        description: '7am: Breakfast. Morning: Energize with invigorating workout at Wanderlust Gym',
+        extraContent: 'Lunch: Refuel with healthy lunch. Afternoon: Relax by the pool. Evening: Return to Wanderlust Gym for another empowering fitness session.',
+        time: '7:00 AM - 8:00 PM',
+        image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
+        videoSrc: '/video/vids/vid (5).mp4',
+      },
+      {
+        id: 'DAY6',
+        day: 'Day 6',
+        title: 'Surfing & CrossFit',
+        description: 'Morning: Catch some waves with a morning surfing lesson',
+        extraContent: 'Evening: Head back to Wanderlust Gym for an evening CrossFit session. Beach Yoga session included.',
+        time: 'Morning - Evening',
+        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        videoSrc: '/video/vids/vid (6).mp4',
+      },
+      {
+        id: 'DAY7',
+        day: 'Day 7',
+        title: 'Beach Yoga & Gymnastics',
+        description: 'Morning: Begin your day with tranquility during a beachfront yoga session',
+        extraContent: 'Evening: Enhance your strength and agility with a Nirvana Strength gymnastics workout at the gym.',
+        time: 'Morning - Evening',
+        image: '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+        videoSrc: '/video/vids/vid (7).mp4',
+      },
+      {
+        id: 'DAY8',
+        day: 'Day 8',
+        title: 'Beach Training & Bounce Bali',
+        description: 'Morning: Kickstart your day with an invigorating beach training session',
+        extraContent: 'Evening: Get ready for a unique workout experience with a session at Bounce Bali. Jump into trampoline workouts.',
+        time: 'Morning - Evening',
+        image: '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg',
+        videoSrc: '/video/vids/vid (8).mp4',
+      },
+      {
+        id: 'DAY9',
+        day: 'Day 9',
+        title: 'Wanderlust & Nightlife',
+        description: 'Morning: Start your day with another empowering session at Wanderlust Gym',
+        extraContent: 'Evening: Embrace the lively nightlife and dining scene in Canggu and Seminyak.',
+        time: 'Morning - Night',
+        image: '/images/destination/67ca88549e7c183c26d66919_salt escapes-zth-5523.avif',
+        videoSrc: '/video/vids/vid (9).mp4',
+      },
+      {
+        id: 'DAY10',
+        day: 'Day 10',
+        title: 'AMO Spa & Beach Club',
+        description: 'Morning: Indulge in a revitalizing recovery session at AMO Spa Bali',
+        extraContent: 'Recharging your body and senses after intense training. Evening: Head to a beach club for a memorable party.',
+        time: 'Morning - Night',
+        image: '/images/destination/67d16364be156e695fec148f__PAS5177.jpg',
+        videoSrc: '/video/vids/vid (10).mp4',
+      },
+      {
+        id: 'DAY11',
+        day: 'Day 11',
+        title: 'Farewell Bali',
+        description: 'Take a moment to reflect on the wonderful memories created',
+        extraContent: 'Bid farewell to this enchanting island, cherishing the experiences that will stay with you forever.',
+        time: 'All Day',
+        image: '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        videoSrc: '/video/vids/vid (11).mp4',
+      }
+    ],
+    pricing: {
+      tourA: {
+        title: 'Tour A (10 Days) Canggu and Ubud',
+        cost: '99500/-',
+        duration: '10 Days',
+        dates: '15 Feb 2024-25 feb 2024',
+        includes: [
+          'Accommodation (may vary depending on availability and group size)',
+          'Meals: At Canggu: Breakfast and dinner. At Ubud: Daily Breakfast only',
+          'All ground transportation including airport transfers',
+          'Admission to Wanderlust',
+          'Surfing lesson',
+          'Access to Nirvana Strength',
+          'Admission to Bounce trampoline park',
+          'Beach yoga sessions',
+          'A relaxing spa recovery session',
+          'Guided trip to Mount Batur (subject to weather conditions)',
+          'Visit to Tukad Waterfall',
+          'Exploring Ubud Market',
+          'Visit to the picturesque rice terraces'
+        ],
+        excludes: [
+          'Airfare to and from Bali',
+          'Lunch (travelers are free to explore local dining options)',
+          'Dinner in Ubud',
+          'Visa',
+          'Insurance',
+          'Personal expenses and optional activities'
+        ]
+      },
+      tourB: {
+        title: 'Tour B (7 Days) Canggu',
+        cost: '77500/-',
+        duration: '7 Days',
+        dates: '18 Feb 2024-25 feb 2024',
+        includes: [
+          'Accommodation (may vary depending on availability and group size)',
+          'Daily breakfast and dinner',
+          'All ground transportation including airport transfers',
+          'Admission to Wanderlust',
+          'A surf lesson',
+          'Access to Nirvana Strength',
+          'Admission to Bounce trampoline park',
+          'Beach yoga sessions',
+          'A relaxing spa recovery session'
+        ],
+        excludes: [
+          'Airfare to and from Bali',
+          'Lunch (travelers are free to explore local dining options)',
+          'Visa',
+          'Insurance',
+          'Personal expenses and optional activities'
+        ]
+      }
+    },
+    overview: {
+      mainTitle: 'TRANSFORM YOUR BODY AND MIND IN PARADISE',
+      subtitle: 'Why Choose Bali?',
+      description: [
+        'Bali offers the perfect blend of fitness challenges and tropical serenity. Our retreat combines high-intensity training with the healing power of Balinese culture. Experience world-class gyms like Wanderlust, ride the waves of Canggu, find your zen in Ubud\'s spiritual atmosphere, do sunrise treks up to Mount Batur and relax with recovery sessions at luxury spas. All in all, every moment is designed to push your limits while nourishing your soul.',
+        'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Bali Fitcation welcomes everyone ready to transform their life in paradise.'
+      ],
+      images: [
+        '/images/destination/67c5575c5c0e63ac45056a4b_salt-escapes-IMG_2185.avif',
+        '/images/destination/67c950df732207c200bc9b76__MEN2735.jpg',
+        '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg'
+      ]
+    }
+  },
+  */
+
+  // COMMENTED OUT: Goa page removed
+  /*
+  goa: {
+    slug: 'goa',
+    title: 'GOA FITCATION',
+    description: 'Unleash your inner wellness with our Goa Fitcation! Experience the perfect blend of beach training, yoga, pool recovery, and team building activities. Enjoy retreat vibes at a selected luxury hotel while connecting with like-minded fitness enthusiasts in India\'s most vibrant coastal destination.',
+    dates: 'Feb 3 – 6, 2022',
+    stay: 'White Woods Resort & Spa\nTwin Sharing Basis',
+    location: 'Goa, India',
+    heroVideo: '/video/BG2.mp4',
+    highlights: [
+      'Beach Training Sessions',
+      'Sunrise Yoga on the Beach',
+      'Pool Recovery Sessions',
+      'Team Building & Fun Activities',
+      'Beach, Beer & Workout',
+      'Community Dinner Experience'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1',
+        title: 'Arrival & Welcome',
+        description: '1:00 PM - Check-in, 4:30 PM - Briefing & High Tea, Evening - Dinner with Teammates',
+        extraContent: 'Welcome to your Goa fitness adventure with team introductions and orientation',
+        time: '1:00 PM - 10:00 PM',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 1.webp',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2',
+        title: 'Sunrise Yoga & Beach Training',
+        description: '6:00 AM - Sunrise Yoga, 7:30 AM - 8:30 AM - Beach Training (Surprise 😊), 9:00 AM - Breakfast, 1:00 PM - Lunch, 4:30 PM - Gather at Pool, 5:00 PM - 6:00 PM - Pool Recovery',
+        extraContent: 'Start your day with peaceful yoga and energizing beach workouts, followed by relaxing pool recovery',
+        time: '6:00 AM - Evening',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3',
+        title: 'Beach Training & Community Dinner',
+        description: '7:30 AM - 8:30 AM - Beach Training (Water Activity, Core Mash in Sea 😊), 9:00 AM - Breakfast, 1:00 PM - Lunch, 4:30 PM - Gather at Beach, 5:00 PM - 6:00 PM - Surprise Element, 6:15 PM - 7:15 PM - Beach, Beer & Workout, 9:00 PM - Community Dinner',
+        extraContent: 'Exciting water-based beach training followed by fun social activities and community bonding',
+        time: '7:30 AM - 10:00 PM',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Phuket Day 4.webp',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4',
+        title: 'Farewell & Departure',
+        description: '8:00 AM - Breakfast, 10:00 AM - High-Five to teammates & Goodbye. Checkout and take memories that will last a lifetime',
+        extraContent: 'Final farewell with your fitness family and departure with unforgettable memories',
+        time: '8:00 AM - 12:00 PM',
+        image: '/images/Goa Images/Day wise Images/Goa Day Images.zip - Goa Day 2.webp',
+        videoSrc: '/video/vids/vid (4).mp4',
+      }
+    ],
+    pricing: {
+      tourA: {
+        title: 'Goa Fitcation Bootcamp',
+        cost: 'INR 10.5K',
+        duration: '4 Days / 3 Nights',
+        dates: 'Feb 3 – 6, 2022',
+        includes: [
+          'Accommodation at White Woods Resort, Twin Sharing Basis (3 Nights / 4 Days)',
+          'Breakfast',
+          'Beach Yoga',
+          'Beach Training',
+          'Pool Recovery',
+          'Team Building & Fun Activities',
+          'Transit to Hotel and Workout Sites',
+        ],
+        excludes: [
+          'Travelling',
+          'Food (Lunch & Dinner)',
+          
+          'Anything not mentioned in inclusion'
+        ]
+      }
+    },
+    overview: {
+      mainTitle: 'DISCOVER YOUR FITNESS POTENTIAL IN GOA',
+      subtitle: 'Why Goa Fitcation?',
+      description: [
+        'Goa provides the perfect backdrop for a transformative fitness experience. Tiger Terrain combines the energy of beach workouts with the relaxation of coastal vibes, where you\'ll experience unique training sessions right on the beach with the sound of waves as your soundtrack and the sand beneath your feet adding extra challenge to every movement. Connect with fellow fitness enthusiasts in a supportive community environment where new friendships are forged through shared challenges and triumphs. From waking up to sunrise yoga sessions to enjoying evening beach parties, every moment is designed to energize your body, refresh your mind, and etch memories that last a lifetime.',
+        'Whether you\'re a fitness enthusiast or a beginner looking to start your wellness journey, our Goa Fitcation welcomes everyone ready to transform their life in paradise.'
+      ],
+      images: [
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
+        '/images/Goa Images/Hero Section images/TT Goa images.zip - Phuket Day 3.png'
+      ]
+    }
+  },
+  */
+
+  'sri-lanka': {
+    slug: 'sri-lanka',
+    title: 'TIGER TERRAIN X MOI',
+    description: '5 Days / 4 Nights – Fitness + Travel Retreat at Moi Resorts – Habaraduwa, Sri Lanka. Experience the perfect blend of fitness training, cultural exploration, and tropical paradise in one of Asia\'s most beautiful destinations.',
+    dates: 'Dec 10 – 14, 2025',
+    stay: 'Moi Resorts – Habaraduwa',
+    location: 'Habaraduwa, Sri Lanka',
+    heroVideo: '/video/BG2.mp4',
+    highlights: [
+      'HIIT & MetCon Power Circuit Sessions',
+      'Sunrise Beach Workouts at Talpe Beach',
+      'Surfing Lessons with Certified Instructors',
+      'UNESCO Heritage Galle Fort Exploration',
+      'Turtle Beach Feeding & Natural Tidal Pools',
+      'Cinnamon Island Boat Ride & Tea Tasting',
+      'Traditional Sri Lankan Cuisine Experience',
+      'Ayurvedic Massages & Wellness Sessions'
+    ],
+    days: [
+      {
+        id: 'DAY1',
+        day: 'Day 1',
+        title: 'Arrival & Local Vibes',
+        description: '10:00 AM – Arrive at Colombo Airport\nWelcome to Moi resort | Enjoy a wholesome Sri Lankan-style village lunch\nEvening Briefing & Sunset Exploration\nDinner Outing',
+        extraContent: 'Welcome to Sri Lanka with authentic local experiences and cultural immersion',
+        time: '10:00 AM - 10:00 PM',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        videoSrc: '/video/vids/vid (1).mp4',
+      },
+      {
+        id: 'DAY2',
+        day: 'Day 2',
+        title: 'Sweat & Explore',
+        description: 'Class 1 – HIIT Session @ Moi resort\nHydration Break: Fresh Thambili (king coconut) served as natural electrolyte\nClass 2 – MetCon Power Circuit\nPost-Training Breakfast: Local fruit bowls, and healthy Sri Lankan spread\nMidday Excursion to Galle Fort\nReturn by 7 PM – Dinner at Moi resort',
+        extraContent: 'A perfect blend of fitness training and cultural exploration in historic Galle',
+        time: 'All Day',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 2.png',
+        videoSrc: '/video/vids/vid (2).mp4',
+      },
+      {
+        id: 'DAY3',
+        day: 'Day 3',
+        title: 'Beach & Balance',
+        description: 'Sunrise Beach Workout at Talpe Beach\nTurtle Beach Feeding & Chill at Talpe Rock Pool\nBreakfast by the Beach at Moi Talpe – Thambili cooler + protein smoothies / Sri Lankan breakfast & local fruit\nLunch at Moi resort – Sri Lankan healthy set menu\nAfternoon at Leisure\nEvening Transfer to Ahangama Beach',
+        extraContent: 'Beach workouts, turtle encounters, and sunset celebrations by the ocean',
+        time: 'Sunrise - Evening',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 3.png',
+        videoSrc: '/video/vids/vid (3).mp4',
+      },
+      {
+        id: 'DAY4',
+        day: 'Day 4',
+        title: 'Ride the Waves & Recover',
+        description: 'Morning Surfing Lesson (1.5 hrs) with certified local instructors — board & rash guard included\nBreakfast at Moi resort\nLate Morning: Shopping & café trail at Unawatuna Street\nLunch Outside\nEvening Pool Workout & Recovery Session with mobility focus\nFarewell Dinner & Drinks Night:',
+        extraContent: 'Surfing adventures, local shopping, and farewell celebrations with BBQ and music',
+        time: 'Morning - Night',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 4.png',
+        videoSrc: '/video/vids/vid (4).mp4',
+      },
+      {
+        id: 'DAY5',
+        day: 'Day 5',
+        title: 'Ground & Go',
+        description: 'Morning Yoga & Grounding Session in the garden.\nBreakfast at Moi resort: A farewell feast with local sweets & fresh juice.\nGroup Photos and Final Farewell\nTransfer to Colombo Airport.',
+        extraContent: 'Final moments of mindfulness and departure with memorable keepsakes',
+        time: '8:00 AM - Departure',
+        image: '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 5.png',
+        videoSrc: '/video/vids/vid (5).mp4',
+      }
+    ],
+    pricing: {
+      tourA: {
+        title: 'Moi × Tiger Terrain Sri Lanka Retreat',
+        cost: 'Rs. 59,400 Per Person',
+        duration: '5 Days / 4 Nights',
+        dates: 'Dec 10 – 14, 2025',
+        includes: [
+          'Accommodation at Moi Resorts – Habaraduwa (4 Nights)',
+          '2 x Meals (Breakfast, Lunch/Dinner)',
+          'HIIT & MetCon Power Circuit Training Sessions',
+          'Sunrise Beach Workouts & Yoga Sessions',
+          'Surfing Lessons with Certified Instructors (Board & Rash Guard Included)',
+          'Galle Fort UNESCO Heritage Tour with Welcome Drink',
+          'Cinnamon Island Boat Ride & Tea Tasting',
+          'Turtle Beach Feeding Experience',
+          'Airport Transfers (Colombo Airport)',
+          'Local Transportation for All Activities',
+          'Sadhu Board Therapy',
+          'Pool Workout and Recovery',
+          'Farewell Drinks And Dinner'
+        ],
+        excludes: [
+          'International Airfare to/from Colombo',
+          'Visa Fees for Sri Lanka',
+          'Travel Insurance',
+          'Personal Expenses & Shopping',
+          'Optional Ayurvedic Massages',
+          'Alcoholic Beverages (except farewell night)',
+          'Tips for Local Staff & Instructors',
+          'Additional or private sessions'
+        ]
+      }
+    },
+    overview: {
+      mainTitle: 'JOIN US FOR A FITNESS JOURNEY IN SRI LANKA',
+      subtitle: 'Why Choose Sri Lanka with Moi × Tiger Terrain?',
+      description: [
+        'Experience the perfect fusion of fitness and culture in Sri Lanka\'s stunning southern coast. Moi Resort in Habaraduwa combines high-intensity training with authentic Sri Lankan experiences. From sunrise beach workouts to UNESCO heritage exploration, every moment is designed to challenge your body and enrich your soul.',
+        'Whether you\'re mastering the waves with professional surf instructors, exploring ancient Galle Fort, or feeding turtles in natural tidal pools, this retreat offers the ideal balance of fitness, adventure, wellness, and cultural immersion in one of the world\'s most beautiful tropical destinations.'
+      ],
+      images: [
+        '/images/srilanka day images/Untitled (1920 x 1080 px).zip - 1.png',
+        '/images/srilanka day images/Untitled design.zip - 1.png',
+        '/images/srilanka day images/Untitled design.zip - 2.png'
+      ]
+    }
+  }
+};
+
+export function getTripData(slug: string): TripData | null {
+  return tripDataMap[slug] || null;
+}
+
+export function getAllTripData(): TripData[] {
+  return Object.values(tripDataMap);
+}

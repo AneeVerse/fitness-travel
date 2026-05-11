@@ -10,78 +10,71 @@ const TestimonialsSection = () => {
   
 
   return (
-    <section className="relative py-20 bg-white">
-      <div className="mx-8 sm:mx-12 lg:mx-16 -mb-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
+    <section className="relative pt-4 pb-12 sm:pt-8 sm:pb-16 md:pt-10 md:pb-18 lg:pt-12 lg:pb-20 bg-white">
+      <div className="mx-2 sm:mx-4 md:mx-6 lg:mx-12 xl:mx-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-4 items-start">
           {/* Left Column - Content */}
-          <div className="space-y-12 md:pl-10 ">
+          <div className="space-y-8 sm:space-y-10 md:space-y-11 lg:space-y-12 md:pl-0 lg:pl-6 lg:pr-4 xl:pl-10 xl:pr-0">
                          {/* Main Content */}
-             <div className="space-y-4">
+             <div className="space-y-3 sm:space-y-3.5 md:space-y-4 px-5">
                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight font-unbounded">
-                 Adventure Awaits
+               Are you game?
                </h2>
-               <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                 From sunrise yoga in the Himalayas to strength training on pristine beaches, every Tiger Terrain experience blends physical challenge with cultural immersion. Join solo travelers who transform their lives through carefully crafted adventures that push boundaries and create lasting connections.
+               <p className="text-sm sm:text-base md:text-base text-gray-700 leading-relaxed">
+               Tiger Terrain offers an immersive fitness journey that seamlessly fuses physical fitness, mental well-being, and the thrill of travel. Participants experience a diverse range of fitness modalities, including Yoga, CrossFit, Running, Weight Training, and Muay Thai, all set
                </p>
              </div>
 
                          {/* Statistics */}
-             <div className="grid grid-cols-3 gap-6">
+             <div className="grid grid-cols-3 gap-4 sm:gap-5 md:gap-6">
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">15+</div>
-                 <div className="text-xs text-gray-600">Years of experience</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">15</div>
+                 <div className="text-xs text-gray-600">Trips</div>
                </div>
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">8</div>
-                 <div className="text-xs text-gray-600">World Sports Awards</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">10+</div>
+                 <div className="text-xs text-gray-600">Years of Experience</div>
                </div>
                <div className="text-center">
-                 <div className="text-2xl font-bold text-gray-900 mb-1">3</div>
-                 <div className="text-xs text-gray-600">Training Centers</div>
+                 <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1">4</div>
+                 <div className="text-xs text-gray-600">Locations</div>
                </div>
              </div>
           </div>
 
           {/* Right Column - Event Card */}
-           <div className="relative lg:flex lg:justify-end lg:-ml-16  md:pr-8 ">
-             <div className="rounded-3xl bg-gray-200  shadow-xl p-4 sm:p-6 lg:p-7  max-w-xl w-full ">
-               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
-                 {/* Event image */}
-                 <div className="rounded-xl overflow-hidden ring-4 ring-white/15">
-                   <Image
-                     src="/images/events/keep-going-even-when-its-hard-2025-04-05-23-40-04-4AY2ELM.jpg"
-                     alt="Runmate City Sprint 10K"
-                     width={600}
-                     height={384}
-                     className="w-full h-64 md:h-72 object-cover"
-                   />
-                 </div>
+           <div className="relative lg:flex lg:justify-end lg:-ml-8 xl:-ml-16 md:pt-2 lg:pt-3 xl:pt-0 md:pr-6 lg:pr-8 lg:pl-4">
+             <div className="rounded-3xl bg-gray-200 shadow-xl p-4 sm:p-5 md:p-6 lg:p-7 max-w-2xl md:max-w-3xl lg:max-w-xl w-full">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+                   {/* Event image */}
+                   <div className="rounded-xl overflow-hidden ring-4 ring-white/15 md:ml-4 lg:ml-0">
+                     <Image
+                       src="https://ik.imagekit.io/t8xk4h5as/reviews/Bg1.png?updatedAt=1755518290200"
+                       alt="Client Review Background"
+                       width={600}
+                       height={384}
+                       className="w-full h-64 sm:h-68 md:h-80 lg:h-72 object-cover"
+                       onError={(e) => {
+                         const target = e.target as HTMLImageElement;
+                         target.src = '/images/destination/67ca863918ea71bda2c8c734__zth9587-2.jpg';
+                       }}
+                     />
+                   </div>
 
                  {/* Event details */}
                  <div className="text-white">
-                   <div className="inline-flex ml-8 items-center justify-center px-4 py-1.5 rounded-full bg-[#e77d26] text-white text-[11px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
-                     – Upcoming Races –
+                   <div className="inline-flex ml-8 items-center justify-center px-3.5 py-1.5 rounded-full bg-[#ef4a25] text-white text-[10px] tracking-[0.2em] uppercase mb-3 hover:bg-black hover:text-white transition-colors duration-200">
+                     – Upcoming Adventures –
                    </div>
                    <h3 className="text-2xl sm:text-3xl font-bold leading-tight mb-3 text-black" style={{ fontFamily: 'var(--font-teko)' }}>
-                     RUNMATE CITY SPRINT
-                     <br />
-                     10K
+                   FIND OUT WHAT YOU ARE MADE UP OF
                    </h3>
                    <div className="mt-1 bg-black/85 rounded-xl p-4 sm:p-5 space-y-3">
-                     {/* Date */}
-                     <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 012 0v1zm13 7H4v9h16V9z"/></svg>
-                       <p className="text-sm">September 20, 2025</p>
-                     </div>
-                     {/* Time */}
-                     <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.59l3.3 3.3-1.42 1.42L11 13V7h2v5.59z"/></svg>
-                       <p className="text-sm">Start 05:00 AM – Finish</p>
-                     </div>
+                    
                      {/* Location */}
                      <div className="flex items-start gap-3">
-                       <svg className="w-5 h-5 text-[#e77d25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
-                       <p className="text-sm">South Jekardah</p>
+                       <svg className="w-5 h-5 text-[#ef4a25] mt-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+                       <p className="text-sm">Phuket</p>
                      </div>
                    </div>
                  </div>
